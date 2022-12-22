@@ -65,6 +65,7 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <!--의존성이름, 추가날짜, 작성자, 기능-->
     </dependencies>
 
     <build>
