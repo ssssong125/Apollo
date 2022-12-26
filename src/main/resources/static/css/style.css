@@ -6,10 +6,10 @@ body{
 /*전체 폰트 설정*/
 @font-face {
     font-family: 'BodoniXT'; /*font 이름*/
-    src: url(../../../font/BodoniXT.ttf);
+    src: url(/font/BodoniXT.ttf);
 }
 body{
-    font-family: BodoniXT;
+    font-family: BodoniXT, sans-serif;;
     font-size: 1em;
     letter-spacing : 1px;
 }
