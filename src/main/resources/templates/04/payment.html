@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Order</title>
+    <title>Payment</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
@@ -22,34 +22,41 @@
         <!--현재 위치-->
         <div class="row">
             <div class="col">
-                <span class="big-font">Order</span>
+                <span class="big-font">Payment</span>
                 <hr class="thick-line">
             </div>
         </div>
 
-        <!--저장된 주소지 선택-->
+        <!--결제 수단 선택-->
         <div class="row">
             <div class="col-md mid-font">
-                Default
+                Card type
             </div>
-            <div class="col-md mid-font">
-                New
+        </div>
+
+        <div class="row">
+            <div class="col-md">
+                <div class="paymentImgBox">
+                    <img class="paymentImg" src="/img/04/visa.png">
+                </div>
             </div>
-            <div class="col-md mid-font">
-                Other
+            <div class="col-md">
+                <div class="paymentImgBox">
+                    <img class="paymentImg" src="/img/04/master.png">
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="paymentImgBox">
+                    <img class="paymentImg" src="/img/04/naverPay.png">
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="paymentImgBox">
+                    <img class="paymentImg" src="/img/04/kakaoPay.jpg">
+                </div>
             </div>
         </div>
         <hr class="line">
-
-        <!--주소지 입력 파트-->
-        <div class="row">
-            <div class="col-md">
-                Name Recipient
-            </div>
-            <div class="col-md">
-                Phone
-            </div>
-        </div>
 
         <div class="row">
             <div class="col-md">
@@ -98,6 +105,7 @@
                 </div>
             </div>
         </div>
+        <hr class="line">
 
         <!--결제 버튼-->
         <div class="row">
