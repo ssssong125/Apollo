@@ -1,0 +1,69 @@
+/*페이지 설정*/
+body{
+    background-color: black;
+    color: white;
+}
+/*전체 폰트 설정*/
+@font-face {
+    font-family: 'BodoniXT'; /*font 이름*/
+    src: url(/font/BodoniXT.ttf);
+}
+body{
+    font-family: BodoniXT, sans-serif;
+    font-size: 1em;
+    letter-spacing : 1px;
+}
+/*파트별 폰트 크기 설정*/
+.big-font{
+    font-size: 3em;
+}
+.menu{
+    font-size: 2em;
+}
+.mid-font{
+    font-size: 1.5em;
+}
+/*인풋*/
+input{
+    background-color: black;
+
+}
+/*구분선*/
+.line{
+    border: solid 1px gray;
+    background-color: white;
+}
+.thick-line{
+    border: solid 2px white;
+    background-color: white;
+}
+/*버튼*/
+button{
+    width: 150px;
+    height: 50px;
+    border: solid #FFD700 2px;
+    background: rgb(0, 0, 0);
+    color: white;
+}
+/*이미지*/
+.product{
+    width: 128px;
+    height: 128px;
+}
+/*이미지 박스*/
+.paymentImgBox{
+    position: relative;
+    border-radius: 5px;
+    height: 100px;
+    width: 200px;
+    overflow: hidden;
+    border: solid 2px #FFD700;
+}
+.paymentImg{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
