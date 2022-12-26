@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>회원가입페이지</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<style>
+
+    @font-face {
+        font-family: 'BodoniXT'; /*font 이름*/
+        src: url(../../font/BodoniXT.ttf);
+    }
+
+    body {
+        background-color: black;
+        width: 100%;
+        margin: 0 auto;
+        font-family: BodoniXT;
+    }
+
+    .login > * {
+        width: 100%;
+    }
+
+    .left {
+        float: left;
+        width: 50%;
+        left: 100px;
+        position: relative;
+    }
+
+    .right {
+        float: left;
+        width: 40%;
+        top: 160px;
+        position: relative;
+        right:100px;
+    }
+
+    .signinimg {
+        height: 750px;
+        width: 850px;
+        top: 130px;
+        float: right;
+        position: relative;
+    }
+
+    h1 {
+        font-weight: bold;
+        font-size: 70px;
+        color: white;
+        text-align: center;
+        margin-left:auto;
+        margin-right:auto;
+        position: relative;
+    }
+    table {
+        float: left;
+        top: 10px;
+        align-items: center;
+        position: relative;
+        margin-left:auto;
+        margin-right:auto;
+    }
+
+    .loginnow{
+        text-align: center;
+        top: 10px;
+        color:white;
+        position: relative;
+    }
+    #btn {
+        top: 15px;
+        float: left;
+        height: 61px;
+        width: 437px;
+        text-align: center;
+        font-size: 24px;
+        background-color: orange;
+        position: relative;
+        color: black;
+
+    }
+    input {
+        width: 437px;
+        font-size: 16px;
+        padding: 3px 0;
+        color: #fff;
+        border: none;
+        border-bottom: 1px solid #fff;
+        outline: none;
+        background: transparent;
+        color: white;
+    }
+
+    input::placeholder {
+        font-weight: bold;
+        color: white;
+    }
+    .sub_right{
+        top:10px;
+        position: relative;
+        margin-left:150px;
+    }
+
+</style>
+<body>
+<div class="left">
+    <img id='signinimg' class='signinimg' src='/img/01/signinimg.png'>
+    </img>
+</div>
+
+<div class="right">
+    <h1>CREATE ACCOUNT</h1>
+    <div class="sub_right">
+    <table>
+        <tr>
+            <td><input type="text" size="35" placeholder="NAME" maxlength="10" required></td>
+        </tr>
+        <tr>
+            <td><br></td>
+        </tr>
+        <tr>
+            <td><input type="text" size="35" placeholder="아이디 10글자 이내" maxlength="10" required></td>
+            <td>
+                <button>중복 확인</button>
+            </td>
+        </tr>
+        <tr>
+            <td><br></td>
+        </tr>
+        <tr>
+            <td>
+                <input type="text" placeholder="PHONE" maxlength="15" size="35" required>
+            </td>
+        </tr>
+        <tr>
+            <td><br></td>
+        </tr>
+        <tr>
+            <td></td>
+        </tr>
+        <tr>
+            <td><input type="password" name="userPwd" id="userPwd1" size="35"
+                                   placeholder="PASSWORD: 영문,숫자,특수문자 포함 8자 이상" minlength="8" required></td>
+        </tr>
+        <tr>
+            <td><br></td>
+        </tr>
+        <tr>
+            <td><input type="password" id="userPwd2" size="35" minlength="8" placeholder="CONFIRM PASSWORD"
+                                   required></td>
+        </tr>
+        <tr>
+            <td><br></td>
+        </tr>
+        <tr>
+            <td><input type="email" name="email" size="35" placeholder="EMAIL" required></td>
+            <td>
+                <select name="emailAddr">
+                    <option value="etc" selected>직접입력</option>
+                    <option value="네이버">@naver.com</option>
+                    <option value="구글">@google.com</option>
+                    <option value="다음">@daum.net</option>
+                </select>
+            </td>
+        </tr>
+<!---ASDF--->
+        <tr>
+            <td><input type="text" id="postcode" name="postcode" size="35" placeholder="우편번호"/></td>
+            <td><button id="postfind_btn" onclick="execDaumPostcode()" value="우편번호 찾기">우편번호 찾기</button></td>
+        </tr>
+        <tr>
+            <td><input type="text" id="address" size="35" placeholder="주소" style="margin-top: 15px"></td>
+        </tr>
+        <tr>
+            <td><input type="text" id="detailAddress" size="35" placeholder="상세주소" style="margin-top: 15px"></td>
+        </tr>
+        <tr>
+            <td><br></td>
+        </tr>
+    </table>
+    <br>
+    <div class='loginnow'>
+        <button type="submit" class="btn btn-outline-warning" id="btn" style="font-weight: bold">CREATE NOW</button>
+    </div>
+    </div>
+    <script>
+        function execDaumPostcode() {
+            new daum.Postcode({
+                oncomplete: function (data) {
+
+                    console.log(data);
+
+                    // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+                    // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+                    // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                    var roadAddr = data.roadAddress; // 도로명 주소 변수
+                    var jibunAddr = data.jibunAddress; // 지번 주소 변수
+                    // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                    document.getElementById('postcode').value = data.zonecode;
+                    if (roadAddr !== '') {
+                        document.getElementById("address").value = roadAddr;
+                    } else if (jibunAddr !== '') {
+                        document.getElementById("address").value = jibunAddr;
+                    }
+                    document.getElementById("detailAddress").focus();
+                }
+            }).open();
+        }
+    </script>
+</div>
+</body>
+</html>
