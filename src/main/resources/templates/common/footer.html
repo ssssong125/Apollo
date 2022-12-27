@@ -1,173 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
 
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/fontawesome.min.css" integrity="sha384-QYIZto+st3yW+o8+5OHfT6S482Zsvz2WfOzpFSXMF9zqeLcFV0/wlZpMtyFcZALm" crossorigin="anonymous">
+	<style>
+		/* Footer */
 
-<style>
-    /* Footer */
-@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
-section {
-    padding: 50px 0 0 0;
-}
+		section {
+			padding: 50px 0 0 0;
+		}
 
-section .section-title {
-    text-align: center;
-    color: #007b5e;
-    /* margin-bottom: 50px; */
-    text-transform: uppercase;
-}
-#footer {
-    /*background-image: url("C:\edu\inpro\Apollo\img\common\footer.jpg");*/
-}
-#footer h5{
-	padding-left: 10px;
-    /* border-left: 3px solid #eeeeee; */
-    padding-bottom: 6px;
-    margin-bottom: 20px;
-    color:#DF9438;
-}
-#footer a {
-    color: #ffffff;
-    text-decoration: none !important;
-    background-color: transparent;
-    -webkit-text-decoration-skip: objects;
-}
-/* #footer ul.social li{
-	padding: 3px 0;
-} */
-/* #footer ul.social li a i {
-    margin-right: 5px;
-	font-size:25px;
-	-webkit-transition: .5s all ease;
-	-moz-transition: .5s all ease;
-	transition: .5s all ease;
-} */
-/* #footer ul.social li:hover a i {
-	font-size:30px;
-	margin-top:-10px;
-} */
-#footer ul.social li a,
-#footer ul.quick-links li {
-	color:#ffffff;
-}
-/* #footer ul.social li a:hover{
-	color:#eeeeee;
-} */
-#footer ul.quick-links li{
-	padding: 3px 0;
-	-webkit-transition: .5s all ease;
-	-moz-transition: .5s all ease;
-	transition: .5s all ease;
-}
-#footer ul.quick-links li a:hover{
-	padding: 3px 0;
-	margin-left:5px;
-	font-weight:700;
-    color:  #DF9438 ;
-}
-#footer ul.quick-links li a i{
-	margin-right: 5px;
-}
-#footer ul.quick-links li:hover a i {
-    font-weight: 700;
-    color: #DF9438 ;
-}
+		#footer {
+			background-image: url("/img/common/footer.jpg");
+		}
+		#footer h5{
+			padding-left: 10px;
+			/* border-left: 3px solid #eeeeee; */
+			padding-bottom: 6px;
+			margin-bottom: 20px;
+			color:#DF9438;
+		}
+		#footer a {
+			color: #ffffff;
+			text-decoration: none !important;
+			background-color: transparent;
+			-webkit-text-decoration-skip: objects;
+		}
+		/* #footer ul.social li{
+            padding: 3px 0;
+        } */
+		/* #footer ul.social li a i {
+            margin-right: 5px;
+            font-size:25px;
+            -webkit-transition: .5s all ease;
+            -moz-transition: .5s all ease;
+            transition: .5s all ease;
+        } */
+		/* #footer ul.social li:hover a i {
+            font-size:30px;
+            margin-top:-10px;
+        } */
+		#footer ul.social li a,
+		#footer ul.quick-links li {
+			color:#ffffff;
+		}
+		/* #footer ul.social li a:hover{
+            color:#eeeeee;
+        } */
+		#footer ul.quick-links li{
+			padding: 3px 0;
+			-webkit-transition: .5s all ease;
+			-moz-transition: .5s all ease;
+			transition: .5s all ease;
+		}
+		#footer ul.quick-links li a:hover{
+			padding: 3px 0;
+			margin-left:5px;
+			font-weight:700;
+			color:  #DF9438 ;
+		}
+		#footer ul.quick-links li a i{
+			margin-right: 5px;
+		}
+		#footer ul.quick-links li:hover a i {
+			font-weight: 700;
+			color: #DF9438 ;
+		}
 
-@media (max-width:767px){
-	#footer h5 {
-    padding-left: 0;
-    border-left: transparent;
-    padding-bottom: 0px;
-    margin-bottom: 10px;
-}
-}
-.h6{
-    padding: 5px;
-    background-color: #DF9438;
-    color: black;
-    margin-bottom: 0px;
+		@media (max-width:767px){
+			#footer h5 {
+				padding-left: 0;
+				border-left: transparent;
+				padding-bottom: 0;
+				margin-bottom: 10px;
+			}
+		}
+		.h6{
+			padding: 5px;
+			background-color: #DF9438;
+			color: black;
+			margin-bottom: 0;
 
-}
-.title{
-    text-align: center;
-}
+		}
+		.title{
+			text-align: center;
+		}
 
-</style>
+	</style>
 
 </head>
 <body>
-    <!-- Footer -->
-	<section id="footer">
-		<div class="container">
-            <h5 class="title">Read More</h5>
-			<div class="row text-center text-xs-center text-sm-left text-md-left">
-                <div class="col-xs-12 col-sm-3 col-md-3">
-                    <a href="https://www.fiverr.com/share/qb8D02"><img src="img/common/gold-B.png" width="200px"></a>
-                </div>
-				<div class="col-xs-12 col-sm-3 col-md-3">
-					<h5>Our Pages</h5>
-					<ul class="list-unstyled quick-links">
-						<li><a href="https://www.fiverr.com/share/qb8D02"><i class="fa fa-angle-double-right"></i>Q&A</a></li>
-						<li><a href="https://www.fiverr.com/share/qb8D02"><i class="fa fa-angle-double-right"></i>About Us</a></li>
-						<li><a href="https://www.fiverr.com/share/qb8D02"><i class="fa fa-angle-double-right"></i>Shop</a></li>
-						<li><a href="https://www.fiverr.com/share/qb8D02"><i class="fa fa-angle-double-right"></i>Blog</a></li>
-						<li><a href="https://www.fiverr.com/share/qb8D02"><i class="fa fa-angle-double-right"></i>Contact</a></li>
-					</ul>
-				</div>
-				<div class="col-xs-12 col-sm-3 col-md-3">
-					<h5>Quick links</h5>
-					<ul class="list-unstyled quick-links">
-						<li><a href="https://www.fiverr.com/share/qb8D02"><i class="fa fa-angle-double-right"></i>FAQ</a></li>
-						<li><a href="https://www.fiverr.com/share/qb8D02"><i class="fa fa-angle-double-right"></i>Sales Info</a></li>
-						<li><a href="https://www.fiverr.com/share/qb8D02"><i class="fa fa-angle-double-right"></i>Logout</a></li>
-						<li><a href="https://www.fiverr.com/share/qb8D02"><i class="fa fa-angle-double-right"></i>Cart</a></li>
-						<!-- <li><a href="https://www.fiverr.com/share/qb8D02"><i class="fa fa-angle-double-right"></i>Videos</a></li> -->
-					</ul>
-				</div>
-				<div class="col-xs-12 col-sm-3 col-md-3">
-					<h5>Our Store</h5>
-					<ul class="list-unstyled quick-links">
-						<li>Addinedu</li>
-						<li>09AM - 06PM, Monday-Friday</li>
-						<li>+82 10 7687 5450</li>
-						<li>apollo@domain.com</li>
-						<!-- <li><a href="https://wwwe.sunlimetech.com" title="Design and developed by"><i class="fa fa-angle-double-right"></i>Imprint</a></li> -->
-					</ul>
-				</div>
+<!-- Footer -->
+<section id="footer">
+	<div class="container">
+		<h5 class="title">Read More</h5>
+		<div class="row text-center text-xs-center text-sm-left text-md-left">
+			<div class="col-xs-12 col-sm-3 col-md-3">
+				<a href="https://www.fiverr.com/share/qb8D02"><img src="/img/common/gold-B.png" width="200px" alt="로고"></a>
 			</div>
-			<!-- <div class="row">
-				<div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-5">
-					<ul class="list-unstyled list-inline social text-center">
-						<li class="list-inline-item"><a href="https://www.fiverr.com/share/qb8D02"><i class="fa fa-facebook"></i></a></li>
-						<li class="list-inline-item"><a href="https://www.fiverr.com/share/qb8D02"><i class="fa fa-twitter"></i></a></li>
-						<li class="list-inline-item"><a href="https://www.fiverr.com/share/qb8D02"><i class="fa fa-instagram"></i></a></li>
-						<li class="list-inline-item"><a href="https://www.fiverr.com/share/qb8D02"><i class="fa fa-google-plus"></i></a></li>
-						<li class="list-inline-item"><a href="https://www.fiverr.com/share/qb8D02" target="_blank"><i class="fa fa-envelope"></i></a></li>
-					</ul>
-				</div>
-				<hr>
-			</div>	 -->
-            
-		
-				<!-- <hr> -->
-         
-			</div>	
+			<div class="col-xs-12 col-sm-3 col-md-3">
+				<h5>Our Pages</h5>
+				<ul class="list-unstyled quick-links">
+					<li><a href="https://www.fiverr.com/share/qb8D02"><i class="fa fa-angle-double-right"></i>Q&A</a></li>
+					<li><a href="https://www.fiverr.com/share/qb8D02"><i class="fa fa-angle-double-right"></i>About Us</a></li>
+					<li><a href="https://www.fiverr.com/share/qb8D02"><i class="fa fa-angle-double-right"></i>Shop</a></li>
+					<li><a href="https://www.fiverr.com/share/qb8D02"><i class="fa fa-angle-double-right"></i>Blog</a></li>
+					<li><a href="https://www.fiverr.com/share/qb8D02"><i class="fa fa-angle-double-right"></i>Contact</a></li>
+				</ul>
+			</div>
+			<div class="col-xs-12 col-sm-3 col-md-3">
+				<h5>Quick links</h5>
+				<ul class="list-unstyled quick-links">
+					<li><a href="https://www.fiverr.com/share/qb8D02"><i class="fa fa-angle-double-right"></i>FAQ</a></li>
+					<li><a href="https://www.fiverr.com/share/qb8D02"><i class="fa fa-angle-double-right"></i>Sales Info</a></li>
+					<li><a href="https://www.fiverr.com/share/qb8D02"><i class="fa fa-angle-double-right"></i>Logout</a></li>
+					<li><a href="https://www.fiverr.com/share/qb8D02"><i class="fa fa-angle-double-right"></i>Cart</a></li>
+					<!-- <li><a href="https://www.fiverr.com/share/qb8D02"><i class="fa fa-angle-double-right"></i>Videos</a></li> -->
+				</ul>
+			</div>
+			<div class="col-xs-12 col-sm-3 col-md-3">
+				<h5>Our Store</h5>
+				<ul class="list-unstyled quick-links">
+					<li>Addinedu</li>
+					<li>09AM - 06PM, Monday-Friday</li>
+					<li>+82 10 7687 5450</li>
+					<li>apollo@domain.com</li>
+					<!-- <li><a href="https://wwwe.sunlimetech.com" title="Design and developed by"><i class="fa fa-angle-double-right"></i>Imprint</a></li> -->
+				</ul>
+			</div>
 		</div>
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12  text-center ">
-                <!-- <p><u><a href="https://www.nationaltransaction.com/">National Transaction Corporation</a></u> is a Registered MSP/ISO of Elavon, Inc. Georgia [a wholly owned subsidiary of U.S. Bancorp, Minneapolis, MN]</p> -->
-                <p class="h6">Copyright © B4 2022. All Right Reserved</p>
-            </div>
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-12  text-center ">
+				<!-- <p><u><a href="https://www.nationaltransaction.com/">National Transaction Corporation</a></u> is a Registered MSP/ISO of Elavon, Inc. Georgia [a wholly owned subsidiary of U.S. Bancorp, Minneapolis, MN]</p> -->
+				<p class="h6">Copyright © B4 2022. All Right Reserved</p>
+			</div>
 		</div>
-	</section>
-	<!-- ./Footer -->
+	</div>
+</section>
+<!-- ./Footer-->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
 </body>
 </html>
 
