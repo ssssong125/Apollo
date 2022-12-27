@@ -7,7 +7,7 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-    <link href="/static/css/04/style.css" rel="stylesheet">
+    <link href="../../static/css/cart/style.css" rel="stylesheet">
     <style>
         /*div 확인용*/
         /*div{*/
@@ -31,22 +31,22 @@
         <div class="row">
             <div class="col-lg">
                 <div class="paymentImgBox">
-                    <img class="paymentImg" src="/img/04/visa.png" alt="파일명">
+                    <img class="paymentImg" src="../../static/img/cart/visa.png" alt="파일명">
                 </div>
             </div>
             <div class="col-lg">
                 <div class="paymentImgBox">
-                    <img class="paymentImg" src="/img/04/master.png" alt="파일명">
+                    <img class="paymentImg" src="../../static/img/cart/master.png" alt="파일명">
                 </div>
             </div>
             <div class="col-lg">
                 <div class="paymentImgBox">
-                    <img class="paymentImg" src="/img/04/naverPay.png" alt="파일명">
+                    <img class="paymentImg" src="../../static/img/cart/naverPay.png" alt="파일명">
                 </div>
             </div>
             <div class="col-lg">
                 <div class="paymentImgBox">
-                    <img class="paymentImg" src="/img/04/kakaoPay.jpg" alt="파일명">
+                    <img class="paymentImg" src="../../static/img/cart/kakaoPay.jpg" alt="파일명">
                 </div>
             </div>
         </div>
@@ -55,36 +55,36 @@
         <!--카드 정보 입력-->
         <div class="row">
             <div class="col-lg">
-                Card Number
+                <label for="cardNumber">Card Number</label>
             </div>
             <div class="col-lg">
-                Expiration date
+                <label for="Expiration date">Expiration date</label>
             </div>
         </div>
         <div class="row">
             <div class="col-lg">
-                <input type="text" placeholder="1111 2222 3333 4444" name="text1">
+                <input type="text" class="text-input" placeholder="1111 2222 3333 4444" id="cardNumber" name="cardNumber">
             </div>
             <div class="col-lg">
-                <input type="text" placeholder="MM / YY" name="text1">
+                <input type="text" class="text-input" placeholder="MM / YY" id="Expiration date" name="Expiration date">
             </div>
         </div>
         <br>
 
         <div class="row">
             <div class="col-lg">
-                Name on card
+                <label for="nameOnCard">Name on card</label>
             </div>
             <div class="col-lg">
-                CVC
+                <label for="cvc">CVC</label>
             </div>
         </div>
         <div class="row">
             <div class="col-lg">
-                <input type="text" placeholder="Name" name="text1">
+                <input type="text" class="text-input" placeholder="Name" id="nameOnCard" name="nameOnCard">
             </div>
             <div class="col-lg">
-                <input type="text" placeholder="123" name="text1">
+                <input type="text" class="text-input" placeholder="123" id="cvc" name="cvc">
             </div>
         </div>
         <hr class="thick-line">
