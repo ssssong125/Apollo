@@ -15,7 +15,7 @@
 
     @font-face {
         font-family: 'BodoniXT'; /*font 이름*/
-        src: url(../../static/font/BodoniXT.ttf);
+        src: url(/static/font/BodoniXT.ttf);
     }
 
     body {
@@ -23,55 +23,50 @@
         width: 100%;
         margin: 0 auto;
         font-family: BodoniXT;
-    }
 
-    .login > * {
-        width: 100%;
     }
 
     .left {
         float: left;
         width: 50%;
-        left: 100px;
         position: relative;
     }
 
-    .right {
+    .container {
         float: left;
         width: 40%;
         top: 160px;
         position: relative;
-        right:100px;
+        display: grid;
     }
 
     .signinimg {
-        height: 750px;
-        width: 850px;
+        height:750px;
+        width:700px;
         top: 130px;
         float: right;
         position: relative;
     }
 
-    h1 {
+    span {
         font-weight: bold;
         font-size: 70px;
         color: white;
-        text-align: center;
-        margin-left:auto;
-        margin-right:auto;
         position: relative;
+        padding-left: 10%;
+        text-align: center;
+        float: left;
     }
     table {
         float: left;
         top: 10px;
-        align-items: center;
         position: relative;
         margin-left:auto;
         margin-right:auto;
     }
 
     .loginnow{
-        text-align: center;
+
         top: 10px;
         color:white;
         position: relative;
@@ -81,12 +76,10 @@
         float: left;
         height: 61px;
         width: 437px;
-        text-align: center;
         font-size: 24px;
         background-color: orange;
         position: relative;
         color: black;
-
     }
     input {
         width: 437px;
@@ -98,6 +91,9 @@
         outline: none;
         background: transparent;
         color: white;
+        float: left;
+        position: relative;
+
     }
 
     input::placeholder {
@@ -109,16 +105,62 @@
         position: relative;
         margin-left:150px;
     }
+    #postfind_btn{
+        color: white;
+        font-weight: bold;
+        border-color: #DF9438;
+        padding: 3px;
+        width: 110px;
 
+    }
+    #overlap_id{
+        color: white;
+        font-weight: bold;
+        border-color: #DF9438;
+        padding: 3px;
+        width: 110px;
+    }
+    #select_emi{
+        color: white;
+        font-weight: bold;
+        border-color: #DF9438;
+        background: black;
+        border-radius: 4px;
+        padding: 3px;
+    }
+    select::-ms-expand{
+        display: none;
+    }
+
+    @media (max-width: 768px) {
+        h1{
+            font-size: 36px;
+        }
+        .signinimg{
+            min-width: 550px;
+            min-height: 500px;
+        }
+        input{
+            font-size: 36px;
+        }
+    }
+    .title{
+        align-content: center;
+    }
 </style>
 <body>
 <div class="left">
-    <img id='signinimg' class='signinimg' src='/img/01/signinimg.png'>
+    <img id='signinimg' class='signinimg' src='/static/img/personality/signin.jpg' alt="가입페이지이미지">
     </img>
 </div>
-
-<div class="right">
-    <h1>CREATE ACCOUNT</h1>
+<div class="container">
+    <div class="title">
+    <span>
+    CREATE ACCOUNT
+    </span>
+    </div>
+    <div id="singin">
+    <form action="/singin" method="post">
     <div class="sub_right">
     <table>
         <tr>
@@ -130,7 +172,7 @@
         <tr>
             <td><input type="text" size="35" placeholder="아이디 10글자 이내" maxlength="10" required></td>
             <td>
-                <button>중복 확인</button>
+                <button id="overlap_id" class="btn btn-btn-link">중복 확인</button>
             </td>
         </tr>
         <tr>
@@ -164,7 +206,7 @@
         <tr>
             <td><input type="email" name="email" size="35" placeholder="EMAIL" required></td>
             <td>
-                <select name="emailAddr">
+                <select name="emailAddr" id="select_emi">
                     <option value="etc" selected>직접입력</option>
                     <option value="네이버">@naver.com</option>
                     <option value="구글">@google.com</option>
@@ -172,10 +214,9 @@
                 </select>
             </td>
         </tr>
-<!---ASDF--->
         <tr>
-            <td><input type="text" id="postcode" name="postcode" size="35" placeholder="우편번호"/></td>
-            <td><button id="postfind_btn" onclick="execDaumPostcode()" value="우편번호 찾기">우편번호 찾기</button></td>
+            <td><input type="text" id="postcode" name="postcode" size="35" style="margin-top: 15px" placeholder="우편번호"/></td>
+            <td><button id="postfind_btn" class="btn btn-btn-link" onclick="execDaumPostcode()" style="margin-top: 15px" value="우편번호 찾기">우편번호찾기</button></td>
         </tr>
         <tr>
             <td><input type="text" id="address" size="35" placeholder="주소" style="margin-top: 15px"></td>
@@ -189,7 +230,7 @@
     </table>
     <br>
     <div class='loginnow'>
-        <button type="submit" class="btn btn-outline-warning" id="btn" style="font-weight: bold">CREATE NOW</button>
+        <button type="submit" class="btn btn-outline-warning" id="btn" style="font-weight: bold" onclick="returnTest();">CREATE NOW</button>
     </div>
     </div>
     <script>
@@ -199,12 +240,9 @@
 
                     console.log(data);
 
-                    // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-                    // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
-                    // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                    var roadAddr = data.roadAddress; // 도로명 주소 변수
-                    var jibunAddr = data.jibunAddress; // 지번 주소 변수
-                    // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                    var roadAddr = data.roadAddress;
+                    var jibunAddr = data.jibunAddress;
+
                     document.getElementById('postcode').value = data.zonecode;
                     if (roadAddr !== '') {
                         document.getElementById("address").value = roadAddr;
@@ -216,6 +254,23 @@
             }).open();
         }
     </script>
+    <script type="text/javascript">
+        function returnTest(){
+            var p1 = document.getElementById("userPwd1").value
+            var p2 = document.getElementById("userPwd2").value
+
+            if(p1 == p2){
+                alert("비밀번호가 일치합니다.");
+                return true;
+            } else{
+                alert("비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
+                document.getElementById("userPwd2").focus()
+                return false;
+            }
+        }
+    </script>
+    </form>
+</div>
 </div>
 </body>
 </html>
