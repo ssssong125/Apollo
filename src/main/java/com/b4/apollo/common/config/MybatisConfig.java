@@ -13,7 +13,17 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
+/**
+ @FileName : ContextConfiguration.java
 
+ @Project : Apollo
+
+ @Date : 2022. 12. 28.
+
+ @작성자 : 박유리
+
+ @프로그램 설명 : mybatis와 연동하는 configuration class
+ */
 @Configuration
 @EnableTransactionManagement
 @MapperScan(basePackages = {"com.b4.apollo"}, annotationClass = Mapper.class)
