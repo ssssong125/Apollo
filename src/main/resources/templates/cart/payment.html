@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<!--    <link href="../../static/css/cart/style.css?after" rel="stylesheet">-->
+    <link href="/css/cart/style.css" rel="stylesheet" type="text/css">
+    <style>
+        /*div 확인용*/
+        /*div{*/
+        /*    border: solid red 1px;*/
+        /*}*/
+    </style>
+</head>
+<body>
+    <!--전체 div-->
+    <div class="container">
+        <br>
+        <!--현재 위치-->
+        <div class="row">
+            <div class="col">
+                <span class="big-font">Payment</span>
+                <hr class="thick-line">
+            </div>
+        </div>
+
+        <!--결제 수단 선택-->
+        <div class="row">
+            <div class="col-lg">
+                <div class="paymentImgBox">
+                    <img class="paymentImg" src="/img/cart/visa.png" alt="visa.png">
+                </div>
+            </div>
+            <div class="col-lg">
+                <div class="paymentImgBox">
+                    <img class="paymentImg" src="/img/cart/master.png" alt="master.png">
+                </div>
+            </div>
+            <div class="col-lg">
+                <div class="paymentImgBox">
+                    <img class="paymentImg" src="/img/cart/naverPay.png" alt="naverPay.png">
+                </div>
+            </div>
+            <div class="col-lg">
+                <div class="paymentImgBox">
+                    <img class="paymentImg" src="/img/cart/kakaoPay.jpg" alt="kakaoPay.jpg">
+                </div>
+            </div>
+        </div>
+        <hr class="line">
+
+        <!--카드 정보 입력-->
+        <div class="row">
+            <div class="col-lg">
+                <label for="cardNumber">Card Number</label>
+            </div>
+            <div class="col-lg">
+                <label for="Expiration date">Expiration date</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg">
+                <input type="text" class="text-input" placeholder="1111 2222 3333 4444" id="cardNumber" name="cardNumber">
+            </div>
+            <div class="col-lg">
+                <input type="text" class="text-input" placeholder="MM / YY" id="Expiration date" name="Expiration date">
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-lg">
+                <label for="nameOnCard">Name on card</label>
+            </div>
+            <div class="col-lg">
+                <label for="cvc">CVC</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg">
+                <input type="text" class="text-input" placeholder="Name" id="nameOnCard" name="nameOnCard">
+            </div>
+            <div class="col-lg">
+                <input type="text" class="text-input" placeholder="123" id="cvc" name="cvc">
+            </div>
+        </div>
+        <hr class="thick-line">
+
+        <!--결제 금액-->
+        <div class="row">
+            <div class="col-lg-9">
+
+            </div>
+            <div class="col-lg-2">
+                Order Total
+            </div>
+            <div class="col-lg-1">
+                3000$
+            </div>
+        </div>
+        <br>
+
+        <!--구매 버튼-->
+        <div class="row">
+            <div class="col-lg-10">
+
+            </div>
+            <div class="col-lg-2">
+                <button>Payment</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
