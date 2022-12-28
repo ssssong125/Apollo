@@ -15,7 +15,7 @@
 
   @font-face {
     font-family: 'BodoniXT'; /*font 이름*/
-    src: url(../../font/BodoniXT.ttf);
+    src: url(/static/font/BodoniXT.ttf);
   }
   body
   {
@@ -84,6 +84,8 @@ Email:
         <hr style="border: 1px solid red;" width="100%">
         <pre style="color:white;">Hola como es tas? </pre>
       </div>
+        <div id="contactinfo">
+            <form action="/personality/contact" method="post" id="contactform">
       <div class="col-sm-8">
         <div>
           <div><input type="text" id="name" placeholder="NAME" /></div>
@@ -99,6 +101,8 @@ Email:
           <div class='send-btn'><button type="submit" class="btn btn-outline-warning" id="btn" style="font-weight: bold">SEND</button></div>
         </div>
       </div>
+            </form>
+    </div>
     </div>
   </div>
 </div>

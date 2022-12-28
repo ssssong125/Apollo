@@ -20,6 +20,13 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("cart")
 public class CartController {
 
+
+    /**
+     * @MethodName : trolley
+     * @작성일 : 2022. 12. 28.
+     * @작성자 : 김수용
+     * @Method 설명 : GetMapping방식으로 trolley 값을 받게되면 trolley 페이지로 넘겨줌
+     */
     @GetMapping("trolley")
     public ModelAndView trolley(ModelAndView mv) {
 
@@ -28,6 +35,12 @@ public class CartController {
         return mv;
     }
 
+    /**
+     * @MethodName : order
+     * @작성일 : 2022. 12. 28.
+     * @작성자 : 김수용
+     * @Method 설명 : GetMapping방식으로 order 값을 받게되면 order 페이지로 넘겨줌
+     */
     @GetMapping("order")
     public ModelAndView order(ModelAndView mv) {
 
@@ -36,6 +49,12 @@ public class CartController {
         return mv;
     }
 
+    /**
+     * @MethodName : payment
+     * @작성일 : 2022. 12. 28.
+     * @작성자 : 김수용
+     * @Method 설명 : GetMapping방식으로 payment 값을 받게되면 payment 페이지로 넘겨줌
+     */
     @GetMapping("payment")
     public ModelAndView payment(ModelAndView mv) {
 
@@ -44,6 +63,12 @@ public class CartController {
         return mv;
     }
 
+    /**
+     * @MethodName : success
+     * @작성일 : 2022. 12. 28.
+     * @작성자 : 김수용
+     * @Method 설명 : GetMapping방식으로 success 값을 받게되면 success 페이지로 넘겨줌
+     */
     @GetMapping("success")
     public ModelAndView success(ModelAndView mv) {
 
@@ -52,6 +77,12 @@ public class CartController {
         return mv;
     }
 
+    /**
+     * @MethodName : fail
+     * @작성일 : 2022. 12. 28.
+     * @작성자 : 김수용
+     * @Method 설명 : GetMapping방식으로 fail 값을 받게되면 fail 페이지로 넘겨줌
+     */
     @GetMapping("fail")
     public ModelAndView fail(ModelAndView mv) {
 
