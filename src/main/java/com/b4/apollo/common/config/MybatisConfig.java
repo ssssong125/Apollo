@@ -45,6 +45,7 @@ public class MybatisConfig {
     @Bean
     public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception{
         SqlSessionFactoryBean seb = new SqlSessionFactoryBean();
+
         Resource[] res = new PathMatchingResourcePatternResolver().getResources("classpath:mappers/**/*.xml");
 
         seb.setMapperLocations(res);

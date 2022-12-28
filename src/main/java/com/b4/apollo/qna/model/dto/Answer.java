@@ -1,12 +1,14 @@
-package com.b4.apollo.board.model.dto;
+package com.b4.apollo.qna.model.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Getter
 @Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class Answer {
 
     private Integer replyNo;
