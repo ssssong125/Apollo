@@ -1,2 +1,11 @@
 server:
   port: 8888
+spring:
+  # DB 연결
+  datasource:
+    # 설치된  DB와 연결 URL
+    url: jdbc:oracle:thin:@localhost:1521:xe
+    # 접속을 위한 드라이버
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    username: SEMI
+    password: SEMI
