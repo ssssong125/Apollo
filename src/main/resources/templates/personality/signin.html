@@ -15,7 +15,7 @@
 
     @font-face {
         font-family: 'BodoniXT'; /*font 이름*/
-        src: url(../../static/font/BodoniXT.ttf);
+        src: url(/static/font/BodoniXT.ttf);
     }
 
     body {
@@ -48,7 +48,7 @@
         position: relative;
     }
 
-    h1 {
+    span {
         font-weight: bold;
         font-size: 70px;
         color: white;
@@ -153,13 +153,14 @@
     <img id='signinimg' class='signinimg' src='/static/img/personality/signin.jpg' alt="가입페이지이미지">
     </img>
 </div>
-
 <div class="container">
     <div class="title">
-    <h1>
+    <span>
     CREATE ACCOUNT
-    </h1>
+    </span>
     </div>
+    <div id="singin">
+    <form action="/singin" method="post">
     <div class="sub_right">
     <table>
         <tr>
@@ -268,6 +269,8 @@
             }
         }
     </script>
+    </form>
+</div>
 </div>
 </body>
 </html>
