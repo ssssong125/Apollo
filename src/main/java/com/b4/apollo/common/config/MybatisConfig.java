@@ -12,7 +12,6 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
-
 /**
  @FileName : ContextConfiguration.java
 
@@ -20,9 +19,10 @@ import javax.sql.DataSource;
 
  @Date : 2022. 12. 28.
 
- @작성자 : 김수용
+ @작성자 : 박유리
 
- @프로그램 설명 : 스프링 프레임어크에서 Mybatis, 오라클 DB와 연결하기 위한 설정
+ @프로그램 설명 : mybatis와 연동하는 configuration class
+
  */
 @Configuration
 @EnableTransactionManagement
