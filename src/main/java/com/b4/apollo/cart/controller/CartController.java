@@ -1,4 +1,4 @@
-package com.b4.apollo.controller;
+package com.b4.apollo.cart.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
