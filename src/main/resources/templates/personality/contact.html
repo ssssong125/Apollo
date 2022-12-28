@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <title>Contact us</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<style>
+
+
+  @font-face {
+    font-family: 'BodoniXT'; /*font 이름*/
+    src: url(../../font/BodoniXT.ttf);
+  }
+  body
+  {
+    width: 100%;
+    margin: 0 auto;
+    background-color: #000000;
+    font-family: BodoniXT;
+
+  }
+  .container{
+    padding-left: 10%;
+  }
+  input {
+    width: 85%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    margin-top: 4px;
+    border: none;
+    border-bottom: 3px solid white;
+    background: transparent;
+    color: white;
+  }
+  textarea{
+    border-bottom: 3px solid white;
+    background: transparent;
+    color: white;
+  }
+  input::placeholder{
+    font-weight: bold;
+    color: white;
+  }
+  textarea::placeholder{
+    font-weight: bold;
+    color: white;
+  }
+  button{
+    width: 100px;
+  }
+  pre{
+    color: white;
+
+  }
+  h1{
+      border-bottom: 1px solid orange;
+      color: white;
+      width: 250px;
+      margin-bottom: 80px;
+  }
+</style>
+<body>
+  <div class="container">
+    <div>
+      <h1>Contact us</h1>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <div><h4 style="color: aliceblue;">Contact Info</h4></div>
+        <hr style="border: 1px solid red;" width="100%">
+        <Pre>Address:
+Open Hour:
+Call:
+Email:
+	</Pre>
+        <div><h4 style="color: aliceblue;">Information</h4></div>
+        <hr style="border: 1px solid red;" width="100%">
+        <pre style="color:white;">Hola como es tas? </pre>
+      </div>
+      <div class="col-sm-8">
+        <div>
+          <div><input type="text" id="name" placeholder="NAME" /></div>
+          <br>
+          <div><input type="email" id="email" placeholder="EMAIL"/></div>
+          <br>
+          <div><input type="title" id="title" placeholder="SUBJECT"/></div>
+          <br>
+          <div><textarea class="massage_text" name="message" cols="63" rows="8" style="resize:none" placeholder="최대 300자까지 입력 가능합니다." maxlength="300"></textarea></div>
+          <span style="color: white;" id="counter">(0/최대 300자)</span>
+            <br>
+            <br>
+          <div class='send-btn'><button type="submit" class="btn btn-outline-warning" id="btn" style="font-weight: bold">SEND</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+    $('.massage_text').keyup(function (e){
+        var content = $(this).val();
+        $('#counter').html("("+content.length+" / 최대 300자)");
+
+        if (content.length > 300){
+            alert("최대 300자까지 입력 가능합니다.");
+            $(this).val(content.substring(0, 300));
+            $('#counter').html("(300 / 최대 300자)");
+        }
+    });
+</script>
+</body>
+</html>
