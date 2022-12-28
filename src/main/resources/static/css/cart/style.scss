@@ -4,12 +4,16 @@ body{
     color: white;
 }
 /*전체 폰트 설정*/
-@font-face {
-    font-family: 'BodoniXT'; /*font 이름*/
-    src: url(../../../font/BodoniXT.ttf);
-}
+@import url('https://fonts.googleapis.com/css2?family=Libre+Bodoni&display=swap');
+//@font-face {
+//    font-family: 'Libre Bodoni'; /*font 이름*/
+//    //src: url(/font/BodoniXT.ttf);
+//    //src: local(BodoniXT);
+//    //src: url("https://www.dafont.com/bodoni-xt.font");
+//    //src: url("BodoniXT.ttf");
+//}
 body{
-    font-family: BodoniXT, sans-serif;
+    font-family: "Libre Bodoni", sans-serif;
     font-size: 1em;
     letter-spacing : 1px;
 }
