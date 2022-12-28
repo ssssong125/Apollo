@@ -1,4 +1,4 @@
-package com.b4.apollo.model.dto;
+package com.b4.apollo.cart.model.dto;
 
 import lombok.Builder;
 import lombok.Getter;
