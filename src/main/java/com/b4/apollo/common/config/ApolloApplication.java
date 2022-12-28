@@ -1,4 +1,4 @@
-package com.b4.apollo;
+package com.b4.apollo.common.config;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
