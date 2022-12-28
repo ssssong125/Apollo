@@ -1,4 +1,4 @@
-package com.b4.apollo.board.question.answer;
+package com.b4.apollo.board.model.dto;
 
 import lombok.Getter;
 import lombok.Setter;

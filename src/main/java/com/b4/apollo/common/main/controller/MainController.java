@@ -1,4 +1,4 @@
-package com.b4.apollo.main.controller;
+package com.b4.apollo.common.main.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
