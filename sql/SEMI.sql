@@ -30,263 +30,263 @@ DROP SEQUENCE SEQ_QNA_NO;
 DROP SEQUENCE SEQ_COMMENT_NO;
 
 CREATE TABLE "TBL_PRODUCT" (
-	"PRODUCT_NO"	NUMBER		NOT NULL,
-    "PRODUCT_NAME"	VARCHAR2(50)		NOT NULL,
-	"PRODUCT_PRICE"	NUMBER		NOT NULL,
-	"PRODUCT_DESC"	LONG		NOT NULL,
-	"PRODUCT_QTY"	NUMBER		NOT NULL,
-	"CATEGORY_CODE"	CHAR(3)		NOT NULL
+                               "PRODUCT_NO"	NUMBER		NOT NULL,
+                               "PRODUCT_NAME"	VARCHAR2(50)		NOT NULL,
+                               "PRODUCT_PRICE"	NUMBER		NOT NULL,
+                               "PRODUCT_DESC"	LONG		NOT NULL,
+                               "PRODUCT_QTY"	NUMBER		NOT NULL,
+                               "CATEGORY_CODE"	CHAR(3)		NOT NULL
 );
 
--- 상품번호 시퀀스 
+-- 상품번호 시퀀스
 CREATE SEQUENCE SEQ_PRODUCT_NO
-  START WITH 1
-  INCREMENT BY 1
-  MAXVALUE 100
-  NOCYCLE
-  NOCACHE;
+    START WITH 1
+    INCREMENT BY 1
+    MAXVALUE 100
+    NOCYCLE
+    NOCACHE;
 
 -- 카테고리 테이블
 CREATE TABLE "TBL_CATEGORY" (
-	"CATEGORY_CODE"	VARCHAR(30)		NOT NULL,
-	"CATEGORY_NAME"	VARCHAR(50)		NOT NULL
+                                "CATEGORY_CODE"	VARCHAR(30)		NOT NULL,
+                                "CATEGORY_NAME"	VARCHAR(50)		NOT NULL
 );
 
--- 장바구니 테이블 
+-- 장바구니 테이블
 CREATE TABLE "TBL_CART" (
-	"CART_NO"	NUMBER		NOT NULL,
-	"PRODUCT_NO"	NUMBER		NOT NULL,
-	"USER_ID"	VARCHAR(50)		NOT NULL,
-	"PRODUCT_COUNT"	NUMBER		NOT NULL
+                            "CART_NO"	NUMBER		NOT NULL,
+                            "PRODUCT_NO"	NUMBER		NOT NULL,
+                            "USER_ID"	VARCHAR(50)		NOT NULL,
+                            "PRODUCT_COUNT"	NUMBER		NOT NULL
 );
 -- COMMENT ON COLUMN STUDENT_DEL.STUDENT_NO IS '학생번호';
 
--- 장바구니 번호 시퀀스 
+-- 장바구니 번호 시퀀스
 CREATE SEQUENCE SEQ_CART_NO
-  START WITH 1
-  INCREMENT BY 1
-  MAXVALUE 1000
-  NOCYCLE
-  NOCACHE;
+    START WITH 1
+    INCREMENT BY 1
+    MAXVALUE 1000
+    NOCYCLE
+    NOCACHE;
 
--- 회원정보 테이블 
+-- 회원정보 테이블
 CREATE TABLE "TBL_USER" (
-	"USER_ID"	VARCHAR(50)		NOT NULL,
-	"USER_PWD"	VARCHAR(50)		NOT NULL,
-	"USER_NAME"	VARCHAR(20)		NOT NULL,
-	"USER_TEL"	VARCHAR(20)		NOT NULL,
-	"ADDRESS"	VARCHAR(50)		NOT NULL,
-	"USER_EMAIL"	VARCHAR(50)		NOT NULL,
-	"USER_ROLE"	CHAR(1)		,
-	"USER_ACTIVE"	CHAR(1)		,
-	"USER_ENTDATE"	DATE		NOT NULL,
-	"USER_POINT"	NUMBER		NOT NULL
+                            "USER_ID"	VARCHAR(50)		NOT NULL,
+                            "USER_PWD"	VARCHAR(50)		NOT NULL,
+                            "USER_NAME"	VARCHAR(20)		NOT NULL,
+                            "USER_TEL"	VARCHAR(20)		NOT NULL,
+                            "ADDRESS"	VARCHAR(50)		NOT NULL,
+                            "USER_EMAIL"	VARCHAR(50)		NOT NULL,
+                            "USER_ROLE"	CHAR(1)		,
+                            "USER_ACTIVE"	CHAR(1)		,
+                            "USER_ENTDATE"	DATE		NOT NULL,
+                            "USER_POINT"	NUMBER		NOT NULL
 );
 
--- 결제 테이블 
+-- 결제 테이블
 CREATE TABLE "TBL_PAYMENT" (
-	"PAYMENT_NO"	NUMBER		NOT NULL,
-	"USER_ID"	VARCHAR(50)		NOT NULL,
-	"PAYMENT_METHOD"	VARCHAR(20)		NOT NULL,
-	"PAYMENT_AMOUNT"	NUMBER		NOT NULL
+                               "PAYMENT_NO"	NUMBER		NOT NULL,
+                               "USER_ID"	VARCHAR(50)		NOT NULL,
+                               "PAYMENT_METHOD"	VARCHAR(20)		NOT NULL,
+                               "PAYMENT_AMOUNT"	NUMBER		NOT NULL
 );
 
--- 결제 번호 시퀀스 
+-- 결제 번호 시퀀스
 CREATE SEQUENCE SEQ_PAYMENT_NO
-  START WITH 1
-  INCREMENT BY 1
-  MAXVALUE 1000
-  NOCYCLE
-  NOCACHE;
+    START WITH 1
+    INCREMENT BY 1
+    MAXVALUE 1000
+    NOCYCLE
+    NOCACHE;
 
 -- 블로그 게시판 테이블
 CREATE TABLE "TBL_BLOG_BOARD" (
-	"BLOG_NO"	NUMBER		NOT NULL,
-	"USER_ID"	VARCHAR(50)		NOT NULL,
-	"BLOG_TITLE"	VARCHAR2(200)		NOT NULL,
-	"BLOG_CONTENT"	LONG		NOT NULL,
-	"BLOG_POSTDATE"	DATE		NOT NULL,
-	"BLOG_VIEWCOUNT"	NUMBER		NULL
+                                  "BLOG_NO"	NUMBER		NOT NULL,
+                                  "USER_ID"	VARCHAR(50)		NOT NULL,
+                                  "BLOG_TITLE"	VARCHAR2(200)		NOT NULL,
+                                  "BLOG_CONTENT"	LONG		NOT NULL,
+                                  "BLOG_POSTDATE"	DATE		NOT NULL,
+                                  "BLOG_VIEWCOUNT"	NUMBER		NULL
 );
 
--- 블로그 게시글 번호 시퀀스 
+-- 블로그 게시글 번호 시퀀스
 CREATE SEQUENCE SEQ_BLOG_NO
-  START WITH 1
-  INCREMENT BY 1
-  MAXVALUE 1000
-  NOCYCLE
-  NOCACHE;
+    START WITH 1
+    INCREMENT BY 1
+    MAXVALUE 1000
+    NOCYCLE
+    NOCACHE;
 
--- 블로그 이미지 테이블 
+-- 블로그 이미지 테이블
 CREATE TABLE "TBL_BLOG_IMAGE" (
-	"BLOG_IMG_NO"	NUMBER		NOT NULL,
-	"ORIGIN_FILE"	VARCHAR(300)		NOT NULL,
-	"STORED_FILE"	VARCHAR(300)		NOT NULL,
-	"BLOG_THUMB"	VARCHAR(300)		NOT NULL,
-	"BLOG_NO"	NUMBER		NOT NULL,
-	"USER_ID"	VARCHAR(50)		NOT NULL
+                                  "BLOG_IMG_NO"	NUMBER		NOT NULL,
+                                  "ORIGIN_FILE"	VARCHAR(300)		NOT NULL,
+                                  "STORED_FILE"	VARCHAR(300)		NOT NULL,
+                                  "BLOG_THUMB"	VARCHAR(300)		NOT NULL,
+                                  "BLOG_NO"	NUMBER		NOT NULL,
+                                  "USER_ID"	VARCHAR(50)		NOT NULL
 );
 
--- 블로그 이미지 번호 시퀀스 
+-- 블로그 이미지 번호 시퀀스
 CREATE SEQUENCE SEQ_BLOG_IMG_NO
-  START WITH 1
-  INCREMENT BY 1
-  MAXVALUE 1000
-  NOCYCLE
-  NOCACHE;
+    START WITH 1
+    INCREMENT BY 1
+    MAXVALUE 1000
+    NOCYCLE
+    NOCACHE;
 
 -- 상품 이미지 테이블
 CREATE TABLE "TBL_PRODUCT_IMAGE" (
-	"FILE_NO"	NUMBER		NOT NULL,
-	"ORIGIN_NAME"	VARCHAR(300)		NOT NULL,
-	"STORED_NAME"	VARCHAR(300)		NOT NULL,
-	"THUMBNAIL"	CHAR(1)		NOT NULL,
-	"PRODUCT_NO"	NUMBER		NOT NULL
+                                     "FILE_NO"	NUMBER		NOT NULL,
+                                     "ORIGIN_NAME"	VARCHAR(300)		NOT NULL,
+                                     "STORED_NAME"	VARCHAR(300)		NOT NULL,
+                                     "THUMBNAIL"	CHAR(1)		NOT NULL,
+                                     "PRODUCT_NO"	NUMBER		NOT NULL
 );
 
--- 상품 이미지 번호 시퀀스 
+-- 상품 이미지 번호 시퀀스
 CREATE SEQUENCE SEQ_FILE_NO
-  START WITH 1
-  INCREMENT BY 1
-  MAXVALUE 300
-  NOCYCLE
-  NOCACHE;
+    START WITH 1
+    INCREMENT BY 1
+    MAXVALUE 300
+    NOCYCLE
+    NOCACHE;
 
--- Q&A 게시판 테이블 
+-- Q&A 게시판 테이블
 CREATE TABLE "TBL_QUESTION" (
-    BOARD_NO	NUMBER	NOT NULL,
-    USER_ID	VARCHAR(50)	NOT NULL,
-    BOARD_TITLE	VARCHAR(100)	NOT NULL,
-    BOARD_CONTENT	VARCHAR(300)	NOT NULL,
-    CREATE_DATE	DATE	NULL,
-    STATUS	CHAR(1)	NULL,
-    COUNT	NUMBER	NULL
+                                BOARD_NO	NUMBER	NOT NULL,
+                                USER_ID	VARCHAR(50)	NOT NULL,
+                                BOARD_TITLE	VARCHAR(100)	NOT NULL,
+                                BOARD_CONTENT	VARCHAR(300)	NOT NULL,
+                                CREATE_DATE	DATE	NULL,
+                                STATUS	CHAR(1)	NULL,
+                                COUNT	NUMBER	NULL
 );
 
 CREATE TABLE TBL_QUESTION_REPLY (
-	REPLY_NO	NUMBER		NOT NULL,
-    BOARD_NO	NUMBER		NOT NULL,
-	USER_ID	VARCHAR(50)		NOT NULL,
-	REPLY_CONTENT	VARCHAR(300)		NOT NULL,
-    REPLY_DATE	DATE	NOT NULL,
-    REPLY_MODDATE	DATE	NOT NULL
+                                    REPLY_NO	NUMBER	NOT NULL,
+                                    BOARD_NO	NUMBER	NOT NULL,
+                                    USER_ID	VARCHAR(50)	NOT NULL,
+                                    REPLY_CONTENT	VARCHAR(300)	NOT NULL,
+                                    REPLY_DATE	DATE	NOT NULL,
+                                    REPLY_MODDATE	DATE	NOT NULL
 );
 
--- Q&A 게시글 번호 시퀀스 
+-- Q&A 게시글 번호 시퀀스
 CREATE SEQUENCE SEQ_QNA_NO
-  START WITH 1
-  INCREMENT BY 1
-  MAXVALUE 1000
-  NOCYCLE
-  NOCACHE;
+    START WITH 1
+    INCREMENT BY 1
+    MAXVALUE 1000
+    NOCYCLE
+    NOCACHE;
 
 --주문 테이블
 CREATE TABLE "TBL_ORDER" (
-	"ORDER_NO"	NUMBER		NOT NULL,
-	"PAYMENT_NO"	NUMBER		NOT NULL,
-	"ORDER_DATE"	DATE		NOT NULL,
-	"RECEIVER_NAME"	VARCHAR(20)		NOT NULL,
-	"RECEIVER_TEL"	VARCHAR(20)		NOT NULL,
-	"ADDRESS_ZIPCODE"	VARCHAR(10)		NOT NULL,
-	"ADDRESS"	VARCHAR(100)		NOT NULL,
-	"ADDRESS_DETAIL"	VARCHAR(100)		NOT NULL,
-	"SHIPPING_STATUS"	VARCHAR(20)		NOT NULL
+                             "ORDER_NO"	NUMBER		NOT NULL,
+                             "PAYMENT_NO"	NUMBER		NOT NULL,
+                             "ORDER_DATE"	DATE		NOT NULL,
+                             "RECEIVER_NAME"	VARCHAR(20)		NOT NULL,
+                             "RECEIVER_TEL"	VARCHAR(20)		NOT NULL,
+                             "ADDRESS_ZIPCODE"	VARCHAR(10)		NOT NULL,
+                             "ADDRESS"	VARCHAR(100)		NOT NULL,
+                             "ADDRESS_DETAIL"	VARCHAR(100)		NOT NULL,
+                             "SHIPPING_STATUS"	VARCHAR(20)		NOT NULL
 );
 
--- 주문 번호 시퀀스 
+-- 주문 번호 시퀀스
 CREATE SEQUENCE SEQ_ORDER_NO
-START WITH 1
-MAXVALUE 999
-MINVALUE 1
-CYCLE
-CACHE 10
-NOORDER
+    START WITH 1
+    MAXVALUE 999
+    MINVALUE 1
+    CYCLE
+    CACHE 10
+    NOORDER
 ;
 
 /* 시퀀스 초기화 Procedure */
 CREATE OR REPLACE PROCEDURE SZP_ORDER_NO_RESET(SEQ_ORDER_NO IN VARCHAR2)
-IS
+    IS
     L_VAL NUMBER;
 BEGIN
-    EXECUTE IMMEDIATE 'SELECT '|| SEQ_ORDER_NO ||'.NEXTVAL FROM DUAL' INTO L_VAL;
-    EXECUTE IMMEDIATE 'ALTER SEQUENCE '|| SEQ_ORDER_NO ||' INCREMENT BY -'|| L_VAL ||' MINVALUE 0';
-    EXECUTE IMMEDIATE 'SELECT '|| SEQ_ORDER_NO ||'.NEXTVAL FROM DUAL' INTO L_VAL;
-    EXECUTE IMMEDIATE 'ALTER SEQUENCE '|| SEQ_ORDER_NO ||' INCREMENT BY 1 MINVALUE 0';
+EXECUTE IMMEDIATE 'SELECT '|| SEQ_ORDER_NO ||'.NEXTVAL FROM DUAL' INTO L_VAL;
+EXECUTE IMMEDIATE 'ALTER SEQUENCE '|| SEQ_ORDER_NO ||' INCREMENT BY -'|| L_VAL ||' MINVALUE 0';
+EXECUTE IMMEDIATE 'SELECT '|| SEQ_ORDER_NO ||'.NEXTVAL FROM DUAL' INTO L_VAL;
+EXECUTE IMMEDIATE 'ALTER SEQUENCE '|| SEQ_ORDER_NO ||' INCREMENT BY 1 MINVALUE 0';
 END;
 
 --프로시저를 오라클 job에 등록
 DECLARE
-    X NUMBER;
+X NUMBER;
 BEGIN
-        SYS.DBMS_JOB.SUBMIT
-        (
-              job => X
-            , what =>
+    SYS.DBMS_JOB.SUBMIT
+(
+            job => X
+        , what =>
                 'BEGIN
                         SZP_ORDER_NO_RESET(''SEQ_ORDER_NO'');
                  END;'
-            , next_date => to_date('12-27-2022 00:00:00', 'mm/dd/yyyy hh24:mi:ss')
-            , interval => 'TRUNC(SYSDATE+1)'
-            , no_parse => FALSE
+        , next_date => to_date('12-27-2022 00:00:00', 'mm/dd/yyyy hh24:mi:ss')
+        , interval => 'TRUNC(SYSDATE+1)'
+        , no_parse => FALSE
         );
-        SYS.DBMS_OUTPUT.PUT_LINE('Job Number is : '|| to_char(X));
+    SYS.DBMS_OUTPUT.PUT_LINE('Job Number is : '|| to_char(X));
 END;
 
--- 날짜를 포함한 시퀀스 값을 가져오는 함수 
+-- 날짜를 포함한 시퀀스 값을 가져오는 함수
 CREATE OR REPLACE FUNCTION ZBF_GET_ORDER_NO(
     p_type in varchar2
 ) RETURN VARCHAR2
 AS
-     v_returnValue VARCHAR2(180);
+    v_returnValue VARCHAR2(180);
 BEGIN
-    BEGIN
-        select TO_CHAR(SYSDATE, 'YYMMDD') || LPAD(SEQ_ORDER_NO.nextval, 3, 0)
-          into v_returnValue
-          from dual;
- 
-    EXCEPTION
-      WHEN NO_DATA_FOUND THEN
-        v_returnValue := ' ';
-      WHEN OTHERS THEN
-        v_returnValue := ' ';
-    END;
- 
-    RETURN v_returnValue;
+BEGIN
+select TO_CHAR(SYSDATE, 'YYMMDD') || LPAD(SEQ_ORDER_NO.nextval, 3, 0)
+into v_returnValue
+from dual;
+
+EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            v_returnValue := ' ';
+WHEN OTHERS THEN
+            v_returnValue := ' ';
+END;
+
+RETURN v_returnValue;
 END;
 
 -- 체크
 select ZBF_GET_ORDER_NO('now') from DUAL;
 
--- Q&A 게시글 번호 시퀀스 
+-- Q&A 게시글 번호 시퀀스
 CREATE SEQUENCE SEQ_QNA_NO
-  START WITH 1
-  INCREMENT BY 1
-  MAXVALUE 1000
-  NOCYCLE
-  NOCACHE;
+    START WITH 1
+    INCREMENT BY 1
+    MAXVALUE 1000
+    NOCYCLE
+    NOCACHE;
 
 CREATE TABLE "TBL_CONTACT" (
-	"NAME"	VARCHAR(10)		NOT NULL,
-	"EMAIL"	VARCHAR(50)		NOT NULL,
-	"SUBJECT"	VARCHAR(50)		NOT NULL,
-	"CONTENT"	VARCHAR(500)		NOT NULL
+                               "NAME"	VARCHAR(10)		NOT NULL,
+                               "EMAIL"	VARCHAR(50)		NOT NULL,
+                               "SUBJECT"	VARCHAR(50)		NOT NULL,
+                               "CONTENT"	VARCHAR(500)		NOT NULL
 );
 
 CREATE TABLE "TBL_BLOG_COMMENT" (
-	COMMENT_NO	NUMBER		NOT NULL,
-	COMMENT_CONTENT	VARCHAR(200)		NOT NULL,
-	COMMENT_POSTDATE	DATE		NOT NULL,
-	BLOG_NO	NUMBER		NOT NULL,
-	USER_ID	VARCHAR(50)		NOT NULL
+                                    COMMENT_NO	NUMBER		NOT NULL,
+                                    COMMENT_CONTENT	VARCHAR(200)		NOT NULL,
+                                    COMMENT_POSTDATE	DATE		NOT NULL,
+                                    BLOG_NO	NUMBER		NOT NULL,
+                                    USER_ID	VARCHAR(50)		NOT NULL
 );
 
--- 블로그 코멘트 번호 시퀀스 
+-- 블로그 코멘트 번호 시퀀스
 CREATE SEQUENCE SEQ_COMMENT_NO
-  START WITH 1
-  INCREMENT BY 1
-  MAXVALUE 1000
-  NOCYCLE
-  NOCACHE;
+    START WITH 1
+    INCREMENT BY 1
+    MAXVALUE 1000
+    NOCYCLE
+    NOCACHE;
 
 -- 제약 조건
 ALTER TABLE TBL_PRODUCT ADD CONSTRAINT PK_PRODUCT_NO PRIMARY KEY (PRODUCT_NO);
@@ -315,7 +315,7 @@ ALTER TABLE TBL_BLOG_IMAGE ADD CONSTRAINT FK_BLOG_NO FOREIGN KEY (BLOG_NO) REFER
 ALTER TABLE TBL_PRODUCT_IMAGE ADD CONSTRAINT PK_FILE_NO PRIMARY KEY (FILE_NO);
 ALTER TABLE TBL_PRODUCT_IMAGE ADD CONSTRAINT FK_PRODUCT_NO FOREIGN KEY (PRODUCT_NO) REFERENCES "TBL_PRODUCT"(PRODUCT_NO);
 
-ALTER TABLE TBL_QUESTION ADD CONSTRAINT PK_QNA_NO PRIMARY KEY (QNA_NO);
+ALTER TABLE TBL_QUESTION ADD CONSTRAINT PK_QNA_NO PRIMARY KEY (BOARD_NO);
 ALTER TABLE TBL_QUESTION ADD CONSTRAINT FK_USER_ID FOREIGN KEY (USER_ID) REFERENCES "TBL_USER"(USER_ID);
 
 ALTER TABLE TBL_ORDER ADD CONSTRAINT PK_ORDER_NO PRIMARY KEY (ORDER_NO);
@@ -329,7 +329,7 @@ ALTER TABLE TBL_BLOG_COMMENT ADD CONSTRAINT FK_BLOG_NO FOREIGN KEY (BLOG_NO) REF
 
 ALTER TABLE TBL_QUESTION_REPLY ADD CONSTRAINT PK_REPLY_NO PRIMARY KEY (REPLY_NO);
 ALTER TABLE TBL_QUESTION_REPLY ADD CONSTRAINT FK_USER_ID FOREIGN KEY (USER_ID) REFERENCES "TBL_USER"(USER_ID);
-ALTER TABLE TBL_QUESTION_REPLY ADD CONSTRAINT FK_QNA_NO FOREIGN KEY (QNA_NO) REFERENCES "TBL_QUESTION"(QNA_NO);
+ALTER TABLE TBL_QUESTION_REPLY ADD CONSTRAINT FK_QNA_NO FOREIGN KEY (BOARD_NO) REFERENCES "TBL_QUESTION"(BOARD_NO);
 
 INSERT INTO TBL_USER
 VALUES('admin', 'admin', '관리자', '010-3456-9890', '서울시 가산동', 'admin@gmail.com', 'Y', 'Y', SYSDATE, 0);
