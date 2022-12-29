@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--  xml 파일을 사용할 mapper가 있는 경로 -->
+<mapper namespace="boardMapper">
+	<resultMap id="boardResultSet" type="com.b4.apollo.qna.model.dto.Question">
+		<id column="BOARD_NO" property="boardNo"/>
+		<result column="USER_ID" property="userId"/>
+		<result column="BOARD_TITLE" property="boardTitle"/>
+		<result column="BOARD_CONTENT" property="boardContent"/>
+		<result column="CREATE_DATE" property="createDate"/>
+		<result column="STATUS" property="status"/>
+		<result column="COUNT" property="count"/>
+	</resultMap>
+
+<!-- <select> 태그를 이용하여 select 쿼리임을 나타냄. 앞서 mapper에서 말했던 메소드의 이름은 select 쿼리의 id값과 같아야함. -->
+	<select id="selectListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM TBL_QUESTION
+	</select>
+
+	<select id="selectList" resultMap="boardResultSet">
+		SELECT *
+		FROM TBL_QUESTION
+		ORDER BY BOARD_NO DESC
+	</select>
+
+	<update id="increaseCount" parameterType="_int">
+		UPDATE TBL_QUESTION
+		SET COUNT = COUNT + 1
+		WHERE BOARD_NO = #{bno} AND STATUS='Y'
+	</update>
+
+	<select id="selectBoard" resultMap="boardResultSet" parameterType="_int">
+		SELECT *
+		FROM TBL_QUESTION
+		WHERE BOARD_NO = #{bno} AND STATUS='Y'
+	</select>
+
+</mapper>
