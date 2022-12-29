@@ -3,11 +3,7 @@ package com.b4.apollo.product.model.dto;
 
 import lombok.*;
 
-@Getter
-@Setter
-@Builder
-@RequiredArgsConstructor
-@ToString
+
 
 import lombok.Builder;
 import lombok.Data;
@@ -20,7 +16,11 @@ import lombok.Data;
  @프로그램 설명 : 상품 정보를 담은 DTO
  */
 @Data
-@Builder(toBuilder = true) // lombok 기능, 생성자를 조금 바꾼거를 바로바로 생성가능
+@Getter
+@Setter
+@RequiredArgsConstructor
+@ToString
+//@Builder(toBuilder = true) // lombok 기능, 생성자를 조금 바꾼거를 바로바로 생성가능
 
 public class ProductDTO {
 
