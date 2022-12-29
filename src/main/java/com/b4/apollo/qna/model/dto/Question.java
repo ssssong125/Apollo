@@ -1,6 +1,7 @@
 package com.b4.apollo.qna.model.dto;
 
 import lombok.*;
+import org.springframework.lang.Nullable;
 
 import java.time.LocalDateTime;
 
@@ -12,15 +13,20 @@ import java.time.LocalDateTime;
 @ToString
 public class Question {
 
-    private Integer qnaNo;
+    private Integer boardNo;
 
     private String userId;
 
-    private String qnaTitle;
+    private String boardTitle;
 
-    private String qnaContent;
+    private String boardContent;
 
-    private LocalDateTime postDate;
+    private LocalDateTime createDate;
+
+    private String status;
+
+    @Nullable
+    private int count;
 
 
 }

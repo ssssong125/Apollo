@@ -12,6 +12,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
+
 /**
  @FileName : ContextConfiguration.java
 
@@ -36,6 +37,10 @@ public class MybatisConfig {
      * @Method 설명 :
      * 스프링 트랜잭션을 가능하게 함, 명시된 DataSource는 스프링을 사용할때 일반적으로 사용한다면 어떠한 JDBC DataSource도 될 수 있다.
      * 단, 트랜잭션 관리자에 명시된 DataSource가 SqlSessionFactoryBean을 생성할때 사용된 것과 반드시 동일해야함(아니면 트랜잭션 관리 제대로 안됨).
+     *
+     * @수정일 : 2022. 12. 30.
+     * @수정자 : 이현도
+     * Null 값 에러 해결하기 위해서  configuration.setCallSettersOnNulls(true); 추가
      */
     @Bean
     public DataSourceTransactionManager transactionManager(DataSource dataSource){
@@ -43,13 +48,17 @@ public class MybatisConfig {
     }
 
     @Bean
-    public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception{
+    public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
         SqlSessionFactoryBean seb = new SqlSessionFactoryBean();
-        Resource[] res = new PathMatchingResourcePatternResolver().getResources("classpath:mappers/**/*.xml");
+        org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
+        configuration.setCallSettersOnNulls(true);
+        seb.setConfiguration(configuration);
 
+        Resource[] res = new PathMatchingResourcePatternResolver().getResources("classpath:mappers/*.xml");
         seb.setMapperLocations(res);
 
         seb.setDataSource(dataSource);
         return seb.getObject();
     }
 }
+

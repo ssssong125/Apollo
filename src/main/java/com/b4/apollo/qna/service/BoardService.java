@@ -1,8 +1,9 @@
 package com.b4.apollo.qna.service;
 
+import com.b4.apollo.qna.model.dto.PageInfo;
 import com.b4.apollo.qna.model.dto.Question;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Board Test Business Logic
@@ -15,5 +16,9 @@ import java.util.List;
 
 public interface BoardService {
 
-    List<Question> selectBoardList() throws Exception;
+    ArrayList<Question> selectList(PageInfo pageInfo);
+
+    Question selectBoard(int bno);
+
+    int selectListCount();
 }
