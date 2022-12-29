@@ -13,7 +13,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+/**
+ @FileName : BoardController.java
 
+ @Project : Apollo
+
+ @Date : 2022. 12. 29.
+
+ @작성자 : 이현도
+
+ @프로그램 설명 : 질문 게시판 조회 컨트롤러
+ */
 @RequestMapping("/question")
 @Controller
 public class BoardController {
@@ -21,6 +31,7 @@ public class BoardController {
     @Autowired
     private BoardService boardService;
 
+    //질문 게시판 전체 조회
     @RequestMapping("list")
     public String selectList(@RequestParam(value="currentPage",
             required = false, defaultValue = "1") int currentPage, Model model ) {
@@ -35,11 +46,12 @@ public class BoardController {
         model.addAttribute("pageInfo", pageInfo);
         return "qna/boardList";
     }
+    
+    //질문 게시판 상세 조회
     @GetMapping(value = "/detail/{bno}")
     public String selectBoard(@PathVariable("bno") int bno, Model model) {
         Question question = boardService.selectBoard(bno);
-        model.addAttribute("question", question)/*.setViewName("/qna/boardDetail");*/;
-//        return mv;
+        model.addAttribute("question", question);
         return "/qna/boardDetail";
     }
 }
