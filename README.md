@@ -1,16 +1,14 @@
-# StyleIsYou Shop
+# Apollo
 
-이젠 아카데미에서 진행한 팀 프로젝트 입니다.
+애드인에듀 학원에서 진행한 세미 프로젝트 입니다.
 
-여성의류 쇼핑몰입니다.
-
-
+악기 쇼핑몰입니다.
 
 # Description
 
-- 개발 기간: 2020.05.18 ~ 2020.06.17 (약 5주)
+- 개발 기간: 2022.12.23 ~ 2023.01.17 (약 3주)
 
-- 참여 인원: Backend 4명
+- 참여 인원: Backend full-stack 4명
 
 - 사용 기술
 
@@ -44,17 +42,9 @@
 
   <p align="center"><img src="https://github.com/77kkyu/Style_Is_You/blob/master/src/main/webapp/file/stu_main.gif?raw=true"/></p>
 
-
-
-
-
 - **상품 카테고리** 
 
   <p align="center"><img src="https://github.com/77kkyu/Style_Is_You/blob/master/src/main/webapp/file/stu_cate.gif?raw=true"/></p>
-
-
-
-
 
 - **상품 상세**
 
