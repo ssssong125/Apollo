@@ -12,7 +12,7 @@
 
 - 사용 기술
 
-  - Spring 4.0,  Apache Tomcat 9.0,  Tiles3,  BootStrap,  Mybatis
+  - Spring 4.0,  Apache Tomcat 9.0, BootStrap,  Mybatis
   - Java,  Ajax,  Jquery,  Git,  MVC Pttern
   - Oracle 11g DataBase
 
