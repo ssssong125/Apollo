@@ -14,6 +14,15 @@
 		<result column="STATUS" property="status"/>
 		<result column="COUNT" property="count"/>
 	</resultMap>
+	<resultMap id="replyResultSet" type="com.b4.apollo.qna.model.dto.Answer">
+		<id column="REPLY_NO" property="replyNo"/>
+		<result column="BOARD_NO" property="boardNo"/>
+		<result column="USER_ID" property="userId"/>
+		<result column="REPLY_CONTENT" property="replyContent"/>
+		<result column="REPLY_CREATE_DATE" property="createDate"/>
+		<result column="REPLY_MODDATE" property="modDate"/>
+	</resultMap>
+
 
 <!-- <select> 태그를 이용하여 select 쿼리임을 나타냄. 앞서 mapper에서 말했던 메소드의 이름은 select 쿼리의 id값과 같아야함. -->
 	<select id="selectListCount" resultType="_int">
@@ -39,4 +48,12 @@
 		WHERE BOARD_NO = #{bno} AND STATUS='Y'
 	</select>
 
+
+	<!-- 답변 -->
+	<insert id="createAnswer" parameterType="Reply">
+		INSERT INTO TBL_QUESTION_REPLY
+		VALUES
+			(SEQ_REP_NO.NEXTVAL, #{refBoardNo},  #{userId},  #{replyContent}, SYSDATE, DEFAULT)
+
+	</insert>
 </mapper>
