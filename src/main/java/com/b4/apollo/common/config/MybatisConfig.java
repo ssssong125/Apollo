@@ -4,6 +4,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
@@ -30,6 +32,9 @@ import javax.sql.DataSource;
 @MapperScan(basePackages = {"com.b4.apollo"}, annotationClass = Mapper.class)
 public class MybatisConfig {
 
+    @Autowired
+    ApplicationContext applicationContext;
+
     /**
      * @MethodName : transactionManager
      * @작성일 : 2022. 12. 28.
@@ -50,14 +55,16 @@ public class MybatisConfig {
     @Bean
     public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
         SqlSessionFactoryBean seb = new SqlSessionFactoryBean();
-        org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
-        configuration.setCallSettersOnNulls(true);
-        seb.setConfiguration(configuration);
 
+//        org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
+//        configuration.setCallSettersOnNulls(true);
+//        seb.setConfiguration(configuration);
+        seb.setConfigLocation(applicationContext.getResource("classpath:/mybatis/mybatis-config.xml"));
         Resource[] res = new PathMatchingResourcePatternResolver().getResources("classpath:mappers/*.xml");
         seb.setMapperLocations(res);
 
         seb.setDataSource(dataSource);
+
         return seb.getObject();
     }
 }

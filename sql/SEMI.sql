@@ -168,12 +168,20 @@ CREATE TABLE TBL_QUESTION_REPLY (
                                     BOARD_NO	NUMBER	NOT NULL,
                                     USER_ID	VARCHAR(50)	NOT NULL,
                                     REPLY_CONTENT	VARCHAR(300)	NOT NULL,
-                                    REPLY_DATE	DATE	NOT NULL,
+                                    REPLY_CREATE_DATE	DATE	NOT NULL,
                                     REPLY_MODDATE	DATE	NOT NULL
 );
 
 -- Q&A 게시글 번호 시퀀스
 CREATE SEQUENCE SEQ_QNA_NO
+    START WITH 1
+    INCREMENT BY 1
+    MAXVALUE 1000
+    NOCYCLE
+    NOCACHE;
+
+-- 댓글 번호 시퀀스
+CREATE SEQUENCE SEQ_REP_NO
     START WITH 1
     INCREMENT BY 1
     MAXVALUE 1000

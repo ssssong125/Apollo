@@ -12,10 +12,10 @@ import java.time.LocalDateTime;
 public class Answer {
 
     private Integer replyNo;
+    private Integer boardNo;
+    private String userId;
     private String replyContent;
-
-    private LocalDateTime postDate;
-
+    private LocalDateTime createDate;
     private LocalDateTime modDate;
 
 }

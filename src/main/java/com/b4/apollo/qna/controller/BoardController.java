@@ -38,7 +38,7 @@ public class BoardController {
 
         int listCount = boardService.selectListCount();
 
-        PageInfo pageInfo = Pagination.getPageInfo(currentPage, currentPage, 10, 5);
+        PageInfo pageInfo = Pagination.getPageInfo(listCount, currentPage, 10, 5);
 
         ArrayList<Question> list = boardService.selectList(pageInfo);
 
