@@ -25,7 +25,7 @@ https://heropy.blog/2017/09/30/markdown/
 1. 로그인페이지에 header&footer attaching 필요
 2. 회원가입페이지도 마찬가지로 header & footer 필요, 버튼 css 수정 필요, grid 적용 필요
 
-### 이현도 
+### 이현도
 - 베이스 html ui 작성완료
 - Q&A게시판 코드화 작업 진행
 
@@ -86,6 +86,10 @@ https://heropy.blog/2017/09/30/markdown/
 - css 적용방식 수정
 - css 폰트 적용방식 수정
 - DB 수정 시퀀스 추가 및 테이블 드랍 순서 변경
+
+2022.12.29
+============
+
 
 2022.12.29
 ============

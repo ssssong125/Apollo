@@ -7,13 +7,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 /**
  @FileName : CartController.java
-
  @Project : Apollo
-
  @Date : 2022. 12. 28.
-
  @작성자 : 김수용
-
  @프로그램 설명 : 어플리케이션 컨텍스트 리소스의 위치 혹은 컨텍스트를 로드할때 사용되는 클래스의 컴포넌트를 선언
  */
 @Controller
@@ -91,6 +87,24 @@ public class CartController {
         return mv;
     }
 
+//    int a = 1;
+//    List<String> names  = new ArrayList<>();
+//        names.add("jeeyong");
+//        names.add("suyong");
+//        names.add("jeehye");
+//
+//    List<String> results = new ArrayList<>();
+//        for (String name : names){
+//        name += "1111";
+//        results.add(name);
+//
+//    }
+//
+//        for(String name : results){
+//        //System.out.println(name);
+//
+//        logger.info(name);
+//    }
 //    <button onclick="location.href='/cart/trolley'">장바구니 조회</button>
 //    <button onclick="location.href='/cart/order'">주문 정보 입력</button>
 //    <button onclick="location.href='/cart/payment'">결제</button>
