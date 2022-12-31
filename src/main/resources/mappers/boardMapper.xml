@@ -5,23 +5,22 @@
 
 <!--  xml 파일을 사용할 mapper가 있는 경로 -->
 <mapper namespace="boardMapper">
-	<resultMap id="boardResultSet" type="com.b4.apollo.qna.model.dto.Question">
+	<resultMap id="boardResultSet" type="Board">
 		<id column="BOARD_NO" property="boardNo"/>
 		<result column="USER_ID" property="userId"/>
 		<result column="BOARD_TITLE" property="boardTitle"/>
 		<result column="BOARD_CONTENT" property="boardContent"/>
 		<result column="CREATE_DATE" property="createDate"/>
-		<result column="STATUS" property="status"/>
 		<result column="COUNT" property="count"/>
 	</resultMap>
-	<resultMap id="replyResultSet" type="com.b4.apollo.qna.model.dto.Answer">
-		<id column="REPLY_NO" property="replyNo"/>
-		<result column="BOARD_NO" property="boardNo"/>
-		<result column="USER_ID" property="userId"/>
-		<result column="REPLY_CONTENT" property="replyContent"/>
-		<result column="REPLY_CREATE_DATE" property="createDate"/>
-		<result column="REPLY_MODDATE" property="modDate"/>
-	</resultMap>
+<!--	<resultMap id="replyResultSet" type="com.b4.apollo.qna.model.dto.Answer">-->
+<!--		<id column="REPLY_NO" property="replyNo"/>-->
+<!--		<result column="BOARD_NO" property="boardNo"/>-->
+<!--		<result column="USER_ID" property="userId"/>-->
+<!--		<result column="REPLY_CONTENT" property="replyContent"/>-->
+<!--		<result column="REPLY_CREATE_DATE" property="createDate"/>-->
+<!--		<result column="REPLY_MODDATE" property="modDate"/>-->
+<!--	</resultMap>-->
 
 
 <!-- <select> 태그를 이용하여 select 쿼리임을 나타냄. 앞서 mapper에서 말했던 메소드의 이름은 select 쿼리의 id값과 같아야함. -->
@@ -33,27 +32,41 @@
 	<select id="selectList" resultMap="boardResultSet">
 		SELECT *
 		FROM TBL_QUESTION
-		ORDER BY BOARD_NO DESC
+		ORDER BY BOARD_NO
 	</select>
 
 	<update id="increaseCount" parameterType="_int">
 		UPDATE TBL_QUESTION
 		SET COUNT = COUNT + 1
-		WHERE BOARD_NO = #{bno} AND STATUS='Y'
+		WHERE BOARD_NO = #{bno}
 	</update>
 
 	<select id="selectBoard" resultMap="boardResultSet" parameterType="_int">
 		SELECT *
 		FROM TBL_QUESTION
-		WHERE BOARD_NO = #{bno} AND STATUS='Y'
+		WHERE BOARD_NO = #{bno}
 	</select>
 
+	<!-- 게시글 등록 -->
+	<insert id="insertBoard" parameterType="Board">
+		INSERT INTO TBL_QUESTION
+		VALUES
+			(SEQ_QNA_NO.NEXTVAL, 'USER01', #{boardTitle}, #{boardContent}, SYSDATE, DEFAULT)
+	</insert>
+
+<!-- 게시글 삭제 -->
+	<update id = "deleteBoard" parameterType="_int">
+		UPDATE TBL_QUESTION
+		SET STATUS= 'N'
+		WHERE BOARD_NO=#{bno}
+
+	</update>
 
 	<!-- 답변 -->
-	<insert id="createAnswer" parameterType="Reply">
-		INSERT INTO TBL_QUESTION_REPLY
-		VALUES
-			(SEQ_REP_NO.NEXTVAL, #{refBoardNo},  #{userId},  #{replyContent}, SYSDATE, DEFAULT)
+<!--	<insert id="createAnswer" parameterType="Reply">-->
+<!--		INSERT INTO TBL_QUESTION_REPLY-->
+<!--		VALUES-->
+<!--			(SEQ_REP_NO.NEXTVAL, #{refBoardNo},  #{userId},  #{replyContent}, SYSDATE, DEFAULT)-->
 
-	</insert>
+<!--	</insert>-->
 </mapper>
