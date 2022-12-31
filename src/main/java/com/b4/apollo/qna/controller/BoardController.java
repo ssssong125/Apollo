@@ -72,11 +72,10 @@ public class BoardController {
         return "/qna/boardDetail";
     }
 
-    @RequestMapping("deleteBoard")
-    private String deleteBoard(int bno
-            , HttpServletRequest request) {
-
-        boardService.deleteBoard(bno);
-        return "redirect:listBoard";
+    // 질문 삭제
+    @GetMapping("/delete/{boardNo}")
+    private String deleteBoard(@PathVariable("boardNo")  int boardNo) {
+        boardService.deleteBoard(boardNo);
+        return "redirect:/question/list";
     }
 }
