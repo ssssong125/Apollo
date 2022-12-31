@@ -32,7 +32,7 @@
 	<select id="selectList" resultMap="boardResultSet">
 		SELECT *
 		FROM TBL_QUESTION
-		ORDER BY BOARD_NO
+		ORDER BY BOARD_NO DESC
 	</select>
 
 	<update id="increaseCount" parameterType="_int">
