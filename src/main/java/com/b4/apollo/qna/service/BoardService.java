@@ -2,7 +2,6 @@ package com.b4.apollo.qna.service;
 
 import com.b4.apollo.qna.model.dto.PageInfo;
 import com.b4.apollo.qna.model.dto.Question;
-import org.mybatis.spring.SqlSessionTemplate;
 
 import java.util.ArrayList;
 
@@ -23,7 +22,7 @@ public interface BoardService {
 
     int selectListCount();
 
-    void deleteBoard(int bno);
+    void deleteBoard(int boardNo);
 
 
     void insertBoard(String boardTitle, String boardContent);

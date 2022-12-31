@@ -12,8 +12,8 @@
   </thead>
   <tbody>
   <tr th:if="${#lists.size(list)} > 0" th:each="list, loop: ${list}">
-<!--    <td th:text="${loop.count}"></td>-->
-    <td th:text="${list.boardNo}"></td>
+    <td th:text="${loop.count}"></td>
+<!--    <td th:text="${list.boardNo}"></td>-->
     <td>
       <a href="detail/" th:attrappend="href=${list.boardNo}" th:text="${list.boardTitle}"></a>
     </td>
@@ -24,4 +24,5 @@
 </table>
   <a th:href="@{/question/create}" class="btn btn-primary">질문 등록하기</a>
 </div>
+
 </html>

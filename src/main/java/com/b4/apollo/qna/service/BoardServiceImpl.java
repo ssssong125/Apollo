@@ -37,8 +37,8 @@ public class BoardServiceImpl implements BoardService {
 //    }
 
     @Override
-    public void deleteBoard(int bno) {
-        int result = boardDao.deleteBoard(sqlSession, bno);
+    public void deleteBoard(int boardNo) {
+        int result = boardDao.deleteBoard(sqlSession, boardNo);
 
         if(result < 0) {
             throw new CommonException("게시글삭제실패 ");
