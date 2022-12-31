@@ -1,5 +1,8 @@
 package com.b4.apollo.qna.model.dto;
 
+import lombok.*;
+
+
     public class PageInfo {
         private int currentPage;
         private int listCount;

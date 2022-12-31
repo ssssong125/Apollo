@@ -32,7 +32,7 @@
 	<select id="selectList" resultMap="boardResultSet">
 		SELECT *
 		FROM TBL_QUESTION
-		ORDER BY BOARD_NO
+		ORDER BY BOARD_NO DESC
 	</select>
 
 	<update id="increaseCount" parameterType="_int">
@@ -55,12 +55,11 @@
 	</insert>
 
 <!-- 게시글 삭제 -->
-	<update id = "deleteBoard" parameterType="_int">
-		UPDATE TBL_QUESTION
-		SET STATUS= 'N'
-		WHERE BOARD_NO=#{bno}
+	<delete id = "deleteBoard" parameterType="_int">
+		DELETE FROM TBL_QUESTION
+		WHERE BOARD_NO=#{boardNo}
 
-	</update>
+	</delete>
 
 	<!-- 답변 -->
 <!--	<insert id="createAnswer" parameterType="Reply">-->
