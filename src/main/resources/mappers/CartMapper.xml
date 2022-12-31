@@ -25,7 +25,6 @@
 		<result column="REPLY_MODDATE" property="modDate"/>
 	</resultMap>
 
-
 <!-- <select> 태그를 이용하여 select 쿼리임을 나타냄. 앞서 mapper에서 말했던 메소드의 이름은 select 쿼리의 id값과 같아야함. -->
 	<select id="selectListCount" resultType="_int">
 		SELECT COUNT(*)
