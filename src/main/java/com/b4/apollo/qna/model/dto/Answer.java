@@ -13,9 +13,8 @@ public class Answer {
 
     private Integer replyNo;
     private Integer boardNo;
-    private String userId;
     private String replyContent;
     private LocalDateTime createDate;
-    private LocalDateTime modDate;
 
+    public void setQuestion(Question question){}
 }
