@@ -54,6 +54,14 @@
 			(SEQ_QNA_NO.NEXTVAL, 'USER01', #{boardTitle}, #{boardContent}, SYSDATE, DEFAULT)
 	</insert>
 
+	<!-- 게시글 수정 -->
+	<update id="updateBoard" parameterType="Board">
+		UPDATE TBL_QUESTION
+		SET BOARD_TITLE=#{boardTitle}, BOARD_CONTENT=#{boardContent}
+		WHERE BOARD_NO=#{boardNo}
+	</update>
+
+
 <!-- 게시글 삭제 -->
 	<delete id = "deleteBoard" parameterType="_int">
 		DELETE FROM TBL_QUESTION

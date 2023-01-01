@@ -27,15 +27,6 @@ public class BoardServiceImpl implements BoardService {
         return boardDao.selectListCount(sqlSession);
     }
 
-//    @Override
-//    public void insertBoard(Question q) {
-//        int result = boardDao.insertBoard(q);
-//
-//        if(result < 0) {
-//            throw new CommonException("게시글추가실패 ");
-//        }
-//    }
-
     @Override
     public void deleteBoard(int boardNo) {
         int result = boardDao.deleteBoard(sqlSession, boardNo);
@@ -58,20 +49,36 @@ public class BoardServiceImpl implements BoardService {
         }
     }
 
+    @Override
+    public void updateBoard(int boardNo) {
+        Question q = new Question();
+       q.setBoardNo(boardNo);
+    }
 
     @Override
-    public ArrayList<Question> selectList(PageInfo pageInfo) {
-        return boardDao.selectList(sqlSession, pageInfo);
+    public void updateBoard(String boardTitle, String boardContent) {
+        Question q = new Question();
+        q.setBoardTitle(boardTitle);
+        q.setBoardContent(boardContent);
+        q.setCreateDate(LocalDateTime.now());
+        int result = boardDao.updateBoard(sqlSession, q);
     }
 
 
     @Override
-    public Question selectBoard(int bno) {
-        Optional<Question> question = Optional.ofNullable(this.boardDao.selectBoard(sqlSession, bno));
-        if(question.isPresent()){
-            return question.get();
-        }else{
-            throw new DataNotFoundException("question not found");
+        public ArrayList<Question> selectList (PageInfo pageInfo){
+            return boardDao.selectList(sqlSession, pageInfo);
+        }
+
+
+        @Override
+        public Question selectBoard ( int bno){
+            Optional<Question> question = Optional.ofNullable(this.boardDao.selectBoard(sqlSession, bno));
+            if (question.isPresent()) {
+                return question.get();
+            } else {
+                throw new DataNotFoundException("question not found");
+            }
         }
     }
-}
+
