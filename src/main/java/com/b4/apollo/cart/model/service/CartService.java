@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
  @Project : Apollo
  @Date : 2022. 12. 28.
  @작성자 : 김수용
- @프로그램 설명 : 주문 관련 요청을 처리할 Service 클래스
+ @프로그램 설명 : 주문 관련 요청을 처리할 Service 인터페이스
  */
 @Service
 public interface CartService {

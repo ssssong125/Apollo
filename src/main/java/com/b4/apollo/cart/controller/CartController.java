@@ -87,24 +87,8 @@ public class CartController {
         return mv;
     }
 
-//    int a = 1;
-//    List<String> names  = new ArrayList<>();
-//        names.add("jeeyong");
-//        names.add("suyong");
-//        names.add("jeehye");
-//
-//    List<String> results = new ArrayList<>();
-//        for (String name : names){
-//        name += "1111";
-//        results.add(name);
-//
-//    }
-//
-//        for(String name : results){
-//        //System.out.println(name);
-//
 //        logger.info(name);
-//    }
+
 //    <button onclick="location.href='/cart/trolley'">장바구니 조회</button>
 //    <button onclick="location.href='/cart/order'">주문 정보 입력</button>
 //    <button onclick="location.href='/cart/payment'">결제</button>
