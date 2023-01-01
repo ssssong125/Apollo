@@ -73,7 +73,15 @@
             <artifactId>thymeleaf-layout-dialect</artifactId>
         </dependency>
 
-<!--        <dependency>-->
+        <!-- Spring Boot Validation : 2023.1.1 이현도 유효성 검증 의존성 -->
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-validation -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+            <version>3.0.1</version>
+        </dependency>
+
+        <!--        <dependency>-->
 <!--            <groupId>nz.net.ultraq.thymeleaf</groupId>-->
 <!--            <artifactId>thymeleaf-layout-dialect</artifactId>-->
 <!--        </dependency>-->

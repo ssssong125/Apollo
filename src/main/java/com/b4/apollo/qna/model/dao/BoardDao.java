@@ -12,7 +12,6 @@ import java.util.ArrayList;
 public class BoardDao {
 
     public int selectListCount(SqlSessionTemplate sqlSession) {
-        // TODO Auto-generated method stub
         return sqlSession.selectOne("boardMapper.selectListCount");
     }
 
@@ -36,7 +35,7 @@ public class BoardDao {
     }
 
     public int deleteBoard(SqlSessionTemplate sqlSession, int boardNo) {
-        return sqlSession.delete("boardMapper.deleteBoard", boardNo);
+        return sqlSession.update("boardMapper.deleteBoard", boardNo);
     }
 
     public int updateBoard(SqlSessionTemplate sqlSession, Question q) {
