@@ -4,6 +4,7 @@ import com.b4.apollo.common.Pagination;
 import com.b4.apollo.qna.exception.CommonException;
 import com.b4.apollo.qna.model.dto.PageInfo;
 import com.b4.apollo.qna.model.dto.Question;
+import com.b4.apollo.qna.model.dto.QuestionForm;
 import com.b4.apollo.qna.service.BoardService;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -55,14 +57,13 @@ public class BoardController {
 
     // 게시글 작성
     @GetMapping("/create")
-    public String insertBoard(){
+    public String insertBoard(QuestionForm questionForm){
         return "qna/board_form";
     }
 
     @PostMapping("/create")
-    public String questionCreate(@RequestParam String boardTitle
-            , @RequestParam String boardContent) {
-        boardService.insertBoard(boardTitle, boardContent);
+    public String questionCreate(@Valid QuestionForm questionForm, BindingResult bindingResult) {
+        boardService.insertBoard(questionForm.getBoardTitle(), questionForm.getBoardContent());
         return "redirect:/question/list"; // 질문 저장후 질문목록으로 이동
     }
 
@@ -76,19 +77,21 @@ public class BoardController {
 
     // 질문 수정
     @GetMapping("/modify/{boardNo}")
-    public String questionModify(@PathVariable("boardNo") int boardNo) {
-        boardService.updateBoard(boardNo);
+    public String questionModify(QuestionForm questionForm, @PathVariable("boardNo") int boardNo) {
+        Question question = this.boardService.selectBoard(boardNo);
+        questionForm.setBoardTitle(question.getBoardTitle());
+        questionForm.setBoardContent(question.getBoardContent());
         return "/qna/board_form";
     }
 
     @PostMapping("/modify/{boardNo}")
-    public String questionModify(BindingResult bindingResult,
+    public String questionModify(@Valid QuestionForm questionForm, BindingResult bindingResult,
                                  @PathVariable("boardNo") int boardNo) {
         if (bindingResult.hasErrors()) {
             return "/qna/board_form";
         }
-        Question question = this.boardService.selectBoard(boardNo);
-       this.boardService.updateBoard(question.getBoardTitle(), question.getBoardContent());
+        Question q = this.boardService.selectBoard(boardNo);
+        this.boardService.updateBoard(q, questionForm.getBoardTitle(), questionForm.getBoardContent());
         return String.format("redirect:/question/detail/%s", boardNo);
     }
 

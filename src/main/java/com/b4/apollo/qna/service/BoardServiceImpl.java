@@ -22,6 +22,7 @@ public class BoardServiceImpl implements BoardService {
     @Autowired
     private BoardDao boardDao;
 
+
     @Override
     public int selectListCount() {
         return boardDao.selectListCount(sqlSession);
@@ -50,19 +51,14 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public void updateBoard(int boardNo) {
-        Question q = new Question();
-       q.setBoardNo(boardNo);
-    }
-
-    @Override
-    public void updateBoard(String boardTitle, String boardContent) {
-        Question q = new Question();
+    public void updateBoard(Question q, String boardTitle, String boardContent) {
         q.setBoardTitle(boardTitle);
         q.setBoardContent(boardContent);
         q.setCreateDate(LocalDateTime.now());
         int result = boardDao.updateBoard(sqlSession, q);
     }
+
+
 
 
     @Override
