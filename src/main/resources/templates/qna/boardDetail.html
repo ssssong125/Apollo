@@ -12,7 +12,7 @@
       </div>
       <!-- 질문 수정 -->
       <div class="my-3">
-<!--        <a th:href="@{|/question/modify/${question.id}|}" class="btn btn-sm btn-outline-secondary" th:text="수정"></a>-->
+        <a th:href="@{|/question/modify/${question.boardNo}|}" class="btn btn-sm btn-outline-secondary" th:text="수정"></a>
 
         <!-- 질문 삭제-->
           <a href="javascript:void(0);" th:data-uri="@{|/question/delete/${question.boardNo}|}"

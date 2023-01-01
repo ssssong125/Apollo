@@ -26,4 +26,8 @@ public interface BoardService {
 
 
     void insertBoard(String boardTitle, String boardContent);
+
+    void updateBoard(int boardNo);
+
+    void updateBoard(String boardTitle, String boardContent);
 }

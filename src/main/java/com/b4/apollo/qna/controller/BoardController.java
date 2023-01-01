@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -52,6 +53,7 @@ public class BoardController {
         return "qna/boardList";
     }
 
+    // 게시글 작성
     @GetMapping("/create")
     public String insertBoard(){
         return "qna/board_form";
@@ -71,6 +73,25 @@ public class BoardController {
         model.addAttribute("question", question);
         return "/qna/boardDetail";
     }
+
+    // 질문 수정
+    @GetMapping("/modify/{boardNo}")
+    public String questionModify(@PathVariable("boardNo") int boardNo) {
+        boardService.updateBoard(boardNo);
+        return "/qna/board_form";
+    }
+
+    @PostMapping("/modify/{boardNo}")
+    public String questionModify(BindingResult bindingResult,
+                                 @PathVariable("boardNo") int boardNo) {
+        if (bindingResult.hasErrors()) {
+            return "/qna/board_form";
+        }
+        Question question = this.boardService.selectBoard(boardNo);
+       this.boardService.updateBoard(question.getBoardTitle(), question.getBoardContent());
+        return String.format("redirect:/question/detail/%s", boardNo);
+    }
+
 
     // 질문 삭제
     @GetMapping("/delete/{boardNo}")
