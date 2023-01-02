@@ -13,9 +13,9 @@
   <tbody>
   <tr th:if="${#lists.size(list)} > 0" th:each="list, loop: ${list}">
     <td th:text="${loop.size - loop.count+1}"></td>
-<!--        <td th:text="${loop.count}"></td>-->
     <td>
       <a href="detail/" th:attrappend="href=${list.boardNo}" th:text="${list.boardTitle}"></a>
+
     </td>
     <td th:text="${#temporals.format(list.createDate, 'yyyy-MM-dd HH:mm')}"></td>
   </tr>

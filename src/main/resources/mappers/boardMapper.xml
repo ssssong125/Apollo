@@ -14,23 +14,30 @@
 		<result column="COUNT" property="count"/>
 		<result column="STATUS" property="status"/>
 	</resultMap>
-<!--	<resultMap id="replyResultSet" type="com.b4.apollo.qna.model.dto.Answer">-->
-<!--		<id column="REPLY_NO" property="replyNo"/>-->
-<!--		<result column="BOARD_NO" property="boardNo"/>-->
-<!--		<result column="USER_ID" property="userId"/>-->
-<!--		<result column="REPLY_CONTENT" property="replyContent"/>-->
-<!--		<result column="REPLY_CREATE_DATE" property="createDate"/>-->
-<!--		<result column="REPLY_MODDATE" property="modDate"/>-->
-<!--	</resultMap>-->
+	<resultMap id="replyResultSet" type="Reply">
+		<id column="REPLY_NO" property="replyNo"/>
+		<result column="BOARD_NO" property="boardNo"/>
+		<result column="REPLY_CONTENT" property="replyContent"/>
+		<result column="REPLY_DATE" property="createDate"/>
+	</resultMap>
 
 
-<!-- <select> 태그를 이용하여 select 쿼리임을 나타냄. 앞서 mapper에서 말했던 메소드의 이름은 select 쿼리의 id값과 같아야함. -->
+<!-- 게시글 수 카운트 -->
 	<select id="selectListCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM TBL_QUESTION
 		WHERE STATUS = 'Y'
 	</select>
 
+	<update id="increaseCount" parameterType="_int">
+		UPDATE TBL_QUESTION
+		SET COUNT = COUNT + 1
+		WHERE BOARD_NO = #{bno}
+		  AND STATUS='Y'
+	</update>
+
+
+	<!-- 전체 게시글 조회 -->
 	<select id="selectList" resultMap="boardResultSet">
 		SELECT *
 		FROM TBL_QUESTION
@@ -38,13 +45,7 @@
 		ORDER BY BOARD_NO DESC
 	</select>
 
-	<update id="increaseCount" parameterType="_int">
-		UPDATE TBL_QUESTION
-		SET COUNT = COUNT + 1
-		WHERE BOARD_NO = #{bno}
-		AND STATUS='Y'
-	</update>
-
+<!-- 게시글 상세보기 -->
 	<select id="selectBoard" resultMap="boardResultSet" parameterType="_int">
 		SELECT *
 		FROM TBL_QUESTION
@@ -67,7 +68,6 @@
 		AND STATUS='Y'
 	</update>
 
-
 <!-- 게시글 삭제 -->
 	<update id = "deleteBoard" parameterType="_int">
 		UPDATE TBL_QUESTION
@@ -77,10 +77,23 @@
 	</update>
 
 	<!-- 답변 -->
-<!--	<insert id="createAnswer" parameterType="Reply">-->
-<!--		INSERT INTO TBL_QUESTION_REPLY-->
-<!--		VALUES-->
-<!--			(SEQ_REP_NO.NEXTVAL, #{refBoardNo},  #{userId},  #{replyContent}, SYSDATE, DEFAULT)-->
+	<insert id="insertReply" parameterType="Reply">
+		INSERT INTO TBL_QUESTION_REPLY
+		VALUES
+			(SEQ_REP_NO.NEXTVAL, #{replyContent}, SYSDATE , #{boardNo})
 
-<!--	</insert>-->
+	</insert>
+
+
+	<select id="selectReplyList" parameterType="_int" resultMap="replyResultSet">
+		<![CDATA[
+		SELECT
+		       REPLY_NO,
+			   REPLY_CONTENT,
+			   REPLY_DATE
+		FROM TBL_QUESTION_REPLY
+		WHERE BOARD_NO = #{bno}
+		]]>
+
+	</select>
 </mapper>

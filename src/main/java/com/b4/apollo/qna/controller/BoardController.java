@@ -2,6 +2,7 @@ package com.b4.apollo.qna.controller;
 
 import com.b4.apollo.common.Pagination;
 import com.b4.apollo.qna.exception.CommonException;
+import com.b4.apollo.qna.model.dto.AnswerForm;
 import com.b4.apollo.qna.model.dto.PageInfo;
 import com.b4.apollo.qna.model.dto.Question;
 import com.b4.apollo.qna.model.dto.QuestionForm;
@@ -72,7 +73,7 @@ public class BoardController {
 
      //질문 게시판 상세 조회
     @GetMapping(value = "/detail/{bno}")
-    public String selectBoard(@PathVariable("bno") int bno, Model model) {
+    public String selectBoard(@PathVariable("bno") int bno, Model model, AnswerForm answerForm) {
         Question question = boardService.selectBoard(bno);
         model.addAttribute("question", question);
         return "/qna/boardDetail";

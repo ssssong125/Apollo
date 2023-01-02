@@ -20,7 +20,15 @@
       </div>
     </div>
   </div>
+
+  <!-- 답변 작성 -->
+  <form th:action="@{|/answer/create/${question.boardNo}|}" method="post">
+    <textarea name="replyContent" id="replyContent" rows="15"></textarea>
+    <input type="submit" value="답변등록">
+  </form>
 </div>
+
+<!-- 게시글 삭제 스크립트 -->
 <script layout:fragment="script" type='text/javascript'>
     const delete_elements = document.getElementsByClassName("delete");
     Array.from(delete_elements).forEach(function(element) {
@@ -30,5 +38,8 @@
             };
         });
     });
+
+
+
 </script>
 </html>

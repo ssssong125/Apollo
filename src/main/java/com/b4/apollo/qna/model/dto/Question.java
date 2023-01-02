@@ -1,9 +1,11 @@
 package com.b4.apollo.qna.model.dto;
 
+import com.b4.apollo.qna.service.AnswerService;
 import lombok.*;
 import org.springframework.lang.Nullable;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Getter
@@ -27,6 +29,5 @@ public class Question {
 
     @Nullable
     private int count;
-
 
 }

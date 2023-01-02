@@ -16,5 +16,5 @@ public class Answer {
     private String replyContent;
     private LocalDateTime createDate;
 
-    public void setQuestion(Question question){}
+
 }
