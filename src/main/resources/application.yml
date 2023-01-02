@@ -13,5 +13,5 @@ spring:
 
 # log Level: TRACE > DEBUG > INFO > WARN > ERROR > FATAL
 logging:
-  level:
-    root: DEBUG
+ level:
+  root: DEBUG

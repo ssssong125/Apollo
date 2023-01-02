@@ -5,18 +5,18 @@
 -- GRANT CREATE TRIGGER TO SEMI;
 
 -- 상품 테이블
-DROP TABLE "TBL_ORDER";
+DROP TABLE TBL_ORDER;
 DROP TABLE TBL_PAYMENT;
 DROP TABLE TBL_CATEGORY;
 DROP TABLE TBL_PRODUCT_IMAGE;
 DROP TABLE TBL_CART;
-DROP TABLE "TBL_BLOG_COMMENT";
+DROP TABLE TBL_BLOG_COMMENT;
 DROP TABLE TBL_BLOG_IMAGE;
 DROP TABLE TBL_BLOG_BOARD;
 DROP TABLE TBL_QUESTION_REPLY;
-DROP TABLE "TBL_QUESTION";
+DROP TABLE TBL_QUESTION;
 DROP TABLE TBL_USER;
-DROP TABLE "TBL_CONTACT";
+DROP TABLE TBL_CONTACT;
 DROP TABLE TBL_PRODUCT;
 
 DROP SEQUENCE SEQ_ORDER_NO;
@@ -210,59 +210,59 @@ CREATE SEQUENCE SEQ_ORDER_NO
     NOORDER
 ;
 
-/* 시퀀스 초기화 Procedure */
-CREATE OR REPLACE PROCEDURE SZP_ORDER_NO_RESET(SEQ_ORDER_NO IN VARCHAR2)
-    IS
-    L_VAL NUMBER;
-BEGIN
-EXECUTE IMMEDIATE 'SELECT '|| SEQ_ORDER_NO ||'.NEXTVAL FROM DUAL' INTO L_VAL;
-EXECUTE IMMEDIATE 'ALTER SEQUENCE '|| SEQ_ORDER_NO ||' INCREMENT BY -'|| L_VAL ||' MINVALUE 0';
-EXECUTE IMMEDIATE 'SELECT '|| SEQ_ORDER_NO ||'.NEXTVAL FROM DUAL' INTO L_VAL;
-EXECUTE IMMEDIATE 'ALTER SEQUENCE '|| SEQ_ORDER_NO ||' INCREMENT BY 1 MINVALUE 0';
-END;
-
---프로시저를 오라클 job에 등록
-DECLARE
-X NUMBER;
-BEGIN
-    SYS.DBMS_JOB.SUBMIT
-(
-            job => X
-        , what =>
-                'BEGIN
-                        SZP_ORDER_NO_RESET(''SEQ_ORDER_NO'');
-                 END;'
-        , next_date => to_date('12-27-2022 00:00:00', 'mm/dd/yyyy hh24:mi:ss')
-        , interval => 'TRUNC(SYSDATE+1)'
-        , no_parse => FALSE
-        );
-    SYS.DBMS_OUTPUT.PUT_LINE('Job Number is : '|| to_char(X));
-END;
-
--- 날짜를 포함한 시퀀스 값을 가져오는 함수
-CREATE OR REPLACE FUNCTION ZBF_GET_ORDER_NO(
-    p_type in varchar2
-) RETURN VARCHAR2
-AS
-    v_returnValue VARCHAR2(180);
-BEGIN
-BEGIN
-select TO_CHAR(SYSDATE, 'YYMMDD') || LPAD(SEQ_ORDER_NO.nextval, 3, 0)
-into v_returnValue
-from dual;
-
-EXCEPTION
-        WHEN NO_DATA_FOUND THEN
-            v_returnValue := ' ';
-WHEN OTHERS THEN
-            v_returnValue := ' ';
-END;
-
-RETURN v_returnValue;
-END;
-
--- 체크
-select ZBF_GET_ORDER_NO('now') from DUAL;
+--/* 시퀀스 초기화 Procedure */
+--CREATE OR REPLACE PROCEDURE SZP_ORDER_NO_RESET(SEQ_ORDER_NO IN VARCHAR2)
+--    IS
+--    L_VAL NUMBER;
+--BEGIN
+--EXECUTE IMMEDIATE 'SELECT '|| SEQ_ORDER_NO ||'.NEXTVAL FROM DUAL' INTO L_VAL;
+--EXECUTE IMMEDIATE 'ALTER SEQUENCE '|| SEQ_ORDER_NO ||' INCREMENT BY -'|| L_VAL ||' MINVALUE 0';
+--EXECUTE IMMEDIATE 'SELECT '|| SEQ_ORDER_NO ||'.NEXTVAL FROM DUAL' INTO L_VAL;
+--EXECUTE IMMEDIATE 'ALTER SEQUENCE '|| SEQ_ORDER_NO ||' INCREMENT BY 1 MINVALUE 0';
+--END;
+--
+----프로시저를 오라클 job에 등록
+--DECLARE
+--X NUMBER;
+--BEGIN
+--    SYS.DBMS_JOB.SUBMIT
+--(
+--            job => X
+--        , what =>
+--                'BEGIN
+--                        SZP_ORDER_NO_RESET(''SEQ_ORDER_NO'');
+--                 END;'
+--        , next_date => to_date('12-27-2022 00:00:00', 'mm/dd/yyyy hh24:mi:ss')
+--        , interval => 'TRUNC(SYSDATE+1)'
+--        , no_parse => FALSE
+--        );
+--    SYS.DBMS_OUTPUT.PUT_LINE('Job Number is : '|| to_char(X));
+--END;
+--
+---- 날짜를 포함한 시퀀스 값을 가져오는 함수
+--CREATE OR REPLACE FUNCTION ZBF_GET_ORDER_NO(
+--    p_type in varchar2
+--) RETURN VARCHAR2
+--AS
+--    v_returnValue VARCHAR2(180);
+--BEGIN
+--BEGIN
+--select TO_CHAR(SYSDATE, 'YYMMDD') || LPAD(SEQ_ORDER_NO.nextval, 3, 0)
+--into v_returnValue
+--from dual;
+--
+--EXCEPTION
+--        WHEN NO_DATA_FOUND THEN
+--            v_returnValue := ' ';
+--WHEN OTHERS THEN
+--            v_returnValue := ' ';
+--END;
+--
+--RETURN v_returnValue;
+--END;
+--
+---- 체크
+--select ZBF_GET_ORDER_NO('now') from DUAL;
 
 -- Q&A 게시글 번호 시퀀스
 CREATE SEQUENCE SEQ_QNA_NO
@@ -272,7 +272,7 @@ CREATE SEQUENCE SEQ_QNA_NO
     NOCYCLE
     NOCACHE;
 
-CREATE TABLE "TBL_CONTACT" (
+CREATE TABLE TBL_CONTACT (
                                "NAME"	VARCHAR(10)		NOT NULL,
                                "EMAIL"	VARCHAR(50)		NOT NULL,
                                "SUBJECT"	VARCHAR(50)		NOT NULL,
