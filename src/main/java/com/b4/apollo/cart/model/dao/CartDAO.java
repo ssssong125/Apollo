@@ -2,6 +2,8 @@ package com.b4.apollo.cart.model.dao;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.Map;
+
 /**
  @FileName : CartMapper.java
  @Project : Apollo
@@ -11,6 +13,10 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface CartDAO {
+
+    int addCart(Map<String, Integer> product);
+
+    int increaseProduct(Map<String, Integer> productNo);
 
 //    MemberDTO findMemberById(String memberId); // 예시) xml로 넘겨서 쿼리 실행할 메소드 작성
 }
