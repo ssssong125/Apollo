@@ -1,10 +1,14 @@
 <!DOCTYPE html>
-<html lagn="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/fontawesome.min.css" integrity="sha384-QYIZto+st3yW+o8+5OHfT6S482Zsvz2WfOzpFSXMF9zqeLcFV0/wlZpMtyFcZALm" crossorigin="anonymous">
     <style>
 
         /*--------------------------------------------------------------
@@ -65,7 +69,7 @@
   padding-left: 15px;
   padding-right: 15px;
   display: inline-block;
-  line-height: 0px;
+  /*line-height: 0px;*/
   transition: 0.3s;
   font-size: 20px;
  
@@ -252,8 +256,8 @@
 /*}*/
 
     </style>
-      <link href="static/css/common/bootstrap.min.css" rel="stylesheet">
-      <link href="static/css/common/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+      <link href="/css/common/bootstrap.min.css" rel="stylesheet">
+      <link href="/css/common/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
 </head>
 <body style="background-color: #000000;" >
 <!--    타임리프 레이아웃 사용해서 헤더, 푸터 붙이기위해 실험 -->
@@ -263,75 +267,18 @@
         <h1>Header Section</h1>
     </div>
 
-    <!-- ======= Header ======= -->
-  <header id="header" class="header d-flex align-items-center fixed-top">
-    <div class="container-fluid d-flex align-items-center justify-content-between" style="padding-right: 0">
-
-      <a href="index.html" class="logo d-flex align-items-center  me-auto me-lg-0">
-        <!-- Uncomment the line below if you also wish to use an image logo -->
-        <!-- <img src="assets/img/logo.png" alt=""> -->
-<!--        <i class="bi bi-camera"></i>-->
-<!--        <h1>PhotoFolio</h1>-->
-        <img src="**/img/common/gold-B.png" width="150" height="150" >
-      </a>
-
-      <nav id="navbar" class="navbar">
-        <ul>
-<!--          href -->
-          <li><a href="index.html" class="active">Home</a></li>
-
-          <li class="dropdown"><a href="#"><span>Instruments</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-            <ul>
-              <li><a href="">Strings</a></li>
-              <li><a href="">Winds</a></li>
-              <li><a href="">Clavier</a></li>
-              <li><a href="">All products</a></li>
-              <li><a href="">Sales products</a></li>
-              <li><a href="">Travel</a></li>
-<!--              <li class="dropdown"><a href="#"><span>Sub Menu</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>-->
-<!--                <ul>-->
-<!--                  <li><a href="#">Sub Menu 1</a></li>-->
-<!--                  <li><a href="#">Sub Menu 2</a></li>-->
-<!--                  <li><a href="#">Sub Menu 3</a></li>-->
-<!--                </ul>-->
-<!--              </li>-->
-            </ul>
-          </li>
-          <li class="dropdown"><a href="#"><span>Q&A</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-            <ul>
-              <li><a href="">FAQ</a></li>
-            </ul>
-          </li>
-          <li><a href="">Blog</a></li>
-          <li><a href="contact.html">Contact</a></li>
-        </ul>
-      </nav><!-- .navbar -->
-
-      <div class="header-social-links" style="margin: 0">
-        <br>
-        <a href="#" class="cart">Cart   <i class="bi bi-cart3"> </i>
-        <span class="badge square-pill badge-notification bg-danger">1</span>  </a>
-
-
-
-        <a href="#" class="login"><i class="bi bi-person-fill"></i></a>
-<!--        <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>-->
-<!--        <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></i></a>-->
-      </div>
-      <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
-      <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 
 <!-- ======= Header ======= -->
 <header id="header" class="header d-flex align-items-center fixed-top">
     우측
     <div class="container-fluid d-flex align-items-center justify-content-between" style="padding-right: 0">
 
-        <a href="index.html" class="logo d-flex align-items-center  me-auto me-lg-0">
+        <a href="main/main.html" class="logo d-flex align-items-center  me-auto me-lg-0">
             <!-- Uncomment the line below if you also wish to use an image logo -->
             <!-- <img src="assets/img/logo.png" alt=""> -->
             <!--        <i class="bi bi-camera"></i>-->
             <!--        <h1>PhotoFolio</h1>-->
-            <img src="/../img/common/gold-B.png" width="150" height="150"  alt="로고">
+            <img src="/img/common/gold-B.png" width="150" height="150"  alt="로고">
         </a>
 
         <nav id="navbar" class="navbar">
@@ -355,13 +302,13 @@
                     </ul>
                 </li>
                 <li><a href="">Blog</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="/personality/contact.html">Contact</a></li>
             </ul>
         </nav><!-- .navbar -->
 
         <div class="header-social-links" style="margin: 0">
             <br>
-            <a href="#" class="cart">Cart
+            <a href="/cart/trolley" class="cart">Cart
                 <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-cart3" viewBox="0 0 20 20">
                     <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
                 </svg>
@@ -369,7 +316,7 @@
 
 
       
-            <a href="#" class="login">
+            <a href="/personality/loginpage" class="login">
                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 20 20 ">
                     <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
                 </svg>
