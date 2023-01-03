@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
@@ -15,14 +15,14 @@
         <result property="categoryCode" column="CATEGORY_CODE"/>
     </resultMap>
 
-    <select id="findAllProduct" resultMap="productResultMap"><!-- ?????? ????-->
+    <select id="productList" resultMap="productResultMap"><!-- ?????? ????-->
         SELECT
             A.*
         FROM TBL_PRODUCT A
         WHERE A.PRODUCT_QTY > 0
         ORDER BY A.MENU_CODE
     </select>
-    <select id="findProductByCode" resultMap="productResultMap"><!-- ?????? ????-->
+    <select id="productDetail" resultMap="productResultMap"><!-- ?????? ????-->
         SELECT
             A.*
         FROM TBL_PRODUCT A
