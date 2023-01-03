@@ -7,14 +7,26 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-<!--    <link href="../../static/css/cart/style.css?after" rel="stylesheet">-->
-    <link href="/css/cart/style.css" rel="stylesheet" type="text/css">
+<!--    <link href="/css/cart/style.css" rel="stylesheet" type="text/css">-->
+    <link rel="stylesheet" type="text/css" th:href="@{ /css/cart/style.css }">
     <style>
         /*div 확인용*/
         /*div{*/
         /*    border: solid red 1px;*/
         /*}*/
     </style>
+    <script>
+        function payment() {
+
+            let cvc = document.getElementById("cvc");
+
+            if (cvc != null) {
+                window.location.href="success";
+            } else {
+                window.location.href="fail";
+            }
+        }
+    </script>
 </head>
 <body>
     <!--전체 div-->
@@ -59,7 +71,7 @@
                 <label for="cardNumber">Card Number</label>
             </div>
             <div class="col-lg">
-                <label for="Expiration date">Expiration date</label>
+                <label for="eDate">Expiration date</label>
             </div>
         </div>
 
@@ -68,7 +80,7 @@
                 <input type="text" class="text-input" placeholder="1111 2222 3333 4444" id="cardNumber" name="cardNumber">
             </div>
             <div class="col-lg">
-                <input type="text" class="text-input" placeholder="MM / YY" id="Expiration date" name="Expiration date">
+                <input type="text" class="text-input" placeholder="MM / YY" id="eDate" name="eDate">
             </div>
         </div>
         <br>
@@ -111,7 +123,7 @@
 
             </div>
             <div class="col-lg-2">
-                <button>Payment</button>
+                <button onclick="payment()">Payment</button>
             </div>
         </div>
     </div>
