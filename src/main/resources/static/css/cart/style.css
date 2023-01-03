@@ -209,6 +209,16 @@ button:hover:after {
   object-fit: cover;
 }
 
+a {
+  text-decoration: none;
+  color: white;
+}
+
+a:hover {
+  text-decoration: none;
+  color: #FFD700;
+}
+
 /*수직 정렬*/
 .v-align {
   word-wrap: break-word;

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<!--<html lang="en">-->
-<html lang="en" xmlns:layout="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Cart</title>
@@ -45,8 +44,20 @@
             </div>
         </div>
 
-        <!--상품 추가시-->
         <hr class="line">
+
+        <!--상품 없을시-->
+<!--        <div class="row" th:if="${ }">-->
+        <div class="row">
+            <div class="col-lg" height="128px" style="height: 128px;" >
+                <div class="v-align" style="text-align: center;">
+                    <br><br>
+                    장바구니에 상품이 없습니다.
+                </div>
+            </div>
+        </div>
+
+        <!--상품 추가시-->
         <div class="row">
             <div class="col-lg-2">
 <!--                <img class="product" src="../../static/img/cart/naverPay.png" alt="상품 이미지명">-->
@@ -71,13 +82,6 @@
                         </td>
                     </tr>
                 </table>
-<!--                2-->
-<!--                    <a href="javascript: alert('위');" style="display: block">▲</a>-->
-<!--                    <a href="javascript: alert('아래');" style="display: block">▼</a>-->
-<!--&lt;!&ndash;                <img src="/img/cart/upDown.png" alt="upDown.png">&ndash;&gt;-->
-
-                <div>
-                </div>
             </div>
             <div class="col-lg-2 v-align price">
                 115,000$
@@ -87,6 +91,41 @@
             </div>
         </div>
 <!--        상품 추가시 끝-->
+
+        <!--마이바티스 연동-->
+        <div class="row" th:each="product : ${ cartList }">
+            <div class="col-lg-2">
+                <!--                <img class="product" src="../../static/img/cart/naverPay.png" alt="상품 이미지명">-->
+                <img class="product" src="/img/cart/naverPay.png" alt="상품 이미지명">
+            </div>
+            <div class="col-lg-6 v-align">
+                <span th:text="${ product.productName }"/>
+            </div>
+            <div class="col-lg-1 v-align">
+                <table>
+                    <tr>
+                        <td rowspan="2">
+                            2 &nbsp;
+                        </td>
+                        <td style="padding-bottom: 0">
+                            <a href="javascript: alert('위');" style="display: block">▲</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-top: 0">
+                            <a href="javascript: alert('아래');" style="display: block">▼</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-lg-2 v-align price">
+                115,000$
+            </div>
+            <div class="col-lg-1 v-align price">
+                <img src="/img/cart/trash.png" alt="trash.png">
+            </div>
+        </div>
+        <!--        상품 추가시 끝-->
 
         <hr class="thick-line">
         <!--합산 가격-->
