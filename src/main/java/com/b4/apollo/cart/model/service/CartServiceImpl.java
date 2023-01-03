@@ -4,11 +4,11 @@ import com.b4.apollo.cart.model.dao.CartDAO;
 import com.b4.apollo.cart.model.dto.OrderDTO;
 import com.b4.apollo.cart.model.dto.PaymentDTO;
 import com.b4.apollo.product.model.dto.ProductDTO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  @FileName : CartServiceImpl.java
@@ -28,7 +28,7 @@ public class CartServiceImpl implements CartService{
      * @작성자 : 김수용
      * @Method 설명 : 생성자를 통한 주입
      */
-    @Autowired
+//    @Autowired
     public CartServiceImpl(CartDAO cartDAO) {
         this.cartDAO = cartDAO;
     }
@@ -40,16 +40,18 @@ public class CartServiceImpl implements CartService{
      * @Method 설명 : 장바구니 페이지에 출력할 장바구니 품목들을 불러올 인터페이스의 구현체
      */
     @Override
-    public List<ProductDTO> getCartList(Map<String, String> userId) {
+    public List<ProductDTO> getCartList(String userId) {
 
-        List<ProductDTO> pList = cartDAO.getCartList(userId);
+        HashMap<String, String> parameter = new HashMap<>();
+        parameter.put("userId", userId);
 
-//        if(productList == null) {
+        // 널값은 스크립트로 처리하자
+        //        if(productList == null) {
 ////            throw new ProductNotFoundException("상품 정보가 존재하지 않습니다.");
 ////            throw new Exception("상품 정보가 존재하지 않습니다.");
 //        }
 
-        return pList;
+        return cartDAO.getCartList(parameter);
     }
 
     /**
@@ -59,11 +61,12 @@ public class CartServiceImpl implements CartService{
      * @Method 설명 : 결제 정보를 불러올 인터페이스의 구현체
      */
     @Override
-    public PaymentDTO getPaymentDetail(Map<String, String> userId) {
+    public PaymentDTO getPaymentDetail(int paymentNo) {
 
-        PaymentDTO paymentDetail = cartDAO.getPaymentDetail(userId);
+        HashMap<String, Integer> parameter = new HashMap<>();
+        parameter.put("paymentNo", paymentNo);
 
-        return paymentDetail;
+        return cartDAO.getPaymentDetail(parameter);
     }
 
     /**
@@ -73,11 +76,12 @@ public class CartServiceImpl implements CartService{
      * @Method 설명 : 주문 정보를 불러올 인터페이스의 구현체
      */
     @Override
-    public OrderDTO getOrderDetail(Map<String, Integer> paymentNo) {
+    public OrderDTO getOrderDetail(int orderNo) {
 
-        OrderDTO orderDetail = cartDAO.getOrderDetail(paymentNo);
+        HashMap<String, Integer> parameter = new HashMap<>();
+        parameter.put("orderNo", orderNo);
 
-        return orderDetail;
+        return cartDAO.getOrderDetail(parameter);
     }
 
     /*
@@ -88,17 +92,76 @@ public class CartServiceImpl implements CartService{
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean addCart(Map<String, Integer> product) throws Exception {
+    public boolean addCart(int productNo, String userId, int productCount) throws Exception{
 
-        int result = cartDAO.addCart(product);
+        HashMap<String, String> parameter = new HashMap<>();
+        parameter.put("productNo", String.valueOf(productNo));
+        parameter.put("userId", userId);
+        parameter.put("productCount", String.valueOf(productCount));
+
+        int result = cartDAO.addCart(parameter);
 
         if(result <= 0) {
 
             throw new Exception("장바구니 담기 실패");
         }
 
-
-        return result > 0? true : false;
+        return result > 0;
     }
+
+    /*
+     * @MethodName : increaseProduct
+     * @작성일 : 2023. 01. 03.
+     * @작성자 : 김수용
+     * @Method 설명 : 장바구니에 품목의 주문수량 증가시키는 기능의 구현체
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean increaseProduct(int cartNo) throws Exception{
+
+        int result = cartDAO.increaseProduct(cartNo);
+
+        if(result <= 0) {
+
+            throw new Exception("주문수량 증가 실패");
+        }
+
+        return result > 0;
+    }
+
+    /*
+     * @MethodName : decreaseProduct
+     * @작성일 : 2023. 01. 03.
+     * @작성자 : 김수용
+     * @Method 설명 : 장바구니에 품목의 주문수량 감소시키는 기능의 구현체
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean decreaseProduct(int cartNo) throws Exception {
+
+        int result = cartDAO.decreaseProduct(cartNo);
+
+        if(result <= 0) {
+
+            throw new Exception("주문수량 감소 실패");
+        }
+
+        return result > 0;
+    }
+
+    @Override
+    public boolean deleteProduct(int cartNo) throws Exception {
+
+        int result = cartDAO.deleteProduct(cartNo);
+
+        if(result <= 0) {
+
+            throw new Exception("품목 삭제 실패");
+        }
+
+        return result > 0;
+    }
+
+
 }
 //@Transactional(rollbackFor = Exception.class) // 오류 발생시 롤백 // 메소드에 

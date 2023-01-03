@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<!--<html lang="en">-->
+<html xmlns:th="http://www.thymeleaf.org">	<!-- 타임리프 활용하기(네임스키마 문법 추가) -->
 <head>
     <meta charset="UTF-8">
     <title>Fail</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-<!--    <link href="../../static/css/cart/style.css?after" rel="stylesheet">-->
-    <link href="/css/cart/style.css" rel="stylesheet" type="text/css">
+<!--    <link href="/css/cart/style.css" rel="stylesheet" type="text/css">-->
+    <link rel="stylesheet" type="text/css" th:href="@{ /css/cart/style.css }">
     <style>
         /*div{*/
         /*    border: solid 1px red;*/
