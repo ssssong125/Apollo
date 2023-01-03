@@ -7,8 +7,6 @@ import com.b4.apollo.product.model.dto.ProductDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.Map;
-
 import java.util.List;
 import java.util.Map;
 
@@ -81,8 +79,8 @@ public class CartServiceImpl implements CartService{
 
         return orderDetail;
     }
-}
 
+    /*
      * @MethodName : addCart
      * @작성일 : 2023. 01. 01.
      * @작성자 : 김수용
