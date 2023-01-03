@@ -82,6 +82,15 @@
             <version>3.0.1</version>
         </dependency>
 
+        <!-- Page Helper : 2023.1.4 이현도 페이징 처리를 도와주는 의존성 -->
+        <!-- https://mvnrepository.com/artifact/com.github.pagehelper/pagehelper-spring-boot-starter -->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>1.4.1</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>

@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!--  xml 파일을 사용할 mapper가 있는 경로 -->
-<mapper namespace="boardMapper">
+<mapper namespace="com.b4.apollo.qna.model.dao.BoardMapper">
 	<resultMap id="boardResultSet" type="Board">
 		<id column="BOARD_NO" property="boardNo"/>
 		<result column="USER_ID" property="userId"/>
@@ -85,15 +85,10 @@
 	</insert>
 
 
-	<select id="selectReplyList" parameterType="_int" resultMap="replyResultSet">
-		<![CDATA[
+	<select id="getReplyList" resultType="Reply">
 		SELECT
-		       REPLY_NO,
-			   REPLY_CONTENT,
-			   REPLY_DATE
+		       *
 		FROM TBL_QUESTION_REPLY
-		WHERE BOARD_NO = #{bno}
-		]]>
-
+		WHERE BOARD_NO = #{boardNo}
 	</select>
 </mapper>
