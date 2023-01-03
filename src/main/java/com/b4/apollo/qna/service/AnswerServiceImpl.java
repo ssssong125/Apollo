@@ -32,8 +32,8 @@ public class AnswerServiceImpl implements  AnswerService{
     }
 
     @Override
-    public void create(Answer answer) {
-        boardMapper.create(answer);
+    public void insertReply(Answer answer) {
+        boardMapper.insertReply(answer);
     }
 
 //    @Override

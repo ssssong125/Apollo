@@ -28,7 +28,7 @@
   </div>
 
 
-  <!-- Answer Form -->
+  <!-- 답변 작성 -->
   <div class="card my-4">
     <h5 class="card-header">Leave a Comment:</h5>
     <div class="card-body">
@@ -37,18 +37,11 @@
           <input type="hidden" name="replyNo" th:value="*{replyNo}" />
           <textarea name="replyContent" class="form-control" rows="3"></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">답변등록</button>
       </form>
     </div>
   </div>
 
-
-  <!-- 답변 작성 -->
-  <form th:action="@{|/answer/create/${question.boardNo}|}" method="post">
-    <textarea name="replyContent" id="replyContent" rows="15"></textarea>
-    <input type="submit" value="답변등록">
-  </form>
-</div>
 
 <!--댓글 스크립트-->
 <!--<script type="text/javascript" th:src="@{/js/qna/boardDetail.js}"></script>-->

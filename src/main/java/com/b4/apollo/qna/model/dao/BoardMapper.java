@@ -23,5 +23,5 @@ public interface BoardMapper {
 
     List<Answer> getReplyList(Answer answer);
 
-    void create(Answer answer);
+    void insertReply(Answer answer);
 }

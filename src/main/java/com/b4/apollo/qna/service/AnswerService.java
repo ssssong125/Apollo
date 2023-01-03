@@ -13,7 +13,7 @@ public interface AnswerService {
 
         List<Answer> getReplyList(Answer answer);
 
-        void create(Answer answer);
+        void insertReply(Answer answer);
 
 //        int create(Answer answer);
 
