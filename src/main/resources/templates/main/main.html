@@ -13,16 +13,32 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/fontawesome.min.css" integrity="sha384-QYIZto+st3yW+o8+5OHfT6S482Zsvz2WfOzpFSXMF9zqeLcFV0/wlZpMtyFcZALm" crossorigin="anonymous">
 
     <style>
-        /* .desc{
-            display: inline-block;
+        @font-face {
+            font-family: 'BodoniXT'; /*font 이름*/
+            src: url(/font/BodoniXT.ttf);
         }
+        body
+        {
+            width: 100%;
+            margin: 0 auto;
+            background-color: #000000;
+            font-family: BodoniXT;
 
-        .imgs{
-            display: inline-block;
-        } */
+        }
+        .title{
+            text-align: center;
+            font-size: 30px;
+        }
+        button{
+            background-color: #DF9438;
+            color: white;
+            width: 150px;
+            height: 60px;
+        }
     </style>
 </head>
 <body style="background-color: black;">
+<div th:include="fragments/header.html"></div>
     <div class="container">
         <div class="row">
             <div class="col">
@@ -31,7 +47,7 @@
             </div>
         </div>
 
-    <div style="border: 1px solid #DF9438;" class="row">
+    <div class="row">
 
     <!--    <div class="col-3" style="border: 1px solid #DF9438;">-->
     <!--        <p style="color: white;">Italy,1940, Gaetano Gadda(Stefano Scrampella labeled)</p>-->
@@ -56,7 +72,7 @@
             </div>
 
             <div class="row">
-                <div class="col" style="border: 1px solid #DF9438;">
+                <div class="col" >
                     <p style="color: white;">Italy,1940, Gaetano Gadda(Stefano Scrampella labeled)</p>
                     <h1 style="color: white;">Apollo New Series</h1>
                     <h1 style="color: #DF9438;">Stefano Scrampella</h1>
@@ -72,17 +88,19 @@
 
             <div class="row" style="color: white;">
                 <div class="col-7"></div>
-                <div class="col-5" style="border: 1px solid #DF9438;">
-                    <img src="/static/img/common/sign.png" width="200px">
+                <div class="col-5" >
+                    <img src="/img/common/sign.png" width="200px">
                     <p style="color: white;">Gaetano Gadda</p>
                 </div>
             </div>
         </div>
 
         <!--기타 달-->
-        <div class="col-4" style="border: 1px solid #DF9438;">
-            <img src="/static/img/common/mainpage1.png" width="250px" style="position: relative; top: 0px; left: 50px">
-            <img src="/static/img/common/제목 없음.png" width="250px" style="position: absolute; top: 0px; left: 0px">
+        <div class="col-4">
+            <img src="/img/common/mainpage1.png" width="250px" style="position: relative; top: 0px; left: 50px">
+            <a href="/product/list">
+            <img src="/img/common/제목 없음.png" width="250px" style="position: absolute; top: 0px; left: 0px">
+            </a>
         </div>
 
         <!--우측-->
@@ -101,7 +119,7 @@
             </div>
 
             <div class="row">
-                <div class="col" style="border: 1px solid #DF9438;">
+                <div class="col">
                     <p style="color: white;">Specification</p>
 
                     <p style="color: #8F8F8F;">
@@ -114,60 +132,104 @@
                 </div>
             </div>
 
-            <div class="row" style="border: 1px solid #DF9438;">
+            <div class="row" >
                 <div class="col-4"></div>
-                <div class="col" style="border: 1px solid #DF9438;">
+                <div class="col" >
                     <h3 style="color: #DF9438;">$62,250</h3>
-                    <button onclick="location.href='/product/detail'">See Product</button>
+                    <button onclick="location.href='/product/list'">See Product</button>
                 </div>
             </div>
         </div>
     </div>
-
+<br>
     <div class="row" style="border: 1px solid #DF9438;">
         <div class="col-2" style="border: 1px solid #DF9438;">
-            <img src="/static/img/common/violin1.jpg" height="300px" width="100%">
+            <img src="/img/common/violin1.jpg" height="300px" width="100%">
 
         </div>
         <div class="col-2" style="border: 1px solid #DF9438;">
-            <img src="/static/img/common/guitar-painting-image.jpg" width="100%">
+            <img src="/img/common/guitar-painting-image.jpg" width="100%">
         </div>
         <div class="col-2" style="border: 1px solid #DF9438;">
-            <img src="/static/img/common/trumpet-painting-image.jpg" width="100%">
+            <img src="/img/common/trumpet-painting-image.jpg" width="100%">
         </div>
         <div class="col-2" style="border: 1px solid #DF9438;">
-
+            <img src="/img/common/piano-painting-image.jpg" width="100%">
         </div>
         <div class="col-2" style="border: 1px solid #DF9438;">
-
+            <img src="/img/common/french-horn-painting-image.jpg" width="100%">
         </div>
         <div class="col-2" style="border: 1px solid #DF9438;">
-
+            <img src="/img/common/trumpet-painting-image.jpg" width="100%">
         </div>
     </div>
-
+    <br>
+        <br>
     <div class="row" style="border: 1px solid #DF9438;">
         <div class="col-12" style="border: 1px solid #DF9438;">
-            <p style="color: #DF9438;">Best Sales</p>
+            <p class="title" style="color: #DF9438;">Best Sales</p>
         </div>
     </div>
+        <div class="row" style="border: 1px solid #DF9438;">
+            <div class="col-4" style="border: 1px solid #DF9438;">
+                <a href="/product/detail">
+                    <img src="/img/common/SUZUKI%20SV-540F.png" width="100%">
+                </a>
+            </div>
+            <div class="col-4" style="border: 1px solid #DF9438;">
+                <a href="/product/detail">
+                    <img src="/img/common/RudolphDonerner_Cello_907_F.jpg" width="100%">
+                </a>
+            </div>
+            <div class="col-4" style="border: 1px solid #DF9438;">
+                <a href="/product/detail">
+                    <img src="/img/common/B.C.%20Rich%20Stranger%20Things%20Eddie's%20Limited-Edition%20Replica%20and%20Inspired%20NJ%20Warlock%20Electric%20Guitar%20Red%20Crackle%20(1).jpg" width="100%">
+                </a>
+            </div>
+        </div>
 
         <div class="row" style="border: 1px solid #DF9438;">
             <div class="col-4" style="border: 1px solid #DF9438;">
+                <a href="/product/detail">
+<!-- 특정 번호로 넘겨줘야 할듯,,,,,-->
+                    <img src="/img/common/c_trumpet.jpg" width="100%">
+                </a>
+            </div>
+            <div class="col-4" style="border: 1px solid #DF9438;">
+                <a href="/product/detail">
+                    <img src="/img/common/효정%20비올라.jpg" width="100%">
+                </a>
+            </div>
+            <div class="col-4" style="border: 1px solid #DF9438;">
+                <a href="/product/detail">
+                    <img src="/img/common/11181108large.jpg" width="100%">
+                </a>
+            </div>
+        </div>
+        <br>
+        <br>
+
+        <div class="row">
+            <div class="col-12">
+                <p class="title" style="color: #DF9438;">주요 공연일정</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
                 <a href="https://www.sac.or.kr/site/main/show/show_view?SN=48353">
-                    <img src="/static/img/common/present_1.jpg"  width="100%">
+                    <img src="/img/common/present_1.jpg"  width="100%">
                 </a>
 
-                <span style="color: white">김규현 박종해 듀오 리사이틀 [프로코피예프, 쇼스타코비치]></span>
+                <span style="color: white">김규현 박종해 듀오 리사이틀 [프로코피예프, 쇼스타코비치]</span>
             </div>
-            <div class="col-4" style="border: 1px solid #DF9438;">
+            <div class="col-4">
                 <a href="https://www.sac.or.kr/site/main/show/show_view?SN=48342">
-                    <img src="/static/img/common/present_2.jpg"  width="100%">
+                    <img src="/img/common/present_2.jpg"  width="100%">
                 </a>
-
-                <span style="color: white">포어스트만 콰르텟 정기연주회 Omaggio</span>
+                <br>
+                <p style="color: white">포어스트만 콰르텟 정기연주회 Omaggio</p>
             </div>
-            <div class="col-4" style="border: 1px solid #DF9438;">
+            <div class="col-4">
                 <a href="https://www.sac.or.kr/site/main/show/show_view?SN=48338">
                     <img src="/img/common/present_3.jpg"  width="100%">
                 </a>
@@ -175,20 +237,36 @@
 
             </div>
         </div>
-        <div class="row" style="border: 1px solid #DF9438;">
-            <div class="col-6" style="border: 1px solid #DF9438;">
-                <p style="color: #DF9438;"></p>
-            </div>
-            <div class="col-6" style="border: 1px solid #DF9438;">
-                <p style="color: #DF9438;"></p>
+        <br>
+        <br>
+
+        <div class="row">
+            <div class="col-12" >
+                <p class="title" style="color: #DF9438;">참고 영상</p>
             </div>
         </div>
-        <div class="row" style="border: 1px solid #DF9438;">
-            <div class="col-6" style="border: 1px solid #DF9438;">
-                <p style="color: #DF9438;"></p>
+        <div class="row">
+            <div class="col-6">
+                <iframe width="560" height="315"
+                        src="https://www.youtube.com/embed/kmV2hj-I7Xo"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;
+                        picture-in-picture" allowfullscreen></iframe>
             </div>
-            <div class="col-6" style="border: 1px solid #DF9438;">
-                <p style="color: #DF9438;"></p>
+            <div class="col-6">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/5gwjkFoBX4Y"
+                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
+                clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/mGQLXRTl3Z0" title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="col-6">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/97_VJve7UVc" title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
     <br>
@@ -198,6 +276,8 @@
     <button onclick="location.href='/cart/payment'">결제</button>
     <button onclick="location.href='/cart/success'">결제 성공</button>
     <button onclick="location.href='/cart/fail'">결제 실패</button>
+
     </div>
+<div th:include="fragments/footer.html"></div>
     </body>
 </html>
