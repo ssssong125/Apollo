@@ -12,7 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 @Controller
-@RequestMapping("/list")
+@RequestMapping("product")
 public class ProductController {
     private final ProductService productService;
 
@@ -21,7 +21,7 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @GetMapping("/list")
+    @GetMapping("list")
     public ModelAndView productList(ModelAndView mv) {
 
         List<ProductDTO> productList = productService.productList();
@@ -32,7 +32,7 @@ public class ProductController {
         return mv;
     }
 
-    @GetMapping("/detail  /*  int code 에 대한 것을 {}로 써야함 ???  */")
+    @GetMapping("sdetail  /*  int code 에 대한 것을 {}로 써야함 ???  */")
     public ModelAndView productDetail(ModelAndView mv, int code) {
         ProductDTO productDetail = productService.productDetail(code);
         mv.addObject("productDetail", productDetail);
@@ -58,7 +58,7 @@ public class ProductController {
 
         return mv;
     }
-    @GetMapping("/delete") /*  int code 에 대한 것을 {}로 써야함 ???  */
+    @GetMapping("delete") /*  int code 에 대한 것을 {}로 써야함 ???  */
     public ModelAndView productDelete(ModelAndView mv, int code) {
         ProductDTO productDelete = productService.productDelete(code);
         mv.addObject("productDelete", productDelete);

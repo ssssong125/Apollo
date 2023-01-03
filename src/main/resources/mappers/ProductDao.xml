@@ -20,7 +20,6 @@
             A.*
         FROM TBL_PRODUCT A
         WHERE A.PRODUCT_QTY > 0
-        ORDER BY A.MENU_CODE
     </select>
     <select id="productDetail" resultMap="productResultMap"><!-- ?????? ????-->
         SELECT
@@ -28,37 +27,110 @@
         FROM TBL_PRODUCT A
         WHERE A.PRODUCT_NO = #{productNo}
     </select>
-<!--    <select id="findAllCategory" resultMap="categoryResultMap">-->
-<!--        SELECT-->
-<!--            A.CATEGORY_CODE-->
-<!--             , A.CATEGORY_NAME-->
-<!--             , A.REF_CATEGORY_CODE-->
-<!--        FROM TBL_CATEGORY A-->
-<!--        WHERE A.REF_CATEGORY_CODE IS NOT NULL-->
-
-<!--    </select>-->
-
-<!--    <insert id = "registProduct">-->
-<!--        INSERT-->
-<!--        INTO TBL_PRODUCT A-->
-<!--            (-->
-<!--               A.MENU_CODE-->
-<!--             , A.MENU_NAME-->
-<!--             , A.MENU_PRICE-->
-<!--             , A.CATEGORY_CODE-->
-<!--             , A.ORDERABLE_STATUS-->
-<!--        )-->
-<!--        VALUES-->
-<!--            (-->
-<!--            SEQ_MENU_CODE.NEXTVAL-->
-<!--                , #{ name }-->
-<!--                , #{ price }-->
-<!--                , #{ categoryCode }-->
-<!--                , #{ orderableStatus }-->
-<!--            )-->
 
 
-<!--    </insert>-->
+    <insert id = "registProduct">
+BEGIN
+        INSERT
+        INTO TBL_PRODUCT A
+            (
+               A.PRODUCT_NO
+             , A.PRODUCT_NAME
+             , A.PRODUCT_PRICE
+             , A.PRODUCT_DESC
+             , A.PRODUCT_QTY
+             , A.CATEGORY_CODE
+        )
+        VALUES
+            (
+            SEQ_PRODUCT_NO.NEXTVAL
+                , #{ name }
+                , #{ price }
+                , #{ description }
+                , #{ quantity }
+                , #{ categoryCode }
 
+            );
+        INSERT
+        INTO TBL_PRODUCT_IMAGE B
+        (
+            B.FILE_NO
+        , B.ORIGIN_NAME
+        , B.STORED_NAME
+        , B.THUMBNAIL
+        , B.PRODUCT_NO
+        )
+        VALUES
+            (
+            SEQ_FILE_NO.NEXTVAL
+                , #{ origin }
+                , #{ stored }
+                , #{ isThumbnail }
+                , #{ productNo }
+-- product no 를 시퀀스로 하면 괜히 숫자 두개가 +되나?
+            );
+INSERT
+INTO TBL_PRODUCT_IMAGE B
+    (
+            B.FILE_NO
+        , B.ORIGIN_NAME
+        , B.STORED_NAME
+        , B.THUMBNAIL
+        , B.PRODUCT_NO
+        )
+VALUES
+    (
+    SEQ_FILE_NO.NEXTVAL
+        , #{ origin }
+        , #{ stored }
+        , #{ isThumbnail }
+        , #{ productNo }
+-- product no 를 시퀀스로 하면 괜히 숫자 두개가 +되나?
+    );
+INSERT
+INTO TBL_PRODUCT_IMAGE B
+    (
+            B.FILE_NO
+        , B.ORIGIN_NAME
+        , B.STORED_NAME
+        , B.THUMBNAIL
+        , B.PRODUCT_NO
+        )
+VALUES
+    (
+    SEQ_FILE_NO.NEXTVAL
+        , #{ origin }
+        , #{ stored }
+        , #{ isThumbnail }
+        , #{ productNo }
+-- product no 를 시퀀스로 하면 괜히 숫자 두개가 +되나?
+    );
+END;
+    </insert>
 
+    <!-- 예약 수정 -->
+    <update id="editProduct">
+        UPDATE TBL_PRODUCT A
+            A.PRODUCT_NAME = #{ name }
+          , A.PRODUCT_PRICE = #{ price }
+          , A.PRODUCT_DESC = #{ description }
+          , A.PRODUCT_QTY = #{ quantity }
+          , A.CATEGORY_CODE = #{ categoryCode }
+        WHERE A.PRODUCT_NO = #{ productNo }
+and
+        UPDATE TBL_PRODUCT_IMAGE
+            B.FILE_NO
+            , B.ORIGIN_NAME
+            , B.STORED_NAME
+            , B.THUMBNAIL
+            , B.PRODUCT_NO
+        WHERE A.PRODUCT_NO = #{ productNo }
+    </update>
+
+    <!-- 예약 삭제 -->
+    <delete id="deleteReserve">
+        DELETE
+        FROM TBL_
+        WHERE RESERVE_NO = #{ reserve_no }
+    </delete>
 </mapper>
