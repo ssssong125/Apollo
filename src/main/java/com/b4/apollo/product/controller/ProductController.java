@@ -8,13 +8,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("product")
 public class ProductController {
+
     private final ProductService productService;
 
     public ProductController(ProductService productService) {
         this.productService = productService;
     }
 
-    @GetMapping("product")
+    @GetMapping("products") // 잠시 변경해둘게요
     public void productList() {
 
     }

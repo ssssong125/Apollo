@@ -1,27 +1,29 @@
-package com.b4.apollo.cart.model.service;
+package com.b4.apollo.cart.model.dao;
 
 import com.b4.apollo.cart.model.dto.OrderDTO;
 import com.b4.apollo.cart.model.dto.PaymentDTO;
 import com.b4.apollo.product.model.dto.ProductDTO;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 import java.util.Map;
 
+
 /**
- @FileName : CartService.java
+ @FileName : CartDAO.java
  @Project : Apollo
  @Date : 2022. 12. 28.
  @작성자 : 김수용
- @프로그램 설명 : 주문 관련 요청을 처리할 Service의 interface
+ @프로그램 설명 : 서버 구동 프로그램
  */
-public interface CartService {
-
+@Mapper
+public interface CartDAO {
 
     /**
      * @MethodName : getCartList
      * @작성일 : 2022. 12. 30.
      * @작성자 : 김수용
-     * @Method 설명 : 장바구니 페이지에 출력할 장바구니 품목들을 불러올 구현체의 인터페이스
+     * @Method 설명 : CartService에서 호출되어 장바구니 품목을 조회할 쿼리문을 실행시킴
      */
     List<ProductDTO> getCartList(Map<String, String> userId);
 
@@ -29,15 +31,15 @@ public interface CartService {
      * @MethodName : getPaymentDetail
      * @작성일 : 2022. 12. 30.
      * @작성자 : 김수용
-     * @Method 설명 : 결제 정보를 불러올 구현체의 인터페이스
+     * @Method 설명 : CartService에서 호출되어 결제정보를 조회할 쿼리문을 실행시킴
      */
     PaymentDTO getPaymentDetail(Map<String, String> userId);
 
     /**
-     * @MethodName : getOrderDetail
+     * @MethodName : getOrder
      * @작성일 : 2022. 12. 30.
      * @작성자 : 김수용
-     * @Method 설명 : 주문 정보를 불러올 구현체의 인터페이스
+     * @Method 설명 : CartService에서 호출되어 오더정보를 조회할 쿼리문을 실행시킴
      */
     OrderDTO getOrderDetail(Map<String, Integer> paymentNo);
 }
