@@ -5,7 +5,6 @@ import com.b4.apollo.cart.model.dto.PaymentDTO;
 import com.b4.apollo.product.model.dto.ProductDTO;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  @FileName : Cart
@@ -21,25 +20,25 @@ public interface CartService {
      * @MethodName : getCartList
      * @작성일 : 2022. 12. 30.
      * @작성자 : 김수용
-     * @Method 설명 : 장바구니 페이지에 출력할 장바구니 품목들을 불러올 구현체의 인터페이스
+     * @Method 설명 : 장바구니 페이지에 출력할 장바구니 품목들을 불러오는 기능
      */
-    List<ProductDTO> getCartList(Map<String, String> userId);
+    List<ProductDTO> getCartList(String userId);
 
     /**
      * @MethodName : getPaymentDetail
      * @작성일 : 2022. 12. 30.
      * @작성자 : 김수용
-     * @Method 설명 : 결제 정보를 불러올 구현체의 인터페이스
+     * @Method 설명 : 결제 정보를 불러오는 기능
      */
-    PaymentDTO getPaymentDetail(Map<String, String> userId);
+    PaymentDTO getPaymentDetail(int paymentNo);
 
     /**
      * @MethodName : getOrderDetail
      * @작성일 : 2022. 12. 30.
      * @작성자 : 김수용
-     * @Method 설명 : 주문 정보를 불러올 구현체의 인터페이스
+     * @Method 설명 : 주문 정보를 불러오는 기능
      */
-    OrderDTO getOrderDetail(Map<String, Integer> paymentNo);
+    OrderDTO getOrderDetail(int orderNo);
 
     /**
      * @MethodName : addCart
@@ -47,5 +46,29 @@ public interface CartService {
      * @작성자 : 김수용
      * @Method 설명 : 장바구니에 상품을 추가하는 기능
      */
-    boolean addCart(Map<String, Integer> product) throws Exception;
+    boolean addCart(int productNo, String userId, int productCount) throws Exception;
+
+    /**
+     * @MethodName : increaseProduct
+     * @작성일 : 2023. 01. 03.
+     * @작성자 : 김수용
+     * @Method 설명 : 장바구니에 담긴 품목의 수량을 증가시키는 기능
+     */
+    boolean increaseProduct(int cartNo) throws Exception;
+
+    /**
+     * @MethodName : decreaseProduct
+     * @작성일 : 2023. 01. 03.
+     * @작성자 : 김수용
+     * @Method 설명 : 장바구니에 담긴 품목의 수량을 감소시키는 기능
+     */
+    boolean decreaseProduct(int cartNo) throws Exception;
+
+    /**
+     * @MethodName : deleteProduct
+     * @작성일 : 2023. 01. 03.
+     * @작성자 : 김수용
+     * @Method 설명 : CartService에서 호출되어 장바구니에서 품목을 제거함
+     */
+    boolean deleteProduct(int cartNo) throws Exception;
 }

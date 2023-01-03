@@ -13,15 +13,10 @@ import javax.sql.DataSource;
 
 /**
  @FileName : ContextConfiguration.java
-
  @Project : Apollo
-
  @Date : 2022. 12. 28.
-
  @작성자 : 박유리
-
  @프로그램 설명 : mybatis와 연동하는 configuration class
-
  */
 @Configuration
 @EnableTransactionManagement
@@ -48,20 +43,20 @@ public class MybatisConfig {
         return new DataSourceTransactionManager(dataSource);
     }
 
-//    @Bean
-//    public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
-//        SqlSessionFactoryBean seb = new SqlSessionFactoryBean();
-//
-////        org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
-////        configuration.setCallSettersOnNulls(true);
-////        seb.setConfiguration(configuration);
-//        seb.setConfigLocation(applicationContext.getResource("classpath:/mybatis/mybatis-config.xml"));
-//        Resource[] res = new PathMatchingResourcePatternResolver().getResources("classpath:boardMapper.xml");
-//        seb.setMapperLocations(res);
-//
-//        seb.setDataSource(dataSource);
-//
-//        return seb.getObject();
-//    }
+    @Bean
+    public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
+        SqlSessionFactoryBean seb = new SqlSessionFactoryBean();
+
+//        org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
+//        configuration.setCallSettersOnNulls(true);
+//        seb.setConfiguration(configuration);
+        seb.setConfigLocation(applicationContext.getResource("classpath:/mybatis/mybatis-config.xml"));
+        Resource[] res = new PathMatchingResourcePatternResolver().getResources("classpath:mappers/boardMapper.xml");
+        seb.setMapperLocations(res);
+
+        seb.setDataSource(dataSource);
+
+        return seb.getObject();
+    }
 }
 

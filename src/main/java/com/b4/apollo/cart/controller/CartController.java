@@ -16,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("cart")
 public class CartController {
 
-
     /**
      * @MethodName : trolley
      * @작성일 : 2022. 12. 28.
@@ -27,6 +26,7 @@ public class CartController {
     public ModelAndView trolley(ModelAndView mv) {
 
         mv.setViewName("cart/trolley");
+        mv.addObject("userId", "user01");
 
         return mv;
     }

@@ -4,8 +4,8 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!--  xml 파일을 사용할 mapper가 있는 경로 -->
-<mapper namespace="com.b4.apollo.cart.model.dao.CartDAO">
-<!-- <mapper namespace="CartMapper"> -->
+<!--<mapper namespace="com.b4.apollo.cart.model.dao.CartDAO">-->
+ <mapper namespace="CartMapper">
 
 	<!--상품 정보를 담을 resultMap-->
 	<resultMap type="com.b4.apollo.product.model.dto.ProductDTO" id="productResultMap">
@@ -62,9 +62,6 @@
 		JOIN TBL_CART B ON A.PRODUCT_NO = B.PRODUCT_NO
 		WHERE B.USER_ID = #{ userId }
 	</select>
-  
-<!--	public OrderDTO getOrderDetail(Map<String, Integer> paymentNo) {-->
-<!--	public PaymentDTO getPaymentDetail(Map<String, String> userId) {-->
 
 	<!--userId를 통해 결제 정보를 조회-->
 	<select id="getPaymentDetail" parameterType="hashmap" resultType="paymentResultMap">
@@ -94,5 +91,37 @@
 		JOIN TBL_PAYMENT B ON A.PAYMENT_NO = B.PAYMENT_NO
 		WHERE B.PAYMENT_NO = #{ paymentNo }
 	</select>
+
+	<!-- 장바구니에 품목추가 -->
+	<insert id="addCart" parameterType="hashMap">
+		INSERT INTO TBL_CART
+			VALUES
+			    (
+			     	SEQ_CART_NO.NEXTVAL,
+			     	#{ productNo },
+			     	#{ userId },
+			     	#{ productCount }
+				)
+	</insert>
+
+	<!--주문 수량 증가-->
+	<update id="increaseProduct" parameterType="Integer">
+		UPDATE TBL_CART A
+		SET A.PRODUCT_COUNT + 1
+		WHERE A.CART_NO = #{ cartNo }
+	</update>
+
+	<!--주문 수량 감소-->
+	<update id="decreaseProduct" parameterType="Integer">
+		UPDATE TBL_CART A
+		SET A.PRODUCT_COUNT - 1
+		WHERE A.CART_NO = #{ cartNo }
+	</update>
+
+	<!--장바구니에서 품목 삭제-->
+	<delete id="deleteProduct" parameterType="Integer">
+		DELETE FROM TBL_CART A
+			WHERE A.CART_NO = #{ cartNo }
+	</delete>
 
 </mapper>
