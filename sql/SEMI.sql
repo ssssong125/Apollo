@@ -359,6 +359,14 @@ VALUES('C3','Cl');
 INSERT INTO TBL_PRODUCT
 VALUES(1, 'Gadda', 60000, 'Italy', 1, 'C1');
 
+-- 다중 쿼리 예시
+--BEGIN
+--INSERT INTO TBL_PRODUCT
+--VALUES(100, 'Gadda', 60000, 'Italy', 1, 'C1');
+--INSERT INTO TBL_PRODUCT
+--VALUES(101, 'Gadda', 60000, 'Italy', 1, 'C1');
+--END;
+
 -- 별칭
 -- 예시
 -- COMMENT ON COLUMN STUDENT_DEL.STUDENT_NO IS '학생번호';

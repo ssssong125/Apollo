@@ -4,6 +4,7 @@ import com.b4.apollo.cart.model.dao.CartDAO;
 import com.b4.apollo.cart.model.dto.OrderDTO;
 import com.b4.apollo.cart.model.dto.PaymentDTO;
 import com.b4.apollo.product.model.dto.ProductDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,7 +29,7 @@ public class CartServiceImpl implements CartService{
      * @작성자 : 김수용
      * @Method 설명 : 생성자를 통한 주입
      */
-//    @Autowired
+    @Autowired
     public CartServiceImpl(CartDAO cartDAO) {
         this.cartDAO = cartDAO;
     }
@@ -41,9 +42,7 @@ public class CartServiceImpl implements CartService{
      */
     @Override
     public List<ProductDTO> getCartList(String userId) {
-
-        HashMap<String, String> parameter = new HashMap<>();
-        parameter.put("userId", userId);
+//    public List<ProductDTO> getCartList(Map<String, String> parameter) {
 
         // 널값은 스크립트로 처리하자
         //        if(productList == null) {
@@ -51,7 +50,8 @@ public class CartServiceImpl implements CartService{
 ////            throw new Exception("상품 정보가 존재하지 않습니다.");
 //        }
 
-        return cartDAO.getCartList(parameter);
+        return cartDAO.getCartList(userId);
+//        return cartDAO.getCartList(parameter);
     }
 
     /**
