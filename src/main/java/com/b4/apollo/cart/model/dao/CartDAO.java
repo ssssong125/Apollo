@@ -25,7 +25,8 @@ public interface CartDAO {
      * @작성자 : 김수용
      * @Method 설명 : CartService에서 호출되어 장바구니 품목을 조회할 쿼리문을 실행시킴
      */
-    List<ProductDTO> getCartList(Map<String, String> parameter);
+//    List<ProductDTO> getCartList(Map<String, String> parameter);
+    List<ProductDTO> getCartList(String userId);
 
     /**
      * @MethodName : getPaymentDetail
@@ -82,7 +83,7 @@ public interface CartDAO {
      * @작성자 : 김수용
      * @Method 설명 : CartService에서 호출되어 주문시 필요한 주소지를 입력받음
      */
-    int order(HashMap<String, String> parameter);
+//    int order(HashMap<String, String> parameter);
 
 //    MemberDTO findMemberById(String memberId); // 예시) xml로 넘겨서 쿼리 실행할 메소드 작성
 }

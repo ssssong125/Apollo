@@ -205,6 +205,15 @@ button:hover:after {
     height: 100%;
     object-fit: cover;
 }
+//하이퍼링크 스타일 제거
+a {
+    text-decoration: none; // 밑줄제거
+    color: white;
+}
+a:hover{
+    text-decoration: none;
+    color: #FFD700;
+}
 /*수직 정렬*/
 .v-align{
     word-wrap: break-word;

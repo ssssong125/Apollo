@@ -15,7 +15,6 @@ public class ProductServiceImpl implements ProductService {
         this.productDAO = productDAO;
     }
 
-
     @Override
     public List<ProductDTO> productList() {
         return productDAO.productList();

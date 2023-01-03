@@ -1,9 +1,14 @@
 package com.b4.apollo.cart.controller;
 
+import com.b4.apollo.cart.model.service.CartService;
+import com.b4.apollo.product.model.dto.ProductDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 /**
  @FileName : CartController.java
@@ -16,6 +21,14 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("cart")
 public class CartController {
 
+//    @Resource
+    private final CartService cartService;
+
+    @Autowired
+    public CartController(CartService cartService) {
+        this.cartService = cartService;
+    };
+
     /**
      * @MethodName : trolley
      * @작성일 : 2022. 12. 28.
@@ -25,8 +38,13 @@ public class CartController {
     @GetMapping("trolley")
     public ModelAndView trolley(ModelAndView mv) {
 
+//        String userId = "user01";
+//        HashMap<String, String> userId = new HashMap<>();
+//        userId.put("userId", "user01");
+
+        List<ProductDTO> cartList = cartService.getCartList("user01");
+        mv.addObject("cartList", cartList);
         mv.setViewName("cart/trolley");
-        mv.addObject("userId", "user01");
 
         return mv;
     }
