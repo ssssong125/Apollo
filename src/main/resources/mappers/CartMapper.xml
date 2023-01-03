@@ -5,56 +5,94 @@
 
 <!--  xml 파일을 사용할 mapper가 있는 경로 -->
 <mapper namespace="com.b4.apollo.cart.model.dao.CartDAO">
+<!-- <mapper namespace="CartMapper"> -->
 
-	<resultMap id="boardResultSet" type="com.b4.apollo.qna.model.dto.Question">
-		<id column="BOARD_NO" property="boardNo"/>
-		<result column="USER_ID" property="userId"/>
-		<result column="BOARD_TITLE" property="boardTitle"/>
-		<result column="BOARD_CONTENT" property="boardContent"/>
-		<result column="CREATE_DATE" property="createDate"/>
-		<result column="STATUS" property="status"/>
-		<result column="COUNT" property="count"/>
+	<!--상품 정보를 담을 resultMap-->
+	<resultMap type="com.b4.apollo.product.model.dto.ProductDTO" id="productResultMap">
+		<id property="productNo" column="PRODUCT_NO"/>
+		<result property="productName" column="PRODUCT_NAME"/>
+		<result property="productPrice" column="PRODUCT_PRICE"/>
+		<result property="productDesc" column="PRODUCT_DESC"/>
+		<result property="productQty" column="PRODUCT_QTY"/>
+		<result property="categoryCode" column="CATEGORY_CODE"/>
 	</resultMap>
 
-	<resultMap id="replyResultSet" type="com.b4.apollo.qna.model.dto.Answer">
-		<id column="REPLY_NO" property="replyNo"/>
-		<result column="BOARD_NO" property="boardNo"/>
-		<result column="USER_ID" property="userId"/>
-		<result column="REPLY_CONTENT" property="replyContent"/>
-		<result column="REPLY_CREATE_DATE" property="createDate"/>
-		<result column="REPLY_MODDATE" property="modDate"/>
+	<!--결제 정보를 담을 resultMap-->
+	<resultMap type="com.b4.apollo.cart.model.dto.PaymentDTO" id="paymentResultMap">
+		<id property="productNo" column="PRODUCT_NO"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="paymentMethod" column="PAYMENT_METHOD"/>
+		<result property="paymentAmount" column="PAYMENT_AMOUNT"/>
+		<result property="productQty" column="PRODUCT_QTY"/>
+		<result property="categoryCode" column="CATEGORY_CODE"/>
+	</resultMap>
+
+	<!--주문 정보를 담을 resultMap-->
+	<resultMap type="com.b4.apollo.cart.model.dto.OrderDTO" id="orderResultMap">
+		<id property="orderNo" column="ORDER_NO"/>
+		<result property="paymentNo" column="PAYMENT_NO"/>
+		<result property="orderDate" column="ORDER_DATE"/>
+		<result property="receiverName" column="RECEIVER_NAME"/>
+		<result property="receiverTel" column="RECEIVER_TEL"/>
+		<result property="addressZipCode" column="ADDRESS_ZIPCODE"/>
+		<result property="address" column="ADDRESS"/>
+		<result property="addressDetail" column="ADDRESS_DETAIL"/>
+		<result property="shippingStatus" column="SHIPPING_STATUS"/>
 	</resultMap>
 
 <!-- <select> 태그를 이용하여 select 쿼리임을 나타냄. 앞서 mapper에서 말했던 메소드의 이름은 select 쿼리의 id값과 같아야함. -->
-	<select id="selectListCount" resultType="_int">
-		SELECT COUNT(*)
-		FROM TBL_QUESTION
+	<!--userId를 통해 장바구니에 담겨있는 상품 목록을 조회-->
+	<select id="getCartList" parameterType="hashmap" resultType="productResultMap">
+-- 		SELECT
+-- 		    A.CART_NO,
+-- 		    A.PRODUCT_NO,
+-- 		    A.USER_ID,
+-- 		    A.PRODUCT_COUNT
+-- 		FROM TBL_CART A
+-- 		WHERE A.USER_ID = #{ userId }
+
+		SELECT
+			A.PRODUCT_NO,
+			A.PRODUCT_NAME,
+			A.PRODUCT_PRICE,
+			A.PRODUCT_DESC,
+			A.PRODUCT_QTY,
+			A.CATEGORY_CODE
+		FROM TBL_PRODUCT A
+		JOIN TBL_CART B ON A.PRODUCT_NO = B.PRODUCT_NO
+		WHERE B.USER_ID = #{ userId }
+	</select>
+  
+<!--	public OrderDTO getOrderDetail(Map<String, Integer> paymentNo) {-->
+<!--	public PaymentDTO getPaymentDetail(Map<String, String> userId) {-->
+
+	<!--userId를 통해 결제 정보를 조회-->
+	<select id="getPaymentDetail" parameterType="hashmap" resultType="paymentResultMap">
+		SELECT
+			A.PAYMENT_NO,
+			A.USER_ID,
+			A.PAYMENT_METHOD,
+			A.PAYMENT_AMOUNT
+		FROM TBL_PAYMENT A
+		JOIN TBL_USER B ON A.USER_ID = B.USER_ID
+		WHERE B.USER_ID = #{ userId }
 	</select>
 
-	<select id="selectList" resultMap="boardResultSet">
-		SELECT *
-		FROM TBL_QUESTION
-		ORDER BY BOARD_NO DESC
+	<!--userId를 통해 주문 정보를 조회-->
+	<select id="getOrderDetail" parameterType="hashmap" resultType="orderResultMap">
+		SELECT
+			A.ORDER_NO,
+			A.PAYMENT_NO,
+			A.ORDER_DATE,
+			A.RECEIVER_NAME,
+			A.RECEIVER_TEL,
+			A.ADDRESS_ZIPCODE,
+			A.ADDRESS,
+			A.ADDRESS_DETAIL,
+			A.SHIPPING_STATUS
+		FROM TBL_ORDER A
+		JOIN TBL_PAYMENT B ON A.PAYMENT_NO = B.PAYMENT_NO
+		WHERE B.PAYMENT_NO = #{ paymentNo }
 	</select>
 
-	<update id="increaseCount" parameterType="_int">
-		UPDATE TBL_QUESTION
-		SET COUNT = COUNT + 1
-		WHERE BOARD_NO = #{bno} AND STATUS='Y'
-	</update>
-
-	<select id="selectBoard" resultMap="boardResultSet" parameterType="_int">
-		SELECT *
-		FROM TBL_QUESTION
-		WHERE BOARD_NO = #{bno} AND STATUS='Y'
-	</select>
-
-
-	<!-- 답변 -->
-	<insert id="createAnswer" parameterType="Reply">
-		INSERT INTO TBL_QUESTION_REPLY
-		VALUES
-			(SEQ_REP_NO.NEXTVAL, #{refBoardNo},  #{userId},  #{replyContent}, SYSDATE, DEFAULT)
-
-	</insert>
 </mapper>
