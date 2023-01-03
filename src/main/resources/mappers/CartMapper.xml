@@ -4,8 +4,8 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!--  xml 파일을 사용할 mapper가 있는 경로 -->
-<!--<mapper namespace="com.b4.apollo.cart.model.dao.CartDAO">-->
-<mapper namespace="CartMapper">
+<mapper namespace="com.b4.apollo.cart.model.dao.CartDAO">
+<!-- <mapper namespace="CartMapper"> -->
 
 	<!--상품 정보를 담을 resultMap-->
 	<resultMap type="com.b4.apollo.product.model.dto.ProductDTO" id="productResultMap">
@@ -62,6 +62,7 @@
 		JOIN TBL_CART B ON A.PRODUCT_NO = B.PRODUCT_NO
 		WHERE B.USER_ID = #{ userId }
 	</select>
+  
 <!--	public OrderDTO getOrderDetail(Map<String, Integer> paymentNo) {-->
 <!--	public PaymentDTO getPaymentDetail(Map<String, String> userId) {-->
 

@@ -8,7 +8,6 @@ import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 import java.util.Map;
 
-
 /**
  @FileName : CartDAO.java
  @Project : Apollo
@@ -42,4 +41,10 @@ public interface CartDAO {
      * @Method 설명 : CartService에서 호출되어 오더정보를 조회할 쿼리문을 실행시킴
      */
     OrderDTO getOrderDetail(Map<String, Integer> paymentNo);
+
+    int addCart(Map<String, Integer> product);
+
+    int increaseProduct(Map<String, Integer> productNo);
+
+//    MemberDTO findMemberById(String memberId); // 예시) xml로 넘겨서 쿼리 실행할 메소드 작성
 }

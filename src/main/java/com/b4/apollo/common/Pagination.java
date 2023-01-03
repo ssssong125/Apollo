@@ -4,7 +4,7 @@ import com.b4.apollo.qna.model.dto.PageInfo;
 
 public class Pagination {
 
-        public static PageInfo getPageInfo(int listCount, int currentPage, int pageLimit, int boardLimit) {
+         public static PageInfo getPageInfo(int listCount, int currentPage, int pageLimit, int boardLimit) {
 
             // * maxPage : 총 페이지 수
 
@@ -25,4 +25,4 @@ public class Pagination {
 
         }
 
-    }
+}

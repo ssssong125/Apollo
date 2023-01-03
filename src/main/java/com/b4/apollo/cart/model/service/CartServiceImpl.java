@@ -7,6 +7,7 @@ import com.b4.apollo.product.model.dto.ProductDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.Map;
 
 import java.util.List;
 import java.util.Map;
@@ -19,13 +20,12 @@ import java.util.Map;
  @프로그램 설명 : 주문 관련 요청을 처리할 Service의 구현체
  */
 @Service
-@Transactional(rollbackFor = Exception.class) // 오류 발생시 롤백
 public class CartServiceImpl implements CartService{
 
     private final CartDAO cartDAO;
 
     /**
-     * @MethodName : 생성자
+     * @MethodName : 기본 생성자
      * @작성일 : 2022. 12. 30.
      * @작성자 : 김수용
      * @Method 설명 : 생성자를 통한 주입
@@ -82,3 +82,25 @@ public class CartServiceImpl implements CartService{
         return orderDetail;
     }
 }
+
+     * @MethodName : addCart
+     * @작성일 : 2023. 01. 01.
+     * @작성자 : 김수용
+     * @Method 설명 : 장바구니에 상품을 추가하는 기능 구현체
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean addCart(Map<String, Integer> product) throws Exception {
+
+        int result = cartDAO.addCart(product);
+
+        if(result <= 0) {
+
+            throw new Exception("장바구니 담기 실패");
+        }
+
+
+        return result > 0? true : false;
+    }
+}
+//@Transactional(rollbackFor = Exception.class) // 오류 발생시 롤백 // 메소드에 

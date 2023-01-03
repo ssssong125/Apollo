@@ -5,38 +5,95 @@
 
 <!--  xml 파일을 사용할 mapper가 있는 경로 -->
 <mapper namespace="boardMapper">
-	<resultMap id="boardResultSet" type="com.b4.apollo.qna.model.dto.Question">
+	<resultMap id="boardResultSet" type="Board">
 		<id column="BOARD_NO" property="boardNo"/>
 		<result column="USER_ID" property="userId"/>
 		<result column="BOARD_TITLE" property="boardTitle"/>
 		<result column="BOARD_CONTENT" property="boardContent"/>
 		<result column="CREATE_DATE" property="createDate"/>
-		<result column="STATUS" property="status"/>
 		<result column="COUNT" property="count"/>
+		<result column="STATUS" property="status"/>
+	</resultMap>
+	<resultMap id="replyResultSet" type="Reply">
+		<id column="REPLY_NO" property="replyNo"/>
+		<result column="BOARD_NO" property="boardNo"/>
+		<result column="REPLY_CONTENT" property="replyContent"/>
+		<result column="REPLY_DATE" property="createDate"/>
 	</resultMap>
 
-<!-- <select> 태그를 이용하여 select 쿼리임을 나타냄. 앞서 mapper에서 말했던 메소드의 이름은 select 쿼리의 id값과 같아야함. -->
+
+<!-- 게시글 수 카운트 -->
 	<select id="selectListCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM TBL_QUESTION
-	</select>
-
-	<select id="selectList" resultMap="boardResultSet">
-		SELECT *
-		FROM TBL_QUESTION
-		ORDER BY BOARD_NO DESC
+		WHERE STATUS = 'Y'
 	</select>
 
 	<update id="increaseCount" parameterType="_int">
 		UPDATE TBL_QUESTION
 		SET COUNT = COUNT + 1
-		WHERE BOARD_NO = #{bno} AND STATUS='Y'
+		WHERE BOARD_NO = #{bno}
+		  AND STATUS='Y'
 	</update>
 
+
+	<!-- 전체 게시글 조회 -->
+	<select id="selectList" resultMap="boardResultSet">
+		SELECT *
+		FROM TBL_QUESTION
+		WHERE STATUS = 'Y'
+		ORDER BY BOARD_NO DESC
+	</select>
+
+<!-- 게시글 상세보기 -->
 	<select id="selectBoard" resultMap="boardResultSet" parameterType="_int">
 		SELECT *
 		FROM TBL_QUESTION
-		WHERE BOARD_NO = #{bno} AND STATUS='Y'
+		WHERE BOARD_NO = #{bno}
+		AND STATUS='Y'
 	</select>
 
+	<!-- 게시글 등록 -->
+	<insert id="insertBoard" parameterType="Board">
+		INSERT INTO TBL_QUESTION
+		VALUES
+			(SEQ_QNA_NO.NEXTVAL, 'USER01', #{boardTitle}, #{boardContent}, SYSDATE, DEFAULT, DEFAULT)
+	</insert>
+
+	<!-- 게시글 수정 -->
+	<update id="updateBoard" parameterType="Board">
+		UPDATE TBL_QUESTION
+		SET BOARD_TITLE=#{boardTitle}, BOARD_CONTENT= #{boardContent}
+		WHERE BOARD_NO=#{boardNo}
+		AND STATUS='Y'
+	</update>
+
+<!-- 게시글 삭제 -->
+	<update id = "deleteBoard" parameterType="_int">
+		UPDATE TBL_QUESTION
+		SET STATUS= 'N'
+		WHERE BOARD_NO=#{boardNo} AND STATUS='Y'
+
+	</update>
+
+	<!-- 답변 -->
+	<insert id="insertReply" parameterType="Reply">
+		INSERT INTO TBL_QUESTION_REPLY
+		VALUES
+			(SEQ_REP_NO.NEXTVAL, #{replyContent}, SYSDATE , #{boardNo})
+
+	</insert>
+
+
+	<select id="selectReplyList" parameterType="_int" resultMap="replyResultSet">
+		<![CDATA[
+		SELECT
+		       REPLY_NO,
+			   REPLY_CONTENT,
+			   REPLY_DATE
+		FROM TBL_QUESTION_REPLY
+		WHERE BOARD_NO = #{bno}
+		]]>
+
+	</select>
 </mapper>

@@ -21,4 +21,14 @@ public interface BoardService {
     Question selectBoard(int bno);
 
     int selectListCount();
+
+    void deleteBoard(int boardNo);
+
+
+    void insertBoard(String boardTitle, String boardContent);
+
+//    void updateBoard(int boardNo);
+    void updateBoard(Question q, String boardTitle, String boardContent);
+
+
 }

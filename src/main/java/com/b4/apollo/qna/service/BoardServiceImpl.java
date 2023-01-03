@@ -1,5 +1,6 @@
 package com.b4.apollo.qna.service;
 
+import com.b4.apollo.qna.exception.CommonException;
 import com.b4.apollo.qna.exception.DataNotFoundException;
 import com.b4.apollo.qna.model.dao.BoardDao;
 import com.b4.apollo.qna.model.dto.PageInfo;
@@ -8,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -20,24 +22,59 @@ public class BoardServiceImpl implements BoardService {
     @Autowired
     private BoardDao boardDao;
 
+
     @Override
     public int selectListCount() {
         return boardDao.selectListCount(sqlSession);
     }
 
     @Override
-    public ArrayList<Question> selectList(PageInfo pageInfo) {
-        return boardDao.selectList(sqlSession, pageInfo);
+    public void deleteBoard(int boardNo) {
+        int result = boardDao.deleteBoard(sqlSession, boardNo);
+
+        if(result < 0) {
+            throw new CommonException("게시글삭제실패 ");
+        }
     }
+
+    @Override
+    public void insertBoard(String boardTitle, String boardContent) {
+        Question q = new Question();
+        q.setBoardTitle(boardTitle);
+        q.setBoardContent(boardContent);
+        q.setCreateDate(LocalDateTime.now());
+        int result = boardDao.insertBoard(sqlSession, q);
+
+        if(result < 0) {
+            throw new CommonException("게시글 추가 실패 ");
+        }
+    }
+
+    @Override
+    public void updateBoard(Question q, String boardTitle, String boardContent) {
+        q.setBoardTitle(boardTitle);
+        q.setBoardContent(boardContent);
+        q.setCreateDate(LocalDateTime.now());
+        int result = boardDao.updateBoard(sqlSession, q);
+    }
+
+
 
 
     @Override
-    public Question selectBoard(int bno) {
-        Optional<Question> question = Optional.ofNullable(this.boardDao.selectBoard(sqlSession, bno));
-        if(question.isPresent()){
-            return question.get();
-        }else{
-            throw new DataNotFoundException("question not found");
+        public ArrayList<Question> selectList (PageInfo pageInfo){
+            return boardDao.selectList(sqlSession, pageInfo);
+        }
+
+
+        @Override
+        public Question selectBoard ( int bno){
+            Optional<Question> question = Optional.ofNullable(this.boardDao.selectBoard(sqlSession, bno));
+            if (question.isPresent()) {
+                return question.get();
+            } else {
+                throw new DataNotFoundException("question not found");
+            }
         }
     }
-}
+
