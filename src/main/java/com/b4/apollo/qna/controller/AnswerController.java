@@ -60,7 +60,7 @@ public class AnswerController {
         answer.setReplyNo(replyNo);
         answer.setReplyContent(replyContent);
 
-        answerService.create(answer);
+        answerService.insertReply(answer);
 
         return String.format("redirect:/question/detail/%s", replyNo);
     }
