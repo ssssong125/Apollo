@@ -1,15 +1,11 @@
 package com.b4.apollo.common.config;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -52,20 +48,20 @@ public class MybatisConfig {
         return new DataSourceTransactionManager(dataSource);
     }
 
-    @Bean
-    public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
-        SqlSessionFactoryBean seb = new SqlSessionFactoryBean();
-
-//        org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
-//        configuration.setCallSettersOnNulls(true);
-//        seb.setConfiguration(configuration);
-        seb.setConfigLocation(applicationContext.getResource("classpath:/mybatis/mybatis-config.xml"));
-        Resource[] res = new PathMatchingResourcePatternResolver().getResources("classpath:mappers/*.xml");
-        seb.setMapperLocations(res);
-
-        seb.setDataSource(dataSource);
-
-        return seb.getObject();
-    }
+//    @Bean
+//    public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
+//        SqlSessionFactoryBean seb = new SqlSessionFactoryBean();
+//
+////        org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
+////        configuration.setCallSettersOnNulls(true);
+////        seb.setConfiguration(configuration);
+//        seb.setConfigLocation(applicationContext.getResource("classpath:/mybatis/mybatis-config.xml"));
+//        Resource[] res = new PathMatchingResourcePatternResolver().getResources("classpath:boardMapper.xml");
+//        seb.setMapperLocations(res);
+//
+//        seb.setDataSource(dataSource);
+//
+//        return seb.getObject();
+//    }
 }
 
