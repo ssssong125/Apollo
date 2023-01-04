@@ -8,7 +8,7 @@
         html{
             background-color: black;
         }
-        th{
+        tr{
             color: white;
         }
     </style>
@@ -34,6 +34,9 @@
         <td th:text="${ product.categoryCode }"></td>
     </tr>
 </table>
+<button onclick="location.href='/product/regist'">상품등록</button>
+<button onclick="location.href='/product/edit'">상품정보수정</button>
+<button onclick="location.href='/product/delete'">상품삭제</button>
 <div th:include="fragments/footer.html"></div>
 </body>
 </html>
