@@ -1,9 +1,9 @@
 package com.b4.apollo.cart.model.service;
 
-import com.b4.apollo.cart.model.dao.CartDAO;
+import com.b4.apollo.cart.model.dao.CartMapper;
+import com.b4.apollo.cart.model.dto.CartProductDTO;
 import com.b4.apollo.cart.model.dto.OrderDTO;
 import com.b4.apollo.cart.model.dto.PaymentDTO;
-import com.b4.apollo.product.model.dto.ProductDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +21,7 @@ import java.util.List;
 @Service
 public class CartServiceImpl implements CartService{
 
-    private final CartDAO cartDAO;
+    private CartMapper cartDAO;
 
     /**
      * @MethodName : 기본 생성자
@@ -30,7 +30,7 @@ public class CartServiceImpl implements CartService{
      * @Method 설명 : 생성자를 통한 주입
      */
     @Autowired
-    public CartServiceImpl(CartDAO cartDAO) {
+    public CartServiceImpl(CartMapper cartDAO) {
         this.cartDAO = cartDAO;
     }
 
@@ -41,7 +41,7 @@ public class CartServiceImpl implements CartService{
      * @Method 설명 : 장바구니 페이지에 출력할 장바구니 품목들을 불러올 인터페이스의 구현체
      */
     @Override
-    public List<ProductDTO> getCartList(String userId) {
+    public List<CartProductDTO> getCartList(String userId) {
 //    public List<ProductDTO> getCartList(Map<String, String> parameter) {
 
         // 널값은 스크립트로 처리하자
@@ -92,15 +92,19 @@ public class CartServiceImpl implements CartService{
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean addCart(int productNo, String userId, int productCount) throws Exception{
+    public boolean addProductToCart(int productNo, String userId, int productCount) throws Exception{
 
-        HashMap<String, String> parameter = new HashMap<>();
-        parameter.put("productNo", String.valueOf(productNo));
+        HashMap<String, Object> parameter = new HashMap<>();
+        parameter.put("productNo", productNo);
         parameter.put("userId", userId);
-        parameter.put("productCount", String.valueOf(productCount));
+        parameter.put("productCount", productCount);
 
-        int result = cartDAO.addCart(parameter);
-
+//        CartDTO cartDTO = cartDAO.getCart(userId);
+//        if(cartDTO == null){
+//            cartDTO = cartDAO.insertCart(userId);
+//        }
+//        int result = cartDAO.addProductToCart(cartDTO.getCartNo(), productNo);
+        int result = 0;
         if(result <= 0) {
 
             throw new Exception("장바구니 담기 실패");

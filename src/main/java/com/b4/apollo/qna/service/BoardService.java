@@ -14,8 +14,6 @@ import com.github.pagehelper.Page;
 
 public interface BoardService {
 
-
-
     QuestionDTO selectBoard(int bno);
 
     void deleteBoard(int boardNo);

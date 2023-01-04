@@ -1,7 +1,7 @@
 package com.b4.apollo.cart.controller;
 
+import com.b4.apollo.cart.model.dto.CartProductDTO;
 import com.b4.apollo.cart.model.service.CartService;
-import com.b4.apollo.product.model.dto.ProductDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,11 +38,11 @@ public class CartController {
     @GetMapping("trolley")
     public ModelAndView trolley(ModelAndView mv) {
 
-//        String userId = "user01";
+        String userId = "user01";
 //        HashMap<String, String> userId = new HashMap<>();
 //        userId.put("userId", "user01");
 
-        List<ProductDTO> cartList = cartService.getCartList("user01");
+        List<CartProductDTO> cartList = cartService.getCartList(userId);
         mv.addObject("cartList", cartList);
         mv.setViewName("cart/trolley");
 
