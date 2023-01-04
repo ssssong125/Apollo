@@ -58,12 +58,13 @@
     <!-- 예약 수정 -->
     <update id="editProduct">
         UPDATE TBL_PRODUCT A
+            SET
             A.PRODUCT_NAME = #{ productName }
           , A.PRODUCT_PRICE = #{ productPrice }
           , A.PRODUCT_DESC = #{ productDesc }
           , A.PRODUCT_QTY = #{ productQty }
           , A.CATEGORY_CODE = #{ categoryCode }
-        WHERE A.PRODUCT_NO = #{ productNo }
+        WHERE A.PRODUCT_NO = '2'
 
     </update>
 
@@ -71,6 +72,6 @@
     <delete id="productDelete" parameterType="_int">
         DELETE
         FROM TBL_PRODUCT
-        WHERE PRODUCT_NO = #{ productNo }
+        WHERE PRODUCT_NO = '3'
     </delete>
 </mapper>

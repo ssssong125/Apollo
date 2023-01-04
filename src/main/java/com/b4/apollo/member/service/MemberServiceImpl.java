@@ -35,6 +35,7 @@ public class MemberServiceImpl implements MemberService {
             throw new CommonException("회원가입에 실패 하였습니다.");
 
         }
+    }
 
     @Override
     public MemberDTO updateMember (MemberDTO m) throws Exception {

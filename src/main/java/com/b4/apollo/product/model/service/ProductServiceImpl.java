@@ -44,9 +44,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductDTO productDelete(Integer code) {
-        return productDAO.productDelete(code);
-    }
+    public boolean productDelete(Integer code) {
+        int result = productDAO.productDelete(code);
+        if(result<=0){
+            // throw new Exception("메뉴등록 실패");
+        }
+        return result>0 ? true:  false;    }
 
 
 
