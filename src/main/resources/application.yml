@@ -12,6 +12,6 @@ spring:
   password: SEMI
 
 ## log Level: TRACE > DEBUG > INFO > WARN > ERROR > FATAL
-#logging:
-# level:
-#  root: DEBUG
+logging:
+ level:
+  root: INFO

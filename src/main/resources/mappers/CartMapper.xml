@@ -5,10 +5,52 @@
 
 <!--  xml 파일을 사용할 mapper가 있는 경로 -->
 <mapper namespace="com.b4.apollo.cart.model.dao.CartMapper">
-<!-- <mapper namespace="CartMapper">-->
+
+	<!--카트 정보를 담을 resultMap-->
+	<resultMap id="cartResultMap" type="com.b4.apollo.cart.model.dto.CartDTO">
+		<id property="cartNo" column="CART_NO"/>
+		<result property="productNo" column="PRODUCT_NO"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="productCount" column="PRODUCT_COUNT"/>
+		<result property="regDate" column="REG_DATE"/>
+		<association property="productDTO" javaType="com.b4.apollo.cart.model.dto.CartDTO">
+			<id property="productNo" column="PRODUCT_NO"/>
+			<result property="productName" column="PRODUCT_NAME"/>
+			<result property="productPrice" column="PRODUCT_PRICE"/>
+			<result property="productDesc" column="PRODUCT_DESC"/>
+			<result property="productQty" column="PRODUCT_QTY"/>
+			<result property="categoryCode" column="CATEGORY_CODE"/>
+		</association>
+	</resultMap>
+<!--	어소시에이션 사용 DTO 객체-->
+<!--	<resultMap id="cartResultMap" type="com.b4.apollo.cart.model.dto.CartDTO">-->
+<!--		<id property="cartNo" column="CART_NO" />-->
+<!--		<result property="productCount" column="PRODUCT_COUNT" />-->
+<!--		<result property="regDate" column="REG_DATE" />-->
+<!--		<association property="productDTO" javaType="com.b4.apollo.product.model.dto.ProductDTO">-->
+<!--			<id property="productNo" column="PRODUCT_NO"/>-->
+<!--			<result property="productName" column="PRODUCT_NAME"/>-->
+<!--			<result property="productPrice" column="PRODUCT_PRICE"/>-->
+<!--			<result property="productDesc" column="PRODUCT_DESC"/>-->
+<!--			<result property="productQty" column="PRODUCT_QTY"/>-->
+<!--			<result property="categoryCode" column="CATEGORY_CODE"/>-->
+<!--		</association>-->
+<!--		<association property="userDTO" javaType="com.b4.apollo.member.model.dto.MemberDTO">-->
+<!--			<id property="userId" column="USER_ID"/>-->
+<!--			<result property="userPwd" column="USER_PWD"/>-->
+<!--			<result property="userName" column="USER_NAME"/>-->
+<!--			<result property="userTel" column="USER_TEL"/>-->
+<!--			<result property="userAddr" column="ADDRESS"/>-->
+<!--			<result property="userEmail" column="USER_EMAIL"/>-->
+<!--			<result property="userRole" column="USER_ROLE"/>-->
+<!--			<result property="userActive" column="USER_ACTIVE"/>-->
+<!--			<result property="userEntdate" column="USER_ENTDATE"/>-->
+<!--			<result property="point" column="USER_POINT"/>-->
+<!--		</association>-->
+<!--	</resultMap>-->
 
 	<!--상품 정보를 담을 resultMap-->
-	<resultMap type="com.b4.apollo.cart.model.dto.CartProductDTO" id="cartResultMap">
+	<resultMap id="productResultMap" type="com.b4.apollo.product.model.dto.ProductDTO">
 		<id property="productNo" column="PRODUCT_NO"/>
 		<result property="productName" column="PRODUCT_NAME"/>
 		<result property="productPrice" column="PRODUCT_PRICE"/>
@@ -17,8 +59,22 @@
 		<result property="categoryCode" column="CATEGORY_CODE"/>
 	</resultMap>
 
+	<!--유저 정보를 담을 resultMap-->
+	<resultMap id="userResultMap" type="com.b4.apollo.member.model.dto.MemberDTO">
+		<id property="userId" column="USER_ID"/>
+		<result property="userPwd" column="USER_PWD"/>
+		<result property="userName" column="USER_NAME"/>
+		<result property="userTel" column="USER_TEL"/>
+		<result property="userAddr" column="ADDRESS"/>
+		<result property="userEmail" column="USER_EMAIL"/>
+		<result property="userRole" column="USER_ROLE"/>
+		<result property="userActive" column="USER_ACTIVE"/>
+		<result property="userEntdate" column="USER_ENTDATE"/>
+		<result property="point" column="USER_POINT"/>
+	</resultMap>
+
 	<!--결제 정보를 담을 resultMap-->
-	<resultMap type="com.b4.apollo.cart.model.dto.PaymentDTO" id="paymentResultMap">
+	<resultMap id="paymentResultMap" type="com.b4.apollo.cart.model.dto.PaymentDTO">
 		<id property="paymentNo" column="PAYMENT_NO"/>
 		<result property="userId" column="USER_ID"/>
 		<result property="paymentMethod" column="PAYMENT_METHOD"/>
@@ -26,7 +82,7 @@
 	</resultMap>
 
 	<!--주문 정보를 담을 resultMap-->
-	<resultMap type="com.b4.apollo.cart.model.dto.OrderDTO" id="orderResultMap">
+	<resultMap id="orderResultMap" type="com.b4.apollo.cart.model.dto.OrderDTO">
 		<id property="orderNo" column="ORDER_NO"/>
 		<result property="paymentNo" column="PAYMENT_NO"/>
 		<result property="orderDate" column="ORDER_DATE"/>
@@ -39,20 +95,73 @@
 	</resultMap>
 
 <!-- <select> 태그를 이용하여 select 쿼리임을 나타냄. 앞서 mapper에서 말했던 메소드의 이름은 select 쿼리의 id값과 같아야함. -->
-	<!--userId를 통해 장바구니에 담겨있는 상품 목록을 조회-->
-	<select id="getCartList" parameterType="String" resultMap="cartResultMap">
+	<!--userId, productNo를 사용해 카트 정보를 조회-->
+	<select id="getCartDetail" parameterType="hashmap" resultMap="cartResultMap">
 		SELECT
--- 		    B.*
-			A.PRODUCT_NO,
-			B.PRODUCT_NAME,
-			B.PRODUCT_PRICE,
-			B.PRODUCT_DESC,
-			B.PRODUCT_QTY,
-			B.CATEGORY_CODE,
-			A.CART_NO
-		FROM TBL_CART_PRODY A
+-- 		    A.CART_NO,
+-- 		    C.USER_ID,
+-- 		    A.PRODUCT_COUNT,
+-- 		    A.REG_DATE,
+-- 			B.PRODUCT_NO,
+-- 			B.PRODUCT_NAME,
+-- 			B.PRODUCT_PRICE,
+-- 			B.PRODUCT_DESC,
+-- 			B.PRODUCT_QTY,
+-- 			B.CATEGORY_CODE
+			A.*,
+			B.*
+		FROM TBL_CART A
 		JOIN TBL_PRODUCT B ON A.PRODUCT_NO = B.PRODUCT_NO
-		WHERE A.USER_ID = #{userId}
+-- 		JOIN TBL_USER C ON A.USER_ID = C.USER_ID
+		WHERE 1 = 1
+		AND B.PRODUCT_NO = #{ productNo }
+		AND A.USER_ID = # { userId };
+	</select>
+
+	<!--productNo를 통해 해당 상품의 상세 정보를 조회-->
+	<select id="getProductDetail" parameterType="Integer" resultMap="productResultMap">
+		SELECT
+			A.PRODUCT_NO,
+			A.PRODUCT_NAME,
+			A.PRODUCT_PRICE,
+			A.PRODUCT_DESC,
+			A.PRODUCT_QTY,
+			A.CATEGORY_CODE
+		FROM TBL_PRODUCT A
+		WHERE A.PRODUCT_NO = #{ productNo }
+	</select>
+
+	<!--userId 통해 해당 유저의 상세 정보를 조회-->
+	<select id="getUserDetail" parameterType="String" resultMap="userResultMap">
+		SELECT
+			A.USER_ID,
+			A.USER_PWD,
+			A.USER_NAME,
+			A.USER_TEL,
+			A.ADDRESS,
+			A.USER_EMAIL,
+			A.USER_ROLE,
+			A.USER_ACTIVE,
+			A.USER_ENTDATE,
+			A.USER_POINT
+		FROM TBL_USER A
+		WHERE A.USER_ID = #{ userId }
+		AND A.USER_ACTIVE = 'Y';
+	</select>
+
+	<!--userId를 통해 장바구니에 담겨있는 상품 목록을 조회-->
+	<select id="getCartList" parameterType="String" resultMap="productResultMap">
+		SELECT
+		    B.*
+-- 			A.PRODUCT_NO,
+-- 			B.PRODUCT_NAME,
+-- 			B.PRODUCT_PRICE,
+-- 			B.PRODUCT_DESC,
+-- 			B.PRODUCT_QTY,
+-- 			B.CATEGORY_CODE
+		FROM TBL_CART A
+		JOIN TBL_PRODUCT B ON A.PRODUCT_NO = B.PRODUCT_NO
+		WHERE A.USER_ID = #{ userId }
 	</select>
 
 	<!--userId를 통해 결제 정보를 조회-->
@@ -64,7 +173,8 @@
 			A.PAYMENT_AMOUNT
 		FROM TBL_PAYMENT A
 		JOIN TBL_USER B ON A.USER_ID = B.USER_ID
-		WHERE B.USER_ID = #{ userId }
+		WHERE B.USER_ID = 'user01';
+-- 		WHERE B.USER_ID = #{ userId };
 	</select>
 
 	<!--userId를 통해 주문 정보를 조회-->
@@ -81,7 +191,7 @@
 			A.SHIPPING_STATUS
 		FROM TBL_ORDER A
 		JOIN TBL_PAYMENT B ON A.PAYMENT_NO = B.PAYMENT_NO
-		WHERE B.PAYMENT_NO = #{ paymentNo }
+		WHERE B.PAYMENT_NO = #{ paymentNo };
 	</select>
 
 	<!-- 장바구니에 품목추가 -->
@@ -93,27 +203,27 @@
 			     	#{ productNo },
 			     	#{ userId },
 			     	#{ productCount }
-				)
+				);
 	</insert>
 
 	<!--주문 수량 증가-->
 	<update id="increaseProduct" parameterType="Integer">
 		UPDATE TBL_CART A
 		SET A.PRODUCT_COUNT + 1
-		WHERE A.CART_NO = #{ cartNo }
+		WHERE A.CART_NO = #{ cartNo };
 	</update>
 
 	<!--주문 수량 감소-->
 	<update id="decreaseProduct" parameterType="Integer">
 		UPDATE TBL_CART A
 		SET A.PRODUCT_COUNT - 1
-		WHERE A.CART_NO = #{ cartNo }
+		WHERE A.CART_NO = #{ cartNo };
 	</update>
 
 	<!--장바구니에서 품목 삭제-->
 	<delete id="deleteProduct" parameterType="Integer">
 		DELETE FROM TBL_CART A
-			WHERE A.CART_NO = #{ cartNo }
+			WHERE A.CART_NO = #{ cartNo };
 	</delete>
 
 </mapper>
