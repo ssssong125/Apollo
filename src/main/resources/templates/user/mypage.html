@@ -42,9 +42,7 @@
         position: relative;
     }
 
-    .package {
-        position: relative;
-    }
+
 
     .delete {
         position: relative;
@@ -74,22 +72,13 @@
         margin-left: 25px;
         margin-top: 20px;
     }
-
-    #search {
-        margin-left: 25px;
-        margin-top: 20px;
-    }
-
-
-    #questionDto {
-
-        margin-left: 25px;
-        margin-top: 20px;
+    #question{
+        margin-left: 50px;
     }
 
     a {
         font-size: large;
-        margin-left: 10px;
+
         font-weight: bold;
         color: black;
     }
@@ -104,7 +93,7 @@
     <div class="row">
         <div class="col-sm-3"></div>
         <div class="col-sm-2">
-            <div><img id="userimg" class="userimg" src="/static/img/personality/user.png"></div>
+            <div><img id="userimg" class="userimg" src="/img/personality/user.png"></div>
         </div>
         <div class="col-sm-1"></div>
         <div class="col-sm-5" style="top: 25px;">
@@ -116,26 +105,26 @@
         <div class="row" id="row-1">
           <div class="col-sm-3"></div>
             <div class="col-sm-1">
-              <img id="setting" class="setting" src="/static/img/personality/settings.png">
+              <img id="setting" class="setting" src="/img/personality/settings.png">
             </div>
             <div class="col-sm-3">
-              <div id="edit"><a href="update.html" value="회원정보 수정">회원정보수정</a></div>
+              <div id="edit"><a href="#" value="회원정보 수정">회원정보수정</a></div>
             </div>
             <div class="col-sm-1">
-              <div><img id="delete" class="delete" src="/static/img/personality/delete.png"></div>
+              <div><img id="delete" class="delete" src="/img/personality/delete.png"></div>
             </div>
             <div class="col-sm-3">
-              <div id="remove"><a href="delete.html" value="회원탈퇴">회원탈퇴</a></div>
+              <div id="remove"><a href="#" value="회원탈퇴">회원탈퇴</a></div>
             </div>
         </div>
         <div class="row" id="row-2">
           <div class="col-sm-3"></div>
             <div class="col-sm-1">
-              <div><img id="qa" class="qa" src="/static/img/personality/qa.png"></div>
+              <div><img id="qa" class="qa" src="/img/personality/qa.png"></div>
             </div>
             <div class="col-sm-3">
 
-              <div id="question"><a href="#" value="질문하기">Q&A</a></div>
+              <div id="question"><a id="qnahref" href="/question/list" value="질문하기">Q&A</a></div>
 
 
             </div>
