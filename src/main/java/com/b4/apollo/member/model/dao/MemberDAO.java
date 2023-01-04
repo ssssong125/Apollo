@@ -8,22 +8,22 @@ import org.springframework.stereotype.Repository;
 public class MemberDAO {
 
     public MemberDTO loginMember(SqlSessionTemplate sqlSession, MemberDTO m){
-        MemberDTO m1 = sqlSession.selectOne("memberMapper.loginMember", m);
+        MemberDTO m1 = sqlSession.selectOne("MemberMapper.loginMember", m);
         return m1;
     }
     public int insertMember(SqlSessionTemplate sqlSession, MemberDTO m){
-        return sqlSession.insert("memberMapper.insertMember", m);
+        return sqlSession.insert("MemberMapper.insertMember", m);
     }
 
     public int updateMember(SqlSessionTemplate sqlSession, MemberDTO m){
-        return sqlSession.update("memberMapper.updateMember", m);
+        return sqlSession.update("MemberMapper.updateMember", m);
     }
 
     public int idCheck(SqlSessionTemplate sqlSession, String userId){
-        return sqlSession.selectOne("memberMapper.idCheck", userId);
+        return sqlSession.selectOne("MemberMapper.idCheck", userId);
     }
 
     public int deleteMember(SqlSessionTemplate sqlSession, String userId){
-        return sqlSession.delete("memberMapper.deleteMember", userId);
+        return sqlSession.delete("MemberMapper.deleteMember", userId);
     }
 }
