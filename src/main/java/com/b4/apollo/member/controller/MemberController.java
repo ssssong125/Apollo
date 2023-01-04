@@ -7,6 +7,8 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -29,10 +31,10 @@ public class MemberController {
         return mv;
     }
 
-//    @RequestMapping(value = "idCheck", method = RequestMethod.GET)
-//    @ResponseBody
-//    public int idCheck(String id){
-//        int result = memberService.idCheck(id);
-//        return result;
-//    }
+    @RequestMapping(value = "idCheck", method = RequestMethod.GET)
+    @ResponseBody
+    public int idCheck(String id){
+        int result = memberService.idCheck(id);
+        return result;
+    }
 }
