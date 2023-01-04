@@ -20,7 +20,7 @@ public class MemberServiceImpl implements MemberService {
         MemberDTO loginUser = memberDAO.loginMember(sqlSession, m);
         System.out.println("loginUser : " + loginUser);
 
-        if(loginUser == null){
+        if (loginUser == null) {
             throw new Exception("loginUser확인");
         }
         return loginUser;
@@ -31,42 +31,38 @@ public class MemberServiceImpl implements MemberService {
 
         int result = memberDAO.insertMember(sqlSession, m);
 
-        if (result<0){
-        
-        if (result>0){
-            throw new CommonException("회원가입에 실패 하였습니다.");
+            if (result > 0) {
+                throw new CommonException("회원가입에 실패 하였습니다.");
+            }
         }
-    }
 
     @Override
-    public MemberDTO updateMember(MemberDTO m) throws Exception {
+    public MemberDTO updateMember (MemberDTO m) throws Exception {
         int result = memberDAO.updateMember(sqlSession, m);
 
-        if(result<0){
+        if (result < 0) {
             MemberDTO loginUser = memberDAO.loginMember(sqlSession, m);
             return loginUser;
-        }else {
+        } else {
             throw new Exception("회원수정실패");
         }
     }
 
     @Override
-    public int idCheck(String userId) {
+    public int idCheck (String userId){
         int result = memberDAO.idCheck(sqlSession, userId);
-        if (result<0){
+        if (result < 0) {
             throw new CommonException("아이디를 다시 체크해주세요");
         }
         return result;
     }
 
     @Override
-    public void deleteMember(String userId) {
+    public void deleteMember (String userId){
         int result = memberDAO.deleteMember(sqlSession, userId);
 
-        if(result < 0 ){
+        if (result < 0) {
             throw new CommonException("회원탈퇴실패");
         }
     }
-
-
 }

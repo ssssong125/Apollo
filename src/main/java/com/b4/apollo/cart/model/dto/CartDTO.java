@@ -1,7 +1,7 @@
 package com.b4.apollo.cart.model.dto;
 
 
-import com.b4.apollo.personality.model.UserDTO;
+import com.b4.apollo.member.model.dto.MemberDTO;
 import lombok.Builder;
 import lombok.Data;
 
@@ -29,7 +29,7 @@ public class CartDTO {
 
     private int productCount;
 
-    private UserDTO user;
+    private MemberDTO user;
 
     private List<ProductDTO> productList;
 }
