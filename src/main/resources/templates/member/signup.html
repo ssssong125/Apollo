@@ -13,6 +13,7 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
+
 <style>
 
     @font-face {
@@ -26,7 +27,6 @@
         margin: 0 auto;
         font-family: BodoniXT;
         display: grid;
-
 
     }
 
@@ -60,6 +60,7 @@
         top: 160px;
         width: 50%;
         position: relative;
+
     }
 
     .signinimg {
@@ -68,6 +69,7 @@
         float: right;
         position: relative;
     }
+
 
     .title {
         font-weight: bold;
@@ -141,6 +143,7 @@
         width: 110px;
         margin-left: -10px;
         margin-bottom: -15px;
+
 
     }
     #idBtn{
@@ -220,6 +223,7 @@
                 <input type="text" id="user_email" name="email_id" placeholder="EMAIL" style="position: relative; width: 210px;" onfocus="this.placeholder = ''" maxlength="18" required>
                 <p style="color: white; float: left; font-size: large;">@</p>
                 <input type="text" id="email_address" list="user_email_address" placeholder="직접입력" style="position: relative; width: 211px; text-align: center" maxlength="18" onfocus="this.placeholder = ''"/>
+
                             <datalist name="emailAddr" id="user_email_address" >
                                 <option value="" selected>직접입력</option>
                                 <option value="naver.com">@naver.com</option>
@@ -242,6 +246,7 @@
                     <button type="submit" class="btn btn-outline-warning" id="btn1">회원가입</button>
                     <button type="reset" class="btn btn-outline-warning" id="btn2">회원가입취소</button>
                 </div>
+
 
 
             </div>
@@ -366,7 +371,6 @@
                 });
             });
         </script>
-
         <script type="text/javascript">
             $("input[name=userPwd]").on("keyup", function(){
 
@@ -397,5 +401,6 @@
     </div>
 </div>
 </div>
+
 </body>
 </html>

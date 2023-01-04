@@ -1,9 +1,7 @@
 package com.b4.apollo.qna.service;
 
-import com.b4.apollo.qna.model.dto.PageInfo;
-import com.b4.apollo.qna.model.dto.Question;
-
-import java.util.ArrayList;
+import com.b4.apollo.qna.model.dto.QuestionDTO;
+import com.github.pagehelper.Page;
 
 /**
  * Board Test Business Logic
@@ -16,11 +14,9 @@ import java.util.ArrayList;
 
 public interface BoardService {
 
-    ArrayList<Question> selectList(PageInfo pageInfo);
 
-    Question selectBoard(int bno);
 
-    int selectListCount();
+    QuestionDTO selectBoard(int bno);
 
     void deleteBoard(int boardNo);
 
@@ -28,7 +24,8 @@ public interface BoardService {
     void insertBoard(String boardTitle, String boardContent);
 
 //    void updateBoard(int boardNo);
-    void updateBoard(Question q, String boardTitle, String boardContent);
+    void updateBoard(QuestionDTO q, String boardTitle, String boardContent);
 
 
+    Page<QuestionDTO> selectList(int pageNum);
 }

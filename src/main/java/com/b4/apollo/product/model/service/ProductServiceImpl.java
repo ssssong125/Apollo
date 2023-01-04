@@ -15,7 +15,6 @@ public class ProductServiceImpl implements ProductService {
         this.productDAO = productDAO;
     }
 
-
     @Override
     public List<ProductDTO> productList() {
         return productDAO.productList();
@@ -37,7 +36,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public boolean editProduct(ProductDTO newProd) {
-        int result = productDAO.registProduct(newProd);
+        int result = productDAO.editProduct(newProd);
         if(result<=0){
             // throw new Exception("메뉴등록 실패");
         }

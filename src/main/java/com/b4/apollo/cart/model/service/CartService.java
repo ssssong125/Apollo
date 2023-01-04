@@ -22,6 +22,7 @@ public interface CartService {
      * @작성자 : 김수용
      * @Method 설명 : 장바구니 페이지에 출력할 장바구니 품목들을 불러오는 기능
      */
+//    List<ProductDTO> getCartList(Map<String, String> parameter);
     List<ProductDTO> getCartList(String userId);
 
     /**

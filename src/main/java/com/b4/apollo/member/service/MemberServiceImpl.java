@@ -32,6 +32,8 @@ public class MemberServiceImpl implements MemberService {
         int result = memberDAO.insertMember(sqlSession, m);
 
         if (result<0){
+        
+        if (result>0){
             throw new CommonException("회원가입에 실패 하였습니다.");
         }
     }

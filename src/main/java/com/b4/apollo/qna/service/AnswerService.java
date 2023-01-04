@@ -7,7 +7,15 @@ import java.util.List;
 public interface AnswerService {
 
 
-        void create(Integer boardNo, String replyContent);
+//        void create(Integer boardNo, String replyContent);
 
-        List<Answer> selectReplyList(int bno);
+//        List<Answer> selectReplyList(Answer answer);
+
+        List<Answer> getReplyList(Answer answer);
+
+        void insertReply(Answer answer);
+
+//        int create(Answer answer);
+
+//        List<Answer> selectReplyList(int bno);
 }

@@ -1,4 +1,10 @@
-<html layout:decorate="~{/common/layout}" lang="ko">
+<html layout:decorate="~{/common/layout}" lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+<!--  <script type="text/javascript" th:src="@{/js/qna/boardDetail.js}"></script>-->
+</head>
+
 <div layout:fragment="content" class="container my-3">
   <!-- 질문 -->
   <h2 class="border-bottom py-2" th:text="${question.boardTitle}"></h2>
@@ -21,12 +27,24 @@
     </div>
   </div>
 
+
   <!-- 답변 작성 -->
-  <form th:action="@{|/answer/create/${question.boardNo}|}" method="post">
-    <textarea name="replyContent" id="replyContent" rows="15"></textarea>
-    <input type="submit" value="답변등록">
-  </form>
-</div>
+  <div class="card my-4">
+    <h5 class="card-header">Leave a Comment:</h5>
+    <div class="card-body">
+      <form name="answer-form" th:action="@{|/answer/create/${question.boardNo}|}" method="post" autocomplete="off">
+        <div class="form-group">
+          <input type="hidden" name="replyNo" th:value="*{replyNo}" />
+          <textarea name="replyContent" class="form-control" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">답변등록</button>
+      </form>
+    </div>
+  </div>
+
+
+<!--댓글 스크립트-->
+<!--<script type="text/javascript" th:src="@{/js/qna/boardDetail.js}"></script>-->
 
 <!-- 게시글 삭제 스크립트 -->
 <script layout:fragment="script" type='text/javascript'>
