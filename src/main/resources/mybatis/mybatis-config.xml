@@ -12,4 +12,5 @@
         <typeAlias type="com.b4.apollo.qna.model.dto.Question" alias="Board"/>
         <typeAlias type="com.b4.apollo.qna.model.dto.Answer" alias="Reply"/>
     </typeAliases>
+
 </configuration>

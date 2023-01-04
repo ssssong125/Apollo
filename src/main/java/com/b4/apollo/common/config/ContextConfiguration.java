@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @ComponentScan(basePackages = "com.b4.apollo")
+//@MapperScan("com.b4.apollo.cart.model.dao")
 public class ContextConfiguration {
 
 }

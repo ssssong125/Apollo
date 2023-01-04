@@ -67,6 +67,7 @@
             <scope>test</scope>
         </dependency>
         <!--의존성이름, 추가날짜, 작성자, 기능-->
+
         <!-- https://mvnrepository.com/artifact/nz.net.ultraq.thymeleaf/thymeleaf-layout-dialect -->
         <!-- 2022.12.29 김수용 타임리프 헤더, 푸터 등 붙이기 쉽게 해주는 의존성 -->
         <dependency>
@@ -80,6 +81,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
             <version>3.0.1</version>
+        </dependency>
+
+        <!-- spring-boot-starter-jdbc : 2023.01.03 김수용 마이바티스 연동 JDBC -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
         </dependency>
 
     </dependencies>

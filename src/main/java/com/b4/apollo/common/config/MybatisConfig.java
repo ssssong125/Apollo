@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -23,6 +24,7 @@ import javax.sql.DataSource;
  @프로그램 설명 : mybatis와 연동하는 configuration class
  */
 @Configuration
+@Lazy
 @EnableTransactionManagement
 @MapperScan(basePackages = {"com.b4.apollo"}, annotationClass = Mapper.class)
 public class MybatisConfig {
@@ -50,15 +52,16 @@ public class MybatisConfig {
     @Bean
     public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
         SqlSessionFactoryBean seb = new SqlSessionFactoryBean();
-
+        seb.setDataSource(dataSource);
 //        org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
 //        configuration.setCallSettersOnNulls(true);
 //        seb.setConfiguration(configuration);
-        seb.setConfigLocation(applicationContext.getResource("classpath:/mybatis/mybatis-config.xml"));
+
+        //seb.setConfigLocation(applicationContext.getResource("classpath:/mybatis/mybatis-config.xml"));
         Resource[] res = new PathMatchingResourcePatternResolver().getResources("classpath:mappers/*.xml");
         seb.setMapperLocations(res);
 
-        seb.setDataSource(dataSource);
+
 
         return seb.getObject();
     }
