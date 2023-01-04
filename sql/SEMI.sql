@@ -29,7 +29,7 @@ DROP SEQUENCE SEQ_BLOG_IMG_NO;
 DROP SEQUENCE SEQ_QNA_NO;
 DROP SEQUENCE SEQ_COMMENT_NO;
 
-CREATE TABLE "TBL_PRODUCT" (
+CREATE TABLE TBL_PRODUCT (
                                "PRODUCT_NO"	NUMBER		NOT NULL,
                                "PRODUCT_NAME"	VARCHAR2(50)		NOT NULL,
                                "PRODUCT_PRICE"	NUMBER		NOT NULL,
@@ -47,13 +47,13 @@ CREATE SEQUENCE SEQ_PRODUCT_NO
     NOCACHE;
 
 -- 카테고리 테이블
-CREATE TABLE "TBL_CATEGORY" (
+CREATE TABLE TBL_CATEGORY (
                                 "CATEGORY_CODE"	VARCHAR(30)		NOT NULL,
                                 "CATEGORY_NAME"	VARCHAR(50)		NOT NULL
 );
 
 -- 장바구니 테이블
-CREATE TABLE "TBL_CART" (
+CREATE TABLE TBL_CART (
                             "CART_NO"	NUMBER		NOT NULL,
                             "PRODUCT_NO"	NUMBER		NOT NULL,
                             "USER_ID"	VARCHAR(50)		NOT NULL,
@@ -70,7 +70,7 @@ CREATE SEQUENCE SEQ_CART_NO
     NOCACHE;
 
 -- 회원정보 테이블
-CREATE TABLE "TBL_USER" (
+CREATE TABLE TBL_USER (
                             "USER_ID"	VARCHAR(50)		NOT NULL,
                             "USER_PWD"	VARCHAR(50)		NOT NULL,
                             "USER_NAME"	VARCHAR(20)		NOT NULL,
@@ -84,7 +84,7 @@ CREATE TABLE "TBL_USER" (
 );
 
 -- 결제 테이블
-CREATE TABLE "TBL_PAYMENT" (
+CREATE TABLE TBL_PAYMENT (
                                "PAYMENT_NO"	NUMBER		NOT NULL,
                                "USER_ID"	VARCHAR(50)		NOT NULL,
                                "PAYMENT_METHOD"	VARCHAR(20)		NOT NULL,
