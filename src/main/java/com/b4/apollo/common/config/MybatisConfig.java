@@ -45,7 +45,7 @@ public class MybatisConfig {
     @Bean
     public DataSourceTransactionManager transactionManager(DataSource dataSource){
         return new DataSourceTransactionManager(dataSource);
-    }
+    }//
 
     @Bean
     public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
