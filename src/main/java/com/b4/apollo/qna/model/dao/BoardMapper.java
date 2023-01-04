@@ -1,7 +1,7 @@
 package com.b4.apollo.qna.model.dao;
 
 import com.b4.apollo.qna.model.dto.Answer;
-import com.b4.apollo.qna.model.dto.Question;
+import com.b4.apollo.qna.model.dto.QuestionDTO;
 import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -11,15 +11,15 @@ import java.util.List;
 @Repository
 @Mapper
 public interface BoardMapper {
-    Page<Question> selectList();
+    Page<QuestionDTO> selectList();
 
     int deleteBoard(int boardNo);
 
-    int insertBoard(Question q);
+    int insertBoard(QuestionDTO q);
 
-    int updateBoard(Question q);
+    int updateBoard(QuestionDTO q);
 
-    Question selectBoard(int bno);
+    QuestionDTO selectBoard(int bno);
 
     List<Answer> getReplyList(Answer answer);
 

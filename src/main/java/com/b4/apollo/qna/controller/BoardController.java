@@ -1,7 +1,7 @@
 package com.b4.apollo.qna.controller;
 
 import com.b4.apollo.qna.model.dto.AnswerForm;
-import com.b4.apollo.qna.model.dto.Question;
+import com.b4.apollo.qna.model.dto.QuestionDTO;
 import com.b4.apollo.qna.model.dto.QuestionForm;
 import com.b4.apollo.qna.service.BoardService;
 import com.github.pagehelper.PageInfo;
@@ -44,7 +44,7 @@ public class BoardController {
     @GetMapping("/list")
     public String selectList(@RequestParam(required = false, defaultValue = "1") int pageNum, Model model) {
 
-        PageInfo<Question> list = new PageInfo<>(boardService.selectList(pageNum), 10);
+        PageInfo<QuestionDTO> list = new PageInfo<>(boardService.selectList(pageNum), 10);
 
 
         model.addAttribute("list", list);
@@ -69,17 +69,17 @@ public class BoardController {
      //질문 게시판 상세 조회
     @GetMapping(value = "/detail/{bno}")
     public String selectBoard(@PathVariable("bno") int bno, Model model, AnswerForm answerForm) {
-        Question question = boardService.selectBoard(bno);
-        model.addAttribute("question", question);
+        QuestionDTO questionDTO = boardService.selectBoard(bno);
+        model.addAttribute("question", questionDTO);
         return "/qna/boardDetail";
     }
 
     // 질문 수정
     @GetMapping("/modify/{boardNo}")
     public String questionModify(QuestionForm questionForm, @PathVariable("boardNo") int boardNo) {
-        Question question = this.boardService.selectBoard(boardNo);
-        questionForm.setBoardTitle(question.getBoardTitle());
-        questionForm.setBoardContent(question.getBoardContent());
+        QuestionDTO questionDTO = this.boardService.selectBoard(boardNo);
+        questionForm.setBoardTitle(questionDTO.getBoardTitle());
+        questionForm.setBoardContent(questionDTO.getBoardContent());
         return "/qna/board_form";
     }
 
@@ -89,7 +89,7 @@ public class BoardController {
         if (bindingResult.hasErrors()) {
             return "/qna/board_form";
         }
-        Question q = this.boardService.selectBoard(boardNo);
+        QuestionDTO q = this.boardService.selectBoard(boardNo);
         this.boardService.updateBoard(q, questionForm.getBoardTitle(), questionForm.getBoardContent());
         return String.format("redirect:/question/detail/%s", boardNo);
     }

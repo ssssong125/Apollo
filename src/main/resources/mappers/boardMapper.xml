@@ -5,7 +5,7 @@
 
 <!--  xml 파일을 사용할 mapper가 있는 경로 -->
 <mapper namespace="com.b4.apollo.qna.model.dao.BoardMapper">
-	<resultMap id="boardResultSet" type="Board">
+	<resultMap id="boardResultSet" type="com.b4.apollo.qna.model.dto.QuestionDTO">
 		<id column="BOARD_NO" property="boardNo"/>
 		<result column="USER_ID" property="userId"/>
 		<result column="BOARD_TITLE" property="boardTitle"/>
@@ -14,7 +14,7 @@
 		<result column="COUNT" property="count"/>
 		<result column="STATUS" property="status"/>
 	</resultMap>
-	<resultMap id="replyResultSet" type="Reply">
+	<resultMap id="replyResultSet" type="com.b4.apollo.qna.model.dto.Answer">
 		<id column="REPLY_NO" property="replyNo"/>
 		<result column="BOARD_NO" property="boardNo"/>
 		<result column="REPLY_CONTENT" property="replyContent"/>
@@ -54,14 +54,14 @@
 	</select>
 
 	<!-- 게시글 등록 -->
-	<insert id="insertBoard" parameterType="Board">
+	<insert id="insertBoard" parameterType="com.b4.apollo.qna.model.dto.QuestionDTO">
 		INSERT INTO TBL_QUESTION
 		VALUES
 			(SEQ_QNA_NO.NEXTVAL, 'USER01', #{boardTitle}, #{boardContent}, SYSDATE, DEFAULT, DEFAULT)
 	</insert>
 
 	<!-- 게시글 수정 -->
-	<update id="updateBoard" parameterType="Board">
+	<update id="updateBoard" parameterType="com.b4.apollo.qna.model.dto.QuestionDTO">
 		UPDATE TBL_QUESTION
 		SET BOARD_TITLE=#{boardTitle}, BOARD_CONTENT= #{boardContent}
 		WHERE BOARD_NO=#{boardNo}
@@ -77,7 +77,7 @@
 	</update>
 
 	<!-- 답변 -->
-	<insert id="insertReply" parameterType="Reply">
+	<insert id="insertReply" parameterType="com.b4.apollo.qna.model.dto.Answer">
 		INSERT INTO TBL_QUESTION_REPLY
 		VALUES
 			(SEQ_REP_NO.NEXTVAL, #{replyContent}, SYSDATE , #{boardNo})
@@ -85,7 +85,7 @@
 	</insert>
 
 
-	<select id="getReplyList" resultType="Reply">
+	<select id="getReplyList" resultType="com.b4.apollo.qna.model.dto.Answer">
 		SELECT
 		       *
 		FROM TBL_QUESTION_REPLY

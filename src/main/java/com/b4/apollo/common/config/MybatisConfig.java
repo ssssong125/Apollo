@@ -54,15 +54,18 @@ public class MybatisConfig {
 //        org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
 //        configuration.setCallSettersOnNulls(true);
 //        seb.setConfiguration(configuration);
-        seb.setConfigLocation(applicationContext.getResource("classpath:/mybatis/mybatis-config.xml"));
 
+
+
+        /*주석 처리*/
+//        seb.setConfigLocation(applicationContext.getResource("classpath:/mybatis/mybatis-config.xml"));
 //        Resource[] res = new PathMatchingResourcePatternResolver().getResources("classpath:mappers/*.xml");
-        Resource[] res = new PathMatchingResourcePatternResolver().getResources("classpath:mappers/ProductDao.xml");
-
-//        Resource[] res = new PathMatchingResourcePatternResolver().getResources("classpath:mappers/boardMapper.xml");
+//        Resource[] res = new PathMatchingResourcePatternResolver().getResources("classpath:mappers/ProductDao.xml");
+//
+        Resource[] res = new PathMatchingResourcePatternResolver().getResources("classpath:mappers/boardMapper.xml");
         seb.setMapperLocations(res);
-
         seb.setDataSource(dataSource);
+
 
         return seb.getObject();
     }
