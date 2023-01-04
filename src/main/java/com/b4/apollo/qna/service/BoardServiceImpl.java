@@ -4,7 +4,7 @@ import com.b4.apollo.qna.exception.CommonException;
 import com.b4.apollo.qna.exception.DataNotFoundException;
 import com.b4.apollo.qna.model.dao.BoardDao;
 import com.b4.apollo.qna.model.dto.PageInfo;
-import com.b4.apollo.qna.model.dto.Question;
+import com.b4.apollo.qna.model.dto.QuestionDTO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,7 +39,7 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public void insertBoard(String boardTitle, String boardContent) {
-        Question q = new Question();
+        QuestionDTO q = new QuestionDTO();
         q.setBoardTitle(boardTitle);
         q.setBoardContent(boardContent);
         q.setCreateDate(LocalDateTime.now());
@@ -51,7 +51,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public void updateBoard(Question q, String boardTitle, String boardContent) {
+    public void updateBoard(QuestionDTO q, String boardTitle, String boardContent) {
         q.setBoardTitle(boardTitle);
         q.setBoardContent(boardContent);
         q.setCreateDate(LocalDateTime.now());
@@ -62,14 +62,14 @@ public class BoardServiceImpl implements BoardService {
 
 
     @Override
-        public ArrayList<Question> selectList (PageInfo pageInfo){
+        public ArrayList<QuestionDTO> selectList (PageInfo pageInfo){
             return boardDao.selectList(sqlSession, pageInfo);
         }
 
 
         @Override
-        public Question selectBoard ( int bno){
-            Optional<Question> question = Optional.ofNullable(this.boardDao.selectBoard(sqlSession, bno));
+        public QuestionDTO selectBoard (int bno){
+            Optional<QuestionDTO> question = Optional.ofNullable(this.boardDao.selectBoard(sqlSession, bno));
             if (question.isPresent()) {
                 return question.get();
             } else {

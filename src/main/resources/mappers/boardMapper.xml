@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!--  xml 파일을 사용할 mapper가 있는 경로 -->
-<mapper namespace="boardMapper">
-<!--	<resultMap id="boardResultSet" type="Board">-->
-	<resultMap id="boardResultSet" type="com.b4.apollo.qna.model.dto.Question">
+<mapper namespace="com.b4.apollo.qna.model.dao.BoardMapper">
+	<resultMap id="boardResultSet" type="com.b4.apollo.qna.model.dto.QuestionDTO">
 		<id column="BOARD_NO" property="boardNo"/>
 		<result column="USER_ID" property="userId"/>
 		<result column="BOARD_TITLE" property="boardTitle"/>
@@ -15,7 +14,6 @@
 		<result column="COUNT" property="count"/>
 		<result column="STATUS" property="status"/>
 	</resultMap>
-<!--	<resultMap id="replyResultSet" type="Reply">-->
 	<resultMap id="replyResultSet" type="com.b4.apollo.qna.model.dto.Answer">
 		<id column="REPLY_NO" property="replyNo"/>
 		<result column="BOARD_NO" property="boardNo"/>
@@ -24,7 +22,7 @@
 	</resultMap>
 
 
-<!-- 게시글 수 카운트 -->
+	<!-- 게시글 수 카운트 -->
 	<select id="selectListCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM TBL_QUESTION
@@ -47,32 +45,30 @@
 		ORDER BY BOARD_NO DESC
 	</select>
 
-<!-- 게시글 상세보기 -->
+	<!-- 게시글 상세보기 -->
 	<select id="selectBoard" resultMap="boardResultSet" parameterType="_int">
 		SELECT *
 		FROM TBL_QUESTION
 		WHERE BOARD_NO = #{bno}
-		AND STATUS='Y'
+		  AND STATUS='Y'
 	</select>
 
 	<!-- 게시글 등록 -->
-<!--	<insert id="insertBoard" parameterType="Board">-->
-	<insert id="insertBoard" parameterType="com.b4.apollo.qna.model.dto.Question">
+	<insert id="insertBoard" parameterType="com.b4.apollo.qna.model.dto.QuestionDTO">
 		INSERT INTO TBL_QUESTION
 		VALUES
 			(SEQ_QNA_NO.NEXTVAL, 'USER01', #{boardTitle}, #{boardContent}, SYSDATE, DEFAULT, DEFAULT)
 	</insert>
 
 	<!-- 게시글 수정 -->
-<!--	<update id="updateBoard" parameterType="Board">-->
-	<update id="updateBoard" parameterType="com.b4.apollo.qna.model.dto.Question">
+	<update id="updateBoard" parameterType="com.b4.apollo.qna.model.dto.QuestionDTO">
 		UPDATE TBL_QUESTION
 		SET BOARD_TITLE=#{boardTitle}, BOARD_CONTENT= #{boardContent}
 		WHERE BOARD_NO=#{boardNo}
-		AND STATUS='Y'
+		  AND STATUS='Y'
 	</update>
 
-<!-- 게시글 삭제 -->
+	<!-- 게시글 삭제 -->
 	<update id = "deleteBoard" parameterType="_int">
 		UPDATE TBL_QUESTION
 		SET STATUS= 'N'
@@ -81,7 +77,6 @@
 	</update>
 
 	<!-- 답변 -->
-<!--	<insert id="insertReply" parameterType="Reply">-->
 	<insert id="insertReply" parameterType="com.b4.apollo.qna.model.dto.Answer">
 		INSERT INTO TBL_QUESTION_REPLY
 		VALUES
@@ -90,15 +85,10 @@
 	</insert>
 
 
-	<select id="selectReplyList" parameterType="_int" resultMap="replyResultSet">
-		<![CDATA[
+	<select id="getReplyList" resultType="com.b4.apollo.qna.model.dto.Answer">
 		SELECT
-		       REPLY_NO,
-			   REPLY_CONTENT,
-			   REPLY_DATE
+			*
 		FROM TBL_QUESTION_REPLY
-		WHERE BOARD_NO = #{bno}
-		]]>
-
+		WHERE BOARD_NO = #{boardNo}
 	</select>
 </mapper>

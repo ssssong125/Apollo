@@ -1,26 +1,18 @@
 package com.b4.apollo.qna.controller;
 
 import com.b4.apollo.common.Pagination;
-import com.b4.apollo.qna.exception.CommonException;
 import com.b4.apollo.qna.model.dto.AnswerForm;
 import com.b4.apollo.qna.model.dto.PageInfo;
-import com.b4.apollo.qna.model.dto.Question;
+import com.b4.apollo.qna.model.dto.QuestionDTO;
 import com.b4.apollo.qna.model.dto.QuestionForm;
 import com.b4.apollo.qna.service.BoardService;
-import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 /**
  @FileName : BoardController.java
@@ -49,7 +41,7 @@ public class BoardController {
 
         PageInfo pageInfo = Pagination.getPageInfo(listCount, currentPage, 10, 5);
 
-        ArrayList<Question> list = boardService.selectList(pageInfo);
+        ArrayList<QuestionDTO> list = boardService.selectList(pageInfo);
 
         model.addAttribute("list", list);
         model.addAttribute("pageInfo", pageInfo);
@@ -74,7 +66,7 @@ public class BoardController {
      //질문 게시판 상세 조회
     @GetMapping(value = "/detail/{bno}")
     public String selectBoard(@PathVariable("bno") int bno, Model model, AnswerForm answerForm) {
-        Question question = boardService.selectBoard(bno);
+        QuestionDTO question = boardService.selectBoard(bno);
         model.addAttribute("question", question);
         return "/qna/boardDetail";
     }
@@ -82,7 +74,7 @@ public class BoardController {
     // 질문 수정
     @GetMapping("/modify/{boardNo}")
     public String questionModify(QuestionForm questionForm, @PathVariable("boardNo") int boardNo) {
-        Question question = this.boardService.selectBoard(boardNo);
+        QuestionDTO question = this.boardService.selectBoard(boardNo);
         questionForm.setBoardTitle(question.getBoardTitle());
         questionForm.setBoardContent(question.getBoardContent());
         return "/qna/board_form";
@@ -94,7 +86,7 @@ public class BoardController {
         if (bindingResult.hasErrors()) {
             return "/qna/board_form";
         }
-        Question q = this.boardService.selectBoard(boardNo);
+        QuestionDTO q = this.boardService.selectBoard(boardNo);
         this.boardService.updateBoard(q, questionForm.getBoardTitle(), questionForm.getBoardContent());
         return String.format("redirect:/question/detail/%s", boardNo);
     }

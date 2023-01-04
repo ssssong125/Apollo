@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
  @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Question {
+public class QuestionDTO {
 
     private Integer boardNo;
 

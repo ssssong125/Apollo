@@ -1,7 +1,7 @@
 package com.b4.apollo.qna.service;
 
 import com.b4.apollo.qna.model.dto.PageInfo;
-import com.b4.apollo.qna.model.dto.Question;
+import com.b4.apollo.qna.model.dto.QuestionDTO;
 
 import java.util.ArrayList;
 
@@ -16,9 +16,9 @@ import java.util.ArrayList;
 
 public interface BoardService {
 
-    ArrayList<Question> selectList(PageInfo pageInfo);
+    ArrayList<QuestionDTO> selectList(PageInfo pageInfo);
 
-    Question selectBoard(int bno);
+    QuestionDTO selectBoard(int bno);
 
     int selectListCount();
 
@@ -28,7 +28,7 @@ public interface BoardService {
     void insertBoard(String boardTitle, String boardContent);
 
 //    void updateBoard(int boardNo);
-    void updateBoard(Question q, String boardTitle, String boardContent);
+    void updateBoard(QuestionDTO q, String boardTitle, String boardContent);
 
 
 }

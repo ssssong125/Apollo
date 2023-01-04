@@ -1,8 +1,7 @@
 package com.b4.apollo.qna.controller;
 
-import com.b4.apollo.qna.model.dto.Answer;
 import com.b4.apollo.qna.model.dto.AnswerForm;
-import com.b4.apollo.qna.model.dto.Question;
+import com.b4.apollo.qna.model.dto.QuestionDTO;
 import com.b4.apollo.qna.service.AnswerService;
 import com.b4.apollo.qna.service.BoardService;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +11,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RequestMapping("/answer")
 @RequiredArgsConstructor
@@ -35,7 +33,7 @@ public class AnswerController {
     public String createAnswer(Model model, @PathVariable("bno") int bno
             , @Valid AnswerForm answerForm, BindingResult bindingResult){
 
-        Question question = boardService.selectBoard(bno);
+        QuestionDTO question = boardService.selectBoard(bno);
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("question", question);

@@ -1,7 +1,7 @@
 package com.b4.apollo.qna.model.dao;
 
 import com.b4.apollo.qna.model.dto.PageInfo;
-import com.b4.apollo.qna.model.dto.Question;
+import com.b4.apollo.qna.model.dto.QuestionDTO;
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -15,7 +15,7 @@ public class BoardDao {
         return sqlSession.selectOne("boardMapper.selectListCount");
     }
 
-    public ArrayList<Question> selectList(SqlSessionTemplate sqlSession, PageInfo pageInfo) {
+    public ArrayList<QuestionDTO> selectList(SqlSessionTemplate sqlSession, PageInfo pageInfo) {
         int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getBoardLimit();
         RowBounds rowBounds = new RowBounds(offset, pageInfo.getBoardLimit());
 
@@ -26,11 +26,11 @@ public class BoardDao {
         return sqlSession.update("boardMapper.increaseCount", bno);
     }
 
-    public Question selectBoard(SqlSessionTemplate sqlSession, int bno) {
+    public QuestionDTO selectBoard(SqlSessionTemplate sqlSession, int bno) {
         return sqlSession.selectOne("boardMapper.selectBoard", bno);
     }
 
-    public int insertBoard(SqlSessionTemplate sqlSession, Question q) {
+    public int insertBoard(SqlSessionTemplate sqlSession, QuestionDTO q) {
         return sqlSession.insert("boardMapper.insertBoard", q);
     }
 
@@ -38,7 +38,7 @@ public class BoardDao {
         return sqlSession.update("boardMapper.deleteBoard", boardNo);
     }
 
-    public int updateBoard(SqlSessionTemplate sqlSession, Question q) {
+    public int updateBoard(SqlSessionTemplate sqlSession, QuestionDTO q) {
         return sqlSession.update("boardMapper.updateBoard", q);
     }
 }
