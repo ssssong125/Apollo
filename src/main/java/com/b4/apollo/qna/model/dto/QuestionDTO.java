@@ -1,15 +1,16 @@
 package com.b4.apollo.qna.model.dto;
 
 import lombok.*;
+import org.springframework.lang.Nullable;
 
 import java.time.LocalDateTime;
 
-
- @Getter
- @Setter
- @AllArgsConstructor
+@Getter
+@Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString
+@Data
 public class QuestionDTO {
 
     private Integer boardNo;
@@ -24,7 +25,7 @@ public class QuestionDTO {
 
     private String status;
 
-    // @Nullable
+    @Nullable
     private int count;
 
 }

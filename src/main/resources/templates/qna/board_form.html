@@ -1,4 +1,7 @@
-<html layout:decorate="~{/common/layout}" lang="ko" xmlns:th="<http://www.thymeleaf.org>">
+<html layout:decorate="~{/common/layout}" lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+
 <div layout:fragment="content" class="container">
     <h5 class="my-3 border-bottom pb-2">질문등록</h5>
     <form th:object="${questionForm}" method="post">

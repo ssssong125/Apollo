@@ -1,11 +1,10 @@
 package com.b4.apollo.qna.controller;
 
-import com.b4.apollo.common.Pagination;
 import com.b4.apollo.qna.model.dto.AnswerForm;
-import com.b4.apollo.qna.model.dto.PageInfo;
 import com.b4.apollo.qna.model.dto.QuestionDTO;
 import com.b4.apollo.qna.model.dto.QuestionForm;
 import com.b4.apollo.qna.service.BoardService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +12,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 /**
  @FileName : BoardController.java
 
@@ -32,19 +30,22 @@ public class BoardController {
     @Autowired
     private BoardService boardService;
 
+    //페이징
+
+//    @RequestMapping("/pagesample")
+//    public PageInfo<Question> findPage(HttpServletRequest request){
+//        PageHelper.startPage(request);
+//        return  PageInfo.of(boardService.findAll());
+//    }
+
+
     //질문 게시판 전체 조회
-    @RequestMapping("list")
-    public String selectList(@RequestParam(value = "currentPage",
-            required = false, defaultValue = "1") int currentPage, Model model) {
+    @GetMapping("/list")
+    public String selectList(@RequestParam(required = false, defaultValue = "1") int pageNum, Model model) {
 
-        int listCount = boardService.selectListCount();
-
-        PageInfo pageInfo = Pagination.getPageInfo(listCount, currentPage, 10, 5);
-
-        ArrayList<QuestionDTO> list = boardService.selectList(pageInfo);
+        PageInfo<QuestionDTO> list = new PageInfo<>(boardService.selectList(pageNum), 10);
 
         model.addAttribute("list", list);
-        model.addAttribute("pageInfo", pageInfo);
         return "qna/boardList";
     }
 
@@ -66,17 +67,17 @@ public class BoardController {
      //질문 게시판 상세 조회
     @GetMapping(value = "/detail/{bno}")
     public String selectBoard(@PathVariable("bno") int bno, Model model, AnswerForm answerForm) {
-        QuestionDTO question = boardService.selectBoard(bno);
-        model.addAttribute("question", question);
+        QuestionDTO questionDTO = boardService.selectBoard(bno);
+        model.addAttribute("question", questionDTO);
         return "/qna/boardDetail";
     }
 
     // 질문 수정
     @GetMapping("/modify/{boardNo}")
     public String questionModify(QuestionForm questionForm, @PathVariable("boardNo") int boardNo) {
-        QuestionDTO question = this.boardService.selectBoard(boardNo);
-        questionForm.setBoardTitle(question.getBoardTitle());
-        questionForm.setBoardContent(question.getBoardContent());
+        QuestionDTO questionDTO = this.boardService.selectBoard(boardNo);
+        questionForm.setBoardTitle(questionDTO.getBoardTitle());
+        questionForm.setBoardContent(questionDTO.getBoardContent());
         return "/qna/board_form";
     }
 

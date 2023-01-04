@@ -14,4 +14,6 @@ public interface ProductDAO {
     int registProduct(ProductDTO prod);
 
     ProductDTO productDelete(int code);
+
+    int editProduct(ProductDTO newProd);
 }

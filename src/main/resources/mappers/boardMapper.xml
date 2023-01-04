@@ -87,7 +87,7 @@
 
 	<select id="getReplyList" resultType="com.b4.apollo.qna.model.dto.Answer">
 		SELECT
-			*
+		       *
 		FROM TBL_QUESTION_REPLY
 		WHERE BOARD_NO = #{boardNo}
 	</select>

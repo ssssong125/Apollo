@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>마이페이지</title>
+</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<style>
+    @font-face {
+        font-family: 'BodoniXT'; /*font 이름*/
+        src: url(/static/font/BodoniXT.ttf);
+    }
+
+    body {
+        width: 100%;
+        margin: 0 auto;
+        background-color: #dcdcdc;
+        font-family: BodoniXT;
+        position: absolute;
+    }
+
+    h1 {
+        border-bottom: 1px solid orange;
+        color: white;
+        width: 250px;
+        margin-bottom: 80px;
+        margin-top: 80px;
+    }
+
+    .sub-header {
+        width: 100%;
+        height: 100px;
+        background: black;
+    }
+
+    .userimg {
+        width: 128px;
+        height: 128px;
+        position: relative;
+    }
+
+    .package {
+        position: relative;
+    }
+
+    .delete {
+        position: relative;
+    }
+
+    #link-area {
+        margin-top: 50px;
+    }
+
+    #row-1 {
+        margin-bottom: 60px;
+    }
+
+
+    #btn {
+        width: 100px;
+        font-weight: bold;
+        color: black;
+    }
+
+    #edit {
+        margin-left: 25px;
+        margin-top: 20px;
+    }
+
+    #remove {
+        margin-left: 25px;
+        margin-top: 20px;
+    }
+
+    #search {
+        margin-left: 25px;
+        margin-top: 20px;
+    }
+
+
+    #questionDto {
+
+        margin-left: 25px;
+        margin-top: 20px;
+    }
+
+    a {
+        font-size: large;
+        margin-left: 10px;
+        font-weight: bold;
+        color: black;
+    }
+</style>
+<body>
+<section class="container">
+    <div class="sub-header">
+        <h1>마이페이지</h1>
+    </div>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-2">
+            <div><img id="userimg" class="userimg" src="/static/img/personality/user.png"></div>
+        </div>
+        <div class="col-sm-1"></div>
+        <div class="col-sm-5" style="top: 25px;">
+            <p style="font-weight: bold; font-size: large">님 환영합니다.</p>
+            <button class="btn btn-outline-warning" id="btn">LOGOUT</button>
+        </div>
+    </div>
+    <div class="col-sm-10" id="link-area">
+        <div class="row" id="row-1">
+          <div class="col-sm-3"></div>
+            <div class="col-sm-1">
+              <img id="setting" class="setting" src="/static/img/personality/settings.png">
+            </div>
+            <div class="col-sm-3">
+              <div id="edit"><a href="update.html" value="회원정보 수정">회원정보수정</a></div>
+            </div>
+            <div class="col-sm-1">
+              <div><img id="delete" class="delete" src="/static/img/personality/delete.png"></div>
+            </div>
+            <div class="col-sm-3">
+              <div id="remove"><a href="delete.html" value="회원탈퇴">회원탈퇴</a></div>
+            </div>
+        </div>
+        <div class="row" id="row-2">
+          <div class="col-sm-3"></div>
+            <div class="col-sm-1">
+              <div><img id="qa" class="qa" src="/static/img/personality/qa.png"></div>
+            </div>
+            <div class="col-sm-3">
+
+              <div id="question"><a href="#" value="질문하기">Q&A</a></div>
+
+
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
