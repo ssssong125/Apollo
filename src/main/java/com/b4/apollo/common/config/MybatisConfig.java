@@ -63,7 +63,7 @@ public class MybatisConfig {
 //        Resource[] res = new PathMatchingResourcePatternResolver().getResources("classpath:mappers/ProductDao.xml");
 //
        // Resource[] res = new PathMatchingResourcePatternResolver().getResources("classpath:mappers/boardMapper.xml");
-        Resource[] res = new PathMatchingResourcePatternResolver().getResources("classpath:mappers/memberMapper.xml");
+        Resource[] res = new PathMatchingResourcePatternResolver().getResources("classpath:mappers/MemberMapper.xml");
 
         seb.setMapperLocations(res);
         seb.setDataSource(dataSource);

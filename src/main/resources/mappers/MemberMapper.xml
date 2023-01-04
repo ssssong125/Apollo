@@ -29,7 +29,7 @@
             A.USER_ID,
             A.USER_TEL,
             A.USER_PWD,
-            A.USER_EMAIL
+            A.USER_EMAIL,
             A.ADDRESS,
             A.USER_ROLE,
             A.USER_ACTIVE,
