@@ -7,31 +7,32 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-<!--    <link href="/css/cart/style.css" rel="stylesheet" type="text/css">-->
+    <!--    <link href="/css/cart/style.css" rel="stylesheet" type="text/css">-->
     <link rel="stylesheet" type="text/css" th:href="@{ /css/cart/style.css }">
-<!--    <style>-->
-<!--        @import url('https://fonts.googleapis.com/css2?family=Libre+Bodoni&family=Nanum+Myeongjo:wght@800&display=swap');-->
-<!--        /*div 확인용*/-->
-<!--        /*div{*/-->
-<!--        /*    border: solid red 1px;*/-->
-<!--        /*}*/-->
-<!--    </style>-->
+    <!--    <style>-->
+    <!--        @import url('https://fonts.googleapis.com/css2?family=Libre+Bodoni&family=Nanum+Myeongjo:wght@800&display=swap');-->
+    <!--        /*div 확인용*/-->
+    <!--        /*div{*/-->
+    <!--        /*    border: solid red 1px;*/-->
+    <!--        /*}*/-->
+    <!--    </style>-->
 </head>
 <body>
-    <!--전체 div-->
-    <div class="container">
-        <br>
-        <!--현재 위치-->
-        <div class="row">
-            <div class="col">
-                <span class="big-font">Cart</span>
-                <!--아이디 넘어오는지 확인-->
-<!--                <span th:text="${ userId }"></span>-->
-                <hr class="thick-line">
-            </div>
+<!--전체 div-->
+<div class="container">
+    <br>
+    <!--현재 위치-->
+    <div class="row">
+        <div class="col">
+            <span class="big-font">Cart</span>
+            <!--아이디 넘어오는지 확인-->
+            <!--                <span th:text="${ userId }"></span>-->
+            <hr class="thick-line">
         </div>
+    </div>
 
-        <!--제목-->
+    <!--제목-->
+    <div class="container">
         <div class="row">
             <div class="col-lg-8">
                 Items
@@ -43,37 +44,50 @@
                 Price
             </div>
         </div>
+    </div>
 
+    <!--상품 없을시-->
+    <div class="container" th:if="${ cartList.size() } == 0">
         <hr class="line">
-
-        <!--상품 없을시-->
-<!--        <div class="row" th:if="${ }">-->
         <div class="row">
-            <div class="col-lg" height="128px" style="height: 128px;" >
+            <div class="col-lg" style="height: 128px;" >
                 <div class="v-align" style="text-align: center;">
                     <br><br>
                     장바구니에 상품이 없습니다.
                 </div>
             </div>
         </div>
+    </div>
 
-        <!--상품 추가시-->
+    <!--        타임리프 사용 예시-->
+    <!--            <tr th:each="product : ${ cartList }">-->
+    <!--            <th th:text="${ product.productNo }"></th>&lt;!&ndash;dto의 필드명호출, getter없으면 에러남 내부에서 getter호출 &ndash;&gt;-->
+    <!--            <th th:text="${ product.productName }"></th>-->
+    <!--            <th th:text="${ product.productPrice }"></th>-->
+    <!--            <th th:text="${ product.productDesc }"></th>-->
+    <!--            <th th:text="${ product.productQty }"></th>-->
+    <!--            <th th:text="${ product.categoryCode }"></th>-->
+
+    <!--상품 추가시-->
+    <div class="container" th:each="cProduct : ${ cartList }" th:if="${ cartList.size() } > 0">
+        <hr class="line">
         <div class="row">
             <div class="col-lg-2">
-<!--                <img class="product" src="../../static/img/cart/naverPay.png" alt="상품 이미지명">-->
                 <img class="product" src="/img/cart/naverPay.png" alt="상품 이미지명">
+                <!--                    <img class="product" src="/img/cart/">-->
             </div>
             <div class="col-lg-6 v-align">
-                상품명
+<!--                <span th:text="${cart.productDTO.productName}"/>-->
+                <span th:text="${cProduct.productDTO.productName}"/>
             </div>
             <div class="col-lg-1 v-align">
                 <table>
                     <tr>
                         <td rowspan="2">
-                            2 &nbsp;
+                            <!--                                <span th:text="${ cart.productDTO.productQty }"/>-->
                         </td>
                         <td style="padding-bottom: 0">
-                            <a href="javascript: alert('위');" style="display: block">▲</a>
+                            <!--                                <span th:text="${ @cartServiceImpl.increaseProduct(${ cart.cartNo })}" />▲</a>-->
                         </td>
                     </tr>
                     <tr>
@@ -84,97 +98,102 @@
                 </table>
             </div>
             <div class="col-lg-2 v-align price">
-                115,000$
+                <!--                    <span th:text="${ product.getProductPrice() }"/>$-->
             </div>
             <div class="col-lg-1 v-align price">
                 <img src="/img/cart/trash.png" alt="trash.png">
-            </div>
-        </div>
-<!--        상품 추가시 끝-->
-
-        <!--마이바티스 연동-->
-        <div class="row" th:each="product : ${ cartList }">
-            <div class="col-lg-2">
-                <!--                <img class="product" src="../../static/img/cart/naverPay.png" alt="상품 이미지명">-->
-                <img class="product" src="/img/cart/naverPay.png" alt="상품 이미지명">
-            </div>
-            <div class="col-lg-6 v-align">
-                <span th:text="${ product.productName }"/>
-            </div>
-            <div class="col-lg-1 v-align">
-                <table>
-                    <tr>
-                        <td rowspan="2">
-                            2 &nbsp;
-                        </td>
-                        <td style="padding-bottom: 0">
-                            <a href="javascript: alert('위');" style="display: block">▲</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="padding-top: 0">
-                            <a href="javascript: alert('아래');" style="display: block">▼</a>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <div class="col-lg-2 v-align price">
-                115,000$
-            </div>
-            <div class="col-lg-1 v-align price">
-                <img src="/img/cart/trash.png" alt="trash.png">
-            </div>
-        </div>
-        <!--        상품 추가시 끝-->
-
-        <hr class="thick-line">
-        <!--합산 가격-->
-        <div class="row">
-            <div class="col-lg-9">
-            </div>
-            <div class="col-lg-2">
-                Sub Total
-            </div>
-            <div class="col-lg-1 price">
-                3000$
-            </div>
-        </div>
-
-        <!--할인 가격-->
-        <div class="row">
-            <div class="col-lg-9">
-
-            </div>
-            <div class="col-lg-2">
-                Discount Price
-            </div>
-            <div class="col-lg-1 price">
-                13,000$
-            </div>
-        </div>
-
-        <!--결제 금액-->
-        <div class="row">
-            <div class="col-lg-9">
-
-            </div>
-            <div class="col-lg-2">
-                Order Total
-            </div>
-            <div class="col-lg-1 price">
-                3000$
-            </div>
-        </div>
-        <br>
-
-        <!--구매 버튼-->
-        <div class="row">
-            <div class="col-lg-10">
-            </div>
-            <div class="col-lg-2">
-                <button onclick="location.href='order'">Purchase</button>
             </div>
         </div>
     </div>
+    <!--        상품 추가시 끝-->
+
+    <!--샘플-->
+    <!--        <hr class="line">-->
+    <!--&lt;!&ndash;        <div class="row" th:each="product : ${ cartList }">&ndash;&gt;-->
+    <!--        <div class="row">-->
+    <!--            <div class="col-lg-2">-->
+    <!--                &lt;!&ndash;                <img class="product" src="../../static/img/cart/naverPay.png" alt="상품 이미지명">&ndash;&gt;-->
+    <!--                <img class="product" src="/img/cart/naverPay.png" alt="상품 이미지명">-->
+    <!--            </div>-->
+    <!--            <div class="col-lg-6 v-align">-->
+    <!--                상품명-->
+    <!--&lt;!&ndash;                <span th:text="${ product.productName }"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;                <span th:text="${ product.productName }"/>&ndash;&gt;-->
+    <!--            </div>-->
+    <!--            <div class="col-lg-1 v-align">-->
+    <!--                <table>-->
+    <!--                    <tr>-->
+    <!--                        <td rowspan="2">-->
+    <!--                            2 &nbsp;-->
+    <!--                        </td>-->
+    <!--                        <td style="padding-bottom: 0">-->
+    <!--                            <a href="javascript: alert('위');" style="display: block">▲</a>-->
+    <!--                        </td>-->
+    <!--                    </tr>-->
+    <!--                    <tr>-->
+    <!--                        <td style="padding-top: 0">-->
+    <!--                            <a href="javascript: alert('아래');" style="display: block">▼</a>-->
+    <!--                        </td>-->
+    <!--                    </tr>-->
+    <!--                </table>-->
+    <!--            </div>-->
+    <!--            <div class="col-lg-2 v-align price">-->
+    <!--                115,000$-->
+    <!--            </div>-->
+    <!--            <div class="col-lg-1 v-align price">-->
+    <!--                <img src="/img/cart/trash.png" alt="trash.png">-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--샘플-->
+
+    <hr class="thick-line">
+    <!--합산 가격-->
+    <div class="row">
+        <div class="col-lg-9">
+        </div>
+        <div class="col-lg-2">
+            Sub Total
+        </div>
+        <div class="col-lg-1 price">
+            3000$
+        </div>
+    </div>
+
+    <!--할인 가격-->
+    <div class="row">
+        <div class="col-lg-9">
+
+        </div>
+        <div class="col-lg-2">
+            Discount Price
+        </div>
+        <div class="col-lg-1 price">
+            13,000$
+        </div>
+    </div>
+
+    <!--결제 금액-->
+    <div class="row">
+        <div class="col-lg-9">
+
+        </div>
+        <div class="col-lg-2">
+            Order Total
+        </div>
+        <div class="col-lg-1 price">
+            3000$
+        </div>
+    </div>
+    <br>
+
+    <!--구매 버튼-->
+    <div class="row">
+        <div class="col-lg-10">
+        </div>
+        <div class="col-lg-2">
+            <button onclick="location.href='order'">Purchase</button>
+        </div>
+    </div>
+</div>
 </body>
 </html>

@@ -15,7 +15,24 @@
 
     @font-face {
         font-family: 'BodoniXT'; /*font 이름*/
-        src: url(/static/font/BodoniXT.ttf);
+        src: url(/font/BodoniXT.ttf);
+    }
+    .snowflake{
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: white;
+        position: absolute;
+        top: -8px;
+    }
+
+    @keyframes fall{
+        from{
+
+        } to{
+              transform: translateY(100vh);
+              opacity: 0;
+          }
     }
     body
     {
@@ -128,8 +145,9 @@
     }
 </style>
 <body>
+<div class="snowflake"></div>
 <div class="left">
-    <img id='loginimg' class='loginimg' src="/static/img/personality/loginimg.png">
+    <img id='loginimg' class='loginimg' src="/img/personality/loginimg.png">
     </img>
 </div>
 
@@ -156,8 +174,40 @@
     </div>
 
     <div class='loginnow'><button type="submit" class="btn btn-outline-warning" id="btn" style="font-weight: bold">LOGIN NOW</button></div>
-    <div id='joinin' class='joinin'>Dont have an account? <a href="signup.html" style="text-decoration:underline; color:white">Join for free</a></div>
+    <div id='joinin' class='joinin'>Dont have an account? <a href="/user/signup" style="text-decoration:underline; color:white">Join for free</a></div>
 </div>
+    <script>
+        const body = document.querySelector("body");
+        const MIN_DURATION = 10;
+
+        function makeSnowflake(){
+            const snowflake = document.createElement("div");
+            const delay = Math.random() * 10;
+            const initialOpacity = Math.random();
+            const duration = Math.random() * 20 + MIN_DURATION;
+
+            snowflake.classList.add("snowflake")
+            snowflake.style.left = `${Math.random() * window.screen.width}px`;
+            snowflake.style.animationDelay = `${delay}s`;
+            snowflake.style.opacity = initialOpacity;
+            snowflake.style.animation = `fall ${duration}s linear`;
+
+            body.appendChild(snowflake);
+
+            setTimeout(()=> {
+                body.removeChild(snowflake);
+                makeSnowflake()
+            }, (duration + delay) * 1000);
+
+        }
+
+        makeSnowflake();
+        for(let index = 0; index < 50; index++){
+            setTimeout(makeSnowflake, 500 * index);
+        }
+
+
+    </script>
 </form>
 </body>
 </html>

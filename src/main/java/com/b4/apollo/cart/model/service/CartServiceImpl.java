@@ -1,7 +1,7 @@
 package com.b4.apollo.cart.model.service;
 
 import com.b4.apollo.cart.model.dao.CartMapper;
-import com.b4.apollo.cart.model.dto.CartProductDTO;
+import com.b4.apollo.cart.model.dto.CartDTO;
 import com.b4.apollo.cart.model.dto.OrderDTO;
 import com.b4.apollo.cart.model.dto.PaymentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ import java.util.List;
 @Service
 public class CartServiceImpl implements CartService{
 
-    private CartMapper cartDAO;
+    private CartMapper cartMapper;
 
     /**
      * @MethodName : 기본 생성자
@@ -31,7 +31,7 @@ public class CartServiceImpl implements CartService{
      */
     @Autowired
     public CartServiceImpl(CartMapper cartDAO) {
-        this.cartDAO = cartDAO;
+        this.cartMapper = cartDAO;
     }
 
     /**
@@ -41,17 +41,10 @@ public class CartServiceImpl implements CartService{
      * @Method 설명 : 장바구니 페이지에 출력할 장바구니 품목들을 불러올 인터페이스의 구현체
      */
     @Override
-    public List<CartProductDTO> getCartList(String userId) {
-//    public List<ProductDTO> getCartList(Map<String, String> parameter) {
+//    public List<ProductDTO> getCartList(String userId) {
+    public List<CartDTO> getCartList(HashMap<String, Object> parameter) {
 
-        // 널값은 스크립트로 처리하자
-        //        if(productList == null) {
-////            throw new ProductNotFoundException("상품 정보가 존재하지 않습니다.");
-////            throw new Exception("상품 정보가 존재하지 않습니다.");
-//        }
-
-        return cartDAO.getCartList(userId);
-//        return cartDAO.getCartList(parameter);
+        return cartMapper.getCartList(parameter);
     }
 
     /**
@@ -66,7 +59,7 @@ public class CartServiceImpl implements CartService{
         HashMap<String, Integer> parameter = new HashMap<>();
         parameter.put("paymentNo", paymentNo);
 
-        return cartDAO.getPaymentDetail(parameter);
+        return cartMapper.getPaymentDetail(parameter);
     }
 
     /**
@@ -81,7 +74,7 @@ public class CartServiceImpl implements CartService{
         HashMap<String, Integer> parameter = new HashMap<>();
         parameter.put("orderNo", orderNo);
 
-        return cartDAO.getOrderDetail(parameter);
+        return cartMapper.getOrderDetail(parameter);
     }
 
     /*
@@ -123,7 +116,7 @@ public class CartServiceImpl implements CartService{
     @Transactional(rollbackFor = Exception.class)
     public boolean increaseProduct(int cartNo) throws Exception{
 
-        int result = cartDAO.increaseProduct(cartNo);
+        int result = cartMapper.increaseProduct(cartNo);
 
         if(result <= 0) {
 
@@ -143,7 +136,7 @@ public class CartServiceImpl implements CartService{
     @Transactional(rollbackFor = Exception.class)
     public boolean decreaseProduct(int cartNo) throws Exception {
 
-        int result = cartDAO.decreaseProduct(cartNo);
+        int result = cartMapper.decreaseProduct(cartNo);
 
         if(result <= 0) {
 
@@ -156,7 +149,7 @@ public class CartServiceImpl implements CartService{
     @Override
     public boolean deleteProduct(int cartNo) throws Exception {
 
-        int result = cartDAO.deleteProduct(cartNo);
+        int result = cartMapper.deleteProduct(cartNo);
 
         if(result <= 0) {
 
@@ -168,4 +161,4 @@ public class CartServiceImpl implements CartService{
 
 
 }
-//@Transactional(rollbackFor = Exception.class) // 오류 발생시 롤백 // 메소드에 
+//@Transactional(rollbackFor = Exception.class) // 오류 발생시 롤백 // 메소드에
