@@ -3,30 +3,27 @@ package com.b4.apollo.member.controller;
 import com.b4.apollo.member.model.dto.MemberDTO;
 import com.b4.apollo.member.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("member")
 public class MemberController {
 
     private final MemberService memberService;
-    private final MessageSource messageSource;
 
     @Autowired
-    public MemberController(MemberService memberService, MessageSource messageSource) {
+    public MemberController(MemberService memberService) {
         this.memberService = memberService;
-        this.messageSource = messageSource;
     }
 
-    @GetMapping ("signup")
-    public ModelAndView insertMember(ModelAndView mv, MemberDTO m){
+    @GetMapping  ("signup")
+    public ModelAndView insertMember(ModelAndView mv, MemberDTO m, RedirectAttributes rttr) throws Exception {
+        memberService.insertMember(m);
         mv.setViewName("member/signup");
+        rttr.addFlashAttribute("successMessage","회원가입되었습니다,");
         return mv;
     }
 
