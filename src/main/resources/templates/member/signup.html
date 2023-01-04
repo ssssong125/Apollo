@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <title>회원가입페이지</title>
     <meta charset="UTF-8">
@@ -12,6 +12,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
 <style>
 
     @font-face {
@@ -24,6 +25,8 @@
         width: 100%;
         margin: 0 auto;
         font-family: BodoniXT;
+        display: grid;
+
 
     }
 
@@ -45,29 +48,28 @@
           }
     }
 
-    .left {
+    .leftContainer {
         float: left;
         width: 50%;
+        top: 130px;
         position: relative;
     }
 
-    .container {
+    .rightContainer {
         float: left;
-        width: 40%;
-        top: 120px;
+        top: 160px;
+        width: 50%;
         position: relative;
-        display: grid;
     }
 
     .signinimg {
         height:750px;
         width:700px;
-        top: 130px;
         float: right;
         position: relative;
     }
 
-    span {
+    .title {
         font-weight: bold;
         font-size: 70px;
         color: white;
@@ -76,7 +78,7 @@
         text-align: center;
         float: left;
     }
-    table {
+    .sub_right {
         float: left;
         top: 10px;
         position: relative;
@@ -84,23 +86,31 @@
         margin-right:auto;
     }
 
-    .createnow{
-
-        top: 10px;
-        color:white;
+    .btns{
+        top: 40px;
         position: relative;
-    }
-    #btn {
         float: left;
+    }
+    #btn1 {
         height: 61px;
-        width: 437px;
+        width: 219px;
         font-size: 24px;
         background-color: orange;
-        position: relative;
         color: black;
+        font-weight: bold;
+        position: relative;
+    }
+    #btn2{
+        height: 61px;
+        width: 219px;
+        font-size: 24px;
+        background-color: orange;
+        color: black;
+        font-weight: bold;
+        position: relative;
     }
     input {
-        width: 437px;
+        width: 438px;
         font-size: 16px;
         padding: 3px 0;
         color: #fff;
@@ -129,6 +139,8 @@
         border-color: #DF9438;
         padding: 3px;
         width: 110px;
+        margin-left: -10px;
+        margin-bottom: -15px;
 
     }
     #idBtn{
@@ -142,92 +154,72 @@
     select::-ms-expand{
         display: none;
     }
-
-
-    @media (max-width: 768px) {
-        h1{
-            font-size: 36px;
-        }
-        .signinimg{
-            min-width: 550px;
-            min-height: 500px;
-        }
-        input{
-            font-size: 36px;
-        }
+    .form-control{
+        color: white;
+        font-weight: bold;
+        width: 438px;
+        font-size: 16px;
+        padding: 3px 0;
+        border: none;
+        border-bottom: 1px solid #fff;
+        outline: none;
+        background: transparent;
+        float: left;
+        position: relative;
+        margin-top: 10px;
     }
-    .title{
-        align-content: center;
+    .form-control::placeholder{
+        color: white;
+        font-weight: bold;
     }
+    .form-control:focus{
+        border: none;
+        border-bottom: 1px solid #fff;
+        outline: none;
+        background: transparent;    }
 </style>
 <body>
 <div class="snowflake"></div>
-<div class="left">
+<th:block th:include="fragments/header :: headerFragment"></th:block>
+<div class="content">
+<div class="leftContainer">
     <img id='signinimg' class='signinimg' src='/static/img/personality/signin.jpg' alt="가입페이지이미지">
     </img>
 </div>
-<div class="container">
-    <div class="title">
-    <span>
+<div class="rightContainer">
+    <div>
+    <span class="title">
     CREATE ACCOUNT
     </span>
     </div>
-    <div id="singup">
-        <form action="/singup" method="post">
+        <form id="enrollForm" action="member/singup" method="post">
             <div class="sub_right">
-                <table>
-                    <tr>
-                        <td><input type="text" size="35" placeholder="NAME" maxlength="10" onfocus="this.placeholder = ''" required></td>
-                    </tr>
-                    <tr>
-                        <td><br></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" name = "id" size="35" placeholder="아이디 10글자 이내" maxlength="10" style="font-weight: bold; font-size: 12pt;" onfocus="this.placeholder = ''" required></td>
-                        <td>
-                            <button id="idBtn" class="btn btn-btn-link">중복 확인</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <br>
-                    </tr>
-                    <tr>
-                        <td><span id="sid" style="font-size: medium; font-weight: bold"></span><br></td>
-                    </tr>
-                    <tr>
-                        <td><span id="sid2" style="font-size: medium; font-weight: bold"></span></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="tel" placeholder="PHONE" maxlength="15" size="35" onfocus="this.placeholder = ''" required>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><br></td>
-                    </tr>
-                    <tr>
-                        <td><input type="password" name="userPwd" id="userPwd1" size="35"
-                                   placeholder="PASSWORD: 영문,숫자,특수문자 포함 8자 이상" minlength="8" onfocus="this.placeholder = ''" required></td>
-                    </tr>
-                    <tr>
-                        <td><span id="spw" style="font-size: medium; font-weight: bold"></span><br></td>
-                    </tr>
-                    <tr>
-                        <td><input type="password" id="userPwd2" size="35" minlength="8" placeholder="CONFIRM PASSWORD"
-                                   onfocus="this.placeholder = ''" required></td>
-                    </tr>
-                    <tr>
-                        <td><span id="spw2" style="font-size: medium; font-weight: bold"></span><br></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div>
-                                <input type="text" id="user_email" name="email_id" placeholder="EMAIL" style="position: relative; width: 210px;" onfocus="this.placeholder = ''" maxlength="18" required>
-                                <p style="color: white; float: left; font-size: xx-large; position: relative;">@</p>
-                                <input type="text" id="email_address" list="user_email_address" placeholder="  직접입력" style="position: relative; width: 211px;" maxlength="18" onfocus="this.placeholder = ''"/>
-                            </div>
-                        </td>
-                        <td style="bottom: 15px; position: relative;">
+                <div><input type="text" size="35" placeholder="NAME" maxlength="10" onfocus="this.placeholder = ''" required></div>
+                <br><br>
+                <div>
+                    <input type="text" name = "id" size="35" placeholder="아이디 10글자 이내" maxlength="10" style="font-weight: bold; font-size: 12pt;" onfocus="this.placeholder = ''" required>
+                    <button id="idBtn" class="btn btn-btn-link">중복 확인</button><br>
+                    <span id="sid" style="font-size: medium; font-weight: bold"></span>
+                    <span id="sid2" style="font-size: medium; font-weight: bold"></span>
+                </div>
+                <br>
+                <div>
+                    <input type="password" name="userPwd" id="userPwd1" size="35"
+                           placeholder="PASSWORD: 영문,숫자,특수문자 포함 8자 이상" minlength="8" onfocus="this.placeholder = ''" required><br>
+                    <span id="spw" style="font-size: medium; font-weight: bold"></span>
+                </div>
+                <br>
+                <div>
+                    <input type="password" id="userPwd2" size="35" minlength="8" placeholder="CONFIRM PASSWORD"
+                           onfocus="this.placeholder = ''" required><br>
+                    <span id="spw2" style="font-size: medium; font-weight: bold"></span>
+                </div>
+                <br>
+                <input type="tel" placeholder="PHONE" maxlength="15" size="35" onfocus="this.placeholder = ''" required><br><br>
+
+                <input type="text" id="user_email" name="email_id" placeholder="EMAIL" style="position: relative; width: 210px;" onfocus="this.placeholder = ''" maxlength="18" required>
+                <p style="color: white; float: left; font-size: large;">@</p>
+                <input type="text" id="email_address" list="user_email_address" placeholder="직접입력" style="position: relative; width: 211px; text-align: center" maxlength="18" onfocus="this.placeholder = ''"/>
                             <datalist name="emailAddr" id="user_email_address" >
                                 <option value="" selected>직접입력</option>
                                 <option value="naver.com">@naver.com</option>
@@ -238,27 +230,20 @@
                                 <option value="nate.com">@nate.com</option>
                                 <option value="yahoo.com">@yahoo.com</option>
                             </datalist>
-                        </td>
-                    </tr>
-                    <tr style="bottom: 25px; position: relative;">
-                        <td><input type="text" id="postcode" name="postcode" size="35" style="margin-top: 15px" placeholder="우편번호" onfocus="this.placeholder = ''"/></td>
-                        <td><button id="postfind_btn" class="btn btn-btn-link" onclick="execDaumPostcode()" style="margin-top: 15px" value="우편번호 찾기">우편번호찾기</button></td>
-                    </tr>
-                    <tr style="bottom: 17px; position: relative;">
-                        <td><input type="text" id="address" size="35" placeholder="주소" style="margin-top: 15px" onfocus="this.placeholder = ''"></td>
-                    </tr>
-                    <tr style="bottom: 10px; position: relative;">
-                        <td><input type="text" id="detailAddress" size="35" placeholder="상세주소" style="margin-top: 15px" onfocus="this.placeholder = ''"></td>
-                    </tr>
-                    <tr>
-                        <td><br><br></td>
-                    </tr>
-                </table>
-                <br>
-                <div class='createnow'>
-                    <button type="submit" class="btn btn-outline-warning" id="btn" style="font-weight: bold" onclick="returnTest();">CREATE NOW</button>
-
+                <div class="form-check-inline">
+                    <input type="text" id="postcode" name="postcode" class="form-control mr-2 postcodify_postcode5" size="35" placeholder="우편번호" onfocus="this.placeholder = ''"/>
+                    <button id="postfind_btn" class="btn btn-btn-link" value="우편번호 찾기">우편번호찾기</button>
                 </div>
+                <div>
+                    <input type="text" name="address1" id="address" class="form-control postcodify_address" size="35" placeholder="주소" onfocus="this.placeholder = ''">
+                    <input type="text" name="address2" id="detailAddress" class="form-control postcodify_extra_info" size="35" placeholder="상세주소" onfocus="this.placeholder = ''">
+                </div>
+                <div class="btns" align="center">
+                    <button type="submit" class="btn btn-outline-warning" id="btn1">회원가입</button>
+                    <button type="reset" class="btn btn-outline-warning" id="btn2">회원가입취소</button>
+                </div>
+
+
             </div>
         </form>
         <script>
@@ -293,27 +278,12 @@
 
 
         </script>
-        <script>
-            function execDaumPostcode() {
-                new daum.Postcode({
-                    oncomplete: function (data) {
-
-                        console.log(data);
-
-                        var roadAddr = data.roadAddress;
-                        var jibunAddr = data.jibunAddress;
-
-                        document.getElementById('postcode').value = data.zonecode;
-                        if (roadAddr !== '') {
-                            document.getElementById("address").value = roadAddr;
-                        } else if (jibunAddr !== '') {
-                            document.getElementById("address").value = jibunAddr;
-                        }
-                        document.getElementById("detailAddress").focus();
-                    }
-                }).open();
-            }
-        </script>
+    <script>
+        // 검색 단추를 누르면 팝업 레이어가 열리도록 설정한다.
+        $(function(){
+            $("#postfind_btn").postcodifyPopUp();
+        });
+    </script>
         <script>
             $("#user_email").blur(function(){
                 email();
@@ -344,35 +314,59 @@
                     $("#sid").html("올바른 형식의 아이디입니다").css("color","blue")
                 }
             });
+        </script>
+            <script>
+            function idCheckValidate(id){
 
-            $("#idBtn").on("click", function (){
-                var id = $("input[name=id]").val();
-                console.log(id);
-                idcheck(id);
+                if(id == 0){ // 아직 중복체크를 하지 않는 경우 (아이디 적어도 5글자 이상은 되어야만 본격적으로 중복체크할 꺼임)
+                    $("#sid").hide();
+                    $("#idBtn").attr("disabled", true);
+
+                }else if(id == 1){ // 중복된 아이디가 존재할 경우
+                    $("#sid").css("color", "red").text("중복된 아이디가 존재합니다. 사용이 불가능합니다.");
+                    $("#sid").show();
+                    $("#idBtn").attr("disabled", true);
+
+                }else if(id == 2){ // 중복된 아이디가 존재하지 않을 경우 ->사용 가능
+                    $("#sid").css("color", "green").text("사용 가능한 아이디입니다. ");
+                    $("#sid").show();
+                    $("#idBtn").removeAttr("disabled");
+
+                }
+
+            }
+            $(function(){
+
+                var $idInput = $("#enrollForm input[name=userId]"); // 아이디 입력하는 input 요소
+
+                $idInput.keyup(function(){
+
+                    // 아이디는 최소 5글자 ~
+                    if($idInput.val().length >= 5){ // 5글자 이상되었을 때 본격적으로 중복체크
+
+                        $.ajax({
+                            url:"idCheck",
+                            data:{userId:$idInput.val()},
+                            type:"post",
+                            success:function(result){
+                                if(result > 0){ //   중복된 아이디 존재
+                                    idCheckValidate(1);
+                                }else{
+                                    idCheckValidate(2);
+                                }
+                            },error:function(){
+                                console.log("아이디 중복체크용 ajax 통신 실패");
+                            }
+                        });
+
+                    }else{
+                        idCheckValidate(0);
+                    }
+
+                });
             });
         </script>
-        <script>
-            function idcheck(id){
-                $.ajax({
-                    type: 'GET',
-                    url: '/idcheck',
-                    data: {id:id},
-                    dataType: 'json',
-                    success: function (result){
-                        if (result == '0'){
-                            $("#sid").html("");
-                            $("#sid2").html("사용할 수 있는 아이디입니다.").css("color","blue");
-                        } else{
-                            $("#sid").html("");
-                            $("#sid2").html("사용 중인 아이디 입니다.").html("color","orange");
-                        }
-                    },
-                    error: function (e){
-                        alert("error: " + e);
-                    }
-                });
-            }
-        </script>
+
         <script type="text/javascript">
             $("input[name=userPwd]").on("keyup", function(){
 
@@ -401,6 +395,7 @@
             });
         </script>
     </div>
+</div>
 </div>
 </body>
 </html>
