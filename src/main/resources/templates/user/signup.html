@@ -12,18 +12,18 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
 
 <style>
 
     @font-face {
         font-family: 'BodoniXT'; /*font 이름*/
-        src: url(/static/font/BodoniXT.ttf);
+        src: url(/font/BodoniXT.ttf);
     }
 
     body {
         background-color: black;
         width: 100%;
+        height: 100%;
         margin: 0 auto;
         font-family: BodoniXT;
         display: grid;
@@ -57,7 +57,7 @@
 
     .rightContainer {
         float: left;
-        top: 160px;
+        top: 90px;
         width: 50%;
         position: relative;
 
@@ -91,7 +91,6 @@
     .btns{
         top: 40px;
         position: relative;
-        float: left;
     }
     #btn1 {
         height: 61px;
@@ -101,6 +100,7 @@
         color: black;
         font-weight: bold;
         position: relative;
+        float: left;
     }
     #btn2{
         height: 61px;
@@ -110,6 +110,7 @@
         color: black;
         font-weight: bold;
         position: relative;
+        float: left;
     }
     input {
         width: 438px;
@@ -141,9 +142,7 @@
         border-color: #DF9438;
         padding: 3px;
         width: 110px;
-        margin-left: -10px;
-        margin-bottom: -15px;
-
+        margin-top: -60px;
 
     }
     #idBtn{
@@ -152,6 +151,8 @@
         border-color: #DF9438;
         padding: 3px;
         width: 110px;
+        float: right;
+        position: relative;
     }
 
     select::-ms-expand{
@@ -162,14 +163,13 @@
         font-weight: bold;
         width: 438px;
         font-size: 16px;
-        padding: 3px 0;
+        padding: 30px 0;
         border: none;
         border-bottom: 1px solid #fff;
         outline: none;
         background: transparent;
         float: left;
         position: relative;
-        margin-top: 10px;
     }
     .form-control::placeholder{
         color: white;
@@ -179,14 +179,15 @@
         border: none;
         border-bottom: 1px solid #fff;
         outline: none;
-        background: transparent;    }
+        background: transparent;
+    }
+
 </style>
 <body>
 <div class="snowflake"></div>
-<th:block th:include="fragments/header :: headerFragment"></th:block>
 <div class="content">
 <div class="leftContainer">
-    <img id='signinimg' class='signinimg' src='/static/img/personality/signin.jpg' alt="가입페이지이미지">
+    <img id='signinimg' class='signinimg' src='/img/personality/signin.jpg' alt="가입페이지이미지">
     </img>
 </div>
 <div class="rightContainer">
@@ -195,35 +196,35 @@
     CREATE ACCOUNT
     </span>
     </div>
-        <form id="enrollForm" action="member/singup" method="post">
+        <form id="enrollForm" action="/singup" method="post">
             <div class="sub_right">
+                <br>
                 <div><input type="text" size="35" placeholder="NAME" maxlength="10" onfocus="this.placeholder = ''" required></div>
-                <br><br>
+                <br><br><br>
                 <div>
                     <input type="text" name = "id" size="35" placeholder="아이디 10글자 이내" maxlength="10" style="font-weight: bold; font-size: 12pt;" onfocus="this.placeholder = ''" required>
                     <button id="idBtn" class="btn btn-btn-link">중복 확인</button><br>
                     <span id="sid" style="font-size: medium; font-weight: bold"></span>
                     <span id="sid2" style="font-size: medium; font-weight: bold"></span>
                 </div>
-                <br>
+                <br><br>
                 <div>
                     <input type="password" name="userPwd" id="userPwd1" size="35"
-                           placeholder="PASSWORD: 영문,숫자,특수문자 포함 8자 이상" minlength="8" onfocus="this.placeholder = ''" required><br>
-                    <span id="spw" style="font-size: medium; font-weight: bold"></span>
+                           placeholder="PASSWORD: 영문,숫자,특수문자 포함 8자 이상" minlength="8" onfocus="this.placeholder = ''" required>
+                    <br><br><span id="spw" style="font-size: medium; font-weight: bold"></span>
                 </div>
                 <br>
                 <div>
                     <input type="password" id="userPwd2" size="35" minlength="8" placeholder="CONFIRM PASSWORD"
-                           onfocus="this.placeholder = ''" required><br>
+                           onfocus="this.placeholder = ''" required><br><br>
                     <span id="spw2" style="font-size: medium; font-weight: bold"></span>
                 </div>
                 <br>
                 <input type="tel" placeholder="PHONE" maxlength="15" size="35" onfocus="this.placeholder = ''" required><br><br>
-
+                <br>
                 <input type="text" id="user_email" name="email_id" placeholder="EMAIL" style="position: relative; width: 210px;" onfocus="this.placeholder = ''" maxlength="18" required>
-                <p style="color: white; float: left; font-size: large;">@</p>
+                <p style="color: white; float: left; font-size: x-large;">@</p>
                 <input type="text" id="email_address" list="user_email_address" placeholder="직접입력" style="position: relative; width: 211px; text-align: center" maxlength="18" onfocus="this.placeholder = ''"/>
-
                             <datalist name="emailAddr" id="user_email_address" >
                                 <option value="" selected>직접입력</option>
                                 <option value="naver.com">@naver.com</option>
@@ -233,20 +234,27 @@
                                 <option value="korea.com">@korea.com</option>
                                 <option value="nate.com">@nate.com</option>
                                 <option value="yahoo.com">@yahoo.com</option>
-                            </datalist>
-                <div class="form-check-inline">
-                    <input type="text" id="postcode" name="postcode" class="form-control mr-2 postcodify_postcode5" size="35" placeholder="우편번호" onfocus="this.placeholder = ''"/>
-                    <button id="postfind_btn" class="btn btn-btn-link" value="우편번호 찾기">우편번호찾기</button>
-                </div>
-                <div>
-                    <input type="text" name="address1" id="address" class="form-control postcodify_address" size="35" placeholder="주소" onfocus="this.placeholder = ''">
-                    <input type="text" name="address2" id="detailAddress" class="form-control postcodify_extra_info" size="35" placeholder="상세주소" onfocus="this.placeholder = ''">
-                </div>
-                <div class="btns" align="center">
-                    <button type="submit" class="btn btn-outline-warning" id="btn1">회원가입</button>
-                    <button type="reset" class="btn btn-outline-warning" id="btn2">회원가입취소</button>
-                </div>
+                            </datalist><br>
+                <input type="text" id="postcode" name="postcode" class="form-control mr-2 postcodify_postcode5" size="35" placeholder="우편번호" onfocus="this.placeholder = ''"/>
+                <br><button id="postfind_btn" class="btn btn-btn-link" value="우편번호 찾기">우편번호찾기</button>
+                <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
+                <input type="text" name="address1" id="address" class="form-control postcodify_address" size="35" placeholder="주소" onfocus="this.placeholder = ''">
+                <br><input type="text" name="address2" id="detailAddress" class="form-control postcodify_extra_info" size="35" placeholder="상세주소" onfocus="this.placeholder = ''">
 
+                <div class="btns" align="center">
+                    <br><br>
+                    <button type="submit" class="btn btn-outline-warning" id="btn1">회원가입</button>
+                    <button onclick="button_event()" type="button" class="btn btn-outline-warning" id="btn2">회원가입취소</button>
+                </div>
+                <script>
+                    function button_event(){
+                        if(confirm("작성 취소ok?")==true){
+                            document.form.submit();
+                        }else {
+                            return;
+                        }
+                    }
+                </script>
 
 
             </div>
@@ -401,6 +409,5 @@
     </div>
 </div>
 </div>
-
 </body>
 </html>
