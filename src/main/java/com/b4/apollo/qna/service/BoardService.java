@@ -1,6 +1,6 @@
 package com.b4.apollo.qna.service;
 
-import com.b4.apollo.qna.model.dto.Question;
+import com.b4.apollo.qna.model.dto.QuestionDTO;
 import com.github.pagehelper.Page;
 
 /**
@@ -16,7 +16,7 @@ public interface BoardService {
 
 
 
-    Question selectBoard(int bno);
+    QuestionDTO selectBoard(int bno);
 
     void deleteBoard(int boardNo);
 
@@ -24,8 +24,8 @@ public interface BoardService {
     void insertBoard(String boardTitle, String boardContent);
 
 //    void updateBoard(int boardNo);
-    void updateBoard(Question q, String boardTitle, String boardContent);
+    void updateBoard(QuestionDTO q, String boardTitle, String boardContent);
 
 
-    Page<Question> selectList(int pageNum);
+    Page<QuestionDTO> selectList(int pageNum);
 }
