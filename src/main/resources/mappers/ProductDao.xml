@@ -20,6 +20,7 @@
             A.*
         FROM TBL_PRODUCT A
         WHERE A.PRODUCT_QTY > 0
+        ORDER BY PRODUCT_NO
     </select>
     <select id="productDetail" resultMap="productResultMap"><!-- ?????? ????-->
         SELECT
@@ -29,8 +30,8 @@
     </select>
 
 
-    <insert id = "registProduct">
-BEGIN
+    <insert id = "registProduct" parameterType="com.b4.apollo.product.model.dto.ProductDTO">
+
         INSERT
         INTO TBL_PRODUCT A
             (
@@ -44,93 +45,32 @@ BEGIN
         VALUES
             (
             SEQ_PRODUCT_NO.NEXTVAL
-                , #{ name }
-                , #{ price }
-                , #{ description }
-                , #{ quantity }
+                , #{ productName }
+                , #{ productPrice }
+                , #{ productDesc }
+                , #{ productQty }
                 , #{ categoryCode }
 
-            );
-        INSERT
-        INTO TBL_PRODUCT_IMAGE B
-        (
-            B.FILE_NO
-        , B.ORIGIN_NAME
-        , B.STORED_NAME
-        , B.THUMBNAIL
-        , B.PRODUCT_NO
-        )
-        VALUES
-            (
-            SEQ_FILE_NO.NEXTVAL
-                , #{ origin }
-                , #{ stored }
-                , #{ isThumbnail }
-                , #{ productNo }
--- product no 를 시퀀스로 하면 괜히 숫자 두개가 +되나?
-            );
-INSERT
-INTO TBL_PRODUCT_IMAGE B
-    (
-            B.FILE_NO
-        , B.ORIGIN_NAME
-        , B.STORED_NAME
-        , B.THUMBNAIL
-        , B.PRODUCT_NO
-        )
-VALUES
-    (
-    SEQ_FILE_NO.NEXTVAL
-        , #{ origin }
-        , #{ stored }
-        , #{ isThumbnail }
-        , #{ productNo }
--- product no 를 시퀀스로 하면 괜히 숫자 두개가 +되나?
-    );
-INSERT
-INTO TBL_PRODUCT_IMAGE B
-    (
-            B.FILE_NO
-        , B.ORIGIN_NAME
-        , B.STORED_NAME
-        , B.THUMBNAIL
-        , B.PRODUCT_NO
-        )
-VALUES
-    (
-    SEQ_FILE_NO.NEXTVAL
-        , #{ origin }
-        , #{ stored }
-        , #{ isThumbnail }
-        , #{ productNo }
--- product no 를 시퀀스로 하면 괜히 숫자 두개가 +되나?
-    );
-END;
+            )
+
     </insert>
 
     <!-- 예약 수정 -->
     <update id="editProduct">
         UPDATE TBL_PRODUCT A
-            A.PRODUCT_NAME = #{ name }
-          , A.PRODUCT_PRICE = #{ price }
-          , A.PRODUCT_DESC = #{ description }
-          , A.PRODUCT_QTY = #{ quantity }
+            A.PRODUCT_NAME = #{ productName }
+          , A.PRODUCT_PRICE = #{ productPrice }
+          , A.PRODUCT_DESC = #{ productDesc }
+          , A.PRODUCT_QTY = #{ productQty }
           , A.CATEGORY_CODE = #{ categoryCode }
         WHERE A.PRODUCT_NO = #{ productNo }
-and
-        UPDATE TBL_PRODUCT_IMAGE
-            B.FILE_NO
-            , B.ORIGIN_NAME
-            , B.STORED_NAME
-            , B.THUMBNAIL
-            , B.PRODUCT_NO
-        WHERE A.PRODUCT_NO = #{ productNo }
+
     </update>
 
     <!-- 예약 삭제 -->
-    <delete id="deleteReserve">
+    <delete id="productDelete" parameterType="_int">
         DELETE
-        FROM TBL_
-        WHERE RESERVE_NO = #{ reserve_no }
+        FROM TBL_PRODUCT
+        WHERE PRODUCT_NO = #{ productNo }
     </delete>
 </mapper>

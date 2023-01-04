@@ -5,6 +5,25 @@
     <title>Title</title>
 </head>
 <body>
+<div th:include="fragments/header.html"></div>
+<h3 align="center">상품 정보 변경</h3>
+<form action="/product/edit" method="post" align="center">
+    <label> 이름 : </label><input type="text" name="productName"/><br>
+    <label> 가격 : </label><input type="number" name="productPrice"/><br>
+    <label> 설명 : </label><input type="text" name="productDesc"/><br>
+    <label> 수량 : </label><input type="number" name="productQty"/><br>
 
+
+    <label>카테고리 코드 :</label><input type="text" name="categoryCode"><br>
+    <!--    <select name="categoryCode" id="categoryCode">-->
+    <!-- ajax로 조회 -->
+    <!--    </select><br>-->
+    <!--    <label>판매 상태 : </label>-->
+    <!--    <select name="orderableStatus">-->
+    <!--        <option value="Y">Y</option>-->
+    <!--        <option value="N">N</option>-->
+    <!--    </select>-->
+    <input type="submit" value="전송"/>
+</form>
 </body>
 </html>

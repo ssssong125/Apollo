@@ -13,7 +13,7 @@ public interface ProductDAO {
 
     int registProduct(ProductDTO prod);
 
-    ProductDTO productDelete(int code);
+    ProductDTO productDelete(Integer code);
 
     int editProduct(ProductDTO newProd);
 }

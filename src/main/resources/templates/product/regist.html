@@ -2,47 +2,51 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>-->
     <title>Insert title here</title>
 </head>
 <body>
-<div th:include="common/header.html"></div>
-<h3 align="center">신규 메뉴 등록</h3>
-<form action="/menu/regist" method="post" align="center">
-    <label>메뉴 이름 : </label><input type="text" name="name"><br>
-    <label>메뉴 가격 : </label><input type="number" name="price"><br>
-    <label>카테고리 코드 : </label>
-    <select name="categoryCode" id="categoryCode">
+<div th:include="fragments/header.html"></div>
+<h3 align="center">신규 상품 등록</h3>
+<form action="/product/regist" method="post" align="center">
+    <label> 이름 : </label><input type="text" name="productName"/><br>
+    <label> 가격 : </label><input type="number" name="productPrice"/><br>
+    <label> 설명 : </label><input type="text" name="productDesc"/><br>
+    <label> 수량 : </label><input type="number" name="productQty"/><br>
+
+
+    <label>카테고리 코드 :</label><input type="text" name="categoryCode"><br>
+<!--    <select name="categoryCode" id="categoryCode">-->
         <!-- ajax로 조회 -->
-    </select><br>
-    <label>판매 상태 : </label>
-    <select name="orderableStatus">
-        <option value="Y">Y</option>
-        <option value="N">N</option>
-    </select>
-    <input type="submit" value="전송">
+<!--    </select><br>-->
+<!--    <label>판매 상태 : </label>-->
+<!--    <select name="orderableStatus">-->
+<!--        <option value="Y">Y</option>-->
+<!--        <option value="N">N</option>-->
+<!--    </select>-->
+    <input type="submit" value="전송"/>
 </form>
-<script>
-    $(function(){ //페이지로딩될떄
-        $.ajax({
-            url: "/menu/category",
+<!--<script>-->
+<!--    $(function(){ //페이지로딩될떄-->
+<!--        $.ajax({-->
+<!--            url: "/menu/category",-->
 
 
-            success: function(data, status, xhr){
-                const $categoryCode = $("#categoryCode");
+<!--            success: function(data, status, xhr){-->
+<!--                const $categoryCode = $("#categoryCode");-->
 
-                for(let index in data){
-                    $categoryCode.append($("<option>").val(data[index].code).text(data[index].name));
-                }
-            },
-            error: function(xhr, error, status){
-                console.log(xhr);
-            }
-        });
-    });
+<!--                for(let index in data){-->
+<!--                    $categoryCode.append($("<option>").val(data[index].code).text(data[index].name));-->
+<!--                }-->
+<!--            },-->
+<!--            error: function(xhr, error, status){-->
+<!--                console.log(xhr);-->
+<!--            }-->
+<!--        });-->
+<!--    });-->
 
 
-</script>
+<!--</script>-->
 
 
 </body>
