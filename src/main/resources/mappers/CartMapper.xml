@@ -4,11 +4,11 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!--  xml 파일을 사용할 mapper가 있는 경로 -->
-<mapper namespace="com.b4.apollo.cart.model.dao.CartDAO">
+<mapper namespace="com.b4.apollo.cart.model.dao.CartMapper">
 <!-- <mapper namespace="CartMapper">-->
 
 	<!--상품 정보를 담을 resultMap-->
-	<resultMap type="com.b4.apollo.product.model.dto.ProductDTO" id="cartResultMap">
+	<resultMap type="com.b4.apollo.cart.model.dto.CartProductDTO" id="cartResultMap">
 		<id property="productNo" column="PRODUCT_NO"/>
 		<result property="productName" column="PRODUCT_NAME"/>
 		<result property="productPrice" column="PRODUCT_PRICE"/>
@@ -40,33 +40,23 @@
 
 <!-- <select> 태그를 이용하여 select 쿼리임을 나타냄. 앞서 mapper에서 말했던 메소드의 이름은 select 쿼리의 id값과 같아야함. -->
 	<!--userId를 통해 장바구니에 담겨있는 상품 목록을 조회-->
-	<select id="getCartList" parameterType="String" resultType="cartResultMap">
+	<select id="getCartList" parameterType="String" resultMap="cartResultMap">
 		SELECT
+-- 		    B.*
 			A.PRODUCT_NO,
-			A.PRODUCT_NAME,
-			A.PRODUCT_PRICE,
-			A.PRODUCT_DESC,
-			A.PRODUCT_QTY,
-			A.CATEGORY_CODE
-		FROM TBL_PRODUCT A
-		JOIN TBL_CART B ON A.PRODUCT_NO = B.PRODUCT_NO
-		WHERE B.USER_ID = #{ userId }
+			B.PRODUCT_NAME,
+			B.PRODUCT_PRICE,
+			B.PRODUCT_DESC,
+			B.PRODUCT_QTY,
+			B.CATEGORY_CODE,
+			A.CART_NO
+		FROM TBL_CART_PRODY A
+		JOIN TBL_PRODUCT B ON A.PRODUCT_NO = B.PRODUCT_NO
+		WHERE A.USER_ID = #{userId}
 	</select>
-<!--	<select id="getCartList" parameterType="HashMap" resultType="cartResultMap">-->
-<!--		SELECT-->
-<!--			A.PRODUCT_NO,-->
-<!--			A.PRODUCT_NAME,-->
-<!--			A.PRODUCT_PRICE,-->
-<!--			A.PRODUCT_DESC,-->
-<!--			A.PRODUCT_QTY,-->
-<!--			A.CATEGORY_CODE-->
-<!--		FROM TBL_PRODUCT A-->
-<!--		JOIN TBL_CART B ON A.PRODUCT_NO = B.PRODUCT_NO-->
-<!--		WHERE B.USER_ID = #{ userId }-->
-<!--	</select>-->
 
 	<!--userId를 통해 결제 정보를 조회-->
-	<select id="getPaymentDetail" parameterType="HashMap" resultType="paymentResultMap">
+	<select id="getPaymentDetail" parameterType="hashmap" resultMap="paymentResultMap">
 		SELECT
 			A.PAYMENT_NO,
 			A.USER_ID,
@@ -78,7 +68,7 @@
 	</select>
 
 	<!--userId를 통해 주문 정보를 조회-->
-	<select id="getOrderDetail" parameterType="HashMap" resultType="orderResultMap">
+	<select id="getOrderDetail" parameterType="hashmap" resultMap="orderResultMap">
 		SELECT
 			A.ORDER_NO,
 			A.PAYMENT_NO,
@@ -95,7 +85,7 @@
 	</select>
 
 	<!-- 장바구니에 품목추가 -->
-	<insert id="addCart" parameterType="HashMap">
+	<insert id="addCart" parameterType="hashmap">
 		INSERT INTO TBL_CART
 			VALUES
 			    (

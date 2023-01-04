@@ -17,16 +17,16 @@
         <java.version>11</java.version>
     </properties>
     <dependencies>
-<!--        시큐리티 관련 일단 주석처리 해둠-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-security</artifactId>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.security</groupId>-->
-<!--            <artifactId>spring-security-test</artifactId>-->
-<!--            <scope>test</scope>-->
-<!--        </dependency>-->
+        <!--        시큐리티 관련 일단 주석처리 해둠-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.boot</groupId>-->
+        <!--            <artifactId>spring-boot-starter-security</artifactId>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.security</groupId>-->
+        <!--            <artifactId>spring-security-test</artifactId>-->
+        <!--            <scope>test</scope>-->
+        <!--        </dependency>-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -90,7 +90,6 @@
             <version>1.4.1</version>
         </dependency>
 
-
     </dependencies>
 
     <build>
@@ -109,5 +108,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

@@ -12,7 +12,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-
 /**
  @FileName : BoardController.java
 
@@ -45,7 +44,6 @@ public class BoardController {
     public String selectList(@RequestParam(required = false, defaultValue = "1") int pageNum, Model model) {
 
         PageInfo<QuestionDTO> list = new PageInfo<>(boardService.selectList(pageNum), 10);
-
 
         model.addAttribute("list", list);
         return "qna/boardList";

@@ -5,7 +5,6 @@ import org.springframework.lang.Nullable;
 
 import java.time.LocalDateTime;
 
-
 @Getter
 @Setter
 @NoArgsConstructor

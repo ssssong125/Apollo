@@ -4,10 +4,10 @@ package com.b4.apollo.qna.service;
 import com.b4.apollo.qna.exception.CommonException;
 import com.b4.apollo.qna.exception.DataNotFoundException;
 import com.b4.apollo.qna.model.dao.BoardMapper;
-        import com.b4.apollo.qna.model.dto.QuestionDTO;
+import com.b4.apollo.qna.model.dto.QuestionDTO;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-        import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
