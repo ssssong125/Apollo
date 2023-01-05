@@ -20,7 +20,7 @@
     <select id="loginUser" resultMap="loginUserResultMap">
         SELECT A.*
         FROM TBL_USER A
-        WHERE A.USER_ID = #{userId} AND A.USER_ACTIVE = 'Y'
+        WHERE A.USER_ID = #{userId} AND A.USER_PWD = #{userPwd} AND A.USER_ACTIVE = 'Y'
     </select>
 
     <insert id="insertUser" parameterType="com.b4.apollo.user.model.dto.UserDTO">
@@ -30,7 +30,9 @@
             A.USER_PWD,
             A.USER_TEL,
             A.USER_EMAIL,
+            A.ADDRESS_ZIPCODE,
             A.ADDRESS,
+            A.ADDRESS_DETAIL,
             A.USER_ROLE,
             A.USER_ACTIVE,
             A.USER_ENTDATE,
@@ -38,12 +40,15 @@
             )
         VALUES
             (
+            SEQ_USER_NO.NEXTVAL,
             #{userName},
             #{userId},
             #{userPwd},
             #{userTel},
             #{userEmail},
+            #{zipcode},
             #{userAddr},
+            #{addrDetail},
             'Y',
             'Y',
             SYSDATE,
@@ -51,7 +56,7 @@
             )
     </insert>
 
-    <select id="idCheck" parameterType="String" resultType="int">
+    <select id="idCheck" parameterType="String" resultType="_int">
         SELECT COUNT(*) FROM TBL_USER A
         WHERE A.USER_ID = #{userId}
     </select>

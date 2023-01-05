@@ -27,13 +27,11 @@ public class UserServiceImpl implements UserService {
 //    }
 
     @Override
-    public boolean insertUser(UserDTO m){
-        int result = userMapper.insertUser(m);
+    public boolean insertUser(UserDTO newUser){
+        int result = userMapper.insertUser(newUser);
 
-//        if(result <= 0 ){
-//            throw new CommonException("회원 등록 실패");
-//        }
-        return result>0 ? true:  false;    }
+        return result>0 ? true:  false;
+    }
 
 //    @Override
 //    public MemberDTO updateMember(MemberDTO m) throws Exception {

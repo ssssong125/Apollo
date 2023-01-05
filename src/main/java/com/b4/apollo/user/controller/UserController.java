@@ -4,10 +4,13 @@ package com.b4.apollo.user.controller;
 import com.b4.apollo.user.model.dto.UserDTO;
 import com.b4.apollo.user.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.Locale;
 
 @Controller
 @RequiredArgsConstructor
@@ -15,7 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class UserController {
 
     private final UserService userService;
-
+    private final MessageSource messageSource;
 
     @GetMapping("signup")
     public String signupForm(){
@@ -23,13 +26,11 @@ public class UserController {
     }
 
     @PostMapping("signup")
-    public ModelAndView insertUser(ModelAndView mv, UserDTO newUser, RedirectAttributes rttr){
-        System.out.println(1);
-        System.out.println("newUser = " + newUser);
+    public ModelAndView insertUser(ModelAndView mv, UserDTO newUser, RedirectAttributes rttr, Locale locale) throws Exception{
         userService.insertUser(newUser);
         mv.setViewName("redirect:/user/login");
 
-        rttr.addFlashAttribute("successMessage","회원가입되었습니다,");
+        rttr.addFlashAttribute("successMessage", messageSource.getMessage("insertUser", null, locale));
         return mv;
     }
 
