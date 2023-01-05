@@ -33,7 +33,7 @@ public class ProductController {
         return mv;
     }
 
-    @GetMapping("detail  /*  int code 에 대한 것을 {}로 써야함 ???  */")
+    @GetMapping("detail ")/*  int code 에 대한 것을 {}로 써야함 ???  */
     public ModelAndView productDetail(ModelAndView mv, int code) {
         ProductDTO productDetail = productService.productDetail(code);
         mv.addObject("productDetail", productDetail);
