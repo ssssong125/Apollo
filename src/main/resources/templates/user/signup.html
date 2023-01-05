@@ -12,7 +12,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 <style>
@@ -32,14 +31,14 @@
 
     }
 
-    .snowflake{
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background-color: white;
-        position: absolute;
-        top: -8px;
-    }
+    /*.snowflake{*/
+    /*    width: 8px;*/
+    /*    height: 8px;*/
+    /*    border-radius: 50%;*/
+    /*    background-color: white;*/
+    /*    position: absolute;*/
+    /*    top: -8px;*/
+    /*}*/
 
     @keyframes fall{
         from{
@@ -148,15 +147,6 @@
         margin-top: -60px;
 
     }
-    #idBtn{
-        color: white;
-        font-weight: bold;
-        border-color: #DF9438;
-        padding: 3px;
-        width: 110px;
-        float: right;
-        position: relative;
-    }
 
     select::-ms-expand{
         display: none;
@@ -187,7 +177,7 @@
 
 </style>
 <body>
-<div class="snowflake"></div>
+<!--<div class="snowflake"></div>-->
 <div class="content">
 <div class="leftContainer">
     <img id='signinimg' class='signinimg' src='/img/personality/signin.jpg' alt="가입페이지이미지">
@@ -217,10 +207,10 @@
                 <br>
                 <input type="tel" name="userTel"placeholder="PHONE" maxlength="15" size="35" onfocus="this.placeholder = ''" required><br><br>
                 <br>
-                <input type="text" id="user_email" name="userEmail" placeholder="EMAIL" style="position: relative; width: 210px;" onfocus="this.placeholder = ''" maxlength="18" required>
+                <input type="text" id="user_email"  placeholder="EMAIL" style="position: relative; width: 210px;" onfocus="this.placeholder = ''" maxlength="18" required>
                 <p id="middle" style="color: white; float: left; font-size: x-large;">@</p>
                 <input type="text" id="email_address" list="user_email_address" placeholder="직접입력" style="position: relative; width: 211px; text-align: center" maxlength="18" onfocus="this.placeholder = ''"/>
-                            <datalist name="emailAddr" id="user_email_address" >
+                            <datalist id="user_email_address" >
                                 <option value="" selected>직접입력</option>
                                 <option value="naver.com">@naver.com</option>
                                 <option value="google.com">@google.com</option>
@@ -230,53 +220,76 @@
                                 <option value="nate.com">@nate.com</option>
                                 <option value="yahoo.com">@yahoo.com</option>
                             </datalist><br>
-
-                <input type="text" id="postcode" name="userAddr" class="form-control mr-2 postcodify_postcode5" size="35" placeholder="우편번호" onfocus="this.placeholder = ''"/>
+                <input type="hidden" id="totalemail" name="userEmail" value="">
+                <input type="text" id="postcode" name="zipcode" class="form-control mr-2 postcodify_postcode5" size="35" placeholder="우편번호" onfocus="this.placeholder = ''"/>
                 <br><button type="button" id="postfind_btn" class="btn btn-btn-link" value="우편번호 찾기">우편번호찾기</button>
-                <input type="text" name="address1" id="address" class="form-control postcodify_address" size="35" placeholder="주소" onfocus="this.placeholder = ''">
-                <br><input type="text" name="address2" id="detailAddress" class="form-control postcodify_extra_info" size="35" placeholder="상세주소" onfocus="this.placeholder = ''">
+                <input type="text" name="userAddr" id="address" class="form-control postcodify_address" size="35" placeholder="주소" onfocus="this.placeholder = ''">
+                <br><input type="text" name="addrDetail" id="detailAddress" class="form-control postcodify_extra_info" size="35" placeholder="상세주소" onfocus="this.placeholder = ''">
 
                 <div class="btns" align="center">
                     <br><br>
                     <button type="submit" class="btn btn-outline-warning" id="btn1">회원가입</button>
                     <button type="reset" class="btn btn-outline-warning" id="btn2">다시작성</button>
                 </div>
+            </div>
+        </form>
+</div>
+</div>
+                <script>
+                    $("#user_email").blur(function(){
+                        email();
+                    });
+
+                    $("#email_address").change(function(){
+                        email();
+                    });
+
+                    function email() {
+                        const email = $("#user_email").val();
+                        const middle = $("#middle").text();
+                        const address = $("#email_address").val();
+                        if(email != "" && address != "") {
+                            $("#totalemail").val(email+middle+address);
+                        }
+                    };
+                </script>
+<!--        <script>-->
+<!--            const body = document.querySelector("body");-->
+<!--            const MIN_DURATION = 10;-->
+
+<!--            function makeSnowflake(){-->
+<!--                const snowflake = document.createElement("div");-->
+<!--                const delay = Math.random() * 10;-->
+<!--                const initialOpacity = Math.random();-->
+<!--                const duration = Math.random() * 20 + MIN_DURATION;-->
+
+<!--                snowflake.classList.add("snowflake")-->
+<!--                snowflake.style.left = `${Math.random() * window.screen.width}px`;-->
+<!--                snowflake.style.animationDelay = `${delay}s`;-->
+<!--                snowflake.style.opacity = initialOpacity;-->
+<!--                snowflake.style.animation = `fall ${duration}s linear`;-->
+
+<!--                body.appendChild(snowflake);-->
+
+<!--                setTimeout(()=> {-->
+<!--                    body.removeChild(snowflake);-->
+<!--                    makeSnowflake()-->
+<!--                }, (duration + delay) * 1000);-->
+
+<!--            }-->
+
+<!--            makeSnowflake();-->
+<!--            for(let index = 0; index < 50; index++){-->
+<!--                setTimeout(makeSnowflake, 500 * index);-->
+<!--            }-->
+<!--        </script>-->
+        <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js" style="color: black"></script>
         <script>
-            const body = document.querySelector("body");
-            const MIN_DURATION = 10;
-
-            function makeSnowflake(){
-                const snowflake = document.createElement("div");
-                const delay = Math.random() * 10;
-                const initialOpacity = Math.random();
-                const duration = Math.random() * 20 + MIN_DURATION;
-
-                snowflake.classList.add("snowflake")
-                snowflake.style.left = `${Math.random() * window.screen.width}px`;
-                snowflake.style.animationDelay = `${delay}s`;
-                snowflake.style.opacity = initialOpacity;
-                snowflake.style.animation = `fall ${duration}s linear`;
-
-                body.appendChild(snowflake);
-
-                setTimeout(()=> {
-                    body.removeChild(snowflake);
-                    makeSnowflake()
-                }, (duration + delay) * 1000);
-
-            }
-
-            makeSnowflake();
-            for(let index = 0; index < 50; index++){
-                setTimeout(makeSnowflake, 500 * index);
-            }
+            // 검색 단추를 누르면 팝업 레이어가 열리도록 설정한다.
+            $(function(){
+                $("#postfind_btn").postcodifyPopUp();
+            });
         </script>
-    <script>
-        // 검색 단추를 누르면 팝업 레이어가 열리도록 설정한다.
-        $(function(){
-            $("#postfind_btn").postcodifyPopUp();
-        });
-    </script>
         <script>
             $("#user_email").blur(function(){
                 email();
@@ -316,7 +329,7 @@
                 $.ajax({
                     url:'./idCheck',
                     type: 'POST',
-                    data:{userId:userId},
+                    data:{userId:this.userId},
                     success:function(cnt){
                         if(cnt == 0){
                             $(".id_ok").html("사용가능한 아이디입니다.").css("color","orange");
@@ -362,10 +375,5 @@
                 }
             });
         </script>
-            </div>
-        </form>
-</div>
-</div>
-</div>
 </body>
 </html>
