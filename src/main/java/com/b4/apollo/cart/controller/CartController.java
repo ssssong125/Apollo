@@ -3,9 +3,9 @@ package com.b4.apollo.cart.controller;
 import com.b4.apollo.cart.model.dto.CartDTO;
 import com.b4.apollo.cart.model.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
@@ -19,7 +19,8 @@ import java.util.List;
  @프로그램 설명 : 어플리케이션 컨텍스트 리소스의 위치 혹은 컨텍스트를 로드할때 사용되는 클래스의 컴포넌트를 선언
  */
 //@Controller
-@RestController
+//@RestController
+@Controller
 @RequestMapping("cart")
 public class CartController {
 
@@ -39,20 +40,13 @@ public class CartController {
     @GetMapping("trolley")
     public ModelAndView trolley(ModelAndView mv) {
 
-        HashMap<String, Object> parameter = new HashMap<>();
+        HashMap<String, String> parameter = new HashMap<>();
         parameter.put("userId", "user01");
-        parameter.put("productNo", 1);
 
         List<CartDTO> cartList = cartService.getCartList(parameter);
 
-        // 콘솔에 찍어보기
-//        cartList.stream().forEach(cartList -> System.out.println("product = " + cartList));
-
-//        if( cartList != null ){ mv.addAttribute("cartList", cartList ); }
-//        else mv.addAttribute("cartList", new CartList);
-
         mv.addObject("cartList", cartList);
-//        mv.addObject("product", product);
+
         // 프로덕트 맵핑
         mv.setViewName("cart/trolley");
 
