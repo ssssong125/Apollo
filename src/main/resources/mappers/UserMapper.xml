@@ -27,22 +27,21 @@
         INSERT INTO TBL_USER A (
             A.USER_NAME,
             A.USER_ID,
-            A.USER_TEL,
             A.USER_PWD,
+            A.USER_TEL,
             A.USER_EMAIL,
             A.ADDRESS,
             A.USER_ROLE,
             A.USER_ACTIVE,
             A.USER_ENTDATE,
             A.USER_POINT
-            ) VALUSES
+            )
         VALUES
             (
-            SEQ_MENU_CODE.NEXTVAL,
             #{userName},
             #{userId},
-            #{userTel},
             #{userPwd},
+            #{userTel},
             #{userEmail},
             #{userAddr},
             'Y',
@@ -52,7 +51,7 @@
             )
     </insert>
 
-    <select id="idCheck" parameterType="String" resultType="_int">
+    <select id="idCheck" parameterType="String" resultType="int">
         SELECT COUNT(*) FROM TBL_USER A
         WHERE A.USER_ID = #{userId}
     </select>

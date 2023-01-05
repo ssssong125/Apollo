@@ -49,9 +49,9 @@ public class MybatisConfig {
         SqlSessionFactoryBean seb = new SqlSessionFactoryBean();
 
 
-        org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
-        configuration.setCallSettersOnNulls(true);
-        seb.setConfiguration(configuration);
+//        org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
+//        configuration.setCallSettersOnNulls(true);
+//        seb.setConfiguration(configuration);
 
 
 
