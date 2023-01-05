@@ -74,11 +74,7 @@
                     <img id="contentImg2" width="120" height="100">
                 </div>
             </td>
-            <td>
-                <div class="content-img-area3" id="contentImgArea3">
-                    <img id="contentImg3" width="120" height="100">
-                </div>
-            </td>
+
 
         </tr>
         <tr>
@@ -89,10 +85,10 @@
         </tr>
     </table>
     <div class="thumbnail-file-area">
-        <input type="file" id="thumbnailImg1" name="thumbnailImg1" onchange="loadImg(this,1)">
-        <input type="file" id="thumbnailImg2" name="thumbnailImg2" onchange="loadImg(this,2)">
-        <input type="file" id="thumbnailImg3" name="thumbnailImg3" onchange="loadImg(this,3)">
-        <input type="file" id="thumbnailImg4" name="thumbnailImg4" onchange="loadImg(this,4)">
+        <input type="file" id="thumbnailImg1" name="thumbnailImg1" onchange="loadImg(this,1)" hidden="hidden">
+        <input type="file" id="thumbnailImg2" name="thumbnailImg2" onchange="loadImg(this,2)" hidden="hidden">
+        <input type="file" id="thumbnailImg3" name="thumbnailImg3" onchange="loadImg(this,3)" hidden="hidden">
+
     </div>
 </div>
 <br>
@@ -106,7 +102,7 @@
     const $titleImgArea = document.getElementById("titleImgArea");
     const $contentImgArea1 = document.getElementById("contentImgArea1");
     const $contentImgArea2 = document.getElementById("contentImgArea2");
-    const $contentImgArea3 = document.getElementById("contentImgArea3");
+    // const $contentImgArea3 = document.getElementById("contentImgArea3");
 
     $titleImgArea.onclick = function() {
         document.getElementById("thumbnailImg1").click();
@@ -120,9 +116,9 @@
         document.getElementById("thumbnailImg3").click();
     }
 
-    $contentImgArea3.onclick = function() {
-        document.getElementById("thumbnailImg4").click();
-    }
+    // $contentImgArea3.onclick = function() {
+    //     document.getElementById("thumbnailImg4").click();
+    // }
     function loadImg(value, num) {
         if (value.files && value.files[0]) {
             const reader = new FileReader();
@@ -137,9 +133,9 @@
                     case 3:
                         document.getElementById("contentImg2").src = e.target.result;
                         break;
-                    case 4:
-                        document.getElementById("contentImg3").src = e.target.result;
-                        break;
+                    // case 4:
+                    //     document.getElementById("contentImg3").src = e.target.result;
+                    //     break;
                 }
             }
             reader.readAsDataURL(value.files[0]);
