@@ -1,12 +1,10 @@
 package com.b4.apollo.cart.model.dto;
 
 
-import com.b4.apollo.user.model.dto.UserDTO;
 import com.b4.apollo.product.model.dto.ProductDTO;
-import lombok.Builder;
-import lombok.Data;
-
-
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.sql.Date;
 
@@ -20,7 +18,8 @@ import java.sql.Date;
 //@Data
 @Getter
 @Setter
-@Builder(toBuilder = true) // lombok 기능, 생성자를 조금 바꾼거를 바로바로 생성가능
+@NoArgsConstructor
+//@Builder(toBuilder = true) // lombok 기능, 생성자를 조금 바꾼거를 바로바로 생성가능
 public class CartDTO extends ProductDTO {
 
     /**
@@ -38,18 +37,20 @@ public class CartDTO extends ProductDTO {
      */
     private int productCount;
 
-    private UserDTO user;
-
+    /**
+     * @param regDate 등록일
+     */
+    private Date regDate;
 
     /**
      * @param productDTO 상품 객체
      */
     private ProductDTO productInfo;
 
-    private int productNo;
-    private String productName;
-    private int productPrice;
-    private String productDesc;
-    private int productQty;
-    private String categoryCode;
+//    private int productNo;
+//    private String productName;
+//    private int productPrice;
+//    private String productDesc;
+//    private int productQty;
+//    private String categoryCode;
 }
