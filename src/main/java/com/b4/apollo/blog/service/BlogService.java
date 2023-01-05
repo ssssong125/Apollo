@@ -1,7 +1,7 @@
-package com.b4.apollo.blog.post.service;//package com.b4.apollo.blog.post.service;
+package com.b4.apollo.blog.service;//package com.b4.apollo.blog.post.service;
 
-import com.b4.apollo.blog.post.model.dto.AttachDTO;
-import com.b4.apollo.blog.post.model.dto.BlogDTO;
+import com.b4.apollo.blog.model.dto.AttachDTO;
+import com.b4.apollo.blog.model.dto.BlogDTO;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
