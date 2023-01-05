@@ -177,7 +177,8 @@ CREATE TABLE "TBL_QUESTION" (
                                 BOARD_TITLE	VARCHAR(100)	NOT NULL,
                                 BOARD_CONTENT	VARCHAR(300)	NOT NULL,
                                 CREATE_DATE	DATE	NULL,
-                                COUNT	NUMBER	NULL
+                                COUNT	NUMBER	NULL,
+                                STATUS CHAR(2 BYTE) DEFAULT 'Y'
 );
 
 -- 댓글 번호 시퀀스

@@ -99,4 +99,9 @@ public class BoardController {
         boardService.deleteBoard(boardNo);
         return "redirect:/question/list";
     }
+
+    @RequestMapping("/faq")
+    public String faqBoard(){
+        return "qna/faq";
+    }
 }
