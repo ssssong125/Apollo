@@ -28,7 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public WebSecurityCustomizer configure() {
 
         return (web) -> web.ignoring().mvcMatchers(
-                "/css/**", "/js/**", "/images/**"
+                "/css/**", "/js/**", "/img/**"
         );
     }
 
@@ -36,7 +36,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception{
         http
                 .authorizeRequests()
-                .antMatchers("/","/main").permitAll()
+//                .antMatchers("/","/main").permitAll()
+                .antMatchers("/","/main", "/cart/**", "/cart/trolley").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
