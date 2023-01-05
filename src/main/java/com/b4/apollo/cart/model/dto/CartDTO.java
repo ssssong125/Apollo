@@ -42,8 +42,7 @@ public class CartDTO extends ProductDTO {
     /**
      * @param productDTO 상품 객체
      */
-    private ProductDTO productDTO;
-
+    private ProductDTO productInfo;
 
     private int productNo;
     private String productName;

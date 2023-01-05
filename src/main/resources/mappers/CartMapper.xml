@@ -9,11 +9,11 @@
 	<!--카트 정보를 담을 resultMap-->
 	<resultMap id="cartResultMap" type="com.b4.apollo.cart.model.dto.CartDTO">
 		<id property="cartNo" column="CART_NO"/>
-		<result property="productNo" column="PRODUCT_NO"/>
+<!--		<result property="productNo" column="PRODUCT_NO"/>-->
 		<result property="userId" column="USER_ID"/>
 		<result property="productCount" column="PRODUCT_COUNT"/>
 		<result property="regDate" column="REG_DATE"/>
-		<association property="productDTO" javaType="com.b4.apollo.cart.model.dto.CartDTO">
+		<association property="productInfo" javaType="com.b4.apollo.cart.model.dto.CartDTO">
 			<id property="productNo" column="PRODUCT_NO"/>
 			<result property="productName" column="PRODUCT_NAME"/>
 			<result property="productPrice" column="PRODUCT_PRICE"/>
@@ -108,7 +108,11 @@
 -- 			B.PRODUCT_DESC,
 -- 			B.PRODUCT_QTY,
 -- 			B.CATEGORY_CODE
-			A.*,
+-- 			A.*,
+			A.CART_NO,
+			A.USER_ID,
+			A.PRODUCT_COUNT,
+			A.REG_DATE,
 			B.*
 		FROM TBL_CART A
 		JOIN TBL_PRODUCT B ON A.PRODUCT_NO = B.PRODUCT_NO
