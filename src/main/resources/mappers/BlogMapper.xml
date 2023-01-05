@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "com.b4.apollo.blog.post.model.dao.BlogMapper">
+
+    <resultMap id="BlogResultSet" type="com.b4.apollo.blog.post.model.dao.BlogMapper">
+        <id column="BLOG_NO" property="blogNo"/>
+        <result column="USER_ID" property="userId"/>
+        <result column="BLOG_TITLE" property="blogTitle"/>
+        <result column="BLOG_CONTENT" property="blogContent"/>
+        <result column="BLOG_POSTDATE" property="postDate"/>
+        <result column="BLOG_COUNT" property="count"/>
+        <result column="BLOG_DEL" property="blogDel"/>
+    </resultMap>
+
+  <insert id="insertBlog" parameterType="com.b4.apollo.blog.post.model.dto.BlogDTO" useGeneratedKeys="true" keyProperty="blogNo">
+      INSERT INTO TBL_BLOG_BOARD
+      VALUES (SEQ_BLOG_NO.nextval, 'USER01', #{blogTitle}, #{blogContent}, SYSDATE, DEFAULT, DEFAULT)
+  </insert>
+
+    <select id="selectBlogDetail" parameterType="_int" resultType="com.b4.apollo.blog.post.model.dto.BlogDTO">
+        SELECT
+            *
+        FROM TBL_BLOG_BOARD
+        WHERE BLOG_DEL = 'N'
+        AND BLOG_NO = #{blogNo}
+    </select>
+
+    <update id="updateBoard" parameterType="com.b4.apollo.blog.post.model.dto.BlogDTO">
+        UPDATE TBL_BLOG_BOARD
+        SET
+          USER_ID = 'USER01'
+          , BLOG_TITLE = #{blogTitle}
+          , BLOG_Content = #{blogContent}
+        WHERE BLOG_NO = #{blogNo}
+    </update>
+
+    <update id="deleteBoard" parameterType="_int">
+        UPDATE TBL_BLOG_BOARD
+        SET
+            BLOG_DEL = 'Y'
+        WHERE
+            BLOG_NO = #{blogNo}
+    </update>
+
+    <select id="selectBoardList" parameterType="com.b4.apollo.blog.post.model.dto.BlogDTO" resultMap="BlogResultSet">
+        SELECT *
+        FROM TBL_BLOG_BOARD
+        WHERE BLOG_DEL = 'N'
+        ORDER BY BLOG_NO DESC
+    </select>
+
+</mapper>

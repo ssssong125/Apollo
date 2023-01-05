@@ -8,7 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class FileDTO {
+public class AttachDTO {
 
     private int imgNo;
     private String originalName;
@@ -23,6 +23,7 @@ public class FileDTO {
 
     private String fileLocation;
 
+    private String imgDel;
 
 
 
