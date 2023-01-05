@@ -33,7 +33,7 @@ public class ProductController {
         return mv;
     }
 
-    @GetMapping("detail  /*  int code 에 대한 것을 {}로 써야함 ???  */")
+    @GetMapping("detail ")/*  int code 에 대한 것을 {}로 써야함 ???  */
     public ModelAndView productDetail(ModelAndView mv, int code) {
         ProductDTO productDetail = productService.productDetail(code);
         mv.addObject("productDetail", productDetail);
@@ -61,16 +61,16 @@ public class ProductController {
     public ModelAndView editProduct(ModelAndView mv, ProductDTO newProd/*, RedirectAttributes rttr*/) /*throws Exception*/ {
 
         productService.editProduct(newProd);
-        mv.setViewName("redirect:/product/edit");
+        mv.setViewName("redirect:/product/list");
 //        rttr.addFlashAttribute("successMessage","신규 메뉴 등록에 성공하셨습니다." );
 
         return mv;
     }
     @GetMapping("delete") /*  int code 에 대한 것을 {}로 써야함 ???  */
     public ModelAndView productDelete(ModelAndView mv, Integer code) {
-        ProductDTO productDelete = productService.productDelete(code);
-        mv.addObject("productDelete", productDelete);
-        mv.setViewName("product/delete");
+        productService.productDelete(code);
+//        mv.addObject("productDelete", productDelete);
+        mv.setViewName("redirect:/product/list");
         return mv;
     }
 }

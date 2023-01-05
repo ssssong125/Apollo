@@ -177,7 +177,8 @@ CREATE TABLE "TBL_QUESTION" (
                                 BOARD_TITLE	VARCHAR(100)	NOT NULL,
                                 BOARD_CONTENT	VARCHAR(300)	NOT NULL,
                                 CREATE_DATE	DATE	NULL,
-                                COUNT	NUMBER	NULL
+                                COUNT	NUMBER	NULL,
+                                STATUS CHAR(2 BYTE) DEFAULT 'Y'
 );
 
 -- 댓글 번호 시퀀스
@@ -373,8 +374,15 @@ VALUES('C3','Cl');
 INSERT INTO TBL_PRODUCT
 VALUES(1, 'Gadda', 60000, 'Italy', 1, 'C1');
 
+INSERT INTO TBL_PRODUCT
+VALUES(99, 'test', 10000, 'Italy', 3, 'C3');
+
 INSERT INTO TBL_CART
 VALUES(SEQ_CART_NO.NEXTVAL, 1, 'user01', 1, SYSDATE);
+
+INSERT INTO TBL_CART
+VALUES(SEQ_CART_NO.NEXTVAL, 99, 'user01', 3, SYSDATE);
+COMMIT ;
 
 -- 다중 쿼리 예시
 --BEGIN
@@ -429,31 +437,3 @@ VALUES(SEQ_CART_NO.NEXTVAL, 1, 'user01', 1, SYSDATE);
 -- /
 
 -- 출력 실험 
--- SELECT
---     A.PRODUCT_NO,
---     B.PRODUCT_NAME,
---     B.PRODUCT_PRICE,
---     B.PRODUCT_DESC,
---     B.PRODUCT_QTY,
---     B.CATEGORY_CODE
--- FROM TBL_CART A
--- JOIN TBL_PRODUCT B ON A.PRODUCT_NO = B.PRODUCT_NO
--- WHERE A.USER_ID = 'user01';
-
-SELECT
-		    A.CART_NO,
-		    C.USER_ID,
-		    A.PRODUCT_COUNT,
-		    A.REG_DATE,
-			B.PRODUCT_NO,
-			B.PRODUCT_NAME,
-			B.PRODUCT_PRICE,
-			B.PRODUCT_DESC,
-			B.PRODUCT_QTY,
-			B.CATEGORY_CODE
-		FROM TBL_CART A
-		JOIN TBL_PRODUCT B ON A.PRODUCT_NO = B.PRODUCT_NO
-		JOIN TBL_USER C ON A.USER_ID = C.USER_ID
-		WHERE 1 = 1
-		AND B.PRODUCT_NO = 1
-		AND C.USER_ID = 'user01';

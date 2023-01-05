@@ -2,6 +2,7 @@ package com.b4.apollo.product.model.service;
 
 import com.b4.apollo.product.model.dao.ProductDAO;
 import com.b4.apollo.product.model.dto.ProductDTO;
+import com.b4.apollo.product.model.dto.ProductImageDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,10 +28,16 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public boolean registProduct(ProductDTO prod) /*throws Exception*/ {
-        int result = productDAO.registProduct(prod);
-//        if(result<=0){
-//            // throw new Exception("메뉴등록 실패");
-//        }
+        int result=0;
+        int productResult = productDAO.registProduct(prod);
+        List<ProductImageDTO> imgList = prod.getProductImageDTOList();
+        int imgResult = 0;
+        for(int i = 0 ; i<imgList.size();i++){
+            imgResult += productDAO.addProductImage(imgList.get(i));
+        }
+        if(productResult>0 && imgResult == imgList.size()) {
+            result = 1;
+        }
         return result>0 ? true:  false;
     }
 
@@ -44,9 +51,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductDTO productDelete(Integer code) {
-        return productDAO.productDelete(code);
-    }
+    public boolean productDelete(Integer code) {
+        int result = productDAO.productDelete(code);
+        if(result<=0){
+            // throw new Exception("메뉴등록 실패");
+        }
+        return result>0 ? true:  false;    }
 
 
 

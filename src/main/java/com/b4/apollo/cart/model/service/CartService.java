@@ -24,7 +24,7 @@ public interface CartService {
      * @작성자 : 김수용
      * @Method 설명 : 장바구니 페이지에 출력할 장바구니 품목들을 불러오는 기능
      */
-    List<CartDTO> getCartList(HashMap<String, Object> parameter);
+    List<CartDTO> getCartList(HashMap<String, String> parameter);
 
     /**
      * @MethodName : getPaymentDetail
@@ -56,7 +56,7 @@ public interface CartService {
      * @작성자 : 김수용
      * @Method 설명 : 장바구니에 담긴 품목의 수량을 증가시키는 기능
      */
-    boolean increaseProduct(int cartNo) throws Exception;
+    void increaseProduct(int cartNo) throws Exception;
 
     /**
      * @MethodName : decreaseProduct
@@ -64,7 +64,15 @@ public interface CartService {
      * @작성자 : 김수용
      * @Method 설명 : 장바구니에 담긴 품목의 수량을 감소시키는 기능
      */
-    boolean decreaseProduct(int cartNo) throws Exception;
+    void decreaseProduct(int cartNo) throws Exception;
+
+    /**
+     * @MethodName : updateProductCount
+     * @작성일 : 2023. 01. 05.
+     * @작성자 : 김수용
+     * @Method 설명 : 장바구니에 담긴 품목의 수량 수정하는 기능
+     */
+    void updateProductCount(int cartNo, int count);
 
     /**
      * @MethodName : deleteProduct

@@ -13,19 +13,42 @@
         <result property="productDesc" column="PRODUCT_DESC"/>
         <result property="productQty" column="PRODUCT_QTY"/>
         <result property="categoryCode" column="CATEGORY_CODE"/>
+
+        <association property="category" resultMap="categoryResultMap"/>
+
+        <collection property="productImage" resultMap="imageResultMap"/>
     </resultMap>
+
+    <resultMap id="categoryResultMap" type="com.b4.apollo.product.model.dto.CategoryDTO">
+        <id property="categoryCode" column="CATEGORY_CODE"/>
+        <result property="categoryName" column="CATEGORY_NAME"/>
+    </resultMap>
+    <resultMap id="imageResultMap" type="com.b4.apollo.product.model.dto.ProductImageDTO">
+        <id property="fileNo" column="FILE_NO"/>
+        <result property="originName" column="ORIGIN_NAME"/>
+        <result property="storedName" column="STORED_NAME"/>
+        <result property="isThumbnail" column="THUMBNAIL"/>
+        <result property="productNo" column="PRODUCT_NO"/>
+    </resultMap>
+
 
     <select id="productList" resultMap="productResultMap"><!-- ?????? ????-->
         SELECT
             A.*
+            ,B.*
         FROM TBL_PRODUCT A
+        JOIN TBL_PRODUCT_IMAGE B
+        ON A.PRODUCT_NO = B.PRODUCT_NO
         WHERE A.PRODUCT_QTY > 0
-        ORDER BY PRODUCT_NO
+        ORDER BY A.PRODUCT_NO
     </select>
     <select id="productDetail" resultMap="productResultMap"><!-- ?????? ????-->
         SELECT
             A.*
+            ,B.*
         FROM TBL_PRODUCT A
+        JOIN TBL_PRODUCT_IMAGE B
+        ON A.PRODUCT_NO = B.PRODUCT_NO
         WHERE A.PRODUCT_NO = #{productNo}
     </select>
 
@@ -52,18 +75,44 @@
                 , #{ categoryCode }
 
             )
-
+        <selectKey keyProperty="no" resultType="Integer" order="AFTER">
+            SELECT
+            SEQ_PRODUCT_NO_NO.CURRVAL
+            FROM DUAL
+        </selectKey>
     </insert>
+    <insert id="addProductImage">
+        INSERT
+        INTO TBL_PRODUCT_IMAGE A
+            (
+          A.FILE_NO
+        , A.ORIGIN_NAME
+        , A.STORED_NAME
+        , A.THUMBNAIL
+        , A.PRODUCT_NO
+        )
+        VALUES
+            (
+            SEQ_FILE_NO.NEXTVAL
+                , #{ originName }
+                , #{ storedName }
+                , #{ isThumbnail }
+                , SEQ_PRODUCT_NO_NO.CURRVAL
+
+           )
+    </insert>
+
 
     <!-- 예약 수정 -->
     <update id="editProduct">
         UPDATE TBL_PRODUCT A
+            SET
             A.PRODUCT_NAME = #{ productName }
           , A.PRODUCT_PRICE = #{ productPrice }
           , A.PRODUCT_DESC = #{ productDesc }
           , A.PRODUCT_QTY = #{ productQty }
           , A.CATEGORY_CODE = #{ categoryCode }
-        WHERE A.PRODUCT_NO = #{ productNo }
+        WHERE A.PRODUCT_NO = '2'
 
     </update>
 
@@ -71,6 +120,6 @@
     <delete id="productDelete" parameterType="_int">
         DELETE
         FROM TBL_PRODUCT
-        WHERE PRODUCT_NO = #{ productNo }
+        WHERE PRODUCT_NO = '3'
     </delete>
 </mapper>

@@ -4,6 +4,7 @@ import com.b4.apollo.cart.model.dto.CartDTO;
 import com.b4.apollo.cart.model.dto.OrderDTO;
 import com.b4.apollo.cart.model.dto.PaymentDTO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +26,31 @@ public interface CartMapper {
      * @작성자 : 김수용
      * @Method 설명 : CartService에서 호출되어 장바구니 품목을 조회할 쿼리문을 실행시킴
      */
-    List<CartDTO> getCartList(Map<String, Object> parameter);
+    List<CartDTO> getCartList(Map<String, String> parameter);
+
+    /**
+     * @MethodName : increaseProduct
+     * @작성일 : 2023. 01. 02.
+     * @작성자 : 김수용
+     * @Method 설명 : CartService에서 호출되어 장바구니 품목의 구매수량을 증가 시킴
+     */
+    void increaseProduct(int cartNo);
+
+    /**
+     * @MethodName : increaseProduct
+     * @작성일 : 2023. 01. 03.
+     * @작성자 : 김수용
+     * @Method 설명 : CartService에서 호출되어 장바구니 품목의 구매수량을 감소 시킴
+     */
+    void decreaseProduct(int cartNo);
+
+    /**
+     * @MethodName : updateProductCount
+     * @작성일 : 2023. 01. 05.
+     * @작성자 : 김수용
+     * @Method 설명 : CartService에서 호출되어 장바구니 품목의 구매수량 수정함
+     */
+    void updateProductCount(@Param("cartNo") int cartNo, @Param("count") int count);
 
     /**
      * @MethodName : getOrder
@@ -50,22 +75,6 @@ public interface CartMapper {
      * @Method 설명 : CartService에서 호출되어 품목을 장바구니에 추가하는 쿼리문을 실행시킴
      */
     int addCart(HashMap<String, String> parameter);
-
-    /**
-     * @MethodName : increaseProduct
-     * @작성일 : 2023. 01. 02.
-     * @작성자 : 김수용
-     * @Method 설명 : CartService에서 호출되어 장바구니 품목의 구매수량을 증가 시킴
-     */
-    int increaseProduct(int cartNo);
-
-    /**
-     * @MethodName : increaseProduct
-     * @작성일 : 2023. 01. 03.
-     * @작성자 : 김수용
-     * @Method 설명 : CartService에서 호출되어 장바구니 품목의 구매수량을 감소 시킴
-     */
-    int decreaseProduct(int cartNo);
 
     /**
      * @MethodName : deleteProduct

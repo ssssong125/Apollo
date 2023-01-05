@@ -41,8 +41,7 @@ public class CartServiceImpl implements CartService{
      * @Method 설명 : 장바구니 페이지에 출력할 장바구니 품목들을 불러올 인터페이스의 구현체
      */
     @Override
-//    public List<ProductDTO> getCartList(String userId) {
-    public List<CartDTO> getCartList(HashMap<String, Object> parameter) {
+    public List<CartDTO> getCartList(HashMap<String, String> parameter) {
 
         return cartMapper.getCartList(parameter);
     }
@@ -114,16 +113,18 @@ public class CartServiceImpl implements CartService{
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean increaseProduct(int cartNo) throws Exception{
+    public void increaseProduct(int cartNo) throws Exception {
 
-        int result = cartMapper.increaseProduct(cartNo);
+//        int result = cartMapper.increaseProduct(cartNo);
+//
+//        if(result <= 0) {
+//
+//            throw new Exception("주문수량 증가 실패");
+//        }
+//
+//        return result > 0;
 
-        if(result <= 0) {
-
-            throw new Exception("주문수량 증가 실패");
-        }
-
-        return result > 0;
+        cartMapper.increaseProduct(cartNo);
     }
 
     /*
@@ -134,16 +135,23 @@ public class CartServiceImpl implements CartService{
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean decreaseProduct(int cartNo) throws Exception {
+    public void decreaseProduct(int cartNo) throws Exception {
 
-        int result = cartMapper.decreaseProduct(cartNo);
+//        int result = cartMapper.decreaseProduct(cartNo);
+//
+//        if(result <= 0) {
+//
+//            throw new Exception("주문수량 감소 실패");
+//        }
+//
+//        return result > 0;
 
-        if(result <= 0) {
+        cartMapper.decreaseProduct(cartNo);
+    }
 
-            throw new Exception("주문수량 감소 실패");
-        }
+    public void updateProductCount(int cartNo, int count) {
 
-        return result > 0;
+        cartMapper.updateProductCount(cartNo, count);
     }
 
     @Override

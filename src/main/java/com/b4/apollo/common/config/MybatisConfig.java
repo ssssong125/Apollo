@@ -60,9 +60,9 @@ public class MybatisConfig {
 //        seb.setConfigLocation(applicationContext.getResource("classpath:/mybatis/mybatis-config.xml"));
 //        Resource[] res = new PathMatchingResourcePatternResolver().getResources("classpath:mappers/*.xml");
 //        Resource[] res = new PathMatchingResourcePatternResolver().getResources("classpath:mappers/ProductDao.xml");
-//
- //       Resource[] res = new PathMatchingResourcePatternResolver().getResources("classpath:mappers/boardMapper.xml");
-        Resource[] res = new PathMatchingResourcePatternResolver().getResources("classpath:mappers/UserMapper.xml");
+       Resource[] res = new PathMatchingResourcePatternResolver().getResources("classpath:mappers/CartMapper.xml");
+//       Resource[] res = new PathMatchingResourcePatternResolver().getResources("classpath:mappers/boardMapper.xml");
+//        Resource[] res = new PathMatchingResourcePatternResolver().getResources("classpath:mappers/UserMapper.xml");
 
 
         seb.setMapperLocations(res);

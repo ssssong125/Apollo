@@ -230,7 +230,7 @@
     <!--headerFragment 선언-->
     <div th:fragment="headerFragment">
 <!--        내용-->
-        <h1>Header Section</h1>
+<!--        <h1>Header Section</h1>-->
     </div>
 
 
@@ -252,19 +252,19 @@
                 <!--          href -->
                 <li><a href="/" class="active">Home</a></li>
 
-                <li class="dropdown"><a href="#"><span>Instruments</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+                <li class="dropdown"><a href="/product/list"><span>Instruments</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
                     <ul>
                         <li><a href="">Strings</a></li>
                         <li><a href="">Winds</a></li>
                         <li><a href="">Clavier</a></li>
-                        <li><a href="">All products</a></li>
+                        <li><a href="/product/list">All products</a></li>
                         <li><a href="">Sales products</a></li>
-                        <li><a href="">Travel</a></li>
+                        <li><a href="">Regist New</a></li>
                     </ul>
                 </li>
-                <li class="dropdown"><a href="/qna"><span>Q&A</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+                <li class="dropdown"><a href="/question/list"><span>Q&A</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
                     <ul>
-                        <li><a href="">FAQ</a></li>
+                        <li><a href="/question/faq">FAQ</a></li>
                     </ul>
                 </li>
                 <li><a href="">Blog</a></li>
@@ -282,7 +282,9 @@
 
 
       
-            <a href="/user/login" class="login">
+
+            <a href="/member/login" class="login">
+
                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 20 20 ">
                     <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
                 </svg>

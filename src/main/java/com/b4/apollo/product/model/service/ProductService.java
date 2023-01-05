@@ -15,5 +15,6 @@ public interface ProductService {
 
     boolean editProduct(ProductDTO newProd);
 
-    ProductDTO productDelete(Integer code);
+    boolean productDelete(Integer code);
+
 }

@@ -3,6 +3,8 @@ package com.b4.apollo.product.model.dto;
 
 import lombok.*;
 
+import java.util.List;
+
 /**
  @FileName : ProductDTO.java
  @Project : Apollo
@@ -12,10 +14,14 @@ import lombok.*;
  */
 //@Data
 //@RequiredArgsConstructor
-@NoArgsConstructor
+//@NoArgsConstructor
 @ToString
-@Getter
-@Setter
+//@Getter
+//@Setter
+
+
+@Data
+@Builder(toBuilder = true) // lombok 기능, 생성자를 조금 바꾼거를 바로바로 생성가능
 //@Builder(toBuilder = true) // lombok 기능, 생성자를 조금 바꾼거를 바로바로 생성가능
 public class ProductDTO {
 
@@ -25,4 +31,6 @@ public class ProductDTO {
     private String productDesc;
     private int productQty;
     private String categoryCode;
+    private List<ProductImageDTO> productImageDTOList;
+
 }
