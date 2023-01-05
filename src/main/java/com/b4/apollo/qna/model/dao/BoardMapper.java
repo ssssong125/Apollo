@@ -24,4 +24,6 @@ public interface BoardMapper {
     List<Answer> getReplyList(Answer answer);
 
     void insertReply(Answer answer);
+
+    void updateCount(int bno);
 }

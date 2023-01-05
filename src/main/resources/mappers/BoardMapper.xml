@@ -23,13 +23,8 @@
 
 
 	<!-- 게시글 수 카운트 -->
-	<select id="selectListCount" resultType="_int">
-		SELECT COUNT(*)
-		FROM TBL_QUESTION
-		WHERE STATUS = 'Y'
-	</select>
 
-	<update id="increaseCount" parameterType="_int">
+	<update id="updateCount" parameterType="_int">
 		UPDATE TBL_QUESTION
 		SET COUNT = COUNT + 1
 		WHERE BOARD_NO = #{bno}
