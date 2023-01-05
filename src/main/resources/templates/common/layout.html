@@ -12,9 +12,15 @@
 </head>
 <body>
 
+<!-- 헤더 -->
+<div th:include="fragments/header.html"></div>
+
 <!-- 기본 템플릿 안에 삽입될 내용 Start -->
 <th:block layout:fragment="content"></th:block>
 <!-- 기본 템플릿 안에 삽입될 내용 End -->
+
+<-- 푸터 -->
+<div th:include="fragments/footer.html"></div>
 
 <!-- 자바스크립트 Start -->
 <th:block layout:fragment="script"></th:block>
