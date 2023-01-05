@@ -177,7 +177,7 @@ CREATE TABLE "TBL_QUESTION" (
                                 BOARD_TITLE	VARCHAR(100)	NOT NULL,
                                 BOARD_CONTENT	VARCHAR(300)	NOT NULL,
                                 CREATE_DATE	DATE	NULL,
-                                COUNT	NUMBER	NULL,
+                                COUNT	NUMBER	 DEFAULT 0,
                                 STATUS CHAR(2 BYTE) DEFAULT 'Y'
 );
 
