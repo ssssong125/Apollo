@@ -1,6 +1,6 @@
-package com.b4.apollo.blog.post.model.dao;
+package com.b4.apollo.blog.model.dao;
 
-import com.b4.apollo.blog.post.model.dto.AttachDTO;
+import com.b4.apollo.blog.model.dto.AttachDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

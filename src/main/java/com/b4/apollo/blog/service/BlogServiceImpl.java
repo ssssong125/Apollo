@@ -1,10 +1,10 @@
-package com.b4.apollo.blog.post.service;//package com.b4.apollo.blog.post.service;
+package com.b4.apollo.blog.service;//package com.b4.apollo.blog.post.service;
 
-import com.b4.apollo.blog.post.model.dao.AttachMapper;
-import com.b4.apollo.blog.post.model.dao.BlogMapper;
-import com.b4.apollo.blog.post.model.dto.AttachDTO;
-import com.b4.apollo.blog.post.model.dto.BlogDTO;
-import com.b4.apollo.blog.post.util.FileUtils;
+import com.b4.apollo.blog.model.dao.AttachMapper;
+import com.b4.apollo.blog.model.dao.BlogMapper;
+import com.b4.apollo.blog.model.dto.AttachDTO;
+import com.b4.apollo.blog.model.dto.BlogDTO;
+import com.b4.apollo.blog.util.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;

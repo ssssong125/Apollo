@@ -1,6 +1,6 @@
-package com.b4.apollo.blog.post.model.dao;//package com.b4.apollo.blog.post.model.dao;
+package com.b4.apollo.blog.model.dao;//package com.b4.apollo.blog.post.model.dao;
 
-import com.b4.apollo.blog.post.model.dto.BlogDTO;
+import com.b4.apollo.blog.model.dto.BlogDTO;
 import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;

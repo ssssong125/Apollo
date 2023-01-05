@@ -1,22 +1,15 @@
-package com.b4.apollo.blog.post.controller;//package com.b4.apollo.blog.post.controller;
+package com.b4.apollo.blog.controller;//package com.b4.apollo.blog.post.controller;
 
-import com.b4.apollo.blog.post.model.dto.AttachDTO;
-import com.b4.apollo.blog.post.model.dto.BlogDTO;
-import com.b4.apollo.blog.post.model.dto.BlogForm;
-import com.b4.apollo.blog.post.service.BlogService;
+import com.b4.apollo.blog.model.dto.BlogForm;
+import com.b4.apollo.blog.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import java.util.List;
-import java.util.Map;
 
 @Controller
 public class BlogController {

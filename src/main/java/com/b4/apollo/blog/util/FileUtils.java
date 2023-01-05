@@ -1,7 +1,7 @@
-package com.b4.apollo.blog.post.util;
+package com.b4.apollo.blog.util;
 
-import com.b4.apollo.blog.post.exception.AttachFileException;
-import com.b4.apollo.blog.post.model.dto.AttachDTO;
+import com.b4.apollo.blog.model.dto.AttachDTO;
+import com.b4.apollo.blog.exception.AttachFileException;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;

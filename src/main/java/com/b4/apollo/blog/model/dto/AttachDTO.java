@@ -1,4 +1,4 @@
-package com.b4.apollo.blog.post.model.dto;//package com.b4.apollo.blog.post.model.dto;
+package com.b4.apollo.blog.model.dto;//package com.b4.apollo.blog.post.model.dto;
 
 
 import lombok.*;

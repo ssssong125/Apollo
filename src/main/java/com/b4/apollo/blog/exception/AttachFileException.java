@@ -1,4 +1,4 @@
-package com.b4.apollo.blog.post.exception;
+package com.b4.apollo.blog.exception;
 
 @SuppressWarnings("serial")
 public class AttachFileException extends RuntimeException {
