@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.b4.apollo.blog.post.model.dao.AttachMapper">
+
+    <resultMap id="ImgResultSet" type="com.b4.apollo.blog.post.model.dao.AttachMapper">
+        <id column="BLOG_IMG_NO" property="imgNo"/>
+        <result column="ORIGIN_NAME" property="originalName"/>
+        <result column="STORED_NAME" property="storedName"/>
+        <result column="BLOG_NO" property="blogNo"/>
+        <result column="USER_ID" property="userId"/>
+        <result column="IMG_DEL" property="imgDel"/>
+    </resultMap>
+
+    <insert id="insertAttach" parameterType="com.b4.apollo.blog.post.model.dto.AttachDTO">
+        INSERT INTO TBL_BLOG_IMAGE
+        VALUES
+            (SEQ_BLOG_IMG_NO.NEXTVAL, #{ originalName }, #{ storedName}, #{blogNo}, 'USER01', DEFAULT);
+    </insert>
+
+    <select id="selectAttachDetail" parameterType="_int" resultMap="ImgResultSet">
+        SELECT
+            *
+        FROM TBL_BLOG_IMAGE
+        WHERE IMG_DEL = 'N'
+        AND BLOG_IMG_NO = #{imgNo}
+    </select>
+
+    <update id="deleteAttach" parameterType="_int">
+        UPDATE TBL_BLOG_IMAGE
+        SET IMG_DEL = 'Y'
+        WHERE BLOG_NO = #{blogNo}
+    </update>
+
+    <select id="selectAttachList" parameterType="_int" resultMap="ImgResultSet">
+        SELECT
+            *
+        FROM TBL_BLOG_IMAGE
+        WHERE IMG_DEL = 'N'
+        AND BLOG_NO = #{blogNo}
+    </select>
+
+
+
+
+
+</mapper>
