@@ -4,9 +4,9 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.b4.apollo.product.model.dao.ProductDAO">
+<mapper namespace="com.b4.apollo.product.model.dao.ProductMapper">
 
-    <resultMap type="com.b4.apollo.product.model.dto.ProductDTO" id="productResultMap">
+    <resultMap type="com.b4.apollo.product.model.dto.ProdAndImageDTO" id="productResultMap">
         <id property="productNo" column="PRODUCT_NO"/>
         <result property="productName" column="PRODUCT_NAME"/>
         <result property="productPrice" column="PRODUCT_PRICE"/>

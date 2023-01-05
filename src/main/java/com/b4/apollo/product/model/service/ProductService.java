@@ -1,5 +1,6 @@
 package com.b4.apollo.product.model.service;
 
+import com.b4.apollo.product.model.dto.ProdAndImageDTO;
 import com.b4.apollo.product.model.dto.ProductDTO;
 
 import java.util.List;
@@ -11,9 +12,9 @@ public interface ProductService {
 
     ProductDTO productDetail(int code);
 
-    boolean registProduct(ProductDTO newProd);
+    boolean registProduct(ProdAndImageDTO newProd);
 
-    boolean editProduct(ProductDTO newProd);
+    boolean editProduct(ProdAndImageDTO newProd);
 
     boolean productDelete(Integer code);
 

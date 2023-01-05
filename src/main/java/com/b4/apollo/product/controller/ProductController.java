@@ -1,5 +1,6 @@
 package com.b4.apollo.product.controller;
 
+import com.b4.apollo.product.model.dto.ProdAndImageDTO;
 import com.b4.apollo.product.model.dto.ProductDTO;
 import com.b4.apollo.product.model.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,7 @@ public class ProductController {
 
     }
         @PostMapping("regist")
-    public ModelAndView registProduct(ModelAndView mv, ProductDTO newProd, RedirectAttributes rttr) /*throws Exception*/ {
+    public ModelAndView registProduct(ModelAndView mv, ProdAndImageDTO newProd, RedirectAttributes rttr) /*throws Exception*/ {
 
         productService.registProduct(newProd);
         mv.setViewName("redirect:/product/list");
@@ -58,7 +59,7 @@ public class ProductController {
 
     }
     @PostMapping("edit")
-    public ModelAndView editProduct(ModelAndView mv, ProductDTO newProd/*, RedirectAttributes rttr*/) /*throws Exception*/ {
+    public ModelAndView editProduct(ModelAndView mv, ProdAndImageDTO newProd/*, RedirectAttributes rttr*/) /*throws Exception*/ {
 
         productService.editProduct(newProd);
         mv.setViewName("redirect:/product/list");
