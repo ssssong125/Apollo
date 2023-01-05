@@ -42,7 +42,7 @@ public class MybatisConfig {
     @Bean
     public DataSourceTransactionManager transactionManager(DataSource dataSource) {
         return new DataSourceTransactionManager(dataSource);
-    }
+    }//
 
     @Bean
     public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
@@ -59,10 +59,11 @@ public class MybatisConfig {
         /*주석 처리*/
 //        seb.setConfigLocation(applicationContext.getResource("classpath:/mybatis/mybatis-config.xml"));
 //        Resource[] res = new PathMatchingResourcePatternResolver().getResources("classpath:mappers/*.xml");
-        Resource[] res = new PathMatchingResourcePatternResolver().getResources("classpath:mappers/ProductDao.xml");
+//        Resource[] res = new PathMatchingResourcePatternResolver().getResources("classpath:mappers/ProductDao.xml");
+//
+ //       Resource[] res = new PathMatchingResourcePatternResolver().getResources("classpath:mappers/boardMapper.xml");
+        Resource[] res = new PathMatchingResourcePatternResolver().getResources("classpath:mappers/UserMapper.xml");
 
-       // Resource[] res = new PathMatchingResourcePatternResolver().getResources("classpath:mappers/boardMapper.xml");
-     //   Resource[] res = new PathMatchingResourcePatternResolver().getResources("classpath:mappers/MemberMapper.xml");
 
         seb.setMapperLocations(res);
         seb.setDataSource(dataSource);

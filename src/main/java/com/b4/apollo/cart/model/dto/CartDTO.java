@@ -1,8 +1,12 @@
 package com.b4.apollo.cart.model.dto;
 
 
+import com.b4.apollo.user.model.dto.UserDTO;
 import com.b4.apollo.product.model.dto.ProductDTO;
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
+
+
 
 import java.sql.Date;
 
@@ -34,10 +38,8 @@ public class CartDTO extends ProductDTO {
      */
     private int productCount;
 
-    /**
-     * @param regDate 장바구니에 담은 날짜
-     */
-    private Date regDate;
+    private UserDTO user;
+
 
     /**
      * @param productDTO 상품 객체
