@@ -14,6 +14,7 @@ import java.sql.Date;
  @프로그램 설명 : 상품 정보를 담은 DTO
  */
 //@Data
+
 @Getter
 @Setter
 //@NoArgsConstructor
@@ -47,6 +48,7 @@ public class CartDTO /*extends ProductDTO*/ {
      */
     private ProductDTO productInfo;
 
+//    ProductDTO
 //    private int productNo;
 //    private String productName;
 //    private int productPrice;

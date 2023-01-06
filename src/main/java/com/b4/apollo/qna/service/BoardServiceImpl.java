@@ -59,7 +59,11 @@ public class BoardServiceImpl implements BoardService {
 
         @Override
         public QuestionDTO selectBoard (int bno){
+
+            boardMapper.updateCount(bno);
+
             Optional<QuestionDTO> question = Optional.ofNullable((QuestionDTO) this.boardMapper.selectBoard(bno));
+
             if (question.isPresent()) {
                 return question.get();
             } else {

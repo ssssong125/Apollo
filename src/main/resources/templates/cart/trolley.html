@@ -15,28 +15,36 @@
         /*    border: solid red 1px;*/
         /*}*/
     </style>
-<!--    <script>-->
+<!--    <script th:inline="javascript">-->
+
+<!--    <script type="text/javascript">-->
 <!--        $.ajax({-->
-<!--            type : 'post',           // 타입 (get, post, put 등등)-->
+<!--            type : 'POST',           // 타입 (get, post, put 등등)-->
 <!--            url : '/cart/trolley',   // 요청할 서버url-->
-<!--            async : true,            // 비동기화 여부 (default : true)-->
-<!--            headers : {              // Http header-->
-<!--                "Content-Type" : "application/json",-->
-<!--                "X-HTTP-Method-Override" : "POST"-->
-<!--            },-->
+<!--            // async : true,            // 비동기화 여부 (default : true)-->
+<!--            // headers : {              // Http header-->
+<!--            //     "Content-Type" : "application/json",-->
+<!--            //     "X-HTTP-Method-Override" : "POST"-->
+<!--            // },-->
 <!--            dataType : 'text',       // 데이터 타입 (html, xml, json, text 등등)-->
-<!--            data : JSON.stringify({  // 보낼 데이터 (Object , String, Array)-->
-<!--                "no" : no,-->
-<!--                "name" : name,-->
-<!--                "nick" : nick-->
-<!--            }),-->
+<!--            // data : JSON.stringify({  // 보낼 데이터 (Object , String, Array)-->
+<!--            //     "no" : no,-->
+<!--            //     "name" : name,-->
+<!--            //     "nick" : nick-->
+<!--            // }),-->
+<!--            data:  {},-->
 <!--            success : function(result) { // 결과 성공 콜백함수-->
-<!--                console.log(result);-->
+<!--                console.log("성공");-->
 <!--            },-->
 <!--            error : function(request, status, error) { // 결과 에러 콜백함수-->
-<!--                console.log(error)-->
+<!--                // console.log(error)-->
+<!--                console.log("실패")-->
 <!--            }-->
 <!--        })-->
+<!--        .done(function (result) {-->
+<!--            console.log("a");-->
+<!--        })-->
+<!--            // .fail(function (jq))-->
 <!--    </script>-->
 </head>
 <body>
@@ -47,8 +55,6 @@
     <div class="row">
         <div class="col">
             <span class="big-font">Cart</span>
-            <!--아이디 넘어오는지 확인-->
-            <!--                <span th:text="${ userId }"></span>-->
             <hr class="thick-line">
         </div>
     </div>
@@ -88,10 +94,9 @@
             <div class="row">
                 <div class="col-lg-2">
                     <img class="product" src="/img/cart/naverPay.png" alt="상품 이미지명">
-                    <!--                    <img class="product" src="/img/cart/">-->
                 </div>
                 <div class="col-lg-6 v-align">
-                    <span th:text="${cart.productInfo.productName}"/>
+                    <span th:text="${ cart.productInfo.productName }"/>
                 </div>
                 <div class="col-lg-1 v-align">
                     <table style="padding-left: 3px">
@@ -101,8 +106,10 @@
                             </td>
                             <td style="padding-bottom: 0">
 <!--                                max 최대값, pattern 정규식-->
-                                <input type="number" th:value="${ cart.productInfo.productQty }" min="1" required style="width: 50px"/>
-                                <a th:action="${ @cartServiceImpl.increaseProduct( cart.cartNo )}" href="#none">▲</a>
+                                <input type="number" th:value="${ cart.productInfo.productQty }" min="1" style="width: 50px" required/>
+<!--                                <button th:onclick="${ @cartServiceImpl.increaseProduct( cart.cartNo )}" href="">▲</button>-->
+<!--                                <button onclick="increase()" href="">▲</button>-->
+<!--                                <button onclick="Cart." href="">▲</button>-->
 <!--                                <a th:action="${ @cartServiceImpl.increaseProduct(${cart.cartNo})}" th:href="" style="display: block">▼</a>-->
 
 <!--                                        th:onclick="${ @cartServiceImpl.increaseProduct(${cart.cartNo})}"-->
@@ -112,12 +119,13 @@
     <!--                            <a th:text="'▲'" th:onclick="">▲</a>-->
 <!--                                <button onclick="alert('a')">얼럿</button>-->
 <!--                                <button onclick="increase()">인크리즈</button>-->
-                                <script th:inline="javascript">
-                                    function increase(){
-                                        let b = [[${ cart.cartNo }]];
-                                        alert(b);
-                                    }
-                                </script>
+
+<!--                                <script th:inline="javascript">-->
+<!--                                    function increase(){-->
+<!--                                        let b = [[${ cart.cartNo }]];-->
+<!--                                        alert(b);-->
+<!--                                    }-->
+<!--                                </script>-->
                             </td>
                         </tr>
                         <tr>
@@ -132,12 +140,18 @@
                     <span th:text="${ cart.productInfo.productPrice }"/>$
                 </div>
                 <div class="col-lg-1 v-align price">
+<!--                    <a href="/cart/trolley" th:action="${ @cartServiceImpl.deleteProduct( cart.cartNo )}">-->
+<!--                    <img id="delete-product" th:onclick="${ @cartServiceImpl.deleteProduct( cart.cartNo )}" src="/img/cart/trash.png" alt="trash.png">-->
+                    <!--온클릭으로 매개변수 넘기기-->
                     <img src="/img/cart/trash.png" alt="trash.png">
+<!--                    <button th:onclick="${ @cartServiceImpl.deleteProduct( cart.cartNo )}"></button>-->
+<!--                    <button th:href="@{ cartServiceImpl.deleteProduct(cart.cartNo)}"></button>-->
+<!--                    <button th:attr="onclick=${ @cartServiceImpl.deleteProduct( cart.cartNo )}"></button>-->
                 </div>
             </div>
         </div>
     </th:block>
-    <!--        상품 추가시 끝-->
+    <!--상품 추가 끝-->
 
     <hr class="thick-line">
     <!--합산 가격-->

@@ -49,17 +49,19 @@ public class MybatisConfig {
         SqlSessionFactoryBean seb = new SqlSessionFactoryBean();
 
 
-        org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
-        configuration.setCallSettersOnNulls(true);
-        seb.setConfiguration(configuration);
+//        org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
+//        configuration.setCallSettersOnNulls(true);
+//        seb.setConfiguration(configuration);
 
 
 
 
         /*주석 처리*/
 //        seb.setConfigLocation(applicationContext.getResource("classpath:/mybatis/mybatis-config.xml"));
-       Resource[] res = new PathMatchingResourcePatternResolver().getResources("classpath:mappers/*.xml");
-//        Resource[] res = new PathMatchingResourcePatternResolver().getResources("classpath:mappers/ProductDao.xml");
+
+        Resource[] res = new PathMatchingResourcePatternResolver().getResources("classpath:mappers/*.xml");
+//        Resource[] res = new PathMatchingResourcePatternResolver().getResources("classpath:mappers/ProductMapper.xml");
+
 //       Resource[] res = new PathMatchingResourcePatternResolver().getResources("classpath:mappers/CartMapper.xml");
 //       Resource[] res = new PathMatchingResourcePatternResolver().getResources("classpath:mappers/boardMapper.xml");
 //        Resource[] res = new PathMatchingResourcePatternResolver().getResources("classpath:mappers/UserMapper.xml");

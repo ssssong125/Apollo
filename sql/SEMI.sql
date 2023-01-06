@@ -114,9 +114,10 @@ CREATE TABLE "TBL_BLOG_BOARD" (
                                   "BLOG_NO"	NUMBER		NOT NULL,
                                   "USER_ID"	VARCHAR(50)		NOT NULL,
                                   "BLOG_TITLE"	VARCHAR2(200)		NOT NULL,
-                                  "BLOG_CONTENT"	LONG		NOT NULL,
+                                  "BLOG_CONTENT"	VARCHAR2(3000)	NOT NULL,
                                   "BLOG_POSTDATE"	DATE		NOT NULL,
-                                  "BLOG_VIEWCOUNT"	NUMBER		NULL
+                                  "BLOG_COUNT" NUMBER DEFAULT 0,
+                                  "BLOG_DEL" CHAR(2 BYTE) DEFAULT 'N'
 );
 
 -- 블로그 게시글 번호 시퀀스
@@ -132,9 +133,9 @@ CREATE TABLE "TBL_BLOG_IMAGE" (
                                   "BLOG_IMG_NO"	NUMBER		NOT NULL,
                                   "ORIGIN_FILE"	VARCHAR(300)		NOT NULL,
                                   "STORED_FILE"	VARCHAR(300)		NOT NULL,
-                                  "BLOG_THUMB"	VARCHAR(300)		NOT NULL,
                                   "BLOG_NO"	NUMBER		NOT NULL,
-                                  "USER_ID"	VARCHAR(50)		NOT NULL
+                                  "USER_ID"	VARCHAR(50)		NOT NULL,
+                                  "IMG_DEL" CHAR(2 BYTE) DEFAULT 'N'
 );
 
 -- 블로그 이미지 번호 시퀀스
@@ -177,7 +178,7 @@ CREATE TABLE "TBL_QUESTION" (
                                 BOARD_TITLE	VARCHAR(100)	NOT NULL,
                                 BOARD_CONTENT	VARCHAR(300)	NOT NULL,
                                 CREATE_DATE	DATE	NULL,
-                                COUNT	NUMBER	NULL,
+                                COUNT	NUMBER	 DEFAULT 0,
                                 STATUS CHAR(2 BYTE) DEFAULT 'Y'
 );
 
@@ -406,6 +407,7 @@ VALUES(SEQ_CART_NO.NEXTVAL, 1, 'user01', 1, SYSDATE);
 
 INSERT INTO TBL_CART
 VALUES(SEQ_CART_NO.NEXTVAL, 99, 'user01', 3, SYSDATE);
+COMMIT ;
 
 -- 다중 쿼리 예시
 --BEGIN

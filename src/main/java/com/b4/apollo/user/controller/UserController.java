@@ -3,50 +3,51 @@ package com.b4.apollo.user.controller;
 
 import com.b4.apollo.user.model.dto.UserDTO;
 import com.b4.apollo.user.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Locale;
+
 @Controller
-@RequestMapping("/user")
+@RequiredArgsConstructor
+@RequestMapping("user")
 public class UserController {
 
     private final UserService userService;
-
-    @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
-
+    private final MessageSource messageSource;
 
     @GetMapping("signup")
-    public void signupForm(){
-
+    public String signupForm(){
+        return "user/signup";
     }
 
     @PostMapping("signup")
-    public ModelAndView singup(ModelAndView mv, UserDTO userDTO, RedirectAttributes rttr) throws Exception {
-        userService.insertUser(userDTO);
-        mv.setViewName("redirect:user/login");
-        rttr.addFlashAttribute("successMessage","회원가입되었습니다,");
+    public ModelAndView insertUser(ModelAndView mv, UserDTO newUser, RedirectAttributes rttr, Locale locale) throws Exception{
+        userService.insertUser(newUser);
+        mv.setViewName("redirect:/user/login");
+
+        rttr.addFlashAttribute("successMessage", messageSource.getMessage("insertUser", null, locale));
         return mv;
     }
 
-    @RequestMapping(value = "idCheck", method = RequestMethod.GET)
+    @PostMapping("idCheck")
     @ResponseBody
-    public int idCheck(String id){
-        int result = userService.idCheck(id);
-        return result;
+    public int idCheck(@RequestParam("userId") String userId){
+
+        int cnt = userService.idCheck(userId);
+        return cnt;
     }
 
-    @GetMapping("login")
-    public void userLoginForm(){
-
+    @GetMapping("/login")
+    public String userLoginForm(){
+        return "/user/login";
     }
 
-    @GetMapping("mypage")
+    @GetMapping("/mypage")
     public void userPage(){
 
     }

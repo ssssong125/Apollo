@@ -1,3 +1,4 @@
+
 //package com.b4.apollo.common.config;
 //
 //import org.springframework.context.annotation.Bean;
@@ -36,7 +37,11 @@
 //    protected void configure(HttpSecurity http) throws Exception{
 //        http
 //                .authorizeRequests()
+
 //                .antMatchers("/","/main").permitAll()
+
+//                .antMatchers("/","/main","/signup").permitAll()
+
 //                .anyRequest()
 //                .authenticated()
 //                .and()
@@ -61,4 +66,6 @@
 //    }
 //
 //
+
 //}
+

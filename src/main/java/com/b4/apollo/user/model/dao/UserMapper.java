@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 public interface UserMapper {
 //    MemberDTO loginMember(MemberDTO m) throws Exception;
 
-    int insertUser(UserDTO m);
+    int insertUser(UserDTO newUser);
 
 
 

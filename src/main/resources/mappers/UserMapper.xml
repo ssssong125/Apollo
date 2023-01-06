@@ -20,31 +20,35 @@
     <select id="loginUser" resultMap="loginUserResultMap">
         SELECT A.*
         FROM TBL_USER A
-        WHERE A.USER_ID = #{userId} AND A.USER_ACTIVE = 'Y'
+        WHERE A.USER_ID = #{userId} AND A.USER_PWD = #{userPwd} AND A.USER_ACTIVE = 'Y'
     </select>
 
     <insert id="insertUser" parameterType="com.b4.apollo.user.model.dto.UserDTO">
         INSERT INTO TBL_USER A (
             A.USER_NAME,
             A.USER_ID,
-            A.USER_TEL,
             A.USER_PWD,
+            A.USER_TEL,
             A.USER_EMAIL,
+            A.ADDRESS_ZIPCODE,
             A.ADDRESS,
+            A.ADDRESS_DETAIL,
             A.USER_ROLE,
             A.USER_ACTIVE,
             A.USER_ENTDATE,
             A.USER_POINT
-            ) VALUSES
+            )
         VALUES
             (
-            SEQ_MENU_CODE.NEXTVAL,
+            SEQ_USER_NO.NEXTVAL,
             #{userName},
             #{userId},
-            #{userTel},
             #{userPwd},
+            #{userTel},
             #{userEmail},
+            #{zipcode},
             #{userAddr},
+            #{addrDetail},
             'Y',
             'Y',
             SYSDATE,

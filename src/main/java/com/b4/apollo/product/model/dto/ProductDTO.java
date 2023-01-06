@@ -1,10 +1,15 @@
 package com.b4.apollo.product.model.dto;
 
 
+
 import lombok.Builder;
 import lombok.Data;
 
 import java.util.List;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 
 /**
  @FileName : ProductDTO.java
@@ -19,10 +24,8 @@ import java.util.List;
 //@ToString
 //@Getter
 //@Setter
-
-
 @Data
-@Builder(toBuilder = true) // lombok 기능, 생성자를 조금 바꾼거를 바로바로 생성가능
+@NoArgsConstructor
 //@Builder(toBuilder = true) // lombok 기능, 생성자를 조금 바꾼거를 바로바로 생성가능
 public class ProductDTO {
 
@@ -32,6 +35,6 @@ public class ProductDTO {
     private String productDesc;
     private int productQty;
     private String categoryCode;
-    private List<ProductImageDTO> productImageDTOList;
+//    private List<ProductImageDTO> productImageDTOList;
 
 }

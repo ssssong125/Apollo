@@ -1,20 +1,19 @@
 package com.b4.apollo.user.model.dto;
 
-import lombok.*;
-
-import java.sql.Date;
+import lombok.Data;
 
 @Data
 public class UserDTO {
     private String userName;
     private String userId;
-    private String userTel;
     private String userPwd;
+    private String userTel;
     private String userEmail;
+    private String zipcode;
     private String userAddr;
-    private char userRole;
-    private char userActive;
-    private Date userEntdate;
-    private int userPoint;
-
+    private String addrDetail;
+    private String userRole;
+    private String userActive;
+    private String userEntdate;
+    private int point;
 }

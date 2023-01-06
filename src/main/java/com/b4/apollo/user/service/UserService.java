@@ -4,7 +4,7 @@ import com.b4.apollo.user.model.dto.UserDTO;
 
 public interface UserService {
 
-    void insertUser(UserDTO m);
+    boolean insertUser(UserDTO newUser);
 
     int idCheck(String userId);
 }

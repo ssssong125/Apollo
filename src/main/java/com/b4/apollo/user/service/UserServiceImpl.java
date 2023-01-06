@@ -3,15 +3,16 @@ package com.b4.apollo.user.service;
 
 import com.b4.apollo.user.model.dao.UserMapper;
 import com.b4.apollo.user.model.dto.UserDTO;
-import com.b4.apollo.qna.exception.CommonException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    public UserServiceImpl(UserMapper userMapper){this.userMapper = userMapper;}
 
 
 //    @Override
@@ -26,12 +27,10 @@ public class UserServiceImpl implements UserService {
 //    }
 
     @Override
-    public void insertUser(UserDTO m){
-        int result = userMapper.insertUser(m);
+    public boolean insertUser(UserDTO newUser){
+        int result = userMapper.insertUser(newUser);
 
-        if(result <= 0 ){
-            throw new CommonException("회원 등록 실패");
-        }
+        return result>0 ? true:  false;
     }
 
 //    @Override
@@ -46,12 +45,11 @@ public class UserServiceImpl implements UserService {
 //        }
 //    }
 
+    @Override
     public int idCheck(String userId) {
-        int result = userMapper.idCheck(userId);
-        if(result < 0 ) {
-            throw new CommonException("아이디체크에 실패하였습니다.");
-        }
-        return result;
+        int cnt = userMapper.idCheck(userId);
+        System.out.println("cnt: " + cnt);
+        return cnt;
     }
 
 //    @Override
