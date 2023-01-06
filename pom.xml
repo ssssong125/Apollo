@@ -56,7 +56,9 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
         <!--의존성이름, 추가날짜, 작성자, 기능-->
+
         <!-- https://mvnrepository.com/artifact/nz.net.ultraq.thymeleaf/thymeleaf-layout-dialect -->
         <!-- 2022.12.29 김수용 타임리프 헤더, 푸터 등 붙이기 쉽게 해주는 의존성 -->
         <dependency>

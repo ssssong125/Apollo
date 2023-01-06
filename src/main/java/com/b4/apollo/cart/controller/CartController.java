@@ -38,10 +38,24 @@ public class CartController {
      * @MethodName : trolley
      * @작성일 : 2022. 12. 28.
      * @작성자 : 김수용
-     * @Method 설명 : GetMapping 방식으로 trolley 값을 받게되면 trolley 페이지로 넘겨줌
+     * @Method 설명 : GetMapping 방식으로 trolley 값을 받게되면 trolley 페이지로 넘겨줌, null값 처리를 위해 Integer 자료형 사용
      */
-    @GetMapping("trolley")
+//    @GetMapping("trolley")
+    @GetMapping(value = {"trolley","cart/trolley"})
     public ModelAndView trolley(ModelAndView mv) {
+
+//        // null값도 받기 위해 Integer 사용
+//        if(cartNo != null && count != null) {
+//
+//            HashMap<String, Integer> parameter = new HashMap<>();
+//            parameter.put("cartNo", cartNo);
+//            parameter.put("count", count);
+//
+//            cartService.updateProductCount(parameter);
+//        }
+//
+//        System.out.println(cartNo);
+//        System.out.println(count);
 
         HashMap<String, String> parameter = new HashMap<>();
         parameter.put("userId", "user01");
@@ -54,7 +68,7 @@ public class CartController {
         int totalPrice = 0;
 
         for(CartDTO cart : cartList) {
-            totalPrice += cart.getProductInfo().getProductPrice() * cart.getProductInfo().getProductQty();
+            totalPrice += cart.getProductInfo().getProductPrice() * cart.getProductCount();
         }
 
         mv.addObject("totalPrice", totalPrice);
@@ -72,8 +86,21 @@ public class CartController {
      * @Method 설명 : PostMapping 방식으로 trolley 페이지에 출력될 값을 반환해줌
      */
     @ResponseBody
-    @PostMapping("trolley-result")
-    public Model trolleyResult(Model model) {
+    @PostMapping("trolley")
+    public Model trolleyResult(Model model, Integer cartNo, Integer count) {
+
+        // null값도 받기 위해 Integer 사용
+        if(cartNo != null && count != null) {
+
+            HashMap<String, Integer> parameter = new HashMap<>();
+            parameter.put("cartNo", cartNo);
+            parameter.put("count", count);
+
+            cartService.updateProductCount(parameter);
+        }
+
+        System.out.println(cartNo);
+        System.out.println(count);
 
         HashMap<String, String> parameter = new HashMap<>();
         parameter.put("userId", "user01");

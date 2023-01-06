@@ -72,7 +72,8 @@ public interface CartService {
      * @작성자 : 김수용
      * @Method 설명 : 장바구니에 담긴 품목의 수량 수정하는 기능
      */
-    void updateProductCount(int cartNo, int count);
+//    void updateProductCount(Integer cartNo, Integer count);
+    void updateProductCount(HashMap<String, Integer> parameter);
 
     /**
      * @MethodName : deleteProduct

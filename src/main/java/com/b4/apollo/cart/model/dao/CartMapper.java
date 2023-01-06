@@ -4,7 +4,6 @@ import com.b4.apollo.cart.model.dto.CartDTO;
 import com.b4.apollo.cart.model.dto.OrderDTO;
 import com.b4.apollo.cart.model.dto.PaymentDTO;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.HashMap;
 import java.util.List;
@@ -50,7 +49,8 @@ public interface CartMapper {
      * @작성자 : 김수용
      * @Method 설명 : CartService에서 호출되어 장바구니 품목의 구매수량 수정함
      */
-    void updateProductCount(@Param("cartNo") int cartNo, @Param("count") int count);
+//    void updateProductCount(@Param("cartNo") Integer cartNo, @Param("count") Integer count);
+    void updateProductCount(HashMap<String, Integer> parameter);
 
     /**
      * @MethodName : getOrder

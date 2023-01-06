@@ -56,11 +56,11 @@ CREATE TABLE TBL_CATEGORY (
 
 -- 장바구니 테이블
 CREATE TABLE TBL_CART (
-                          CART_NO NUMBER		NOT NULL,
-                          PRODUCT_NO NUMBER		NOT NULL,
-                          USER_ID	VARCHAR(50)		NOT NULL,
-                          PRODUCT_COUNT	NUMBER		NOT NULL,
-                          REG_DATE DATE NOT NULL
+    CART_NO NUMBER		NOT NULL,
+    PRODUCT_NO NUMBER		NOT NULL,
+    USER_ID	VARCHAR(50)		NOT NULL,
+    PRODUCT_COUNT	NUMBER		NOT NULL,
+    REG_DATE DATE NOT NULL
 );
 COMMENT ON COLUMN TBL_CART.CART_NO IS '장바구니 번호';
 COMMENT ON COLUMN TBL_CART.PRODUCT_NO IS '상품 번호';
@@ -78,24 +78,24 @@ CREATE SEQUENCE SEQ_CART_NO
 
 -- 회원정보 테이블
 CREATE TABLE TBL_USER (
-                          "USER_ID"	VARCHAR(50)		NOT NULL,
-                          "USER_PWD"	VARCHAR(50)		NOT NULL,
-                          "USER_NAME"	VARCHAR(20)		NOT NULL,
-                          "USER_TEL"	VARCHAR(20)		NOT NULL,
-                          "ADDRESS"	VARCHAR(50)		NOT NULL,
-                          "USER_EMAIL"	VARCHAR(50)		NOT NULL,
-                          "USER_ROLE"	CHAR(1)		,
-                          "USER_ACTIVE"	CHAR(1)		,
-                          "USER_ENTDATE"	DATE		NOT NULL,
-                          "USER_POINT"	NUMBER		NOT NULL
+    "USER_ID"	VARCHAR(50)		NOT NULL,
+    "USER_PWD"	VARCHAR(50)		NOT NULL,
+    "USER_NAME"	VARCHAR(20)		NOT NULL,
+    "USER_TEL"	VARCHAR(20)		NOT NULL,
+    "ADDRESS"	VARCHAR(50)		NOT NULL,
+    "USER_EMAIL"	VARCHAR(50)		NOT NULL,
+    "USER_ROLE"	CHAR(1)		,
+    "USER_ACTIVE"	CHAR(1)		,
+    "USER_ENTDATE"	DATE		NOT NULL,
+    "USER_POINT"	NUMBER		NOT NULL
 );
 
 -- 결제 테이블
 CREATE TABLE TBL_PAYMENT (
-                             PAYMENT_NO NUMBER NOT NULL,
-                             USER_ID VARCHAR(50) NOT NULL,
-                             PAYMENT_METHOD VARCHAR(20) NOT NULL,
-                             PAYMENT_AMOUNT NUMBER NOT NULL
+    PAYMENT_NO NUMBER NOT NULL,
+    USER_ID VARCHAR(50) NOT NULL,
+    PAYMENT_METHOD VARCHAR(20) NOT NULL,
+    PAYMENT_AMOUNT NUMBER NOT NULL
 );
 COMMENT ON COLUMN TBL_PAYMENT.PAYMENT_NO IS '결제 번호';
 COMMENT ON COLUMN TBL_PAYMENT.USER_ID IS '유저 아이디';
@@ -149,11 +149,11 @@ CREATE SEQUENCE SEQ_BLOG_IMG_NO
 
 -- 상품 이미지 테이블
 CREATE TABLE "TBL_PRODUCT_IMAGE" (
-                                     "FILE_NO"	NUMBER		NOT NULL,
-                                     "ORIGIN_NAME"	VARCHAR(300)		NOT NULL,
-                                     "STORED_NAME"	VARCHAR(300)		NOT NULL,
-                                     "THUMBNAIL"	CHAR(2)		NOT NULL,
-                                     "PRODUCT_NO"	NUMBER		NOT NULL
+    "FILE_NO"	NUMBER		NOT NULL,
+    "ORIGIN_NAME"	VARCHAR(300)		NOT NULL,
+    "STORED_NAME"	VARCHAR(300)		NOT NULL,
+    "THUMBNAIL"	CHAR(2)		NOT NULL,
+    "PRODUCT_NO"	NUMBER		NOT NULL
 );
 
 -- 상품 이미지 번호 시퀀스
@@ -267,15 +267,15 @@ CREATE SEQUENCE SEQ_ORDER_NO
 
 --주문 테이블
 CREATE TABLE TBL_ORDER (
-                           ORDER_NO NUMBER NOT NULL,
-                           PAYMENT_NO NUMBER NOT NULL,
-                           ORDER_DATE DATE NOT NULL,
-                           RECEIVER_NAME VARCHAR(20) NOT NULL,
-                           RECEIVER_TEL VARCHAR(20) NOT NULL,
-                           ADDRESS_ZIPCODE VARCHAR(10) NOT NULL,
-                           ADDRESS	VARCHAR(100) NOT NULL,
-                           ADDRESS_DETAIL	VARCHAR(100) NOT NULL,
-                           SHIPPING_STATUS	VARCHAR(20) NOT NULL
+    ORDER_NO NUMBER NOT NULL,
+    PAYMENT_NO NUMBER NOT NULL,
+    ORDER_DATE DATE NOT NULL,
+    RECEIVER_NAME VARCHAR(20) NOT NULL,
+    RECEIVER_TEL VARCHAR(20) NOT NULL,
+    ADDRESS_ZIPCODE VARCHAR(10) NOT NULL,
+    ADDRESS	VARCHAR(100) NOT NULL,
+    ADDRESS_DETAIL	VARCHAR(100) NOT NULL,
+    SHIPPING_STATUS	VARCHAR(20) NOT NULL
 );
 COMMENT ON COLUMN TBL_ORDER.ORDER_NO IS '주문 번호';
 COMMENT ON COLUMN TBL_ORDER.PAYMENT_NO IS '결제 번호';
@@ -289,10 +289,10 @@ COMMENT ON COLUMN TBL_ORDER.SHIPPING_STATUS IS '배송 상태';
 
 -- 문의 테이블
 CREATE TABLE TBL_CONTACT (
-                             "NAME"	VARCHAR(10)		NOT NULL,
-                             "EMAIL"	VARCHAR(50)		NOT NULL,
-                             "SUBJECT"	VARCHAR(50)		NOT NULL,
-                             "CONTENT"	VARCHAR(500)		NOT NULL
+    "NAME"	VARCHAR(10)		NOT NULL,
+    "EMAIL"	VARCHAR(50)		NOT NULL,
+    "SUBJECT"	VARCHAR(50)		NOT NULL,
+    "CONTENT"	VARCHAR(500)		NOT NULL
 );
 
 -- 블로그 댓글 테이블
@@ -463,4 +463,7 @@ COMMIT ;
 -- END;
 -- /
 
--- 출력 실험 
+-- 출력 실험
+--UPDATE TBL_CART A
+--		SET A.PRODUCT_COUNT = 30
+--		WHERE A.CART_NO = 1;

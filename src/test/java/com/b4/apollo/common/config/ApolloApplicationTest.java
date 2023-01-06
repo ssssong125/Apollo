@@ -1,6 +1,6 @@
 package com.b4.apollo.common.config;
 
-import com.b4.apollo.product.model.dto.ProductDTO;
+import com.b4.apollo.product.model.dto.ProdAndImageDTO;
 import com.b4.apollo.product.model.service.ProductService;
 import com.b4.apollo.qna.service.BoardService;
 import org.junit.jupiter.api.Test;
@@ -12,9 +12,11 @@ class ApolloApplicationTest {
 
     @Autowired
     private BoardService boardService;
+
     @Autowired
     private ProductService productService;
-    private ProductDTO dto;
+    private ProdAndImageDTO dto;
+
     @Test
     void 질문_삽입_테스트() {
         for (int i = 1; i <= 40; i++) {
@@ -24,6 +26,7 @@ class ApolloApplicationTest {
             this.boardService.insertBoard(userId, boardTitle, boardContent);
         }
     }
+    
 //    @Test
 //    void 상품_등록_테스트(){
 //
@@ -38,5 +41,4 @@ class ApolloApplicationTest {
 //        this.productService.registProduct(dto);
 //
 //    }
-
 }

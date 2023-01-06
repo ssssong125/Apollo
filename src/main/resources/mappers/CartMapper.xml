@@ -97,7 +97,7 @@
 	</update>
 
 	<!--주문 수량 수정-->
-	<update id="updateProductCount" parameterType="_int">
+	<update id="updateProductCount" parameterType="hashmap">
 		UPDATE TBL_CART A
 		SET A.PRODUCT_COUNT = #{count}
 		WHERE A.CART_NO = #{cartNo}
