@@ -18,34 +18,43 @@
 <!--    <script th:inline="javascript">-->
 
 <!--    <script type="text/javascript">-->
-<!--        $.ajax({-->
-<!--            type : 'POST',           // 타입 (get, post, put 등등)-->
-<!--            url : '/cart/trolley',   // 요청할 서버url-->
-<!--            // async : true,            // 비동기화 여부 (default : true)-->
-<!--            // headers : {              // Http header-->
-<!--            //     "Content-Type" : "application/json",-->
-<!--            //     "X-HTTP-Method-Override" : "POST"-->
-<!--            // },-->
-<!--            dataType : 'text',       // 데이터 타입 (html, xml, json, text 등등)-->
-<!--            // data : JSON.stringify({  // 보낼 데이터 (Object , String, Array)-->
-<!--            //     "no" : no,-->
-<!--            //     "name" : name,-->
-<!--            //     "nick" : nick-->
-<!--            // }),-->
-<!--            data:  {},-->
-<!--            success : function(result) { // 결과 성공 콜백함수-->
-<!--                console.log("성공");-->
-<!--            },-->
-<!--            error : function(request, status, error) { // 결과 에러 콜백함수-->
-<!--                // console.log(error)-->
-<!--                console.log("실패")-->
-<!--            }-->
-<!--        })-->
-<!--        .done(function (result) {-->
-<!--            console.log("a");-->
-<!--        })-->
-<!--            // .fail(function (jq))-->
-<!--    </script>-->
+    <script>
+        $("#productQty-result").bind("keyup mouseup", (function (){
+
+            alert("변경됨");
+
+            $.ajax({
+                type : 'POST',           // 타입 (get, post, put 등등)
+                url : '/cart/trolley-result',   // 요청할 서버url
+                // async : true,            // 비동기화 여부 (default : true)
+                // headers : {              // Http header
+                //     "Content-Type" : "application/json",
+                //     "X-HTTP-Method-Override" : "POST"
+                // },
+                dataType : 'json',       // 데이터 타입 (html, xml, json, text 등등)
+                // data : JSON.stringify({  // 보낼 데이터 (Object , String, Array)
+                //     "no" : no,
+                //     "name" : name,
+                //     "nick" : nick
+                // }),
+                // data: {},
+                // data: params,
+                success : function(result) { // 결과 성공 콜백함수
+                    console.log("성공");
+                    alert("성공");
+                },
+                error : function(request, status, error) { // 결과 에러 콜백함수
+                    // console.log(error)
+                    console.log("실패")
+                    alert("실패");
+                }
+            })
+                .done(function (result) {
+                    console.log("a");
+                })
+            // .fail(function (jq))
+        }))
+    </script>
 </head>
 <body>
 <!--전체 div-->
@@ -92,40 +101,29 @@
         <div class="container">
             <hr class="line">
             <div class="row">
+                <!--상품 이미지-->
                 <div class="col-lg-2">
                     <img class="product" src="/img/cart/naverPay.png" alt="상품 이미지명">
                 </div>
+                <!--상품명-->
                 <div class="col-lg-6 v-align">
                     <span th:text="${ cart.productInfo.productName }"/>
                 </div>
+                <!--상품 갯수-->
                 <div class="col-lg-1 v-align">
+<!--                    <input id="productQty-result" type="number" th:value="${ cart.productInfo.productQty }" min="1" style="width: 50px" required/>-->
+                    <input id="productQty-result" type="number" th:value="${ cart.productCount }" min="1" th:max="${ cart.productInfo.productQty }" style="width: 50px" required/>
+
                     <table style="padding-left: 3px">
                         <tr>
                             <td rowspan="2">
-                                <span th:text="${ cart.productInfo.productQty }"/>
+<!--                                <span th:text="${ cart.productInfo.productQty }"/>-->
                             </td>
                             <td style="padding-bottom: 0">
-<!--                                max 최대값, pattern 정규식-->
-                                <input type="number" th:value="${ cart.productInfo.productQty }" min="1" style="width: 50px" required/>
+                                <!-- max 최대값, pattern 정규식 카트번호 히든으로 인풋 -->
 <!--                                <button th:onclick="${ @cartServiceImpl.increaseProduct( cart.cartNo )}" href="">▲</button>-->
-<!--                                <button onclick="increase()" href="">▲</button>-->
-<!--                                <button onclick="Cart." href="">▲</button>-->
 <!--                                <a th:action="${ @cartServiceImpl.increaseProduct(${cart.cartNo})}" th:href="" style="display: block">▼</a>-->
-
-<!--                                        th:onclick="${ @cartServiceImpl.increaseProduct(${cart.cartNo})}"-->
-    <!--                            <button th:onclick="${ @CartService.increaseProduct(${ cart.cartNo })}">▲</button>-->
     <!--                            <button th:action="${ @cartServiceImpl.increaseProduct(${ cart.cartNo })}" />▲</button>-->
-    <!--                            <button th:action="${ @cartServiceImpl.increaseProduct(${cart.cartNo})}" />▲</button>-->
-    <!--                            <a th:text="'▲'" th:onclick="">▲</a>-->
-<!--                                <button onclick="alert('a')">얼럿</button>-->
-<!--                                <button onclick="increase()">인크리즈</button>-->
-
-<!--                                <script th:inline="javascript">-->
-<!--                                    function increase(){-->
-<!--                                        let b = [[${ cart.cartNo }]];-->
-<!--                                        alert(b);-->
-<!--                                    }-->
-<!--                                </script>-->
                             </td>
                         </tr>
                         <tr>
@@ -136,9 +134,11 @@
                         </tr>
                     </table>
                 </div>
+                <!--상품 가격-->
                 <div class="col-lg-2 v-align price">
                     <span th:text="${ cart.productInfo.productPrice }"/>$
                 </div>
+                <!--상품 삭제-->
                 <div class="col-lg-1 v-align price">
 <!--                    <a href="/cart/trolley" th:action="${ @cartServiceImpl.deleteProduct( cart.cartNo )}">-->
 <!--                    <img id="delete-product" th:onclick="${ @cartServiceImpl.deleteProduct( cart.cartNo )}" src="/img/cart/trash.png" alt="trash.png">-->
@@ -155,40 +155,43 @@
 
     <hr class="thick-line">
     <!--합산 가격-->
-    <div class="row">
-        <div class="col-lg-9">
-        </div>
-        <div class="col-lg-2">
-            Sub Total
-        </div>
-        <div class="col-lg-1 price">
-            3000$
-        </div>
-    </div>
+<!--    <div class="row">-->
+<!--        <div class="col-lg-9">-->
+<!--        </div>-->
+<!--        <div class="col-lg-2">-->
+<!--            Sub Total-->
+<!--        </div>-->
+<!--        <div class="col-lg-1 price">-->
+<!--            3000$-->
+<!--        </div>-->
+<!--    </div>-->
 
     <!--할인 가격-->
-    <div class="row">
-        <div class="col-lg-9">
+<!--    <div class="row">-->
+<!--        <div class="col-lg-9">-->
 
-        </div>
-        <div class="col-lg-2">
-            Discount Price
-        </div>
-        <div class="col-lg-1 price">
-            13,000$
-        </div>
-    </div>
+<!--        </div>-->
+<!--        <div class="col-lg-2">-->
+<!--            Discount Price-->
+<!--        </div>-->
+<!--        <div class="col-lg-1 price">-->
+<!--            13,000$-->
+<!--        </div>-->
+<!--    </div>-->
 
     <!--결제 금액-->
     <div class="row">
         <div class="col-lg-9">
 
         </div>
+
         <div class="col-lg-2">
             Order Total
         </div>
+
         <div class="col-lg-1 price">
-            3000$
+<!--            3000$-->
+            <span th:text="${ totalPrice }"/>$
         </div>
     </div>
     <br>
