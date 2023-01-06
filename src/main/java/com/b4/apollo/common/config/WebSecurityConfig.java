@@ -37,7 +37,11 @@
 //    protected void configure(HttpSecurity http) throws Exception{
 //        http
 //                .authorizeRequests()
+
+//                .antMatchers("/","/main").permitAll()
+
 //                .antMatchers("/","/main","/signup").permitAll()
+
 //                .anyRequest()
 //                .authenticated()
 //                .and()
@@ -62,4 +66,6 @@
 //    }
 //
 //
-//
+
+//}
+

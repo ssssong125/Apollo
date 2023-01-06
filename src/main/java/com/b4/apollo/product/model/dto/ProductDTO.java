@@ -1,8 +1,15 @@
 package com.b4.apollo.product.model.dto;
 
 
+
+import lombok.Builder;
+import lombok.Data;
+
+import java.util.List;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 
 /**
  @FileName : ProductDTO.java
