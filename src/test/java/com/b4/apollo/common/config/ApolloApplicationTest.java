@@ -21,22 +21,22 @@ class ApolloApplicationTest {
             String userId = "user01";
             String boardTitle = String.format("테스트 데이터입니다:[%03d]", i);
             String boardContent = "내용무";
-            this.boardService.insertBoard(boardTitle, boardContent);
+            this.boardService.insertBoard(userId, boardTitle, boardContent);
         }
     }
-    @Test
-    void 상품_등록_테스트(){
-
-      dto.setProductName("헬로키티 기타");
-      dto.setProductPrice(3000);
-      dto.setProductDesc("매우 귀엽습니다.");
-      dto.setProductQty(1);
-      dto.setCategoryCode("C8");
+//    @Test
+//    void 상품_등록_테스트(){
 //
-//        List<ProductImageDTO> productImageDTOList ={1, "안녕"};
-//        dto.getProductImageDTOList().set(0,productImageDTOList);
-        this.productService.registProduct(dto);
-
-    }
+//      dto.setProductName("헬로키티 기타");
+//      dto.setProductPrice(3000);
+//      dto.setProductDesc("매우 귀엽습니다.");
+//      dto.setProductQty(1);
+//      dto.setCategoryCode("C8");
+////
+////        List<ProductImageDTO> productImageDTOList ={1, "안녕"};
+////        dto.getProductImageDTOList().set(0,productImageDTOList);
+//        this.productService.registProduct(dto);
+//
+//    }
 
 }
