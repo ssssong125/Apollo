@@ -48,6 +48,7 @@ public class CartDTO extends ProductDTO {
      */
     private ProductDTO productInfo;
 
+//    ProductDTO
 //    private int productNo;
 //    private String productName;
 //    private int productPrice;
