@@ -1,7 +1,8 @@
 package com.b4.apollo.product.model.dto;
 
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ import java.util.List;
 //@Data
 //@RequiredArgsConstructor
 //@NoArgsConstructor
-@ToString
+//@ToString
 //@Getter
 //@Setter
 
