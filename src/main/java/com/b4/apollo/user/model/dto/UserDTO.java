@@ -9,9 +9,7 @@ public class UserDTO {
     private String userPwd;
     private String userTel;
     private String userEmail;
-    private String zipcode;
     private String userAddr;
-    private String addrDetail;
     private String userRole;
     private String userActive;
     private String userEntdate;

@@ -30,9 +30,7 @@
             A.USER_PWD,
             A.USER_TEL,
             A.USER_EMAIL,
-            A.ADDRESS_ZIPCODE,
             A.ADDRESS,
-            A.ADDRESS_DETAIL,
             A.USER_ROLE,
             A.USER_ACTIVE,
             A.USER_ENTDATE,
@@ -40,15 +38,12 @@
             )
         VALUES
             (
-            SEQ_USER_NO.NEXTVAL,
             #{userName},
             #{userId},
             #{userPwd},
             #{userTel},
             #{userEmail},
-            #{zipcode},
             #{userAddr},
-            #{addrDetail},
             'Y',
             'Y',
             SYSDATE,
@@ -61,15 +56,15 @@
         WHERE A.USER_ID = #{userId}
     </select>
 
-    <update id="updateUser">
+    <update id="updateUser" parameterType="com.b4.apollo.user.model.dto.UserDTO">
         UPDATE TBL_USER A
         SET
             A.USER_NAME = #{userName},
             A.USER_PWD = #{userPwd},
             A.USER_TEL = #{userTel},
             A.USER_EMAIL = #{userEmail},
-            A.ADDRESS = #{userAddr}
-        WHERE A.USER_ID = #{userId}
+            A.ADDRESS = #{userAddr},
+            WHERE A.USER_ID = #{userId}
     </update>
 
     <delete id="deleteUser">
