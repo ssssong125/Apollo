@@ -2,7 +2,8 @@ package com.b4.apollo.cart.model.dto;
 
 
 import com.b4.apollo.product.model.dto.ProductDTO;
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.sql.Date;
 
@@ -13,15 +14,10 @@ import java.sql.Date;
  @작성자 : 김수용
  @프로그램 설명 : 상품 정보를 담은 DTO
  */
-//@Data
-
-@Getter
-@Setter
-//@NoArgsConstructor
-//@RequiredArgsConstructor
-//@AllArgsConstructor
-@Builder(toBuilder = true) // lombok 기능, 생성자를 조금 바꾼거를 바로바로 생성가능
-public class CartDTO /*extends ProductDTO*/ {
+@Data // @Getter, @Setter, @RequiredArgsConstructor, @ToString, @EqualsAndHashCode
+@NoArgsConstructor // @NoArgsConstructor 어노테이션은 파라미터가 없는 기본 생성자를 생성
+//@Builder(toBuilder = true) // lombok 기능, 생성자를 조금 바꾼거를 바로바로 생성가능
+public class CartDTO extends ProductDTO {
 
     /**
      * @param cartNo 장바구니 번호(고유 일련번호)

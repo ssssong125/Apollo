@@ -4,8 +4,11 @@ import com.b4.apollo.cart.model.dto.CartDTO;
 import com.b4.apollo.cart.model.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
@@ -35,7 +38,7 @@ public class CartController {
      * @MethodName : trolley
      * @작성일 : 2022. 12. 28.
      * @작성자 : 김수용
-     * @Method 설명 : GetMapping방식으로 trolley 값을 받게되면 trolley 페이지로 넘겨줌
+     * @Method 설명 : GetMapping 방식으로 trolley 값을 받게되면 trolley 페이지로 넘겨줌
      */
     @GetMapping("trolley")
     public ModelAndView trolley(ModelAndView mv) {
@@ -47,10 +50,48 @@ public class CartController {
 
         mv.addObject("cartList", cartList);
 
+        // 합산 가격
+        int totalPrice = 0;
+
+        for(CartDTO cart : cartList) {
+            totalPrice += cart.getProductInfo().getProductPrice() * cart.getProductInfo().getProductQty();
+        }
+
+        mv.addObject("totalPrice", totalPrice);
+
         // 프로덕트 맵핑
         mv.setViewName("cart/trolley");
 
         return mv;
+    }
+
+    /**
+     * @MethodName : trolleyResult
+     * @작성일 : 2023. 01. 06.
+     * @작성자 : 김수용
+     * @Method 설명 : PostMapping 방식으로 trolley 페이지에 출력될 값을 반환해줌
+     */
+    @ResponseBody
+    @PostMapping("trolley-result")
+    public Model trolleyResult(Model model) {
+
+        HashMap<String, String> parameter = new HashMap<>();
+        parameter.put("userId", "user01");
+
+        List<CartDTO> cartList = cartService.getCartList(parameter);
+
+        model.addAttribute("cartList", cartList);
+
+        // 합산 가격
+        int totalPrice = 0;
+
+        for(CartDTO cart : cartList) {
+            totalPrice += cart.getProductInfo().getProductPrice() * cart.getProductInfo().getProductQty();
+        }
+
+        model.addAttribute("totalPrice", totalPrice);
+
+        return model;
     }
 
     /**
