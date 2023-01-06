@@ -27,39 +27,37 @@ public class UserServiceImpl implements UserService {
 //    }
 
     @Override
-    public boolean insertUser(UserDTO newUser){
+    public boolean insertUser(UserDTO newUser) throws Exception{
         int result = userMapper.insertUser(newUser);
+        if(result <= 0) {
+            throw new Exception("회원 등록 실패");
+        }
+        return result>0 ? true:  false;
+    }
 
+    @Override
+    public boolean updateUser(UserDTO updateUTO) throws Exception{
+        int result = userMapper.updateUser(updateUTO);
+        if(result<=0){
+             throw new Exception("메뉴등록 실패");
+        }
         return result>0 ? true:  false;
     }
 
 //    @Override
-//    public MemberDTO updateMember(MemberDTO m) throws Exception {
-//        int result = memberDAO.updateMember(sqlSession, m);
-//
-//        if (result < 0) {
-//            MemberDTO loginUser = memberDAO.loginMember(sqlSession, m);
-//            return loginUser;
-//        } else {
-//            throw new Exception("회원수정실패");
-//        }
+//    public int idCheck(String userId) {
+//        int cnt = userMapper.idCheck(userId);
+//        System.out.println("cnt: " + cnt);
+//        return cnt;
 //    }
 
     @Override
-    public int idCheck(String userId) {
-        int cnt = userMapper.idCheck(userId);
-        System.out.println("cnt: " + cnt);
-        return cnt;
-    }
-
-//    @Override
-//    public void deleteMember(String userId) {
-//            int result = memberDAO.deleteMember(sqlSession, userId);
-//
-//            if (result < 0) {
-//                throw new CommonException("회원탈퇴실패");
-//            }
-//        }
+    public void deleteUser(String userId) throws Exception{
+            int result = userMapper.deleteUser(userId);
+            if (result < 0) {
+                throw new Exception("회원탈퇴실패");
+            }
+        }
     }
 
 

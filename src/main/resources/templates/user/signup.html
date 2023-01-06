@@ -138,41 +138,17 @@
         position: relative;
         margin-left:150px;
     }
-    #postfind_btn{
-        color: white;
-        font-weight: bold;
-        border-color: #DF9438;
-        padding: 3px;
-        width: 110px;
-        margin-top: -60px;
-
-    }
 
     select::-ms-expand{
         display: none;
     }
-    .form-control{
-        color: white;
-        font-weight: bold;
-        width: 438px;
-        font-size: 16px;
-        padding: 30px 0;
-        border: none;
-        border-bottom: 1px solid #fff;
-        outline: none;
-        background: transparent;
-        float: left;
-        position: relative;
-    }
-    .form-control::placeholder{
+    #address_kakao{
         color: white;
         font-weight: bold;
     }
-    .form-control:focus{
-        border: none;
-        border-bottom: 1px solid #fff;
-        outline: none;
-        background: transparent;
+    #address_detail{
+        color: white;
+        font-weight: bold;
     }
 
 </style>
@@ -220,11 +196,15 @@
                                 <option value="nate.com">@nate.com</option>
                                 <option value="yahoo.com">@yahoo.com</option>
                             </datalist><br>
-                <input type="hidden" id="totalemail" name="userEmail" value="">
-                <input type="text" id="postcode" name="zipcode" class="form-control mr-2 postcodify_postcode5" size="35" placeholder="우편번호" onfocus="this.placeholder = ''"/>
-                <br><button type="button" id="postfind_btn" class="btn btn-btn-link" value="우편번호 찾기">우편번호찾기</button>
-                <input type="text" name="userAddr" id="address" class="form-control postcodify_address" size="35" placeholder="주소" onfocus="this.placeholder = ''">
-                <br><input type="text" name="addrDetail" id="detailAddress" class="form-control postcodify_extra_info" size="35" placeholder="상세주소" onfocus="this.placeholder = ''">
+                <input type="hidden" id="total-email" name="userEmail" value="">
+                <br>
+                <br>
+                <input type="text" id="address_kakao" placeholder="주소" required/>
+                <br>
+                <br>
+                <br>
+                <input type="text" id="address_detail" placeholder="상세주소" required/>
+                <input type="hidden" id="totalAddr" name="userAddr" value="">
 
                 <div class="btns" align="center">
                     <br><br>
@@ -235,24 +215,34 @@
         </form>
 </div>
 </div>
+                <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
                 <script>
-                    $("#user_email").blur(function(){
-                        email();
-                    });
+                    window.onload = function(){
+                        document.getElementById("address_kakao").addEventListener("click", function address () { //주소입력칸을 클릭하면
+                            //카카오 지도 발생
+                            new daum.Postcode({
+                                oncomplete: function(data) { //선택시 입력값 세팅
+                                    document.getElementById("address_kakao").value = data.address; // 주소 넣기
+                                    document.querySelector("input[name=userAddr]").focus(); //상세입력 포커싱
 
-                    $("#email_address").change(function(){
-                        email();
-                    });
 
-                    function email() {
-                        const email = $("#user_email").val();
-                        const middle = $("#middle").text();
-                        const address = $("#email_address").val();
-                        if(email != "" && address != "") {
-                            $("#totalemail").val(email+middle+address);
-                        }
+
+                                }
+                            }).open();
+                        });
                     };
+
+                    $("#address_detail").on("keyup", function() {
+
+                        const $address = $("#address_kakao").val();
+                        const $address_detail = $("#address_detail").val();
+                        if($address != "" && $address_detail != "") {
+                            $("#totalAddr").val($address + $address_detail);
+                        }
+                    });
+
                 </script>
+
 <!--        <script>-->
 <!--            const body = document.querySelector("body");-->
 <!--            const MIN_DURATION = 10;-->
@@ -283,13 +273,6 @@
 <!--                setTimeout(makeSnowflake, 500 * index);-->
 <!--            }-->
 <!--        </script>-->
-        <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js" style="color: black"></script>
-        <script>
-            // 검색 단추를 누르면 팝업 레이어가 열리도록 설정한다.
-            $(function(){
-                $("#postfind_btn").postcodifyPopUp();
-            });
-        </script>
         <script>
             $("#user_email").blur(function(){
                 email();
@@ -304,10 +287,11 @@
                 const middle = $("#middle").text();
                 const address = $("#email_address").val();
                 if(email != "" && address != "") {
-                    $("#totalemail").val(email+middle+address);
+                    $("#total-email").val(email+middle+address);
                 }
             };
         </script>
+
         <script type="text/javascript">
             $("input[name=userId]").on("keyup", function (){
                 var id = $(this).val();
