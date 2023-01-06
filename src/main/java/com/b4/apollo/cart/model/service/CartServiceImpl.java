@@ -149,9 +149,15 @@ public class CartServiceImpl implements CartService{
         cartMapper.decreaseProduct(cartNo);
     }
 
-    public void updateProductCount(int cartNo, int count) {
+//    @Transactional(rollbackFor = Exception.class)
+//    public void updateProductCount(Integer cartNo, Integer count) {
+//
+//        cartMapper.updateProductCount(cartNo, count);
+//    }
+    @Transactional(rollbackFor = Exception.class)
+    public void updateProductCount(HashMap<String, Integer> parameter) {
 
-        cartMapper.updateProductCount(cartNo, count);
+        cartMapper.updateProductCount(parameter);
     }
 
     @Override
