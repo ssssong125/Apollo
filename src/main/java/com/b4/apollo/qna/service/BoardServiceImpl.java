@@ -30,8 +30,9 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public void insertBoard(String boardTitle, String boardContent) {
+    public void insertBoard(String userId, String boardTitle, String boardContent) {
         QuestionDTO q = new QuestionDTO();
+        q.setUserId(userId);
         q.setBoardTitle(boardTitle);
         q.setBoardContent(boardContent);
         q.setCreateDate(LocalDateTime.now());
