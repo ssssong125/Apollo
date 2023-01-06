@@ -197,8 +197,7 @@ CREATE TABLE TBL_QUESTION_REPLY (
                                     BOARD_NO	NUMBER	NOT NULL,
                                     USER_ID	VARCHAR(50)	NOT NULL,
                                     REPLY_CONTENT	VARCHAR(300)	NOT NULL,
-                                    REPLY_CREATE_DATE	DATE	NOT NULL,
-                                    REPLY_MODDATE	DATE	NOT NULL
+                                    REPLY_DATE	DATE	NOT NULL
 );
 
 -- 주문 번호 시퀀스
