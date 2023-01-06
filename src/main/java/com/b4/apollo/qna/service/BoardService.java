@@ -19,7 +19,7 @@ public interface BoardService {
     void deleteBoard(int boardNo);
 
 
-    void insertBoard(String boardTitle, String boardContent);
+    void insertBoard(String usrId, String boardTitle, String boardContent);
 
 //    void updateBoard(int boardNo);
     void updateBoard(QuestionDTO q, String boardTitle, String boardContent);

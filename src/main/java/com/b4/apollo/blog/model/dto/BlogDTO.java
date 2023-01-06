@@ -1,16 +1,15 @@
-package com.b4.apollo.blog.post.model.dto;//package com.b4.apollo.blog.post.model.dto;
+package com.b4.apollo.blog.model.dto;//package com.b4.apollo.blog.post.model.dto;
 
 import lombok.*;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class PostDTO {
+public class BlogDTO {
 
     private Integer blogNo;
     private String userId;
@@ -21,7 +20,7 @@ public class PostDTO {
 
     private Timestamp postDate;
 
-    private Integer viewCount;
+    private int count;
 
-
+    private String blogDel;
 }

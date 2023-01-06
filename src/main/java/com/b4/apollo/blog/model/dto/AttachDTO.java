@@ -1,4 +1,4 @@
-package com.b4.apollo.blog.post.model.dto;//package com.b4.apollo.blog.post.model.dto;
+package com.b4.apollo.blog.model.dto;//package com.b4.apollo.blog.post.model.dto;
 
 
 import lombok.*;
@@ -8,7 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class FileDTO {
+public class AttachDTO {
 
     private int imgNo;
     private String originalName;
@@ -23,6 +23,7 @@ public class FileDTO {
 
     private String fileLocation;
 
+    private String imgDel;
 
 
 

@@ -2,24 +2,38 @@
 <html layout:decorate="~{/common/layout}" lang="ko"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+  <title>boardList</title>
+  <style>
+    tbody>tr>td>a, tbody>tr>td>th{
+      color:white;
+    }
+    .container.my-3{
+      padding-top: 5%;
+    }
+  </style>
+</head>
+
 <body>
 <div layout:fragment="content" class = "container my-3">
-<table class="table">
+<table class="table" style="text-decoration: none; color: white; background-color:black">
   <thead class="table-dark">
   <tr>
     <th th:value="boardNo">번호</th>
     <th th:value="boardTitle">제목</th>
     <th th:value="createDate">작성일시</th>
+    <th th:value="count">조회수</th>
   </tr>
   </thead>
   <tbody>
   <tr th:if="${#lists.size(list)} > 0" th:each="list, loop: ${list.getList()}">
-    <td th:text="${loop.size - loop.count+1}"></td>
+<!--    <td th:text="${loop.size - loop.count+1}"></td>-->
+    <td th:text="${list.boardNo}"></td>
     <td>
       <a href="detail/" th:attrappend="href=${list.boardNo}" th:text="${list.boardTitle}"></a>
-
     </td>
     <td th:text="${#temporals.format(list.createDate, 'yyyy-MM-dd HH:mm')}"></td>
+    <td th:text="${list.count}"></td>
   </tr>
 
   </tbody>

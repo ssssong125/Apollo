@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @Data
 public class QuestionDTO {
 
+
     private Integer boardNo;
 
     private String userId;
