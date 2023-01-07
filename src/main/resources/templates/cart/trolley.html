@@ -2,216 +2,148 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="_csrf" th:content="${_csrf?.token}">
+    <meta name="_csrf_header" th:content="${_csrf?.headerName}">
+
     <title>Cart</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-    <!--    <link href="/css/cart/style.css" rel="stylesheet" type="text/css">-->
     <link rel="stylesheet" type="text/css" th:href="@{ /css/cart/style.css }">
+    <script src="/js/cart/trolley.js"></script>
     <style>
         /*div 확인용*/
         /*div{*/
         /*    border: solid red 1px;*/
         /*}*/
     </style>
-    <script src="/js/cart/trolley.js"/>
 </head>
 <body>
-<!--    <script th:inline="javascript">-->
-<!--    <script type="text/javascript">-->
-<!--    <script>-->
-<!--        $("#productQty-result").bind("keyup mouseup", (function (){-->
-
-<!--            alert("변경됨");-->
-
-<!--            $.ajax({-->
-<!--                type : 'POST',           // 타입 (get, post, put 등등)-->
-<!--                url : '/cart/trolley-result',   // 요청할 서버url-->
-<!--                // async : true,            // 비동기화 여부 (default : true)-->
-<!--                // headers : {              // Http header-->
-<!--                //     "Content-Type" : "application/json",-->
-<!--                //     "X-HTTP-Method-Override" : "POST"-->
-<!--                // },-->
-<!--                dataType : 'json',       // 데이터 타입 (html, xml, json, text 등등)-->
-<!--                // data : JSON.stringify({  // 보낼 데이터 (Object , String, Array)-->
-<!--                //     "no" : no,-->
-<!--                //     "name" : name,-->
-<!--                //     "nick" : nick-->
-<!--                // }),-->
-<!--                // data: {},-->
-<!--                // data: params,-->
-<!--                success : function(result) { // 결과 성공 콜백함수-->
-<!--                    console.log("성공");-->
-<!--                    alert("성공");-->
-<!--                },-->
-<!--                error : function(request, status, error) { // 결과 에러 콜백함수-->
-<!--                    // console.log(error)-->
-<!--                    console.log("실패")-->
-<!--                    alert("실패");-->
-<!--                }-->
-<!--            })-->
-<!--                .done(function (result) {-->
-<!--                    console.log("a");-->
-<!--                })-->
-<!--            // .fail(function (jq))-->
-<!--        }))-->
-<!--    </script>-->
-
-<!--전체 div-->
-<div class="container">
-    <br>
-    <!--현재 위치-->
-    <div class="row">
-        <div class="col">
-            <span class="big-font">Cart</span>
-            <hr class="thick-line">
-        </div>
-    </div>
-
-    <!--제목-->
+    <!--전체 div-->
     <div class="container">
+        <br>
+        <!--현재 위치-->
         <div class="row">
-            <div class="col-lg-8">
-                Items
-            </div>
-            <div class="col-lg-1">
-                Qty
-            </div>
-            <div class="col-lg-2 price">
-                Price
+            <div class="col">
+                <span class="big-font">Cart</span>
+                <hr class="thick-line">
             </div>
         </div>
-    </div>
-
-    <!--상품 없을시-->
-    <div class="container" th:if="${ cartList.size() } == 0">
-        <hr class="line">
-        <div class="row">
-            <div class="col-lg" style="height: 128px;" >
-                <div class="v-align" style="text-align: center;">
-                    <br><br>
-                    장바구니에 상품이 없습니다.
+        <!--제목-->
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    Items
+                </div>
+                <div class="col-lg-1">
+                    Qty
+                </div>
+                <div class="col-lg-2 price">
+                    Price
                 </div>
             </div>
         </div>
-    </div>
-
-    <!--상품 추가시-->
-    <th:block th:each="cart : ${ cartList }" th:if="${ cartList.size() } > 0">
-        <div class="container product-box">
-            <input th:id="cartNo+${cartStat.count}" th:value="${ cart.cartNo }" type="hidden">
-            <input th:id="productCount+${cartStat.count}" th:value="${ cart.productCount }" type="hidden">
+        <!--상품 없을시-->
+        <div class="container" th:if="${ cartList.size() } == 0">
             <hr class="line">
             <div class="row">
-                <!--상품 이미지-->
-                <div class="col-lg-2">
-                    <img class="product" src="/img/cart/naverPay.png" alt="상품 이미지명">
-                </div>
-                <!--상품명-->
-                <div class="col-lg-6 v-align">
-                    <span th:text="${ cart.productInfo.productName }"/>
-                </div>
-                <!--상품 갯수-->
-                <div class="col-lg-1 v-align">
-                    <input th:id="productQty" id="productQty" type="number"
-                           th:onchange="|updateQty(${ cart.cartNo }, ${ cart.productCount })|"
-                           th:value="${ cart.productCount }"
-                           min="1" th:max="${ cart.productInfo.productQty }"
-                           style="width: 50px" required>
-
-                    <table style="padding-left: 3px">
-                        <tr>
-                            <td rowspan="2">
-<!--                                <span th:text="${ cart.productInfo.productQty }"/>-->
-                            </td>
-                            <td style="padding-bottom: 0">
-                                <!-- max 최대값, pattern 정규식 카트번호 히든으로 인풋 -->
-<!--                                <button th:onclick="${ @cartServiceImpl.increaseProduct( cart.cartNo )}" href="">▲</button>-->
-<!--                                <a th:action="${ @cartServiceImpl.increaseProduct(${cart.cartNo})}" th:href="" style="display: block">▼</a>-->
-    <!--                            <button th:action="${ @cartServiceImpl.increaseProduct(${ cart.cartNo })}" />▲</button>-->
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding-top: 0">
-    <!--                            <span th:text="${ @cartServiceImpl.decreaseProduct(${ cart.cartNo })}" />▼</a>-->
-    <!--                            <a href="javascript: alert('아래');" style="display: block">▼</a>-->
-                            </td>
-                        </tr>
-                    </table>
-
-                </div>
-                <!--상품 가격-->
-                <div class="col-lg-2 v-align price">
-                    <span th:text="${ cart.productInfo.productPrice }"/>$
-                </div>
-                <!--상품 삭제-->
-                <div class="col-lg-1 v-align price">
-<!--                    <a href="/cart/trolley" th:action="${ @cartServiceImpl.deleteProduct( cart.cartNo )}">-->
-<!--                    <img id="delete-product" th:onclick="${ @cartServiceImpl.deleteProduct( cart.cartNo )}" src="/img/cart/trash.png" alt="trash.png">-->
-                    <!--온클릭으로 매개변수 넘기기-->
-                    <img src="/img/cart/trash.png" alt="trash.png">
-<!--                    <button th:onclick="${ @cartServiceImpl.deleteProduct( cart.cartNo )}"></button>-->
-<!--                    <button th:href="@{ cartServiceImpl.deleteProduct(cart.cartNo)}"></button>-->
-<!--                    <button th:attr="onclick=${ @cartServiceImpl.deleteProduct( cart.cartNo )}"></button>-->
+                <div class="col-lg" style="height: 128px;" >
+                    <div class="v-align" style="text-align: center;">
+                        <br><br>
+                        장바구니에 상품이 없습니다.
+                    </div>
                 </div>
             </div>
         </div>
-    </th:block>
-    <!--상품 추가 끝-->
 
-    <hr class="thick-line">
-    <!--합산 가격-->
-<!--    <div class="row">-->
-<!--        <div class="col-lg-9">-->
-<!--        </div>-->
-<!--        <div class="col-lg-2">-->
-<!--            Sub Total-->
-<!--        </div>-->
-<!--        <div class="col-lg-1 price">-->
-<!--            3000$-->
-<!--        </div>-->
-<!--    </div>-->
+        <!--상품 추가시-->
+        <th:block th:each="cart : ${ cartList }" th:if="${ cartList.size() } > 0">
+            <div class="container product-box">
+                <hr class="line">
+                <div class="row">
+                    <!--상품 이미지-->
+                    <div class="col-lg-2">
+                        <img class="product" src="/img/cart/naverPay.png" alt="상품 이미지명">
+                    </div>
+                    <!--상품명-->
+                    <div class="col-lg-6 v-align">
+                        <span th:text="${ cart.productInfo.productName }"/>
+                    </div>
+                    <!--상품 갯수-->
+                    <div class="col-lg-1 v-align">
+                        <input th:id="|productQty${cartStat.count}|" type="number"
+                               th:onchange="|updateQty(${ cart.cartNo },${ cartStat.count })|"
+                               th:value="${ cart.productCount }"
+                               min="1" th:max="${ cart.productInfo.productQty }"
+                               style="width: 50px" required>
+                    </div>
+                    <!--상품 가격-->
+                    <div class="col-lg-2 v-align price">
+                        <span th:text="${ cart.productInfo.productPrice }"/>$
+                    </div>
+                    <!--상품 삭제-->
+                    <div class="col-lg-1 v-align price">
+                        <a th:onclick="|deleteProduct(${ cart.cartNo })|" href="">
+                            <img src="/img/cart/trash.png" alt="trash.png">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </th:block>
 
-    <!--할인 가격-->
-<!--    <div class="row">-->
-<!--        <div class="col-lg-9">-->
+        <hr class="thick-line">
+        <!--합산 가격-->
+    <!--    <div class="row">-->
+    <!--        <div class="col-lg-9">-->
+    <!--        </div>-->
+    <!--        <div class="col-lg-2">-->
+    <!--            Sub Total-->
+    <!--        </div>-->
+    <!--        <div class="col-lg-1 price">-->
+    <!--            3000$-->
+    <!--        </div>-->
+    <!--    </div>-->
 
-<!--        </div>-->
-<!--        <div class="col-lg-2">-->
-<!--            Discount Price-->
-<!--        </div>-->
-<!--        <div class="col-lg-1 price">-->
-<!--            13,000$-->
-<!--        </div>-->
-<!--    </div>-->
+        <!--할인 가격-->
+    <!--    <div class="row">-->
+    <!--        <div class="col-lg-9">-->
 
-    <!--결제 금액-->
-    <div class="row">
-        <div class="col-lg-9">
+    <!--        </div>-->
+    <!--        <div class="col-lg-2">-->
+    <!--            Discount Price-->
+    <!--        </div>-->
+    <!--        <div class="col-lg-1 price">-->
+    <!--            13,000$-->
+    <!--        </div>-->
+    <!--    </div>-->
 
+        <!--결제 금액-->
+        <div class="row">
+            <div class="col-lg-9">
+
+            </div>
+
+            <div class="col-lg-2">
+                Order Total
+            </div>
+
+            <div class="col-lg-1 price">
+    <!--            3000$-->
+                <span th:text="${ totalPrice }"/>$
+            </div>
         </div>
+        <br>
 
-        <div class="col-lg-2">
-            Order Total
-        </div>
-
-        <div class="col-lg-1 price">
-<!--            3000$-->
-            <span th:text="${ totalPrice }"/>$
+        <!--구매 버튼-->
+        <div class="row">
+            <div class="col-lg-10">
+            </div>
+            <div class="col-lg-2">
+                <button onclick="location.href='order'">Purchase</button>
+            </div>
         </div>
     </div>
-    <br>
-
-    <!--구매 버튼-->
-    <div class="row">
-        <div class="col-lg-10">
-        </div>
-        <div class="col-lg-2">
-            <button onclick="location.href='order'">Purchase</button>
-        </div>
-    </div>
-</div>
 </body>
 </html>

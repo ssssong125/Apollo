@@ -1,50 +1,77 @@
 // trolley
-function updateQty(cartNo, count) {
+const token = $("meta[name='_csrf']").attr("content")
+const header = $("meta[name='_csrf_header']").attr("content");
+// const name = $("#userName").val();
 
-    // let params = {
-    //     cartNo : cartNo,
-    //     count : count
-    // }
+function updateQty(cartNo, code) {
+
+    alert("A");
+    const count = $('#productQty'+code).val();
 
     $.ajaxSetup({
-        // url: 'cart/trolley',
-        url: 'trolley',
-        // global: false,
-        type: "POST"
+        url: 'trolley', // 요청할 서버url
+        type: "POST" // 타입 (get, post, put 등등)
+        // global: false, // 동시에 실행 x, 비동기화 여부 (default : true)
     });
 
     $.ajax({
-        // url : 'cart/trolley',   // 요청할 서버url
-        // url : "trolley",   // 요청할 서버url
-        // method : 'POST',
-        // method : "GET",
-        data:
+        data: // 보낼 데이터 (Object , String, Array)
             {
                 cartNo : cartNo,
                 count : count
             },
+        beforeSend : function(xhr) {
+            xhr.setRequestHeader(header, token)
+        }
         // dataType : 'json',       // 데이터 타입 (html, xml, json, text 등등)
-        // type : 'POST',           // 타입 (get, post, put 등등)
-        // async : true,            // 비동기화 여부 (default : true)
         // headers : {              // Http header
         //     "Content-Type" : "application/json",
         //     "X-HTTP-Method-Override" : "POST"
         // },
-        // data : JSON.stringify({  // 보낼 데이터 (Object , String, Array)
-        //     "no" : no,
-        //     "name" : name,
-        //     "nick" : nick
-        // }),
-        // data: params,
     })
-        .done(function (result) {
-            alert("성공")
-            // 수행할 동작
+        .done(function (result) { // 수행할 동작
+            return location.href = "trolley"
         })
-        .fail(function(jqXHR) {
+        .fail(function(jqXHR) { // 실패시
             alert("실패")
         })
-        // .always(function() {
-        //     alert("항상");
+        // .always(function() { // 항상 동작 
+        //     alert("작동");
         // })
+}
+
+function deleteProduct(cartNo) {
+
+    const count = 0;
+
+    $.ajaxSetup({
+        url: 'trolley', // 요청할 서버url
+        type: "POST" // 타입 (get, post, put 등등)
+        // global: false, // 동시에 실행 x, 비동기화 여부 (default : true)
+    });
+
+    $.ajax({
+        data: // 보낼 데이터 (Object , String, Array)
+            {
+                cartNo : cartNo,
+                count : count
+            },
+        beforeSend : function(xhr) {
+            xhr.setRequestHeader(header, token)
+        }
+        // dataType : 'json',       // 데이터 타입 (html, xml, json, text 등등)
+        // headers : {              // Http header
+        //     "Content-Type" : "application/json",
+        //     "X-HTTP-Method-Override" : "POST"
+        // },
+    })
+        .done(function (result) { // 수행할 동작
+            return location.href = "trolley"
+        })
+        .fail(function(jqXHR) { // 실패시
+            alert("실패")
+        })
+    // .always(function() { // 항상 동작
+    //     alert("작동");
+    // })
 }

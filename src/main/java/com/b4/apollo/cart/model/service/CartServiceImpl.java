@@ -46,6 +46,23 @@ public class CartServiceImpl implements CartService{
         return cartMapper.getCartList(parameter);
     }
 
+    @Transactional(rollbackFor = Exception.class)
+    public void updateProductCount(HashMap<String, Integer> parameter) {
+
+        cartMapper.updateProductCount(parameter);
+    }
+
+    @Override
+    public void deleteProduct(Integer cartNo) {
+
+        cartMapper.deleteProduct(cartNo);
+
+//        if(result <= 0) {
+//
+//            throw new Exception("품목 삭제 실패");
+//        }
+    }
+
     /**
      * @MethodName : getPaymentDetail
      * @작성일 : 2022. 12. 30.
@@ -104,75 +121,6 @@ public class CartServiceImpl implements CartService{
 
         return result > 0;
     }
-
-    /*
-     * @MethodName : increaseProduct
-     * @작성일 : 2023. 01. 03.
-     * @작성자 : 김수용
-     * @Method 설명 : 장바구니에 품목의 주문수량 증가시키는 기능의 구현체
-     */
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void increaseProduct(int cartNo) throws Exception {
-
-//        int result = cartMapper.increaseProduct(cartNo);
-//
-//        if(result <= 0) {
-//
-//            throw new Exception("주문수량 증가 실패");
-//        }
-//
-//        return result > 0;
-
-        cartMapper.increaseProduct(cartNo);
-    }
-
-    /*
-     * @MethodName : decreaseProduct
-     * @작성일 : 2023. 01. 03.
-     * @작성자 : 김수용
-     * @Method 설명 : 장바구니에 품목의 주문수량 감소시키는 기능의 구현체
-     */
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void decreaseProduct(int cartNo) throws Exception {
-
-//        int result = cartMapper.decreaseProduct(cartNo);
-//
-//        if(result <= 0) {
-//
-//            throw new Exception("주문수량 감소 실패");
-//        }
-//
-//        return result > 0;
-
-        cartMapper.decreaseProduct(cartNo);
-    }
-
-//    @Transactional(rollbackFor = Exception.class)
-//    public void updateProductCount(Integer cartNo, Integer count) {
-//
-//        cartMapper.updateProductCount(cartNo, count);
-//    }
-    @Transactional(rollbackFor = Exception.class)
-    public void updateProductCount(HashMap<String, Integer> parameter) {
-
-        cartMapper.updateProductCount(parameter);
-    }
-
-    @Override
-    public boolean deleteProduct(int cartNo) throws Exception {
-
-        int result = cartMapper.deleteProduct(cartNo);
-
-        if(result <= 0) {
-
-            throw new Exception("품목 삭제 실패");
-        }
-
-        return result > 0;
-    }
-
 
 }
 //@Transactional(rollbackFor = Exception.class) // 오류 발생시 롤백 // 메소드에
