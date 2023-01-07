@@ -44,19 +44,6 @@ public class CartController {
     @GetMapping(value = {"trolley","cart/trolley"})
     public ModelAndView trolley(ModelAndView mv) {
 
-//        // null값도 받기 위해 Integer 사용
-//        if(cartNo != null && count != null) {
-//
-//            HashMap<String, Integer> parameter = new HashMap<>();
-//            parameter.put("cartNo", cartNo);
-//            parameter.put("count", count);
-//
-//            cartService.updateProductCount(parameter);
-//        }
-//
-//        System.out.println(cartNo);
-//        System.out.println(count);
-
         HashMap<String, String> parameter = new HashMap<>();
         parameter.put("userId", "user01");
 
@@ -92,15 +79,17 @@ public class CartController {
         // null값도 받기 위해 Integer 사용
         if(cartNo != null && count != null) {
 
-            HashMap<String, Integer> parameter = new HashMap<>();
-            parameter.put("cartNo", cartNo);
-            parameter.put("count", count);
+            if(count >= 1) {
 
-            cartService.updateProductCount(parameter);
+                HashMap<String, Integer> parameter = new HashMap<>();
+                parameter.put("cartNo", cartNo);
+                parameter.put("count", count);
+
+                cartService.updateProductCount(parameter);
+
+            } else cartService.deleteProduct(cartNo);
+
         }
-
-        System.out.println(cartNo);
-        System.out.println(count);
 
         HashMap<String, String> parameter = new HashMap<>();
         parameter.put("userId", "user01");

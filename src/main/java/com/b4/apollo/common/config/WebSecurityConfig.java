@@ -1,6 +1,4 @@
-
 package com.b4.apollo.common.config;
-
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,14 +15,11 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-
     @Bean
     public PasswordEncoder passwordEncoder() {
 
-
         return new BCryptPasswordEncoder();
     }
-
 
     @Bean
     public WebSecurityCustomizer configure() {
@@ -35,7 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    protected void configure(HttpSecurity http) throws Exception{
         http
                 .authorizeRequests()
                 .antMatchers("/**").permitAll()
@@ -62,5 +57,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         return new InMemoryUserDetailsManager(user);
     }
-}
 
+}
