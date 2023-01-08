@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
 <head>
-  <title>boardList</title>
+
   <style>
     tbody>tr>td>a, tbody>tr>td>th{
       color:white;
@@ -28,7 +28,7 @@
   <tbody>
   <tr th:if="${#lists.size(list)} > 0" th:each="list, loop: ${list.getList()}">
 <!--    <td th:text="${loop.size - loop.count+1}"></td>-->
-    <td th:text="${list.blogNo}"></td>
+<!--    <td type="hidden" th:text="${list.blogNo}"></td>-->
     <td>
       <a href="detail/" th:attrappend="href=${list.blogNo}" th:text="${list.blogTitle}"></a>
     </td>
