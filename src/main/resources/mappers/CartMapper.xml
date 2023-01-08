@@ -21,42 +21,16 @@
 			<result property="categoryCode" column="CATEGORY_CODE"/>
 		</association>
 	</resultMap>
-	<!--	어소시에이션 사용 DTO 객체-->
-	<!--	<resultMap id="cartResultMap" type="com.b4.apollo.cart.model.dto.CartDTO">-->
-	<!--		<id property="cartNo" column="CART_NO" />-->
-	<!--		<result property="productCount" column="PRODUCT_COUNT" />-->
-	<!--		<result property="regDate" column="REG_DATE" />-->
-	<!--		<association property="productDTO" javaType="com.b4.apollo.product.model.dto.ProductDTO">-->
-	<!--			<id property="productNo" column="PRODUCT_NO"/>-->
-	<!--			<result property="productName" column="PRODUCT_NAME"/>-->
-	<!--			<result property="productPrice" column="PRODUCT_PRICE"/>-->
-	<!--			<result property="productDesc" column="PRODUCT_DESC"/>-->
-	<!--			<result property="productQty" column="PRODUCT_QTY"/>-->
-	<!--			<result property="categoryCode" column="CATEGORY_CODE"/>-->
-	<!--		</association>-->
-	<!--		<association property="userDTO" javaType="com.b4.apollo.member.model.dto.MemberDTO">-->
-	<!--			<id property="userId" column="USER_ID"/>-->
-	<!--			<result property="userPwd" column="USER_PWD"/>-->
-	<!--			<result property="userName" column="USER_NAME"/>-->
-	<!--			<result property="userTel" column="USER_TEL"/>-->
-	<!--			<result property="userAddr" column="ADDRESS"/>-->
-	<!--			<result property="userEmail" column="USER_EMAIL"/>-->
-	<!--			<result property="userRole" column="USER_ROLE"/>-->
-	<!--			<result property="userActive" column="USER_ACTIVE"/>-->
-	<!--			<result property="userEntdate" column="USER_ENTDATE"/>-->
-	<!--			<result property="point" column="USER_POINT"/>-->
-	<!--		</association>-->
-	<!--	</resultMap>-->
 
-	<!--상품 정보를 담을 resultMap-->
-	<resultMap id="productResultMap" type="com.b4.apollo.product.model.dto.ProductDTO">
-		<id property="productNo" column="PRODUCT_NO"/>
-		<result property="productName" column="PRODUCT_NAME"/>
-		<result property="productPrice" column="PRODUCT_PRICE"/>
-		<result property="productDesc" column="PRODUCT_DESC"/>
-		<result property="productQty" column="PRODUCT_QTY"/>
-		<result property="categoryCode" column="CATEGORY_CODE"/>
-	</resultMap>
+<!--	&lt;!&ndash;상품 정보를 담을 resultMap&ndash;&gt;-->
+<!--	<resultMap id="productResultMap" type="com.b4.apollo.product.model.dto.ProductDTO">-->
+<!--		<id property="productNo" column="PRODUCT_NO"/>-->
+<!--		<result property="productName" column="PRODUCT_NAME"/>-->
+<!--		<result property="productPrice" column="PRODUCT_PRICE"/>-->
+<!--		<result property="productDesc" column="PRODUCT_DESC"/>-->
+<!--		<result property="productQty" column="PRODUCT_QTY"/>-->
+<!--		<result property="categoryCode" column="CATEGORY_CODE"/>-->
+<!--	</resultMap>-->
 
 	<!--유저 정보를 담을 resultMap-->
 	<resultMap id="userResultMap" type="com.b4.apollo.user.model.dto.UserDTO">
@@ -123,7 +97,7 @@
 	</update>
 
 	<!--주문 수량 수정-->
-	<update id="updateProductCount" parameterType="_int">
+	<update id="updateProductCount" parameterType="hashmap">
 		UPDATE TBL_CART A
 		SET A.PRODUCT_COUNT = #{count}
 		WHERE A.CART_NO = #{cartNo}

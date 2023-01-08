@@ -34,13 +34,13 @@ public class UserController {
         return mv;
     }
 
-    @PostMapping("idCheck")
-    @ResponseBody
-    public int idCheck(@RequestParam("userId") String userId){
-
-        int cnt = userService.idCheck(userId);
-        return cnt;
-    }
+//    @PostMapping("idCheck")
+//    @ResponseBody
+//    public int idCheck(@RequestParam("userId") String userId){
+//
+//        int cnt = userService.idCheck(userId);
+//        return cnt;
+//    }
 
     @GetMapping("/login")
     public String userLoginForm(){
@@ -51,6 +51,33 @@ public class UserController {
     public void userPage(){
 
     }
+
+    @GetMapping("/update")
+    public String updateForm(){
+        return "/user/update";
+    }
+
+    @PostMapping("/update")
+    public ModelAndView updateUser(ModelAndView mv, UserDTO updateDTO, RedirectAttributes rttr, Locale locale) throws Exception{
+        userService.updateUser(updateDTO);
+        mv.setViewName("redirect:/user/mypage");
+        rttr.addFlashAttribute("updSuccessMessage", messageSource.getMessage("updateUser", null, locale));
+        return mv;
+    }
+
+    @GetMapping("delete")
+    public String deletepage(){
+        return "/user/delete";
+    }
+
+    @PostMapping("delete")
+    public ModelAndView deleteUser(ModelAndView mv, String userId, RedirectAttributes rttr, Locale locale) throws Exception {
+        userService.deleteUser(userId);
+        mv.setViewName("redirect:/main");
+        rttr.addFlashAttribute("deleSuccessMessage", messageSource.getMessage("deleteUser", null, locale));
+        return mv;
+    }
+
 
     @GetMapping("contact")
     public void contact(){

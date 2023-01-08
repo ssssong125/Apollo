@@ -10,6 +10,8 @@ import javax.validation.constraints.Size;
 @Setter
 public class QuestionForm {
 
+    private String userId;
+
     @NotEmpty(message = "제목은 필수 항목입니다.")
     @Size(max = 200)
     private String boardTitle;

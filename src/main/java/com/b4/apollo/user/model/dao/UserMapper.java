@@ -9,11 +9,9 @@ public interface UserMapper {
 
     int insertUser(UserDTO newUser);
 
+    int updateUser(UserDTO updateDTO);
 
+//    int idCheck(String userId);
 
-//    MemberDTO updateMember(MemberDTO m) throws Exception;
-
-    int idCheck(String userId);
-//
-//    void deleteMember(String userId);
+    int deleteUser(String userId);
 }

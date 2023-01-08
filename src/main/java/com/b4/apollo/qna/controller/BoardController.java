@@ -60,7 +60,7 @@ public class BoardController {
         if (bindingResult.hasErrors()) {
             return "/qna/board_form";
         }
-        boardService.insertBoard(questionForm.getBoardTitle(), questionForm.getBoardContent());
+        boardService.insertBoard(questionForm.getUserId(), questionForm.getBoardTitle(), questionForm.getBoardContent());
         return "redirect:/question/list"; // 질문 저장후 질문목록으로 이동
     }
 

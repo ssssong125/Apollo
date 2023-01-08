@@ -21,71 +21,104 @@
     font-family: BodoniXT;
     position: absolute;
   }
+  h2{
+      font-weight: bold;
+  }
+  label{
+      font-weight: normal;
+      font-size: 30px;
+
+  }
 </style>
 <body>
-<main>
-    <aside>
-        <h2>마이페이지 메뉴</h2>
-        <hr style="border:1px; color: black;" width="90%">
-        <ul>
-            <li>
-                <a href="#">회원정보수정</a>
-            </li>
-            <li>
-                <a href="#">배송조회</a>
-            </li>
-            <li>
-                <a href="#">Q&A</a>
-            </li>
-            <li>
-                <a href="#">회원탈퇴</a>
-            </li>
-        </ul>
-    </aside>
-    <article id="wrap">
-        <div id="pagetitle">
-            <span>회원정보수정</span>
-        </div>
-        <div id="usermodify">
-            <form action="/usermodify" method="post">
-                <div id="modify">
-                        <div class="modify_info">
-                            <input type="text" value="" id="modify_name" name="name" placeholder="NAME">
-                            <br>
-                        </div>
-                        <div class="modify_info">
-                            <input type="password" id="modify_pwd1" name="pwd" placeholder="PASSWORD">
-                            <br>
-                        </div>
-                        <div class="modify_info">
-                            <input type="password" value="" id="modify_pwd2" name="name" placeholder="CONFIRM PASSWORD">
-                            <br>
-                        </div>
-                        <div class="modify_info">
-                            <input type="text" value="" id="modify_phone" name="phone" placeholder="PHONE">
-                            <br>
-                        </div>
-                        <div class="modify_info">
-                            <input type="email" value="" id="modify_email" name="email" placeholder="EMAIL">
-                            <select name="emailAddr" id="select_emi">
-                                <option value="etc" selected>직접입력</option>
-                                <option value="네이버">@naver.com</option>
-                                <option value="구글">@google.com</option>
-                                <option value="다음">@daum.net</option>
-                            </select>
-                        </div>
-                        <div class="modify_info">
-                            <input type="text" id="postcode" name="postcode" size="35" style="margin-top: 15px" placeholder="우편번호"/>
-                            <button id="postfind_btn" class="btn btn-outline-dark-btn-link" onclick="execDaumPostcode()" style="margin-top: 15px" value="우편번호 찾기">우편번호찾기</button>
-                            <br>
-                            <input type="text" id="address" size="35" placeholder="주소" style="margin-top: 15px"/>
-
-                        </div>
-
+    <div id="usermodify">
+        <h1>회원정보수정</h1>
+            <br>
+        <div style="border: 1px solid black; border-right: none; border-left: none; width: 1027px">
+            <form action="/user/update" method="post">
+                <div>
+                    <label for="userName">이름</label>
+                    <input type="text" id="userName" name="userName" size="35" placeholder="NAME" maxlength="10" onfocus="this.placeholder = ''" required>
+                </div>
+                <div>
+                    <label for="userPwd1">비밀번호</label>
+                    <input type="password" name="userPwd" id="userPwd1" size="35"
+                       placeholder="PASSWORD: 영문,숫자,특수문자 포함 8자 이상" minlength="8" onfocus="this.placeholder = ''" required>
+                    <span id="spw" style="font-size: medium; font-weight: bold"></span>
+                </div>
+                <div>
+                    <label for="userPwd2">비밀번호확인</label>
+                    <input type="password" id="userPwd2" size="35" minlength="8" placeholder="CONFIRM PASSWORD"
+                       onfocus="this.placeholder = ''" required>
+                    <span id="spw2" style="font-size: medium; font-weight: bold"></span>
+                </div>
+                <div>
+                    <label for="phone">연락처</label>
+                    <input type="tel" id="phone" name="userTel"placeholder="PHONE" maxlength="15" size="35" onfocus="this.placeholder = ''" required>
+                    <br>
+                </div>
+                <div>
+                    <label for="user_email">이메일</label>
+                    <input type="text" id="user_email"  placeholder="EMAIL" style="position: relative; width: 210px;" onfocus="this.placeholder = ''" maxlength="18" required>
+                    <p id="middle" style="color: white; float: left; font-size: x-large;">@</p>
+                        <input type="text" id="email_address" list="user_email_address" placeholder="직접입력" style="position: relative; width: 211px; text-align: center" maxlength="18" onfocus="this.placeholder = ''"/>
+                        <datalist id="user_email_address" >
+                            <option value="" selected>직접입력</option>
+                            <option value="naver.com">@naver.com</option>
+                            <option value="google.com">@google.com</option>
+                            <option value="daum.net">@daum.net</option>
+                            <option value="hotmail.com">@hotmail.com</option>
+                            <option value="korea.com">@korea.com</option>
+                            <option value="nate.com">@nate.com</option>
+                            <option value="yahoo.com">@yahoo.com</option>
+                        </datalist>
+                        <input type="hidden" id="totalemail" name="userEmail" value="">
+                </div>
+                <div>
+                    <label for="address_kakao">주소</label>
+                    <input type="text" id="address_kakao" placeholder="주소" required/>
+                    <input type="text" id="address_detail" placeholder="상세주소" required/>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-outline-warning" id="btn1">수정하기</button>
+                    <button type="reset" class="btn btn-outline-warning" id="btn2">다시작성</button>
                 </div>
             </form>
+
+
+                <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+                <script>
+                    window.onload = function(){
+                        document.getElementById("address_kakao").addEventListener("click", function(){ //주소입력칸을 클릭하면
+                            //카카오 지도 발생
+                            new daum.Postcode({
+                                oncomplete: function(data) { //선택시 입력값 세팅
+                                    document.getElementById("address_kakao").value = data.address; // 주소 넣기
+                                    document.querySelector("input[name=address_detail]").focus(); //상세입력 포커싱
+                                }
+                            }).open();
+                        });
+                    }
+                </script>
+                <script>
+                    $("#user_email").blur(function(){
+                        email();
+                    });
+
+                    $("#email_address").change(function(){
+                        email();
+                    });
+
+                    function email() {
+                        const email = $("#user_email").val();
+                        const middle = $("#middle").text();
+                        const address = $("#email_address").val();
+                        if(email != "" && address != "") {
+                            $("#totalemail").val(email+middle+address);
+                        }
+                    };
+                </script>
         </div>
-    </article>
-</main>
+    </div>
 </body>
 </html>

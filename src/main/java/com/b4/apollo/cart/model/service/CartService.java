@@ -27,6 +27,23 @@ public interface CartService {
     List<CartDTO> getCartList(HashMap<String, String> parameter);
 
     /**
+     * @MethodName : updateProductCount
+     * @작성일 : 2023. 01. 05.
+     * @작성자 : 김수용
+     * @Method 설명 : 장바구니에 담긴 품목의 수량 수정하는 기능
+     */
+//    void updateProductCount(Integer cartNo, Integer count);
+    void updateProductCount(HashMap<String, Integer> parameter);
+
+    /**
+     * @MethodName : deleteProduct
+     * @작성일 : 2023. 01. 03.
+     * @작성자 : 김수용
+     * @Method 설명 : CartService에서 호출되어 장바구니에서 품목을 제거함
+     */
+    void deleteProduct(Integer cartNo);
+
+    /**
      * @MethodName : getPaymentDetail
      * @작성일 : 2022. 12. 30.
      * @작성자 : 김수용
@@ -50,35 +67,4 @@ public interface CartService {
      */
     boolean addProductToCart(int productNo, String userId, int productCount) throws Exception;
 
-    /**
-     * @MethodName : increaseProduct
-     * @작성일 : 2023. 01. 03.
-     * @작성자 : 김수용
-     * @Method 설명 : 장바구니에 담긴 품목의 수량을 증가시키는 기능
-     */
-    void increaseProduct(int cartNo) throws Exception;
-
-    /**
-     * @MethodName : decreaseProduct
-     * @작성일 : 2023. 01. 03.
-     * @작성자 : 김수용
-     * @Method 설명 : 장바구니에 담긴 품목의 수량을 감소시키는 기능
-     */
-    void decreaseProduct(int cartNo) throws Exception;
-
-    /**
-     * @MethodName : updateProductCount
-     * @작성일 : 2023. 01. 05.
-     * @작성자 : 김수용
-     * @Method 설명 : 장바구니에 담긴 품목의 수량 수정하는 기능
-     */
-    void updateProductCount(int cartNo, int count);
-
-    /**
-     * @MethodName : deleteProduct
-     * @작성일 : 2023. 01. 03.
-     * @작성자 : 김수용
-     * @Method 설명 : CartService에서 호출되어 장바구니에서 품목을 제거함
-     */
-    boolean deleteProduct(int cartNo) throws Exception;
 }
