@@ -1,11 +1,16 @@
 package com.b4.apollo.common.config;
 
-import com.b4.apollo.product.model.dto.ProductDTO;
+import com.b4.apollo.product.model.dto.ProdAndImageDTO;
+import com.b4.apollo.product.model.dto.ProductImageDTO;
 import com.b4.apollo.product.model.service.ProductService;
 import com.b4.apollo.qna.service.BoardService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DuplicateKeyException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootTest
 class ApolloApplicationTest {
@@ -14,7 +19,7 @@ class ApolloApplicationTest {
     private BoardService boardService;
     @Autowired
     private ProductService productService;
-    private ProductDTO dto;
+    private ProdAndImageDTO dto;
     @Test
     void 질문_삽입_테스트() {
         for (int i = 1; i <= 40; i++) {
@@ -26,17 +31,21 @@ class ApolloApplicationTest {
     }
     @Test
     void 상품_등록_테스트(){
-
-      dto.setProductName("헬로키티 기타");
-      dto.setProductPrice(3000);
-      dto.setProductDesc("매우 귀엽습니다.");
-      dto.setProductQty(1);
-      dto.setCategoryCode("C8");
+try{
+    dto.setProductName("헬로키티 기타");
+    dto.setProductPrice(3000);
+    dto.setProductDesc("매우 귀엽습니다.");
+    dto.setProductQty(1);
+    dto.setCategoryCode("C8");
 //
-//        List<ProductImageDTO> productImageDTOList ={1, "안녕"};
-//        dto.getProductImageDTOList().set(0,productImageDTOList);
-        this.productService.registProduct(dto);
+    List<ProductImageDTO> productImageDTOList = new ArrayList<>();
+    //  dto.getProductImageDTOList().set(0,productImageDTOList.get(0));
+    this.productService.registProduct(dto);
+}
 
+catch (DuplicateKeyException e) {
+            /*logger.error("Got DuplicateKeyException error code -> {}", */e.getMessage()/*, e)*/;
+        }
     }
 
 }

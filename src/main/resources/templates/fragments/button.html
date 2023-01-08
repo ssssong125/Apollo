@@ -7,17 +7,40 @@
     <link href="css/style.css" rel="stylesheet">
 </head>
 <style>
+    @font-face {
+        font-family: 'BodoniXT'; /*font 이름*/
+        src: url(/font/BodoniXT.ttf);
+    }
     button{
         width: 150px;
         height: 44px;
         background-color: #DF9438;
         border: none;
         font-size: 15px;
-    }
-    button:hover{
-        color: white;
+        font-family: BodoniXT;
         font-weight: bold;
     }
+    button:hover{
+
+        color: white;
+        font-weight: bold;
+        letter-spacing: 2px;
+        transform: scale(1.2);
+        cursor: pointer;
+        background: linear-gradient(
+                45deg,
+                #ff0000,
+                #ff7300,
+                #fffb00,
+                #48ff00,
+                #00ffd5,
+                #002bff,
+                #7a00ff,
+                #ff00c8,
+                #ff0000
+        );
+    }
+
 </style>
 <body>
 <button type="button" class="addBtn">Add To Cart</button>

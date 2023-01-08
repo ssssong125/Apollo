@@ -53,7 +53,7 @@
     </select>
 
 
-    <insert id = "registProduct" parameterType="com.b4.apollo.product.model.dto.ProductDTO">
+    <insert id = "registProduct">
 
         INSERT
         INTO TBL_PRODUCT A
@@ -75,11 +75,11 @@
                 , #{ categoryCode }
 
             )
-        <selectKey keyProperty="no" resultType="Integer" order="AFTER">
-            SELECT
-            SEQ_PRODUCT_NO_NO.CURRVAL
-            FROM DUAL
-        </selectKey>
+<!--        <selectKey keyProperty="no" resultType="Integer" order="AFTER">-->
+<!--            SELECT-->
+<!--            SEQ_PRODUCT_NO_NO.CURRVAL-->
+<!--            FROM DUAL-->
+<!--        </selectKey>-->
     </insert>
     <insert id="addProductImage">
         INSERT

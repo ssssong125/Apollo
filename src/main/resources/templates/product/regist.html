@@ -4,18 +4,20 @@
     <meta charset="UTF-8">
 <!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>-->
     <title>Insert title here</title>
+    <style>
+        td{
+            color: white;
+        }
+        label{
+            color: white;
+        }
+    </style>
 </head>
 <body>
 <div th:include="fragments/header.html"></div>
 <h3 align="center">신규 상품 등록</h3>
-<form action="/product/regist" method="post" align="center">
-    <label> 이름 : </label><input type="text" name="productName"/><br>
-    <label> 가격 : </label><input type="number" name="productPrice"/><br>
-    <label> 설명 : </label><input type="text" name="productDesc"/><br>
-    <label> 수량 : </label><input type="number" name="productQty"/><br>
-
-
-    <label>카테고리 코드 :</label><input type="text" name="categoryCode"><br>
+<!--<form action="/product/regist" method="post" enctype="multipart/form-data" align="center">-->
+<!--    >-->
 <!--    <select name="categoryCode" id="categoryCode">-->
         <!-- ajax로 조회 -->
 <!--    </select><br>-->
@@ -24,8 +26,8 @@
 <!--        <option value="Y">Y</option>-->
 <!--        <option value="N">N</option>-->
 <!--    </select>-->
-    <input type="submit" value="전송"/>
-</form>
+<!--    <input type="submit" value="전송"/>-->
+<!--</form>-->
 <!--<script>-->
 <!--    $(function(){ //페이지로딩될떄-->
 <!--        $.ajax({-->
@@ -47,13 +49,23 @@
 
 
 <!--</script>-->
-<form action="/product/regist" method="post" align="center">
+<form action="/product/regist" method="post" align="center" enctype="multipart/form-data">
+    <br>
+    <br>
+    <br>
+    <label> 이름 : </label><input type="text" name="productName"/><br>
+    <label> 가격 : </label><input type="number" name="productPrice"/><br>
+    <label> 설명 : </label><input type="text" name="productDesc"/><br>
+    <label> 수량 : </label><input type="number" name="productQty"/><br>
+
+
+    <label>카테고리 코드 :</label><input type="text" name="categoryCode"><br
 <div class="thumbnail-insert-area">
     <table align="center">
-        <tr>
-            <td width="100px">제목</td>
-            <td colspan="3"><input type="text" size="45" name="title"></td>
-        </tr>
+<!--        <tr>-->
+<!--            <td width="100px">제목</td>-->
+<!--            <td colspan="3"><input type="text" size="45" name="title"></td>-->
+<!--        </tr>-->
         <tr>
             <td>대표 이미지</td>
             <td colspan="3">
@@ -77,15 +89,15 @@
 
 
         </tr>
-        <tr>
-            <td width="100px">사진 메모</td>
-            <td colspan="3">
-                <textarea name="body" rows="5" cols="50" style="resize:none;"></textarea>
-            </td>
-        </tr>
+<!--        <tr>-->
+<!--            <td width="100px">사진 메모</td>-->
+<!--            <td colspan="3">-->
+<!--                <textarea name="body" rows="5" cols="50" style="resize:none;"></textarea>-->
+<!--            </td>-->
+<!--        </tr>-->
     </table>
     <div class="thumbnail-file-area">
-        <input type="file" id="thumbnailImg1" name="thumbnailImg1" onchange="loadImg(this,1)" hidden="hidden">
+        <input type="file" id="thumbnailImg1" name="productImageDTOList" multiple="multiple" onchange="loadImg(this,1)" hidden="hidden">
         <input type="file" id="thumbnailImg2" name="thumbnailImg2" onchange="loadImg(this,2)" hidden="hidden">
         <input type="file" id="thumbnailImg3" name="thumbnailImg3" onchange="loadImg(this,3)" hidden="hidden">
 
@@ -97,7 +109,14 @@
     <button type="submit">작성완료</button>
 </div>
 </form>
-<script>
+<!--<text>첨부파일(클릭시 다운) : </text>-->
+<!--<a th:if="${content.attachFile}" th:href="|/basic-board/attach/${content.id}|" th:text="${content.attachFile.uploadFilename}" />-->
+<!--<br/><br/>-->
+<!--<text>첨부된 이미지 파일들</text>-->
+<!--<br/>-->
+<!--<img th:each="imageFile : ${product.imageFiles}" th:src="|/basic-board/images/${imageFile.storeFilename}|" width="100px" height="100px" style="border-color: black; border-style: solid; border-width: thin;"/>-->
+<!--<br/><br/>-->
+<script th:inline="javascript">
 
     const $titleImgArea = document.getElementById("titleImgArea");
     const $contentImgArea1 = document.getElementById("contentImgArea1");

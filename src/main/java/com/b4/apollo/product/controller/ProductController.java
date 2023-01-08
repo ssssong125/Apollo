@@ -8,9 +8,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -47,7 +50,64 @@ public class ProductController {
     }
         @PostMapping("regist")
     public ModelAndView registProduct(ModelAndView mv, ProdAndImageDTO newProd, RedirectAttributes rttr) /*throws Exception*/ {
+//            Content content = new Content();
+//            () -> newProd.setProductImageDTOList
+//            content.setWriter(form.getWriter());
+//            content.setTexts(form.getTexts());
 
+//            for(int i=0; i<3;i++){
+//                ProductImageDTO img = new ProductImageDTO();
+//                img.setOriginName(newProd.getProductImageDTOList().get(i).getOriginName());
+//                img.setStoredName(newProd.getProductImageDTOList().get(i).getStoredName());
+//            }
+            /* 파일 정보 저장 */
+
+//            attach.setOriginalName(file.getOriginalFilename());
+//            attach.setStoredName(storedName);
+//
+//            /* 파일 정보 추가 */
+//            attachList.add(attach);
+//
+//
+//            LocalDateTime NowTime = LocalDateTime.now();
+//            String formatDate = NowTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+//            content.setUpdateDate(formatDate);
+//
+//            // 첨부파일, 이미지들 처리하는 부분
+//            UploadFile attachFile = fileStore.storeFile(form.getAttachFile());
+//            List<UploadFile> imageFiles = fileStore.storeFiles(form.getImageFiles());
+//            content.setAttachFile(attachFile);
+//            content.setImageFiles(imageFiles);
+//
+//            contentService.writeContent(content);
+//
+//
+//
+//            // 첨부파일, 이미지들 처리하는 부분
+//            //ProductImageDTO attachFile = fileStore.storeFile(newProd.getAttachFile());
+//            List<ProductImageDTO> imageFiles = ProductImageController.storeFiles(newProd.getProductImageDTOList());
+//            //content.setAttachFile(attachFile);
+//            for(int i =0 ; i<imageFiles.size();i++) {
+//                newProd.getProductImageDTOList().get(i).setProductImageDTOList(imageFiles);
+//            }
+            List<MultipartFile> list = new ArrayList<>();
+//            productService.registProduct(content);
+            ProductImageController imgController = new ProductImageController();
+
+            try {
+                newProd.setProductImageDTOList(imgController.storeFiles(list));
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+
+//            for (MultipartFile multipartFile : multipartFiles) {
+//                if(!multipartFile.isEmpty()) {
+//                    storeFileResult.add(storeFile(multipartFile));
+//                }
+//
+//            }
         productService.registProduct(newProd);
         mv.setViewName("redirect:/product/list");
         rttr.addFlashAttribute("successMessage","신규 메뉴 등록에 성공하셨습니다." );
