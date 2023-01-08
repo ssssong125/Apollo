@@ -44,7 +44,7 @@
             #{userTel},
             #{userEmail},
             #{userAddr},
-            'Y',
+            'USER',
             'Y',
             SYSDATE,
             1000

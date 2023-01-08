@@ -6,10 +6,13 @@ import com.b4.apollo.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
 import java.util.Locale;
 
 @Controller
@@ -20,6 +23,15 @@ public class UserController {
     private final UserService userService;
     private final MessageSource messageSource;
 
+
+    @GetMapping("userList")
+    public ModelAndView findAllUser(ModelAndView mv){
+        List<UserDTO> userList = userService.findAllUser();
+        userList.stream().forEach(user -> System.out.println("user = " + user));
+        mv.addObject("userList", userList);
+        mv.setViewName("admin/userList");
+        return mv;
+    }
     @GetMapping("signup")
     public String signupForm(){
         return "user/signup";
@@ -30,7 +42,7 @@ public class UserController {
         userService.insertUser(newUser);
         mv.setViewName("redirect:/user/login");
 
-        rttr.addFlashAttribute("successMessage", messageSource.getMessage("insertUser", null, locale));
+        rttr.addFlashAttribute("signupSuccessMessage", messageSource.getMessage("insertUser", null, locale));
         return mv;
     }
 
@@ -79,9 +91,5 @@ public class UserController {
     }
 
 
-    @GetMapping("contact")
-    public void contact(){
-
-    }
 
 }
