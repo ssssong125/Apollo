@@ -1,7 +1,10 @@
 package com.b4.apollo.common.config;
 
+import org.springframework.context.MessageSource;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 
 /**
  @FileName : ContextConfiguration.java
@@ -14,5 +17,14 @@ import org.springframework.context.annotation.Configuration;
 @ComponentScan(basePackages = "com.b4.apollo")
 //@MapperScan("com.b4.apollo.cart.model.dao")
 public class ContextConfiguration {
+
+    @Bean //메세지 alert를 위한 메소드
+    public MessageSource messageSource(){
+    ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+        messageSource.setBasename("classpath:/messages/message");
+        messageSource.setDefaultEncoding("UTF-8");
+    //messageSource.setDefaultLocale(Locale.KOREA);
+    //한글이 깨지면
+        return messageSource;}
 
 }

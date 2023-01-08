@@ -6,6 +6,8 @@ import com.b4.apollo.user.model.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -13,6 +15,12 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     public UserServiceImpl(UserMapper userMapper){this.userMapper = userMapper;}
+
+
+    @Override
+    public List<UserDTO> findAllUser() {
+        return userMapper.findAllUser();
+    }
 
 
 //    @Override
@@ -58,7 +66,9 @@ public class UserServiceImpl implements UserService {
                 throw new Exception("회원탈퇴실패");
             }
         }
-    }
+
+
+}
 
 
 

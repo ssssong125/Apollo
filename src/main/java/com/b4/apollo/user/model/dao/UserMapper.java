@@ -3,6 +3,8 @@ package com.b4.apollo.user.model.dao;
 import com.b4.apollo.user.model.dto.UserDTO;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface UserMapper {
 //    MemberDTO loginMember(MemberDTO m) throws Exception;
@@ -14,4 +16,6 @@ public interface UserMapper {
 //    int idCheck(String userId);
 
     int deleteUser(String userId);
+
+    List<UserDTO> findAllUser();
 }

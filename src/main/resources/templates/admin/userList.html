@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>회원조회</title>
+</head>
+<body>
+    <table align="center" border="1">
+      <tr>
+        <th>회원이름</th>
+        <th>아이디</th>
+        <th>비밀번호</th>
+        <th>연락처</th>
+        <th>이메일</th>
+          <th>주소</th>
+          <th>회원권한</th>
+          <th>활동상태</th>
+          <th>가입날짜</th>
+          <th>포인트</th>
+      </tr>
+      <tr th:each="userList : ${ userList }">
+        <td th:text="${ userList.userName }"></td><!--dto의 필드명호출, getter없으면 에러남 내부에서 getter호출 -->
+        <td th:text="${ userList.userId }"></td>
+        <td th:text="${ userList.userPwd }"></td>
+        <td th:text="${ userList.userTel }"></td>
+        <td th:text="${ userList.userEmail }"></td>
+          <td th:text="${ userList.userAddr }"></td>
+          <td th:text="${ userList.userRole }"></td>
+          <td th:text="${ userList.userActive }"></td>
+          <td th:text="${ userList.userEntdate }"></td>
+          <td th:text="${ userList.point }"></td>
+      </tr>
+    </table>
+</body>
+</html>

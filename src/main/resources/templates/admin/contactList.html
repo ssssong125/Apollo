@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>문의사항조회</title>
+</head>
+<body>
+    <table align="center" border="1">
+        <tr>
+            <th>문의사항번호</th>
+            <th>보내는 분</th>
+            <th>연락처</th>
+            <th>제목</th>
+            <th>내용</th>
+        </tr>
+        <tr th:each="contactList : ${ contactList }">
+            <td th:text="${ contactList.contactNo }"></td><!--dto의 필드명호출, getter없으면 에러남 내부에서 getter호출 -->
+            <td th:text="${ contactList.contactName }"></td>
+            <td th:text="${ contactList.contactEmail }"></td>
+            <td th:text="${ contactList.contactTitle }"></td>
+            <td th:text="${ contactList.contactContent }"></td>
+        </tr>
+    </table>
+</body>
+</html>
