@@ -1,7 +1,10 @@
 <html layout:decorate="~{/common/layout}" lang="ko"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
 
+</head>
+<body>
 <div layout:fragment="content" class="container">
     <h5 class="my-3 border-bottom pb-2">블로그 게시</h5>
     <form th:object="${blogForm}" method="post" enctype="multipart/form-data">
@@ -17,9 +20,25 @@
             <textarea th:field="*{blogContent}" class="form-control" rows="10"></textarea>
         </div>
         <div class="mb-3">
-            <input type="file" name="file"><br>
+            <input type="file" name="file" onchange="readURL(this);">
+            <img id="preview" />
         </div>
         <input type="submit" value="저장하기" class="btn btn-primary my-2">
     </form>
 </div>
+
+<script layout:fragment="script" type='text/javascript'>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            let reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('preview').src = e.target.result;
+            };
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            document.getElementById('preview').src = "";
+        }
+    }
+</script>
+</body>
 </html>
