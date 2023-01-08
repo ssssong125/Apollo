@@ -1,26 +1,27 @@
-package com.b4.apollo.blog.model.dto;//package com.b4.apollo.blog.post.model.dto;
+package com.b4.apollo.blog.model.dto;
 
 import lombok.*;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class BlogDTO {
+@Data
+public class BlogDTO  {
 
-    private Integer blogNo;
-    private String userId;
-
+    private Integer  blogNo;
+    private String reporter;
     private String blogTitle;
-
     private String blogContent;
-
-    private Timestamp postDate;
-
+    private LocalDateTime createDate;
     private int count;
+    private String status;
+    private String fileName;
+    private String filePath;
 
-    private String blogDel;
+
+
 }

@@ -1,16 +1,20 @@
-package com.b4.apollo.blog.service;//package com.b4.apollo.blog.post.service;
+package com.b4.apollo.blog.service;
 
-import com.b4.apollo.blog.model.dao.AttachMapper;
+
 import com.b4.apollo.blog.model.dao.BlogMapper;
-import com.b4.apollo.blog.model.dto.AttachDTO;
 import com.b4.apollo.blog.model.dto.BlogDTO;
-import com.b4.apollo.blog.util.FileUtils;
+import com.b4.apollo.qna.exception.CommonException;
+import com.b4.apollo.qna.exception.DataNotFoundException;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
+import java.io.File;
+import java.io.IOException;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class BlogServiceImpl implements BlogService {
@@ -18,70 +22,73 @@ public class BlogServiceImpl implements BlogService {
     @Autowired
     private BlogMapper blogMapper;
 
-    @Autowired
-    private AttachMapper attachMapper;
-
-    @Autowired
-    private FileUtils fileUtils;
 
     @Override
-    public boolean registerBlog(BlogDTO params) {
-        int queryResult = 0;
+    public BlogDTO selectBlog(int blogNo) {
+        blogMapper.updateCount(blogNo);
 
-        if (params.getBlogNo() == null) {
-            queryResult = blogMapper.insertBlog(params);
+        Optional<BlogDTO> blog = Optional.ofNullable(this.blogMapper.selectBlog(blogNo));
+
+        if (blog.isPresent()) {
+            return blog.get();
         } else {
-            queryResult = blogMapper.updateBlog(params);
+            throw new DataNotFoundException("question not found");
         }
-
-        return (queryResult == 1) ? true : false;
     }
 
     @Override
-    public boolean registerBlog(BlogDTO params, MultipartFile[] files) {
-        int queryResult = 1;
+    public void insertBlog(String userId, String blogTitle, String blogContent, MultipartFile file) throws IOException {
+        BlogDTO blog = new BlogDTO();
+        String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/files";
+        UUID uuid = UUID.randomUUID();
+        String filename = uuid+"_"+file.getOriginalFilename();
+        File saveFile = new File(projectPath, filename);
+        file.transferTo(saveFile);
 
-        if (registerBlog(params) == false) {
-            return false;
+        blog.setReporter(userId);
+        blog.setBlogTitle(blogTitle);
+        blog.setBlogContent(blogContent);
+        blog.setFileName(filename);
+        blog.setFilePath("/files/" + filename);
+
+        blogMapper.insertBlog(blog);
+    }
+
+    @Override
+    public void updateBlog(BlogDTO blog, String blogTitle, String blogContent, MultipartFile file) throws IOException {
+
+        String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/files";
+        UUID uuid = UUID.randomUUID();
+        String filename = uuid+"_"+file.getOriginalFilename();
+        File saveFile = new File(projectPath, filename);
+        file.transferTo(saveFile);
+
+        blog.setBlogTitle(blogTitle);
+        blog.setBlogContent(blogContent);
+
+        blog.setFileName(filename);
+        blog.setFilePath("/files/" + filename);
+
+        int result = blogMapper.updateBlog(blog);
+
+        if(result < 0) {
+            throw new CommonException("글 등록 실패 ");
         }
+    }
 
-        List<AttachDTO> fileList = fileUtils.uploadFiles(files, params.getBlogNo());
-        if (CollectionUtils.isEmpty(fileList) == false) {
-            queryResult = attachMapper.insertAttach(fileList);
-            if (queryResult < 1) {
-                queryResult = 0;
-            }
+    @Override
+    public void deleteBlog(int blogNo) {
+        int result = blogMapper.deleteBlog(blogNo);
+
+        if(result < 0) {
+            throw new CommonException("삭제실패 ");
         }
-        return (queryResult > 0);
     }
 
     @Override
-    public boolean getBlogDetail(int blogNo) {
-            return blogMapper.selectBlogDetail(blogNo);
+    public Page<BlogDTO> selectList(int pageNum) {
+        PageHelper.startPage(pageNum, 10);
+        return blogMapper.selectList();
     }
-
-    @Override
-    public boolean deleteBlog(int blogNo) {
-            int queryResult = 0;
-
-            BlogDTO blog = blogMapper.selectBoardDetail(blogNo);
-
-            if (blog != null && "N".equals(blog.getBlogDel())) {
-                queryResult = blogMapper.deleteBoard(blogNo);
-            }
-
-            return (queryResult == 1) ? true : false;
-    }
-
-    @Override
-    public List<AttachDTO> getAttachFileList(int blogNo) {
-        return null;
-    }
-
-    @Override
-    public void registerBlog(String blogTitle, String blogContent, MultipartFile[] files) {
-
-    }
-
-
 }
+

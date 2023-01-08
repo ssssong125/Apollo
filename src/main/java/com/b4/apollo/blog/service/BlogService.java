@@ -1,22 +1,22 @@
-package com.b4.apollo.blog.service;//package com.b4.apollo.blog.post.service;
+package com.b4.apollo.blog.service;
 
-import com.b4.apollo.blog.model.dto.AttachDTO;
 import com.b4.apollo.blog.model.dto.BlogDTO;
+import com.github.pagehelper.Page;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
+import java.io.IOException;
 
 public interface BlogService {
 
-    public boolean registerBlog(BlogDTO params);
 
-    public boolean registerBlog(BlogDTO params, MultipartFile[] files);
+   
+    BlogDTO selectBlog(int blogNo);
 
-    public boolean getBlogDetail(int blogNo);
+    void insertBlog(String userId, String blogTitle, String blogContent, MultipartFile file) throws IOException;
 
-    public boolean deleteBlog(int blogNo);
+    void updateBlog(BlogDTO blog, String blogTitle, String blogContent, MultipartFile file) throws IOException;
 
-    List<AttachDTO> getAttachFileList(int blogNo);
+    void deleteBlog(int blogNo);
 
-    void registerBlog(String blogTitle, String blogContent, MultipartFile[] files);
+    Page<BlogDTO> selectList(int pageNum);
 }

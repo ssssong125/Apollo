@@ -9,6 +9,9 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 public class BlogForm {
+
+    private String userId;
+
     @NotEmpty(message = "제목은 필수 항목입니다.")
     @Size(max = 200)
     private String blogTitle;

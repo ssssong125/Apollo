@@ -1,113 +1,82 @@
-package com.b4.apollo.blog.controller;//package com.b4.apollo.blog.post.controller;
+package com.b4.apollo.blog.controller;
 
+import com.b4.apollo.blog.model.dto.BlogDTO;
 import com.b4.apollo.blog.model.dto.BlogForm;
 import com.b4.apollo.blog.service.BlogService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.IOException;
 
+@RequestMapping("/blog")
 @Controller
 public class BlogController {
 
     @Autowired
     private BlogService blogService;
 
-    //게시글 작성
-    @GetMapping("/create")
-    public String insertBlog(){
-        return "/blog/blog_form";
-    }
-    @PostMapping("/create")
-    public String registerBlog(@Valid BlogForm blogForm, MultipartFile[] files, BindingResult bindingResult){
-        if (bindingResult.hasErrors()) {
-            return "/blog/blog_form";
-        }
+    @GetMapping("/list")
+    public String selectList(@RequestParam(required = false, defaultValue = "1") int pageNum, Model model) {
 
-        blogService.registerBlog(blogForm.getBlogTitle(), blogForm.getBlogContent(), files);
+        PageInfo<BlogDTO> list = new PageInfo<>(blogService.selectList(pageNum), 10);
+
+        model.addAttribute("list", list);
+        return "blog/blogList";
+    }
+
+    // 게시글 작성
+    @GetMapping("/create")
+    public String insertBlog(BlogForm blogForm){
+        return "blog/blogForm";
+    }
+
+    @PostMapping("/create")
+    public String questionCreate(@Valid BlogForm blogForm, BindingResult bindingResult, MultipartFile file) throws IOException {
+        if (bindingResult.hasErrors()) {
+            return "/blog/blogForm";
+        }
+        blogService.insertBlog(blogForm.getUserId(), blogForm.getBlogTitle(), blogForm.getBlogContent(), file);
         return "redirect:/blog/list";
     }
 
-//    @GetMapping(value = "/board/write")
-//    public String openBoardWrite(@ModelAttribute("params") BlogDTO params
-//            , @RequestParam(value = "blogNo", required = false) int blogNo, Model model) {
-//            BlogDTO blog = blogService.getBlogDetail(blogNo);
-//            model.addAttribute("blog", blog);
-//
-//            List<AttachDTO> fileList = blogService.getAttachFileList(blogNo);
-//            model.addAttribute("fileList", fileList);
-//
-//        return "board/write";
-//    }
-//
-//    @PostMapping(value = "/board/register")
-//    public String registerBoard(final BlogDTO params, final MultipartFile[] files, Model model) {
-//        Map<String, Object> pagingParams = getPagingParams(params);
-//        try {
-//            boolean isRegistered = boardService.registerBoard(params, files);
-//            if (isRegistered == false) {
-//                return showMessageWithRedirect("게시글 등록에 실패하였습니다.", "/board/list.do", Method.GET, pagingParams, model);
-//            }
-//        } catch (DataAccessException e) {
-//            return showMessageWithRedirect("데이터베이스 처리 과정에 문제가 발생하였습니다.", "/board/list.do", Method.GET, pagingParams, model);
-//
-//        } catch (Exception e) {
-//            return showMessageWithRedirect("시스템에 문제가 발생하였습니다.", "/board/list.do", Method.GET, pagingParams, model);
-//        }
-//
-//        return showMessageWithRedirect("게시글 등록이 완료되었습니다.", "/board/list.do", Method.GET, pagingParams, model);
-//    }
-//
-//    @GetMapping(value = "/board/list.do")
-//    public String openBoardList(@ModelAttribute("params") BoardDTO params, Model model) {
-//        List<BoardDTO> boardList = boardService.getBoardList(params);
-//        model.addAttribute("boardList", boardList);
-//
-//        return "board/list";
-//    }
-//
-//    @GetMapping(value = "/board/view.do")
-//    public String openBoardDetail(@ModelAttribute("params") BoardDTO params, @RequestParam(value = "idx", required = false) Long idx, Model model) {
-//        if (idx == null) {
-//            return showMessageWithRedirect("올바르지 않은 접근입니다.", "/board/list.do", Method.GET, null, model);
-//        }
-//
-//        BoardDTO board = boardService.getBoardDetail(idx);
-//        if (board == null || "Y".equals(board.getDeleteYn())) {
-//            return showMessageWithRedirect("없는 게시글이거나 이미 삭제된 게시글입니다.", "/board/list.do", Method.GET, null, model);
-//        }
-//        model.addAttribute("board", board);
-//
-//        List<AttachDTO> fileList = boardService.getAttachFileList(idx); // 추가된 로직
-//        model.addAttribute("fileList", fileList); // 추가된 로직
-//
-//        return "board/view";
-//    }
-//
-//    @PostMapping(value = "/board/delete.do")
-//    public String deleteBoard(@ModelAttribute("params") BoardDTO params, @RequestParam(value = "idx", required = false) Long idx, Model model) {
-//        if (idx == null) {
-//            return showMessageWithRedirect("올바르지 않은 접근입니다.", "/board/list.do", Method.GET, null, model);
-//        }
-//
-//        Map<String, Object> pagingParams = getPagingParams(params);
-//        try {
-//            boolean isDeleted = boardService.deleteBoard(idx);
-//            if (isDeleted == false) {
-//                return showMessageWithRedirect("게시글 삭제에 실패하였습니다.", "/board/list.do", Method.GET, pagingParams, model);
-//            }
-//        } catch (DataAccessException e) {
-//            return showMessageWithRedirect("데이터베이스 처리 과정에 문제가 발생하였습니다.", "/board/list.do", Method.GET, pagingParams, model);
-//
-//        } catch (Exception e) {
-//            return showMessageWithRedirect("시스템에 문제가 발생하였습니다.", "/board/list.do", Method.GET, pagingParams, model);
-//        }
-//
-//        return showMessageWithRedirect("게시글 삭제가 완료되었습니다.", "/board/list.do", Method.GET, pagingParams, model);
-//    }
+     //질문 게시판 상세 조회
+    @GetMapping(value = "/detail/{bno}")
+    public String selectBlog(@PathVariable("bno") int bno, Model model) {
+        BlogDTO blog = blogService.selectBlog(bno);
+        model.addAttribute("blog", blog);
+        return "/blog/blogDetail";
+    }
+
+    // 질문 수정
+    @GetMapping("/modify/{blogNo}")
+    public String questionModify(BlogForm blogForm, @PathVariable("blogNo") int blogNo) {
+        BlogDTO blog = this.blogService.selectBlog(blogNo);
+        blogForm.setBlogTitle(blog.getBlogTitle());
+        blogForm.setBlogContent(blog.getBlogContent());
+        return "/blog/blogForm";
+    }
+
+    @PostMapping("/modify/{blogNo}")
+    public String questionModify(@Valid BlogForm blogForm, BindingResult bindingResult,
+                                 @PathVariable("blogNo") int blogNo, MultipartFile file) throws IOException {
+        if (bindingResult.hasErrors()) {
+            return "/blog/blogForm";
+        }
+        BlogDTO blog = this.blogService.selectBlog(blogNo);
+        this.blogService.updateBlog(blog, blogForm.getBlogTitle(), blogForm.getBlogContent(), file);
+        return String.format("redirect:/blog/detail/%s", blogNo);
+    }
+
+    @GetMapping("/delete/{blogNo}")
+    private String deleteBlog(@PathVariable("blogNo")  int blogNo) {
+        blogService.deleteBlog(blogNo);
+        return "redirect:/blog/list";
+    }
 
 }
