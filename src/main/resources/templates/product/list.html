@@ -11,10 +11,18 @@
         tr{
             color: white;
         }
+        .prodList{
+            grid-template: repeat(3, 1fr);
+        }
     </style>
 </head>
 <body>
-<div th:include="fragments/header.html"></div>
+<header>
+    <div th:include="fragments/header.html"></div>
+
+</header>
+
+<!--<div th:include="fragments/sidebar.html"></div>-->
 
 <table align="center" border="1">
     <tr>
@@ -34,9 +42,22 @@
         <td th:text="${ product.categoryCode }"></td>
     </tr>
 </table>
+<div class="prodList">
+    <div class="prod" th:each="product : ${ productList }">
+        <div th:src="@{/img/}"></div>
+        <div th:text="${product.productName}"></div>
+        <div th:text="${product.productPrice}"></div>
+        <div th:include="fragments/button.html"></div>
+
+    </div>
+</div>
 <button onclick="location.href='/product/regist'">상품등록</button>
 <button onclick="location.href='/product/edit'">상품정보수정</button>
 <button onclick="location.href='/product/delete'">상품삭제</button>
-<div th:include="fragments/footer.html"></div>
+
+<!--<footer>-->
+    <div th:include="fragments/footer.html"></div>
+
+<!--</footer>-->
 </body>
 </html>

@@ -1,15 +1,12 @@
 package com.b4.apollo.product.model.dto;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @NoArgsConstructor
 @ToString
 @Getter
 @Setter
-
+@AllArgsConstructor
 public class ProductImageDTO {
 
 
@@ -18,4 +15,7 @@ public class ProductImageDTO {
      private String storedName;
      private String isThumbnail;
      private int productNo;
+
+//     public ProductImageDTO(int i, String originalFilename, String storeFilename, String isThumb, int i1) {
+//     }
 }
