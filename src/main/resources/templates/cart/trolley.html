@@ -57,7 +57,6 @@
                 </div>
             </div>
         </div>
-
         <!--상품 추가시-->
         <th:block th:each="cart : ${ cartList }" th:if="${ cartList.size() } > 0">
             <div class="container product-box">
@@ -66,6 +65,7 @@
                     <!--상품 이미지-->
                     <div class="col-lg-2">
                         <img class="product" src="/img/cart/naverPay.png" alt="상품 이미지명">
+<!--                        <img class="product" th:src="/img/cart/${ aa.imgName }" alt="상품 이미지명">-->
                     </div>
                     <!--상품명-->
                     <div class="col-lg-6 v-align">
