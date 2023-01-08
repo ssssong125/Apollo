@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <title>사이드바</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
+<script src="//code.jquery.com/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
+
+<style>
+  /* 사이드바 래퍼 스타일 */
+
+  @font-face {
+    font-family: 'BodoniXT'; /*font 이름*/
+    src: url(/font/BodoniXT.ttf);
+  }
+  body{
+    font-family: BodoniXT;
+  }
+  #page-wrapper {
+    padding-left: 250px;
+  }
+
+  #sidebar-wrapper {
+    position: fixed;
+    width: 250px;
+    height: 100%;
+    margin-left: -250px;
+    background: #000;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  #page-content-wrapper {
+    width: 100%;
+    padding: 20px;
+  }
+  /* 사이드바 스타일 */
+
+  .sidebar-nav {
+    width: 250px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .sidebar-nav li {
+    text-indent: 1.5em;
+    line-height: 2.8em;
+  }
+
+  .sidebar-nav li a {
+    display: block;
+    text-decoration: none;
+    color: #999;
+    font-family: BodoniXT;
+
+  }
+
+  .sidebar-nav li a:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.2);
+    font-size: 28px;
+
+  }
+
+  .sidebar-nav > .sidebar-brand {
+    font-size: 1.3em;
+    line-height: 3em;
+  }
+
+  hr{
+    border: 2px solid;
+    width : 200px;
+    background-image: linear-gradient(to right, #5e42a6, #b74e91)
+  }
+</style>
+<body>
+
+<div th:fragment="sidebarFragment">
+  <!--        내용-->
+  <!--        <h1>Header Section</h1>-->
+</div>
+
+<div id="page-wrapper">
+  <!-- 사이드바 -->
+  <div id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+      <br>
+      <br>
+      <li><h2 style="color: white; font-weight: bold;">Mypage</h2></li>
+      <hr/>
+      <li><a href="#">회원정보수정</a></li>
+      <li><a href="#">회원탈퇴</a></li>
+      <li><a href="#">Q&A</a></li>
+    </ul>
+  </div>
+  <!-- /사이드바 -->
+
+  <!-- 본문 -->
+  <div id="page-content-wrapper">
+    <div class="container-fluid">
+
+    </div>
+  </div>
+  <!-- /본문 -->
+</div>
+</body>
+</html>
