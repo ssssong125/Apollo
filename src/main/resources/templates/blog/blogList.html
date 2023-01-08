@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html layout:decorate="~{/common/layout}" lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+  <title>boardList</title>
+  <style>
+    tbody>tr>td>a, tbody>tr>td>th{
+      color:white;
+    }
+    .container.my-3{
+      padding-top: 5%;
+    }
+  </style>
+</head>
+
+<body>
+<div layout:fragment="content" class = "container my-3">
+<table class="table" style="text-decoration: none; color: white; background-color:black">
+  <thead class="table-dark">
+  <tr>
+    <th>번호</th>
+    <th>제목</th>
+    <th>작성일시</th>
+    <th>조회수</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:if="${#lists.size(list)} > 0" th:each="list, loop: ${list.getList()}">
+<!--    <td th:text="${loop.size - loop.count+1}"></td>-->
+    <td th:text="${list.blogNo}"></td>
+    <td>
+      <a href="detail/" th:attrappend="href=${list.blogNo}" th:text="${list.blogTitle}"></a>
+    </td>
+    <td th:text="${#temporals.format(list.createDate, 'yyyy-MM-dd HH:mm')}"></td>
+    <td th:text="${list.count}"></td>
+  </tr>
+
+  </tbody>
+</table>
+
+  <!-- 페이징처리 시작 -->
+  <nav>
+    <ul class="pagination justify-content-center">
+      <!-- getPrePage : 이전 페이지 -->
+      <li class="page-item" th:classappend="${list.getPrePage() == 0} ? 'disabled'">
+        <a class="page-link" th:href="@{/blog/list(pageNum=${list.getPrePage()})}">
+          <span>이전</span>
+        </a>
+      </li>
+      <!-- getNavigateFirstPage() : 페이징의 처음 숫자 getNavigateLastPage : 페이징의 마지막 숫자를 이용해 페이징 숫자 출력 -->
+
+      <li class="page-item" th:each="page: ${#numbers.sequence(list.getNavigateFirstPage(), list.getNavigateLastPage())}" th:classappend="${page == list.getPageNum()} ? 'active'">
+        <a class="page-link" th:text="${page}" th:href="@{/blog/list(pageNum=${page})}"></a>
+      </li>
+      <!-- getPrePage : 다음 페이지 -->
+      <li class="page-item" th:classappend="${list.getNextPage() == 0} ? 'disabled'">
+
+        <a class="page-link" th:href="@{/blog/list(pageNum=${list.getNextPage()})}">
+          <span>다음</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <!-- 페이징처리 끝 -->
+
+  <a th:href="@{/blog/create}" class="btn btn-primary">글 등록하기</a>
+</div>
+
+
+</body>
+</html>
