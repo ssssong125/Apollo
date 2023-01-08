@@ -1,7 +1,7 @@
 package com.b4.apollo.product.controller;
 
 import com.b4.apollo.product.model.dto.ProdAndImageDTO;
-import com.b4.apollo.product.model.dto.ProductDTO;
+import com.b4.apollo.product.model.dto.ProductImageDTO;
 import com.b4.apollo.product.model.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.io.IOException;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("product")
@@ -29,7 +29,7 @@ public class ProductController {
     @GetMapping("list")
     public ModelAndView productList(ModelAndView mv) {
 
-        List<ProductDTO> productList = productService.productList();
+        List<ProdAndImageDTO> productList = productService.productList();
         productList.stream().forEach(product -> System.out.println("product = " + product));
 
         mv.addObject("productList", productList);
@@ -39,7 +39,7 @@ public class ProductController {
 
     @GetMapping("detail ")/*  int code 에 대한 것을 {}로 써야함 ???  */
     public ModelAndView productDetail(ModelAndView mv, int code) {
-        ProductDTO productDetail = productService.productDetail(code);
+        ProdAndImageDTO productDetail = productService.productDetail(code);
         mv.addObject("productDetail", productDetail);
         mv.setViewName("product/detail");
         return mv;
@@ -49,68 +49,54 @@ public class ProductController {
 
     }
         @PostMapping("regist")
-    public ModelAndView registProduct(ModelAndView mv, ProdAndImageDTO newProd, RedirectAttributes rttr) /*throws Exception*/ {
-//            Content content = new Content();
-//            () -> newProd.setProductImageDTOList
-//            content.setWriter(form.getWriter());
-//            content.setTexts(form.getTexts());
+   // public ModelAndView registProduct(ModelAndView mv, ProdAndImageDTO newProd, ProductImageDTO imgdto, RedirectAttributes rttr) /*throws Exception*/ {
+            public ModelAndView registProduct(ModelAndView mv, ProdAndImageDTO newProd, ProductImageDTO imgdto/*, @AuthenticationPrincipal PrincipalDetails principalDetails*/, MultipartFile[] imgFile) throws Exception {
+                //   if(principalDetails.getUser().getRole().equals("ROLE_ADMIN") || principalDetails.getUser().getRole().equals("ROLE_SELLER")) {
+            String originName[] = null;
+            List<ProductImageDTO> imgList = new ArrayList<>();
+            for(int i =0 ; i<imgFile.length ; i++) {
+                originName[i] = imgFile[i].getOriginalFilename();
+                String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/img/product/";
+//
+                // UUID 를 이용하여 파일명 새로 생성
+                // UUID - 서로 다른 객체들을 구별하기 위한 클래스
+                UUID uuid = UUID.randomUUID();
 
-//            for(int i=0; i<3;i++){
-//                ProductImageDTO img = new ProductImageDTO();
-//                img.setOriginName(newProd.getProductImageDTOList().get(i).getOriginName());
-//                img.setStoredName(newProd.getProductImageDTOList().get(i).getStoredName());
-//            }
-            /* 파일 정보 저장 */
+                String savedName = uuid + "_" + originName; //
 
-//            attach.setOriginalName(file.getOriginalFilename());
-//            attach.setStoredName(storedName);
-//
-//            /* 파일 정보 추가 */
-//            attachList.add(attach);
-//
-//
-//            LocalDateTime NowTime = LocalDateTime.now();
-//            String formatDate = NowTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-//            content.setUpdateDate(formatDate);
-//
-//            // 첨부파일, 이미지들 처리하는 부분
-//            UploadFile attachFile = fileStore.storeFile(form.getAttachFile());
-//            List<UploadFile> imageFiles = fileStore.storeFiles(form.getImageFiles());
-//            content.setAttachFile(attachFile);
-//            content.setImageFiles(imageFiles);
-//
-//            contentService.writeContent(content);
-//
-//
-//
-//            // 첨부파일, 이미지들 처리하는 부분
-//            //ProductImageDTO attachFile = fileStore.storeFile(newProd.getAttachFile());
-//            List<ProductImageDTO> imageFiles = ProductImageController.storeFiles(newProd.getProductImageDTOList());
-//            //content.setAttachFile(attachFile);
-//            for(int i =0 ; i<imageFiles.size();i++) {
-//                newProd.getProductImageDTOList().get(i).setProductImageDTOList(imageFiles);
-//            }
-            List<MultipartFile> list = new ArrayList<>();
-//            productService.registProduct(content);
-            ProductImageController imgController = new ProductImageController();
 
-            try {
-                newProd.setProductImageDTOList(imgController.storeFiles(list));
 
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+                File saveFile = new File(projectPath, savedName);
+
+                imgFile[i].transferTo(saveFile);
+
+                imgdto.setStoredName(savedName);
+                imgdto.setOriginName(originName[i]);
+                if(i%3==0){
+                    imgdto.setIsThumbnail("Y");
+                }else{
+                    imgdto.setIsThumbnail("N");
+                }
+                imgdto.setImgPath("/img/product/" + savedName);
+                imgList.add(imgdto);
             }
 
+         //   String originName = imgFile.getOriginalFilename();
 
-//            for (MultipartFile multipartFile : multipartFiles) {
-//                if(!multipartFile.isEmpty()) {
-//                    storeFileResult.add(storeFile(multipartFile));
-//                }
-//
-//            }
+
+                // 판매자
+                //  item.setSeller(principalDetails.getUser());
+                //          productService.saveItem(item, imgFile);
+
+                //      return "redirect:/main";
+                //   } else {
+                //    return "redirect:/main";
+                //  }
+     //       }
+            newProd.setProductImageDTOList(imgList);
         productService.registProduct(newProd);
         mv.setViewName("redirect:/product/list");
-        rttr.addFlashAttribute("successMessage","신규 메뉴 등록에 성공하셨습니다." );
+    //    rttr.addFlashAttribute("successMessage","신규 메뉴 등록에 성공하셨습니다." );
 
         return mv;
     }

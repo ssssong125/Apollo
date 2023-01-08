@@ -97,9 +97,9 @@
 <!--        </tr>-->
     </table>
     <div class="thumbnail-file-area">
-        <input type="file" id="thumbnailImg1" name="productImageDTOList" multiple="multiple" onchange="loadImg(this,1)" hidden="hidden">
-        <input type="file" id="thumbnailImg2" name="thumbnailImg2" onchange="loadImg(this,2)" hidden="hidden">
-        <input type="file" id="thumbnailImg3" name="thumbnailImg3" onchange="loadImg(this,3)" hidden="hidden">
+        <input type="file" id="thumbnailImg1" name="imgFile" multiple="multiple" onchange="loadImg(this,1)" hidden="hidden">
+        <input type="file" id="thumbnailImg2" name="imgFile" multiple="multiple" onchange="loadImg(this,2)" hidden="hidden">
+        <input type="file" id="thumbnailImg3" name="imgFile" multiple="multiple" onchange="loadImg(this,3)" hidden="hidden">
 
     </div>
 </div>
@@ -109,6 +109,46 @@
     <button type="submit">작성완료</button>
 </div>
 </form>
+<!--<form th:action="@{/item/new/pro}" method="post" enctype="multipart/form-data">-->
+<!--    <div class="row g-3">-->
+<!--        <hr/>-->
+<!--        <div class="col-12">-->
+<!--            <label for="name" class="form-label">상품 이름</label>-->
+<!--            <input type="text" class="form-control" id="name" name="name" placeholder="상품 이름을 입력하세요.">-->
+<!--            <div class="invalid-feedback">-->
+<!--                Your name is required.-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="col-12">-->
+<!--            <label for="text" class="form-label">상품 설명</label>-->
+<!--            <input type="text" class="form-control" name="text" id="text" placeholder="상품 설명을 입력하세요.">-->
+<!--            <div class="invalid-feedback">-->
+<!--                Input is empty.-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="col-12">-->
+<!--            <label for="price" class="form-label">상품 가격</label>-->
+<!--            <input type="text" class="form-control" id="price" name="price" placeholder="상품 가격을 입력하세요.">-->
+<!--            <div class="invalid-feedback">-->
+<!--                Input is empty.-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="col-12">-->
+<!--            <label for="stock" class="form-label">상품 재고</label>-->
+<!--            <input type="text" class="form-control" id="stock" name="stock"-->
+<!--                   placeholder="상품 재고를 입력하세요.">-->
+<!--            <div class="invalid-feedback">-->
+<!--                Input is empty.-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="col-12">-->
+<!--            <label for="text" class="form-label">상품 이미지 업로드</label>-->
+<!--            <input type="file" class="form-control" id="imgFile[0]" name="imgFile">-->
+<!--        </div>-->
 <!--<text>첨부파일(클릭시 다운) : </text>-->
 <!--<a th:if="${content.attachFile}" th:href="|/basic-board/attach/${content.id}|" th:text="${content.attachFile.uploadFilename}" />-->
 <!--<br/><br/>-->
