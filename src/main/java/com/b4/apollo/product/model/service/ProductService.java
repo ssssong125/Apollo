@@ -1,16 +1,15 @@
 package com.b4.apollo.product.model.service;
 
 import com.b4.apollo.product.model.dto.ProdAndImageDTO;
-import com.b4.apollo.product.model.dto.ProductDTO;
 
 import java.util.List;
 
 public interface ProductService {
 
 
-    List<ProductDTO> productList();
+    List<ProdAndImageDTO> productList();
 
-    ProductDTO productDetail(int code);
+    ProdAndImageDTO productDetail(int code);
 
     boolean registProduct(ProdAndImageDTO newProd);
 

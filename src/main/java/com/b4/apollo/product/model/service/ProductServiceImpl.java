@@ -2,7 +2,6 @@ package com.b4.apollo.product.model.service;
 
 import com.b4.apollo.product.model.dao.ProductMapper;
 import com.b4.apollo.product.model.dto.ProdAndImageDTO;
-import com.b4.apollo.product.model.dto.ProductDTO;
 import com.b4.apollo.product.model.dto.ProductImageDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,12 +17,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductDTO> productList() {
+    public List<ProdAndImageDTO> productList() {
         return productMapper.productList();
     }
 
     @Override
-    public ProductDTO productDetail(int code) {
+    public ProdAndImageDTO productDetail(int code) {
         return productMapper.productDetail(code);
     }
 
@@ -32,6 +31,7 @@ public class ProductServiceImpl implements ProductService {
         int result=0;
         int productResult = productMapper.registProduct(prod);
         List<ProductImageDTO> imgList = prod.getProductImageDTOList();
+      // ProductImageDTO imgList = prod.getProductImageDTOList();
         int imgResult = 0;
         for(int i = 0 ; i<imgList.size();i++){
             imgResult += productMapper.addProductImage(imgList.get(i));

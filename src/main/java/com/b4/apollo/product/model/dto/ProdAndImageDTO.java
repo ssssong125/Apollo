@@ -19,5 +19,6 @@ public class ProdAndImageDTO {
     private String productDesc;
     private int productQty;
     private String categoryCode;
-    private List<ProductImageDTO> productImageDTOList;
+  //  private ProductImageDTO imgDTO;
+   private List<ProductImageDTO> productImageDTOList;
 }

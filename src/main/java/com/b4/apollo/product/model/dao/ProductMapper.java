@@ -1,7 +1,6 @@
 package com.b4.apollo.product.model.dao;
 
 import com.b4.apollo.product.model.dto.ProdAndImageDTO;
-import com.b4.apollo.product.model.dto.ProductDTO;
 import com.b4.apollo.product.model.dto.ProductImageDTO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -9,9 +8,9 @@ import java.util.List;
 
 @Mapper
 public interface ProductMapper {
-    ProductDTO productDetail(int code);
+    ProdAndImageDTO productDetail(int code);
 
-    List<ProductDTO> productList();
+    List<ProdAndImageDTO> productList();
 
     int registProduct(ProdAndImageDTO prod);
 

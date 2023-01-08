@@ -1,16 +1,11 @@
 package com.b4.apollo.common.config;
 
 import com.b4.apollo.product.model.dto.ProdAndImageDTO;
-
 import com.b4.apollo.product.model.service.ProductService;
 import com.b4.apollo.qna.service.BoardService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.DuplicateKeyException;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @SpringBootTest
 class ApolloApplicationTest {
@@ -20,6 +15,7 @@ class ApolloApplicationTest {
 
     @Autowired
     private ProductService productService;
+
     private ProdAndImageDTO dto;
 
     @Test
@@ -41,9 +37,9 @@ class ApolloApplicationTest {
 //      dto.setProductDesc("매우 귀엽습니다.");
 //      dto.setProductQty(1);
 //      dto.setCategoryCode("C8");
-////
-////        List<ProductImageDTO> productImageDTOList ={1, "안녕"};
-////        dto.getProductImageDTOList().set(0,productImageDTOList);
+//
+//        List<ProductImageDTO> productImageDTOList =new ArrayList<>();
+//        dto.setProductImageDTOList(productImageDTOList);
 //        this.productService.registProduct(dto);
 //
 //    }
