@@ -57,7 +57,7 @@ public class ProductController {
             for(int i =0 ; i<imgFile.length ; i++) {
                 originName[i] = imgFile[i].getOriginalFilename();
                 String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/img/product/";
-
+//
                 // UUID 를 이용하여 파일명 새로 생성
                 // UUID - 서로 다른 객체들을 구별하기 위한 클래스
                 UUID uuid = UUID.randomUUID();
