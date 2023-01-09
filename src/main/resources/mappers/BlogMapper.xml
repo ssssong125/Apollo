@@ -50,7 +50,7 @@
 		  AND BLOG_STATUS='Y'
 	</update>
 
-	<update id = "deleteBoard" parameterType="_int">
+	<update id = "deleteBlog" parameterType="com.b4.apollo.blog.model.dto.BlogDTO">
 		UPDATE TBL_BLOG_BOARD
 		SET BLOG_STATUS= 'N'
 		WHERE BLOG_NO=#{blogNo} AND BLOG_STATUS='Y'
