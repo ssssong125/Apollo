@@ -340,7 +340,7 @@ ALTER TABLE TBL_QUESTION_REPLY ADD CONSTRAINT FK_QNA_NO FOREIGN KEY (BOARD_NO) R
 
 -- 데이터 
 INSERT INTO TBL_USER
-VALUES('admin', 'admin', '관리자', '010-3456-9890', '서울시 가산동', 'admin@gmail.com', 'Y', 'Y', SYSDATE, 0);
+VALUES('admin', 'admin', '관리자', '010-3456-9890', '서울시 가산동 가산로 101, 308호', 'admin@gmail.com', 'Y', 'Y', SYSDATE, 0);
 
 INSERT INTO TBL_USER
 VALUES('user01', 'pass01', '홍길동', '010-3456-9891', '서울시 금산구', 'hong@gmail.com', 'Y', 'Y', SYSDATE, 1000);
@@ -388,6 +388,7 @@ VALUES(1, 'Gadda', 60000, 'Italy', 20, 'C1');
 INSERT INTO TBL_PRODUCT
 VALUES(2, 'test', 10000, 'Italy', 5, 'C3');
 
+-- 카트 실험용
 INSERT INTO TBL_CART
 VALUES(SEQ_CART_NO.NEXTVAL, 1, 'user01', 1, SYSDATE);
 

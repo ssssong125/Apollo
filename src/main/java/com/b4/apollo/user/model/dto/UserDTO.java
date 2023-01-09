@@ -4,12 +4,12 @@ import lombok.Data;
 
 @Data
 public class UserDTO {
-    private String userName;
     private String userId;
     private String userPwd;
+    private String userName;
     private String userTel;
-    private String userEmail;
     private String userAddr;
+    private String userEmail;
     private String userRole;
     private String userActive;
     private String userEntdate;

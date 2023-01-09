@@ -43,7 +43,7 @@
 		<result property="userRole" column="USER_ROLE"/>
 		<result property="userActive" column="USER_ACTIVE"/>
 		<result property="userEntdate" column="USER_ENTDATE"/>
-		<result property="userPoint" column="USER_POINT"/>
+		<result property="point" column="USER_POINT"/>
 	</resultMap>
 
 	<!--결제 정보를 담을 resultMap-->
@@ -68,7 +68,20 @@
 	</resultMap>
 
 	<!-- <select> 태그를 이용하여 select 쿼리임을 나타냄. 앞서 mapper에서 말했던 메소드의 이름은 select 쿼리의 id값과 같아야함. -->
-	<!--userId, productNo를 사용해 카트 정보를 조회-->
+	<!-- 장바구니에 품목추가 -->
+	<insert id="addProductToCart" parameterType="hashmap">
+		INSERT INTO TBL_CART
+		VALUES
+			(
+				SEQ_CART_NO.NEXTVAL,
+				#{ productNo },
+				#{ userId },
+				#{ productCount },
+				SYSDATE
+			)
+	</insert>
+
+	<!--userId를 사용해 카트 정보를 조회-->
 	<select id="getCartList" parameterType="hashmap" resultMap="cartResultMap">
 		SELECT
 			A.CART_NO,
@@ -82,20 +95,6 @@
 		AND A.USER_ID = #{userId}
 	</select>
 
-	<!--주문 수량 증가-->
-	<update id="increaseProduct" parameterType="_int">
-		UPDATE TBL_CART A
-		SET A.PRODUCT_COUNT = A.PRODUCT_COUNT + 1
-		WHERE A.CART_NO = #{cartNo}
-	</update>
-
-	<!--주문 수량 감소-->
-	<update id="decreaseProduct" parameterType="_int">
-		UPDATE TBL_CART A
-		SET A.PRODUCT_COUNT = A.PRODUCT_COUNT - 1
-		WHERE A.CART_NO = #{cartNo}
-	</update>
-
 	<!--주문 수량 수정-->
 	<update id="updateProductCount" parameterType="hashmap">
 		UPDATE TBL_CART A
@@ -103,17 +102,11 @@
 		WHERE A.CART_NO = #{cartNo}
 	</update>
 
-	<!--productNo를 통해 해당 상품의 상세 정보를 조회-->
-	<!--	<select id="getProductDetail" parameterType="_int" resultMap="productResultMap">-->
-	<!--		SELECT-->
-	<!--			A.PRODUCT_NO,-->
-	<!--			A.PRODUCT_NAME,-->
-	<!--			A.PRODUCT_PRICE,-->
-	<!--			A.PRODUCT_DESC,-->
-	<!--			A.PRODUCT_QTY,-->
-	<!--			A.CATEGORY_CODE-->
-	<!--		FROM TBL_PRODUCT A-->
-	<!--	</select>-->
+	<!--장바구니에서 품목 삭제-->
+	<delete id="deleteProductInCart" parameterType="Integer">
+		DELETE FROM TBL_CART A
+		WHERE A.CART_NO = #{ cartNo }
+	</delete>
 
 	<!--userId 통해 해당 유저의 상세 정보를 조회-->
 	<select id="getUserDetail" parameterType="String" resultMap="userResultMap">
@@ -133,19 +126,16 @@
 		  AND A.USER_ACTIVE = 'Y'
 	</select>
 
-	<!--userId를 통해 장바구니에 담겨있는 상품 목록을 조회-->
-	<!--	<select id="getCartList" parameterType="String" resultMap="productResultMap">-->
+	<!--productNo를 통해 해당 상품의 상세 정보를 조회-->
+	<!--	<select id="getProductDetail" parameterType="_int" resultMap="productResultMap">-->
 	<!--		SELECT-->
-	<!--		    B.*-->
-	<!--&#45;&#45; 			A.PRODUCT_NO,-->
-	<!--&#45;&#45; 			B.PRODUCT_NAME,-->
-	<!--&#45;&#45; 			B.PRODUCT_PRICE,-->
-	<!--&#45;&#45; 			B.PRODUCT_DESC,-->
-	<!--&#45;&#45; 			B.PRODUCT_QTY,-->
-	<!--&#45;&#45; 			B.CATEGORY_CODE-->
-	<!--		FROM TBL_CART A-->
-	<!--		JOIN TBL_PRODUCT B ON A.PRODUCT_NO = B.PRODUCT_NO-->
-	<!--		WHERE A.USER_ID = #{ userId }-->
+	<!--			A.PRODUCT_NO,-->
+	<!--			A.PRODUCT_NAME,-->
+	<!--			A.PRODUCT_PRICE,-->
+	<!--			A.PRODUCT_DESC,-->
+	<!--			A.PRODUCT_QTY,-->
+	<!--			A.CATEGORY_CODE-->
+	<!--		FROM TBL_PRODUCT A-->
 	<!--	</select>-->
 
 	<!--userId를 통해 결제 정보를 조회-->
@@ -175,24 +165,5 @@
 		FROM TBL_ORDER A
 	 	JOIN TBL_PAYMENT B ON A.PAYMENT_NO = B.PAYMENT_NO
 	</select>
-
-	<!-- 장바구니에 품목추가 -->
-	<insert id="addCart" parameterType="hashmap">
-		INSERT INTO TBL_CART
-		VALUES
-			(
-				SEQ_CART_NO.NEXTVAL,
-				#{ productNo },
-				#{ userId },
-				#{ productCount },
-				SYSDATE
-			)
-	</insert>
-
-	<!--장바구니에서 품목 삭제-->
-	<delete id="deleteProduct" parameterType="Integer">
-		DELETE FROM TBL_CART A
-		WHERE A.CART_NO = #{ cartNo }
-	</delete>
 
 </mapper>

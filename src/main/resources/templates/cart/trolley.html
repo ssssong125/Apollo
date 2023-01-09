@@ -85,9 +85,15 @@
                     </div>
                     <!--상품 삭제-->
                     <div class="col-lg-1 v-align price">
-                        <a th:onclick="|deleteProduct(${ cart.cartNo })|" href="">
-                            <img src="/img/cart/trash.png" alt="trash.png">
-                        </a>
+                            <!--타임리프 이용해서 자바 메소드를 호출해보려 했는데 페이지 로드시 실행됨-->
+<!--                        <a th:onclick="|${@cartServiceImpl.deleteProductInCart(cart.cartNo)}|" href="trolley">-->
+<!--                        <a th:onclick="|deleteProductInCart(${ cart.cartNo })|" href="trolley">-->
+<!--                            <img src="/img/cart/trash.png" alt="trash.png">-->
+<!--                        </a> -->
+<!--                        <button type="button" class="trashCan" th:onclick="|deleteProductInCart(${ cart.cartNo })|">-->
+<!--                            <img src="/img/cart/trash.png" alt="trash.png">-->
+<!--                        </button>-->
+                        <input type="image" th:onclick="|deleteProductInCart(${ cart.cartNo })|" src="/img/cart/trash.png" alt="trash.png"/>
                     </div>
                 </div>
             </div>
@@ -141,7 +147,7 @@
             <div class="col-lg-10">
             </div>
             <div class="col-lg-2">
-                <button onclick="location.href='order'">Purchase</button>
+                <button class="goldButton" onclick="location.href='order'">Purchase</button>
             </div>
         </div>
     </div>

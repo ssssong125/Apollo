@@ -36,8 +36,12 @@ public class OrderDTO {
      */
     private String receiverName;
     private String receiverTel; // -또는 공백 받기위해 String 사용
-    private String addressZipCode;
     private String address;
-    private String addressDetail;
     private String shippingStatus;
+
+//    private int paymentNo;
+//    private String userId;
+//    private String paymentMethod;
+//    private int paymentAmount;
+
 }

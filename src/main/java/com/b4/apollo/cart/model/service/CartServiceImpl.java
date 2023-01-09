@@ -4,12 +4,15 @@ import com.b4.apollo.cart.model.dao.CartMapper;
 import com.b4.apollo.cart.model.dto.CartDTO;
 import com.b4.apollo.cart.model.dto.OrderDTO;
 import com.b4.apollo.cart.model.dto.PaymentDTO;
+import com.b4.apollo.qna.exception.CommonException;
+import com.b4.apollo.user.model.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  @FileName : CartServiceImpl.java
@@ -34,6 +37,26 @@ public class CartServiceImpl implements CartService{
         this.cartMapper = cartDAO;
     }
 
+    /*
+     * @MethodName : addProductToCart
+     * @작성일 : 2023. 01. 01.
+     * @작성자 : 김수용
+     * @Method 설명 : 장바구니에 상품을 추가하는 기능 구현체
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int addProductToCart(HashMap<String, Object> parameter) {
+
+        int result = cartMapper.addProductToCart(parameter);
+
+        if(result <= 0) {
+
+            throw new CommonException("장바구니 담기 실패");
+        }
+
+        return result;
+    }
+
     /**
      * @MethodName : getCartList
      * @작성일 : 2022. 12. 30.
@@ -47,20 +70,41 @@ public class CartServiceImpl implements CartService{
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void updateProductCount(HashMap<String, Integer> parameter) {
+    public int updateProductCount(HashMap<String, Integer> parameter) {
 
-        cartMapper.updateProductCount(parameter);
+        int result = cartMapper.updateProductCount(parameter);
+        
+        if(result < 1) {
+
+            throw new CommonException("구매 수량 조절 실패");
+        }
+
+        return result;
     }
 
     @Override
-    public void deleteProduct(Integer cartNo) {
+    public int deleteProductInCart(Integer cartNo) {
 
-        cartMapper.deleteProduct(cartNo);
+        int result = cartMapper.deleteProductInCart(cartNo);
 
-//        if(result <= 0) {
-//
-//            throw new Exception("품목 삭제 실패");
-//        }
+        if(result < 1) {
+
+            throw new CommonException("품목 삭제 실패");
+        }
+
+        return result;
+    }
+
+    /**
+     * @MethodName : getPaymentDetail
+     * @작성일 : 2022. 12. 30.
+     * @작성자 : 김수용
+     * @Method 설명 : 결제 정보를 불러올 인터페이스의 구현체
+     */
+    @Override
+    public UserDTO getUserDetail(Map<String, String> parameter) {
+
+        return cartMapper.getUserDetail(parameter);
     }
 
     /**
@@ -91,35 +135,6 @@ public class CartServiceImpl implements CartService{
         parameter.put("orderNo", orderNo);
 
         return cartMapper.getOrderDetail(parameter);
-    }
-
-    /*
-     * @MethodName : addCart
-     * @작성일 : 2023. 01. 01.
-     * @작성자 : 김수용
-     * @Method 설명 : 장바구니에 상품을 추가하는 기능 구현체
-     */
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public boolean addProductToCart(int productNo, String userId, int productCount) throws Exception{
-
-        HashMap<String, Object> parameter = new HashMap<>();
-        parameter.put("productNo", productNo);
-        parameter.put("userId", userId);
-        parameter.put("productCount", productCount);
-
-//        CartDTO cartDTO = cartDAO.getCart(userId);
-//        if(cartDTO == null){
-//            cartDTO = cartDAO.insertCart(userId);
-//        }
-//        int result = cartDAO.addProductToCart(cartDTO.getCartNo(), productNo);
-        int result = 0;
-        if(result <= 0) {
-
-            throw new Exception("장바구니 담기 실패");
-        }
-
-        return result > 0;
     }
 
 }
