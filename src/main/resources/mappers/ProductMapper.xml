@@ -14,15 +14,16 @@
         <result property="productQty" column="PRODUCT_QTY"/>
         <result property="categoryCode" column="CATEGORY_CODE"/>
 
-        <association property="category" resultMap="categoryResultMap"/>
-
+        <association property="category" column="{ categoryCode = CATEGORY_CODE }" javaType="com.b4.apollo.product.model.dto.CategoryDTO" resultMap="categoryResultMap">
+<!--        <resultMap id="categoryResultMap" type="com.b4.apollo.product.model.dto.CategoryDTO">-->
+            <id property="categoryCode" column="CATEGORY_CODE"/>
+            <result property="categoryName" column="CATEGORY_NAME"/>
+        </association>
+<!--        </resultMap>-->
         <collection property="productImage" resultMap="imageResultMap"/>
     </resultMap>
 
-    <resultMap id="categoryResultMap" type="com.b4.apollo.product.model.dto.CategoryDTO">
-        <id property="categoryCode" column="CATEGORY_CODE"/>
-        <result property="categoryName" column="CATEGORY_NAME"/>
-    </resultMap>
+
     <resultMap id="imageResultMap" type="com.b4.apollo.product.model.dto.ProductImageDTO">
         <id property="fileNo" column="FILE_NO"/>
         <result property="originName" column="ORIGIN_NAME"/>
@@ -97,8 +98,7 @@
                 , #{ originName }
                 , #{ storedName }
                 , #{ isThumbnail }
-                , SEQ_PRODUCT_NO_NO.CURRVAL
-
+                , SEQ_PRODUCT_NO.CURRVAL
            )
     </insert>
 
