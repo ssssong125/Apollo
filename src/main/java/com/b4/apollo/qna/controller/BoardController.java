@@ -29,15 +29,6 @@ public class BoardController {
     @Autowired
     private BoardService boardService;
 
-    //페이징
-
-//    @RequestMapping("/pagesample")
-//    public PageInfo<Question> findPage(HttpServletRequest request){
-//        PageHelper.startPage(request);
-//        return  PageInfo.of(boardService.findAll());
-//    }
-
-
     //질문 게시판 전체 조회
     @GetMapping("/list")
     public String selectList(@RequestParam(required = false, defaultValue = "1") int pageNum, Model model) {
@@ -51,13 +42,13 @@ public class BoardController {
     // 게시글 작성
     @GetMapping("/create")
     public String insertBoard(QuestionForm questionForm){
-        return "qna/board_form";
+        return "qna/boardForm";
     }
 
     @PostMapping("/create")
     public String questionCreate(@Valid QuestionForm questionForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "/qna/board_form";
+            return "qna/boardForm";
         }
         boardService.insertBoard(questionForm.getUserId(), questionForm.getBoardTitle(), questionForm.getBoardContent());
         return "redirect:/question/list"; // 질문 저장후 질문목록으로 이동
@@ -77,14 +68,14 @@ public class BoardController {
         QuestionDTO questionDTO = this.boardService.selectBoard(boardNo);
         questionForm.setBoardTitle(questionDTO.getBoardTitle());
         questionForm.setBoardContent(questionDTO.getBoardContent());
-        return "/qna/board_form";
+        return "/qna/boardForm";
     }
 
     @PostMapping("/modify/{boardNo}")
     public String questionModify(@Valid QuestionForm questionForm, BindingResult bindingResult,
                                  @PathVariable("boardNo") int boardNo) {
         if (bindingResult.hasErrors()) {
-            return "/qna/board_form";
+            return "/qna/boardForm";
         }
         QuestionDTO q = this.boardService.selectBoard(boardNo);
         this.boardService.updateBoard(q, questionForm.getBoardTitle(), questionForm.getBoardContent());
@@ -99,6 +90,7 @@ public class BoardController {
         return "redirect:/question/list";
     }
 
+    //FAQ
     @RequestMapping("/faq")
     public String faqBoard(){
         return "qna/faq";
