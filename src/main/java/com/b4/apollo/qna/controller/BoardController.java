@@ -1,6 +1,5 @@
 package com.b4.apollo.qna.controller;
 
-import com.b4.apollo.qna.model.dto.AnswerForm;
 import com.b4.apollo.qna.model.dto.QuestionDTO;
 import com.b4.apollo.qna.model.dto.QuestionForm;
 import com.b4.apollo.qna.service.BoardService;
@@ -66,7 +65,7 @@ public class BoardController {
 
      //질문 게시판 상세 조회
     @GetMapping(value = "/detail/{bno}")
-    public String selectBoard(@PathVariable("bno") int bno, Model model, AnswerForm answerForm) {
+    public String selectBoard(@PathVariable("bno") int bno, Model model) {
         QuestionDTO questionDTO = boardService.selectBoard(bno);
         model.addAttribute("question", questionDTO);
         return "/qna/boardDetail";

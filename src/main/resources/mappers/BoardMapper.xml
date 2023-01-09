@@ -14,13 +14,6 @@
 		<result column="COUNT" property="count"/>
 		<result column="STATUS" property="status"/>
 	</resultMap>
-	<resultMap id="replyResultSet" type="com.b4.apollo.qna.model.dto.Answer">
-		<id column="REPLY_NO" property="replyNo"/>
-		<result column="BOARD_NO" property="boardNo"/>
-		<result column="REPLY_CONTENT" property="replyContent"/>
-		<result column="REPLY_DATE" property="createDate"/>
-	</resultMap>
-
 
 	<!-- 게시글 수 카운트 -->
 
@@ -37,7 +30,8 @@
 		SELECT *
 		FROM TBL_QUESTION
 		WHERE STATUS = 'Y'
-		ORDER BY BOARD_NO DESC
+-- 		ORDER BY BOARD_NO DESC
+		ORDER BY ORIGINAL_NO DESC, GROUP_ORD ASC
 	</select>
 
 	<!-- 게시글 상세보기 -->
@@ -71,19 +65,11 @@
 
 	</update>
 
-	<!-- 답변 -->
-	<insert id="insertReply" parameterType="com.b4.apollo.qna.model.dto.Answer">
-		INSERT INTO TBL_QUESTION_REPLY
-		VALUES
-			(SEQ_REP_NO.NEXTVAL, #{replyContent}, SYSDATE , #{boardNo})
+	<update id = "addReplyBoard" parameterType="com.b4.apollo.qna.model.dto.QuestionDTO">
+		UPDATE TBL_QUESTION
+		SET GROUP_ORD = GROUP_ORD + 1
+		WHERE ORGIN_NO = #{originNo}
+		AND GROUP_ORD > #{groupOrd}
 
-	</insert>
-
-
-	<select id="getReplyList" resultType="com.b4.apollo.qna.model.dto.Answer">
-		SELECT
-		       *
-		FROM TBL_QUESTION_REPLY
-		WHERE BOARD_NO = #{boardNo}
-	</select>
+	</update>
 </mapper>
