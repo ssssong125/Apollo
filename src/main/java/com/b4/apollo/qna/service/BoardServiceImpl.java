@@ -1,6 +1,5 @@
 package com.b4.apollo.qna.service;
 
-//import com.b4.apollo.qna.model.dao.boardMapper;
 import com.b4.apollo.qna.exception.CommonException;
 import com.b4.apollo.qna.exception.DataNotFoundException;
 import com.b4.apollo.qna.model.dao.BoardMapper;
@@ -49,6 +48,10 @@ public class BoardServiceImpl implements BoardService {
         q.setBoardContent(boardContent);
         q.setCreateDate(LocalDateTime.now());
         int result = boardMapper.updateBoard(q);
+
+        if(result < 0) {
+            throw new CommonException("게시글 수정 실패 ");
+        }
     }
 
     @Override
@@ -57,8 +60,12 @@ public class BoardServiceImpl implements BoardService {
         return boardMapper.selectList();
     }
 
+    @Override
+    public void insertReply(QuestionDTO question) {
+        boardMapper.insertReply(question);
+    }
 
-        @Override
+    @Override
         public QuestionDTO selectBoard (int bno){
 
             boardMapper.updateCount(bno);
@@ -71,5 +78,6 @@ public class BoardServiceImpl implements BoardService {
                 throw new DataNotFoundException("question not found");
             }
         }
-    }
+
+   }
 

@@ -26,4 +26,6 @@ public interface BoardService {
 
 
     Page<QuestionDTO> selectList(int pageNum);
+
+    void insertReply(QuestionDTO question);
 }

@@ -13,9 +13,6 @@
 		<result column="CREATE_DATE" property="createDate"/>
 		<result column="COUNT" property="count"/>
 		<result column="STATUS" property="status"/>
-		<result column="ROOT" property="root"/>
-		<result column="STEP" property="step"/>
-		<result column="INDENT" property="indent"/>
 	</resultMap>
 
 	<!-- 게시글 수 카운트 -->
@@ -33,8 +30,9 @@
 		SELECT *
 		FROM TBL_QUESTION
 		WHERE STATUS = 'Y'
-		ORDER BY BOARD_NO DESC
-
+		START WITH INDENT = 0
+		CONNECT BY PRIOR BOARD_NO = STEP
+ 		ORDER SIBLINGS BY ROOT DESC
 	</select>
 
 	<!-- 게시글 상세보기 -->

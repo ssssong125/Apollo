@@ -28,10 +28,4 @@ public class QuestionDTO {
 
     @Nullable
     private int count;
-
-    private int root;
-
-    private int step;
-
-    private int indent;
 }
