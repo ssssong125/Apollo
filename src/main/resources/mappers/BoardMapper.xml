@@ -13,6 +13,9 @@
 		<result column="CREATE_DATE" property="createDate"/>
 		<result column="COUNT" property="count"/>
 		<result column="STATUS" property="status"/>
+		<result column="ROOT" property="root"/>
+		<result column="STEP" property="step"/>
+		<result column="INDENT" property="indent"/>
 	</resultMap>
 
 	<!-- 게시글 수 카운트 -->
@@ -30,8 +33,8 @@
 		SELECT *
 		FROM TBL_QUESTION
 		WHERE STATUS = 'Y'
--- 		ORDER BY BOARD_NO DESC
-		ORDER BY ORIGINAL_NO DESC, GROUP_ORD ASC
+		ORDER BY BOARD_NO DESC
+
 	</select>
 
 	<!-- 게시글 상세보기 -->
@@ -46,7 +49,8 @@
 	<insert id="insertBoard" parameterType="com.b4.apollo.qna.model.dto.QuestionDTO">
 		INSERT INTO TBL_QUESTION
 		VALUES
-			(SEQ_QNA_NO.NEXTVAL, #{userId}, #{boardTitle}, #{boardContent}, SYSDATE, DEFAULT, DEFAULT)
+			(SEQ_QNA_NO.NEXTVAL, #{userId}, #{boardTitle}, #{boardContent}
+			, SYSDATE, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT )
 	</insert>
 
 	<!-- 게시글 수정 -->
@@ -65,11 +69,4 @@
 
 	</update>
 
-	<update id = "addReplyBoard" parameterType="com.b4.apollo.qna.model.dto.QuestionDTO">
-		UPDATE TBL_QUESTION
-		SET GROUP_ORD = GROUP_ORD + 1
-		WHERE ORGIN_NO = #{originNo}
-		AND GROUP_ORD > #{groupOrd}
-
-	</update>
 </mapper>

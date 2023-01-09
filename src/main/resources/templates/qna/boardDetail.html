@@ -27,25 +27,6 @@
     </div>
   </div>
 
-
-  <!-- 답변 작성 -->
-  <div class="card my-4">
-    <h5 class="card-header">Leave a Comment:</h5>
-    <div class="card-body">
-      <form name="answer-form" th:action="@{|/answer/create/${question.boardNo}|}" method="post" autocomplete="off">
-        <div class="form-group">
-          <input type="hidden" name="replyNo" th:value="*{replyNo}" />
-          <textarea name="replyContent" class="form-control" rows="3"></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">답변등록</button>
-      </form>
-    </div>
-  </div>
-
-
-<!--댓글 스크립트-->
-<!--<script type="text/javascript" th:src="@{/js/qna/boardDetail.js}"></script>-->
-
 <!-- 게시글 삭제 스크립트 -->
 <script layout:fragment="script" type='text/javascript'>
     const delete_elements = document.getElementsByClassName("delete");
