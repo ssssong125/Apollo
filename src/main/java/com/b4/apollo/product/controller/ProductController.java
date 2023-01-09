@@ -52,7 +52,7 @@ public class ProductController {
    // public ModelAndView registProduct(ModelAndView mv, ProdAndImageDTO newProd, ProductImageDTO imgdto, RedirectAttributes rttr) /*throws Exception*/ {
             public ModelAndView registProduct(ModelAndView mv, ProdAndImageDTO newProd, ProductImageDTO imgdto/*, @AuthenticationPrincipal PrincipalDetails principalDetails*/, MultipartFile[] imgFile) throws Exception {
                 //   if(principalDetails.getUser().getRole().equals("ROLE_ADMIN") || principalDetails.getUser().getRole().equals("ROLE_SELLER")) {
-            String originName[] = null;
+            String originName[] = new String[imgFile.length];
             List<ProductImageDTO> imgList = new ArrayList<>();
             for(int i =0 ; i<imgFile.length ; i++) {
                 originName[i] = imgFile[i].getOriginalFilename();
