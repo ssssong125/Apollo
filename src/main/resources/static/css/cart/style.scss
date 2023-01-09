@@ -63,7 +63,7 @@ textarea:focus{
 }
 
 input[type=radio]{
-    display: none;
+    //display: none;
 }
 .active-label{
     color: #FFD700;
@@ -115,7 +115,8 @@ input[type=radio]{
 /**
  * How it should look when checked
  */
-input[type="radio"]:checked+.custom-radio{
+//input[type="radio"]:checked+.custom-radio{
+input[type="radio"]:checked.custom-radio{
     @extend .active-label;
 
     &:before{
@@ -134,7 +135,7 @@ input[type="radio"]:checked+.custom-radio{
     background-color: white;
 }
 /*버튼*/
-button{
+.goldButton{
     width: 150px;
     height: 50px;
     border: solid #FFD700 2px;
@@ -143,7 +144,7 @@ button{
     transition:all 0.9s, color 0.3s;
     overflow: hidden;
 }
-/*좌우에서 오는 효과*/
+/*버튼 좌우에서 오는 효과*/
 /*button:hover{*/
 /*    color: black;*/
 /*    box-shadow: 150px 0 0 0 #FFD700 inset,*/
@@ -151,26 +152,26 @@ button{
 /*    color: black;*/
 /*    box-shadow: 1000px 0 0 0 #FFD700 inset;*/
 /*}*/
-button,button::after {
+.goldButton,.goldButton::after {
     -webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;
     -o-transition: all 0.3s;
     transition: all 0.3s;}
-button {
+.goldButton {
     background: none;
     display: block;
     position: relative;
 }
-button::before,button::after {
+.goldButton::before,.goldButton::after {
     background: #FFD700;
     content: '';
     position: absolute;
     z-index: -1;
 }
-button:hover {
+.goldButton:hover {
     color: black;
 }
-button::after {
+.goldButton::after {
     height: 100%;
     left: -5%;
     top: 0;
@@ -179,9 +180,16 @@ button::after {
     transform-origin: top left;
     width: 0;
 }
-button:hover:after {
+.goldButton:hover:after {
     height: 100%;
     width: 135%;
+}
+.trashCan{
+    background: url("/static/img/cart/trash.png");
+    border: none;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
 }
 /*이미지*/
 .product{

@@ -4,9 +4,11 @@ package com.b4.apollo.cart.model.service;
 import com.b4.apollo.cart.model.dto.CartDTO;
 import com.b4.apollo.cart.model.dto.OrderDTO;
 import com.b4.apollo.cart.model.dto.PaymentDTO;
+import com.b4.apollo.user.model.dto.UserDTO;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  @FileName : Cart
@@ -17,6 +19,13 @@ import java.util.List;
  */
 public interface CartService {
 
+    /**
+     * @MethodName : addCart
+     * @작성일 : 2023. 01. 01.
+     * @작성자 : 김수용
+     * @Method 설명 : 장바구니에 상품을 추가하는 기능
+     */
+    int addProductToCart(HashMap<String, Object> parameter);
 
     /**
      * @MethodName : getCartList
@@ -33,7 +42,7 @@ public interface CartService {
      * @Method 설명 : 장바구니에 담긴 품목의 수량 수정하는 기능
      */
 //    void updateProductCount(Integer cartNo, Integer count);
-    void updateProductCount(HashMap<String, Integer> parameter);
+    int updateProductCount(HashMap<String, Integer> parameter);
 
     /**
      * @MethodName : deleteProduct
@@ -41,7 +50,15 @@ public interface CartService {
      * @작성자 : 김수용
      * @Method 설명 : CartService에서 호출되어 장바구니에서 품목을 제거함
      */
-    void deleteProduct(Integer cartNo);
+    int deleteProductInCart(Integer cartNo);
+
+    /**
+     * @MethodName : getUserDetail
+     * @작성일 : 2023. 01. 09.
+     * @작성자 : 김수용
+     * @Method 설명 : 유저 정보를 불러오는 기능
+     */
+    UserDTO getUserDetail(Map<String, String> parameter);
 
     /**
      * @MethodName : getPaymentDetail
@@ -58,13 +75,5 @@ public interface CartService {
      * @Method 설명 : 주문 정보를 불러오는 기능
      */
     OrderDTO getOrderDetail(int orderNo);
-
-    /**
-     * @MethodName : addCart
-     * @작성일 : 2023. 01. 01.
-     * @작성자 : 김수용
-     * @Method 설명 : 장바구니에 상품을 추가하는 기능
-     */
-    boolean addProductToCart(int productNo, String userId, int productCount) throws Exception;
 
 }

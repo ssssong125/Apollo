@@ -2,6 +2,7 @@ package com.b4.apollo.cart.controller;
 
 import com.b4.apollo.cart.model.dto.CartDTO;
 import com.b4.apollo.cart.model.service.CartService;
+import com.b4.apollo.user.model.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +30,9 @@ public class CartController {
 
     private final CartService cartService;
 
+    HashMap<String, String> parameter = new HashMap<>();
+//    String userId = userId;
+
     @Autowired
     public CartController(CartService cartService) {
         this.cartService = cartService;
@@ -44,7 +48,6 @@ public class CartController {
     @GetMapping(value = {"trolley","cart/trolley"})
     public ModelAndView trolley(ModelAndView mv) {
 
-        HashMap<String, String> parameter = new HashMap<>();
         parameter.put("userId", "user01");
 
         List<CartDTO> cartList = cartService.getCartList(parameter);
@@ -60,7 +63,6 @@ public class CartController {
 
         mv.addObject("totalPrice", totalPrice);
 
-        // 프로덕트 맵핑
         mv.setViewName("cart/trolley");
 
         return mv;
@@ -76,6 +78,8 @@ public class CartController {
     @PostMapping("trolley")
     public Model trolleyResult(Model model, Integer cartNo, Integer count) {
 
+        parameter.put("userId", "user01");
+
         // null값도 받기 위해 Integer 사용
         if(cartNo != null && count != null) {
 
@@ -87,12 +91,9 @@ public class CartController {
 
                 cartService.updateProductCount(parameter);
 
-            } else cartService.deleteProduct(cartNo);
+            } else cartService.deleteProductInCart(cartNo);
 
         }
-
-        HashMap<String, String> parameter = new HashMap<>();
-        parameter.put("userId", "user01");
 
         List<CartDTO> cartList = cartService.getCartList(parameter);
 
@@ -117,11 +118,31 @@ public class CartController {
      * @Method 설명 : GetMapping방식으로 order 값을 받게되면 order 페이지로 넘겨줌
      */
     @GetMapping("order")
-    public ModelAndView order(ModelAndView mv) {
+//    @GetMapping(value = {"order","cart/order"})
+    public ModelAndView order(ModelAndView mv, String userId) {
 
+//        parameter.put("userId", userId);
+        parameter.put("userId", "user01");
+
+        UserDTO user = cartService.getUserDetail(parameter);
+
+        mv.addObject("user", user);
         mv.setViewName("cart/order");
 
         return mv;
+
+//        List<CartDTO> cartList = cartService.getCartList(parameter);
+//
+//        mv.addObject("cartList", cartList);
+//
+//        // 합산 가격
+//        int totalPrice = 0;
+//
+//        for(CartDTO cart : cartList) {
+//            totalPrice += cart.getProductInfo().getProductPrice() * cart.getProductCount();
+//        }
+//
+//        mv.addObject("totalPrice", totalPrice);
     }
 
     /**

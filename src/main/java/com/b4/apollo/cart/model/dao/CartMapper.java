@@ -3,6 +3,7 @@ package com.b4.apollo.cart.model.dao;
 import com.b4.apollo.cart.model.dto.CartDTO;
 import com.b4.apollo.cart.model.dto.OrderDTO;
 import com.b4.apollo.cart.model.dto.PaymentDTO;
+import com.b4.apollo.user.model.dto.UserDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.HashMap;
@@ -20,6 +21,14 @@ import java.util.Map;
 public interface CartMapper {
 
     /**
+     * @MethodName : addCart
+     * @작성일 : 2023. 01. 01.
+     * @작성자 : 김수용
+     * @Method 설명 : CartService에서 호출되어 품목을 장바구니에 추가하는 쿼리문을 실행시킴
+     */
+    int addProductToCart(HashMap<String, Object> parameter);
+
+    /**
      * @MethodName : getCartList
      * @작성일 : 2022. 12. 30.
      * @작성자 : 김수용
@@ -33,7 +42,7 @@ public interface CartMapper {
      * @작성자 : 김수용
      * @Method 설명 : CartService에서 호출되어 장바구니 품목의 구매수량 수정함
      */
-    void updateProductCount(HashMap<String, Integer> parameter);
+    int updateProductCount(HashMap<String, Integer> parameter);
 
     /**
      * @MethodName : deleteProduct
@@ -41,7 +50,15 @@ public interface CartMapper {
      * @작성자 : 김수용
      * @Method 설명 : CartService에서 호출되어 장바구니에서 품목을 제거함
      */
-    void deleteProduct(Integer cartNo);
+    int deleteProductInCart(Integer cartNo);
+
+    /**
+     * @MethodName : getUserDetail
+     * @작성일 : 2023. 01. 09.
+     * @작성자 : 김수용
+     * @Method 설명 : CartService에서 호출되어 유저 정보를 조회할 쿼리문을 실행시킴
+     */
+    UserDTO getUserDetail(Map<String, String> parameter);
 
     /**
      * @MethodName : getOrder
@@ -58,14 +75,6 @@ public interface CartMapper {
      * @Method 설명 : CartService에서 호출되어 결제정보를 조회할 쿼리문을 실행시킴
      */
     PaymentDTO getPaymentDetail(HashMap<String, Integer> parameter);
-
-    /**
-     * @MethodName : addCart
-     * @작성일 : 2023. 01. 01.
-     * @작성자 : 김수용
-     * @Method 설명 : CartService에서 호출되어 품목을 장바구니에 추가하는 쿼리문을 실행시킴
-     */
-    int addCart(HashMap<String, String> parameter);
 
     /**
      * @MethodName : order
