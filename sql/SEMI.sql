@@ -340,13 +340,13 @@ ALTER TABLE TBL_QUESTION_REPLY ADD CONSTRAINT FK_QNA_NO FOREIGN KEY (BOARD_NO) R
 
 -- 데이터 
 INSERT INTO TBL_USER
-VALUES('admin', 'admin', '관리자', '010-3456-9890', '서울시 가산동 가산로 101, 308호', 'admin@gmail.com', 'Y', 'Y', SYSDATE, 0);
+VALUES('admin', 'admin', '관리자', '010-3456-9890', '서울시 가산동 가산로 101, 308호', 'admin@gmail.com', 'ADMIN', 'Y', SYSDATE, 0);
 
 INSERT INTO TBL_USER
-VALUES('user01', 'pass01', '홍길동', '010-3456-9891', '서울시 금산구', 'hong@gmail.com', 'Y', 'Y', SYSDATE, 1000);
+VALUES('user01', 'pass01', '홍길동', '010-3456-9891', '서울시 금산구', 'hong@gmail.com', 'USER', 'Y', SYSDATE, 1000);
 
 INSERT INTO TBL_USER
-VALUES('user02', 'pass02', '유재석', '010-3456-9881', '서울시 구로구', 'yu@gmail.com', 'Y', 'Y', SYSDATE, 1000);
+VALUES('user02', 'pass02', '유재석', '010-3456-9881', '서울시 구로구', 'yu@gmail.com', 'USER', 'Y', SYSDATE, 1000);
 
 INSERT INTO TBL_CATEGORY
 VALUES('C1','Vn');
