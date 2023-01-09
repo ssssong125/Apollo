@@ -51,8 +51,10 @@ public class CartController {
         parameter.put("userId", "user01");
 
         List<CartDTO> cartList = cartService.getCartList(parameter);
-
         mv.addObject("cartList", cartList);
+
+        UserDTO user = cartService.getUserDetail(parameter);
+        mv.addObject("user", user);
 
         // 합산 가격
         int totalPrice = 0;
