@@ -36,10 +36,15 @@
             <td> <img th:src="@{${productDetail.productImageDTOList.get(2).getImgPath()}}" class="image"/></td>
     </tr>
 </table>
-<button type="button" th:onclick="|location.href='@{/product/edit/15}'|"> 목록으로 돌아가기 </button>
+<!--<button type="button" th:onclick="|location.href='@{
+/product/edit/{productDetail.productNo}}'|"> 목록으로 돌아가기 </button>-->
+<button type="button" th:href="@{/product/edit/(code= ${productDetail.productNo} )}"> 목록으로 돌아가기 </button>
+<a  th:href="@{|/product/edit/code=${productDetail.productNo}|}"> 목록     으로 돌아가기</a>
+<!--th:href=" @{/article/list(id= ${data} )} "-->
 <!--<button th:onclick="|location.href='@{view(uid=${data.uid})}'|">View page</button>-->
 <!--<button th:onclick="|location.href='@{/product/edit/(uid=${product.productNo})}'|" style="background-color: red">-->
 <!--     상품 정보 수정-->
 <!--</button>-->
+<!--th:onclick="|location.href='@{/boards/{uid}/delete(uid=${board.uid})}'|"-->
 </body>
 </html>

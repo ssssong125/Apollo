@@ -46,9 +46,9 @@
 <!--        });-->
 <!--    });-->
 
-
+<!--(code=${productDetail.productNo})-->
 <!--</script>-->
-<form action="/product/edit/${product.productNo}" method="post" align="center" enctype="multipart/form-data">
+<form action="/product/edit/${code}" method="post" align="center" enctype="multipart/form-data">
     <br>
     <br>
     <br>
@@ -58,7 +58,7 @@
     <label> 수량 : </label><input type="number" name="productQty"/><br>
 
 
-    <label>카테고리 코드 :</label><input type="text" name="categoryCode"><br
+    <label>카테고리 코드 :</label><input type="text" name="categoryCode">
     <div class="thumbnail-insert-area">
         <table align="center">
             <!--        <tr>-->
