@@ -3,6 +3,7 @@ package com.b4.apollo.blog.model.dto;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,7 +22,4 @@ public class BlogDTO  {
     private String status;
     private String fileName;
     private String filePath;
-
-
-
 }

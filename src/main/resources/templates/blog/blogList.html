@@ -20,11 +20,17 @@
       border: 1px solid black !important;
     }
     btn,
-    .card-mb-4,
     .btn-primary{
       background-color: black !important;
       border-color: #f1ff5c !important;
       color: #f1ff5c !important;
+    }
+   .card-text{
+      width: 80%;
+      text-overflow: clip;
+      text-overflow:ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
     }
   </style>
 </head>
@@ -46,13 +52,11 @@
       <!-- Featured blog post-->
       <div class="card mb-4">
 
-        <a href="detail/" th:attrappend="href=${list.blogNo}"><img class="card-img-top" th:src="@{${blog.filePath}}" alt="..." /></a>
+        <a href="detail/" th:attrappend="href=${list.blogNo}"><img th:src="@{${blog.getFilePath()}}" class="card-img-top" alt="..."/></a>
         <div class="card-body">
           <div class="small text-muted" th:text="${#temporals.format(list.createDate, 'yyyy-MM-dd HH:mm')}"></div>
           <h2 class="card-title" th:text="${list.blogTitle}"></h2>
-          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis
-            aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis
-            animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
+          <p class="card-text" th:utext="${list.blogContent}"></p>
           <a class="btn btn-primary" href="detail/" th:attrappend="href=${list.blogNo}">Read more →</a>
         </div>
       </div>
@@ -100,7 +104,6 @@
 
   <a th:href="@{/blog/create}" class="btn btn-primary">글 등록하기</a>
 </div>
-
 
 </body>
 </html>

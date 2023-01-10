@@ -5,6 +5,8 @@ import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 @Mapper
 public interface BlogMapper {
@@ -21,4 +23,5 @@ public interface BlogMapper {
     int updateBlog(BlogDTO blog);
 
     int deleteBlog(int blogNo);
+
 }
