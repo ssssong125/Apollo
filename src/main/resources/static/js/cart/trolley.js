@@ -1,5 +1,4 @@
-// trolley
-const token = $("meta[name='_csrf']").attr("content")
+const token = $("meta[name='_csrf']").attr("content");
 const header = $("meta[name='_csrf_header']").attr("content");
 // const userId = $("#userId").val();
 
@@ -48,6 +47,8 @@ function updateQty(cartNo, code) {
         return false;
     }
 
+    sum(size);
+
     $.ajaxSetup({
         url: 'trolley', // 요청할 서버url
         type: "POST" // 타입 (get, post, put 등등)
@@ -70,10 +71,10 @@ function updateQty(cartNo, code) {
         // },
     })
         .done(function (result) { // 수행할 동작
-            return location.href = "trolley"
+            // return location.href = "trolley"
         })
         .fail(function(jqXHR) { // 실패시
-            alert("실패!")
+            // alert("실패!")
         })
         // .always(function() { // 항상 동작 
         //     alert("작동");

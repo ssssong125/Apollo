@@ -57,13 +57,13 @@ public class CartController {
         mv.addObject("user", user);
 
         // 합산 가격
-        int totalPrice = 0;
-
-        for(CartDTO cart : cartList) {
-            totalPrice += cart.getProductInfo().getProductPrice() * cart.getProductCount();
-        }
-
-        mv.addObject("totalPrice", totalPrice);
+//        int totalPrice = 0;
+//
+//        for(CartDTO cart : cartList) {
+//            totalPrice += cart.getProductInfo().getProductPrice() * cart.getProductCount();
+//        }
+//
+//        mv.addObject("totalPrice", totalPrice);
 
         mv.setViewName("cart/trolley");
 
@@ -98,17 +98,19 @@ public class CartController {
         }
 
         List<CartDTO> cartList = cartService.getCartList(parameter);
-
         model.addAttribute("cartList", cartList);
 
+        UserDTO user = cartService.getUserDetail(parameter);
+        model.addAttribute("user", user);
+
         // 합산 가격
-        int totalPrice = 0;
-
-        for(CartDTO cart : cartList) {
-            totalPrice += cart.getProductInfo().getProductPrice() * cart.getProductInfo().getProductQty();
-        }
-
-        model.addAttribute("totalPrice", totalPrice);
+//        int totalPrice = 0;
+//
+//        for(CartDTO cart : cartList) {
+//            totalPrice += cart.getProductInfo().getProductPrice() * cart.getProductInfo().getProductQty();
+//        }
+//
+//        model.addAttribute("totalPrice", totalPrice);
 
         return model;
     }

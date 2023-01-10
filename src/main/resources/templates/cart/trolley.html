@@ -7,7 +7,8 @@
 
     <title>Cart</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
+<!--    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>-->
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
@@ -19,6 +20,47 @@
         /*    border: solid red 1px;*/
         /*}*/
     </style>
+    <script th:inline="javascript">
+        let size = /*[[ ${cartList.size()} ]]*/;
+        let point = /*[[ ${user.point} ]]*/;
+        // let productQty =
+        //     alert(productQty)
+        // alert(size);
+
+        function sum(size) {
+
+            let orderTotal = 0;
+
+            for (let i = 1; i <= size; i++) {
+                orderTotal += $("#hiddenPrice" + i).val() * $("#productQty" + i).val()
+                // alert($("#hiddenPrice"+i).val())
+                // alert($("#productQty"+i).val())
+                // const count = $('#productQty'+code).val();
+            }
+            $("#orderTotal").text(orderTotal+"$")
+
+            // let subTotal = Number(/*[[ ${totalPrice} ]]*/) - Number(/*[[ ${user.point} ]]*/)
+            // let subTotal = Number($("#orderTotal").val())-Number($("#point").val())
+            let subTotal = orderTotal - $("#point").val()
+
+            if (subTotal < 0) {
+                subTotal = 0
+            }
+
+            $("#subTotal").text(subTotal+"$")
+
+            $("#userPoint").text(point+"$")
+        }
+
+        $(document).ready(function () {
+            // alert("페이지 로드")
+            sum(size)
+        })
+        // $(".productQty").addEventListener("onchange", function (){
+        //     alert("값 변경")
+        //     sum(size)
+        // });
+    </script>
 </head>
 <body>
     <!--전체 div-->
@@ -59,6 +101,7 @@
         </div>
         <!--상품 추가시-->
         <th:block th:each="cart : ${ cartList }" th:if="${ cartList.size() } > 0">
+            <input type="hidden" class="size" id="size" th:value="${ cartList.size() }">
             <div class="container product-box">
                 <hr class="line">
                 <div class="row">
@@ -73,7 +116,7 @@
                     </div>
                     <!--상품 갯수-->
                     <div class="col-lg-1 v-align">
-                        <input th:id="|productQty${cartStat.count}|" type="number"
+                        <input type="number" th:id="|productQty${cartStat.count}|" class="productQty"
                                th:onchange="|updateQty(${ cart.cartNo },${ cartStat.count })|"
                                th:value="${ cart.productCount }"
                                min="1" th:max="${ cart.productInfo.productQty }"
@@ -81,7 +124,8 @@
                     </div>
                     <!--상품 가격-->
                     <div class="col-lg-2 v-align price">
-                        <span th:text="${ cart.productInfo.productPrice }"/>$
+                        <span th:id="|price${cartStat.count}|" th:text="${ cart.productInfo.productPrice }" th:value="${ cart.productInfo.productPrice }"/>$
+                        <input th:id="|hiddenPrice${cartStat.count}|" th:value="${ cart.productInfo.productPrice }" type="hidden">
                     </div>
                     <!--상품 삭제-->
                     <div class="col-lg-1 v-align price">
@@ -100,32 +144,6 @@
         </th:block>
 
         <hr class="thick-line">
-        <!--합산 가격-->
-    <!--    <div class="row">-->
-    <!--        <div class="col-lg-9">-->
-    <!--        </div>-->
-    <!--        <div class="col-lg-2">-->
-    <!--            Sub Total-->
-    <!--        </div>-->
-    <!--        <div class="col-lg-1 price">-->
-    <!--            3000$-->
-    <!--        </div>-->
-    <!--    </div>-->
-
-        할인 가격
-        <div class="row">
-            <div class="col-lg-9">
-
-            </div>
-            <div class="col-lg-2">
-                Discount Price(Point)
-            </div>
-            <div class="col-lg-1 price">
-<!--                13,000$-->
-                <span th:text="|${ user.point }|"$/>
-            </div>
-        </div>
-
         <!--결제 금액-->
         <div class="row">
             <div class="col-lg-9">
@@ -138,11 +156,36 @@
 
             <div class="col-lg-1 price">
     <!--            3000$-->
-                <span th:text="${ totalPrice }"/>$
+                <span id="orderTotal" th:text="${ totalPrice }" th:value="${ totalPrice }"/>
+            </div>
+        </div>
+        <!--포인트(할인 가격)-->
+        <input id="point" type="hidden" th:value="${ user.point }">
+        <div class="row">
+            <div class="col-lg-9">
+
+            </div>
+            <div class="col-lg-2">
+                <!--                Discount Price(Point)-->
+                Point
+            </div>
+            <div class="col-lg-1 price">
+<!--                <span id="userPoint" th:text="${ user.point }" th:value="${ user.point}"/>$-->
+                <span id="userPoint"/>
+            </div>
+        </div>
+        <!--합산 가격-->
+        <div class="row">
+            <div class="col-lg-9">
+            </div>
+            <div class="col-lg-2">
+                Sub Total
+            </div>
+            <div class="col-lg-1 price">
+                <span id="subTotal"/>
             </div>
         </div>
         <br>
-
         <!--구매 버튼-->
         <div class="row">
             <div class="col-lg-10">
