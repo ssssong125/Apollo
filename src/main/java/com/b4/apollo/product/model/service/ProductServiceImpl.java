@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -23,7 +24,13 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProdAndImageDTO productDetail(int code) {
-        return productMapper.productDetail(code);
+        Optional<ProdAndImageDTO> prod = Optional.ofNullable(this.productMapper.productDetail(code));
+   //     if (prod.isPresent()) {
+            return prod.get();
+      //  } //else {
+    //        throw new DataNotFoundException("product not found");
+     //   }
+//        return productMapper.productDetail(code);
     }
 
     @Override
@@ -43,10 +50,17 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public boolean editProduct(ProdAndImageDTO newProd) {
-        int result = productMapper.editProduct(newProd);
-        if(result<=0){
-            // throw new Exception("메뉴등록 실패");
+    public boolean editProduct(int code, ProdAndImageDTO newProd) {
+        int result=0;
+        int productResult = productMapper.editProduct(newProd);
+        List<ProductImageDTO> imgList = newProd.getProductImageDTOList();
+        // ProductImageDTO imgList = prod.getProductImageDTOList();
+        int imgResult = 0;
+        for(int i = 0 ; i<imgList.size();i++){
+            imgResult += productMapper.editProductImage(imgList.get(i));
+        }
+        if(productResult>0 && imgResult == imgList.size()) {
+            result = 1;
         }
         return result>0 ? true:  false;
     }
