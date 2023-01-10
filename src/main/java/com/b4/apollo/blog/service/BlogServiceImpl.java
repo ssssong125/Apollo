@@ -39,7 +39,7 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public void insertBlog(String userId, String blogTitle, String blogContent, MultipartFile file) throws IOException {
         BlogDTO blog = new BlogDTO();
-        String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/files";
+        String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/img/upload";
         UUID uuid = UUID.randomUUID();
         String filename = uuid+"_"+file.getOriginalFilename();
         File saveFile = new File(projectPath, filename);
@@ -49,7 +49,7 @@ public class BlogServiceImpl implements BlogService {
         blog.setBlogTitle(blogTitle);
         blog.setBlogContent(blogContent);
         blog.setFileName(filename);
-        blog.setFilePath("/files/" + filename);
+        blog.setFilePath("/img/upload" + filename);
 
         blogMapper.insertBlog(blog);
     }
@@ -57,7 +57,7 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public void updateBlog(BlogDTO blog, String blogTitle, String blogContent, MultipartFile file) throws IOException {
 
-        String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/files";
+        String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/img/upload";
         UUID uuid = UUID.randomUUID();
         String filename = uuid+"_"+file.getOriginalFilename();
         File saveFile = new File(projectPath, filename);
@@ -67,7 +67,7 @@ public class BlogServiceImpl implements BlogService {
         blog.setBlogContent(blogContent);
 
         blog.setFileName(filename);
-        blog.setFilePath("/files/" + filename);
+        blog.setFilePath("/img/upload" + filename);
 
         int result = blogMapper.updateBlog(blog);
 
