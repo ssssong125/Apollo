@@ -33,6 +33,7 @@
 		SELECT *
 		FROM TBL_BLOG_BOARD
 		WHERE BLOG_STATUS = 'Y'
+		ORDER BY BLOG_NO DESC
 	</select>
 
 	<select id="selectBlog" resultMap="blogResultSet">

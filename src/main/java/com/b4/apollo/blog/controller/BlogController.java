@@ -22,10 +22,11 @@ public class BlogController {
     private BlogService blogService;
 
     @GetMapping("/list")
-    public String selectList(@RequestParam(required = false, defaultValue = "1") int pageNum, Model model) {
+    public String selectList(BlogDTO blog, @RequestParam(required = false, defaultValue = "1") int pageNum, Model model) {
 
         PageInfo<BlogDTO> list = new PageInfo<>(blogService.selectList(pageNum), 10);
 
+        model.addAttribute("blog", blog);
         model.addAttribute("list", list);
         return "blog/blogList";
     }
