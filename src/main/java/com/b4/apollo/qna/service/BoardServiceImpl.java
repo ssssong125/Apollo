@@ -61,11 +61,6 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public void insertReply(QuestionDTO question) {
-        boardMapper.insertReply(question);
-    }
-
-    @Override
         public QuestionDTO selectBoard (int bno){
 
             boardMapper.updateCount(bno);
