@@ -14,13 +14,15 @@
         <result property="productQty" column="PRODUCT_QTY"/>
         <result property="categoryCode" column="CATEGORY_CODE"/>
 
-        <association property="category" column="{ categoryCode = CATEGORY_CODE }" javaType="com.b4.apollo.product.model.dto.CategoryDTO" resultMap="categoryResultMap">
-<!--        <resultMap id="categoryResultMap" type="com.b4.apollo.product.model.dto.CategoryDTO">-->
-            <id property="categoryCode" column="CATEGORY_CODE"/>
-            <result property="categoryName" column="CATEGORY_NAME"/>
-        </association>
+<!--        <association property="category" javaType="com.b4.apollo.product.model.dto.CategoryDTO" >-->
+<!--&lt;!&ndash;        <resultMap id="categoryResultMap" type="com.b4.apollo.product.model.dto.CategoryDTO">&ndash;&gt;-->
+<!--            <id property="categoryCode" column="CATEGORY_CODE"/>-->
+<!--            <result property="categoryName" column="CATEGORY_NAME"/>-->
+<!--        </association>-->
+<!--        resultMap="categoryResultMap"-->
+<!--        column="{ categoryCode = CATEGORY_CODE }"-->
 <!--        </resultMap>-->
-        <collection property="productImage" resultMap="imageResultMap"/>
+        <collection property="productImageDTOList" resultMap="imageResultMap"/>
     </resultMap>
 
 
@@ -30,9 +32,13 @@
         <result property="storedName" column="STORED_NAME"/>
         <result property="isThumbnail" column="THUMBNAIL"/>
         <result property="productNo" column="PRODUCT_NO"/>
+        <result property="imgPath" column="IMG_PATH"/>
     </resultMap>
 
-
+    <resultMap id="categoryResultMap" type="com.b4.apollo.product.model.dto.CategoryDTO">
+    <id property="categoryCode" column="CATEGORY_CODE"/>
+    <result property="categoryName" column="CATEGORY_NAME"/>
+    </resultMap>
     <select id="productList" resultMap="productResultMap"><!-- ?????? ????-->
         SELECT
             A.*
@@ -91,6 +97,7 @@
         , A.STORED_NAME
         , A.THUMBNAIL
         , A.PRODUCT_NO
+        , A.IMG_PATH
         )
         VALUES
             (
@@ -99,6 +106,7 @@
                 , #{ storedName }
                 , #{ isThumbnail }
                 , SEQ_PRODUCT_NO.CURRVAL
+                , #{ imgPath }
            )
     </insert>
 
@@ -112,10 +120,22 @@
           , A.PRODUCT_DESC = #{ productDesc }
           , A.PRODUCT_QTY = #{ productQty }
           , A.CATEGORY_CODE = #{ categoryCode }
-        WHERE A.PRODUCT_NO = '2'
+        WHERE A.PRODUCT_NO = #{ productNo }
 
     </update>
+    <update id="editProductImage">
+        UPDATE TBL_PRODUCT_IMAGE A
+        SET
 
+            A.ORIGIN_NAME = #{ originName }
+          , A.STORED_NAME = #{ storedName }
+          , A.THUMBNAIL = #{ isThumbnail }
+          , A.PRODUCT_NO = #{ prooductNo }
+          , A.IMG_PATH = #{ imgPath }
+
+        WHERE A.FILE_NO = #{ fileNo }
+
+    </update>
     <!-- 예약 삭제 -->
     <delete id="productDelete" parameterType="_int">
         DELETE

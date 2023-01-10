@@ -3,27 +3,206 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        td{
+            color: white;
+        }
+        label{
+            color: white;
+        }
+    </style>
 </head>
 <body>
 <div th:include="fragments/header.html"></div>
-<h3 align="center">상품 정보 변경</h3>
-<form action="/product/edit" method="post" align="center">
+<h3 align="center">상품 정보 수정</h3>
+<!--<form action="/product/regist" method="post" enctype="multipart/form-data" align="center">-->
+<!--    >-->
+<!--    <select name="categoryCode" id="categoryCode">-->
+<!-- ajax로 조회 -->
+<!--    </select><br>-->
+<!--    <label>판매 상태 : </label>-->
+<!--    <select name="orderableStatus">-->
+<!--        <option value="Y">Y</option>-->
+<!--        <option value="N">N</option>-->
+<!--    </select>-->
+<!--    <input type="submit" value="전송"/>-->
+<!--</form>-->
+<!--<script>-->
+<!--    $(function(){ //페이지로딩될떄-->
+<!--        $.ajax({-->
+<!--            url: "/menu/category",-->
+
+
+<!--            success: function(data, status, xhr){-->
+<!--                const $categoryCode = $("#categoryCode");-->
+
+<!--                for(let index in data){-->
+<!--                    $categoryCode.append($("<option>").val(data[index].code).text(data[index].name));-->
+<!--                }-->
+<!--            },-->
+<!--            error: function(xhr, error, status){-->
+<!--                console.log(xhr);-->
+<!--            }-->
+<!--        });-->
+<!--    });-->
+
+
+<!--</script>-->
+<form action="/product/edit/${product.productNo}" method="post" align="center" enctype="multipart/form-data">
+    <br>
+    <br>
+    <br>
     <label> 이름 : </label><input type="text" name="productName"/><br>
     <label> 가격 : </label><input type="number" name="productPrice"/><br>
     <label> 설명 : </label><input type="text" name="productDesc"/><br>
     <label> 수량 : </label><input type="number" name="productQty"/><br>
 
 
-    <label>카테고리 코드 :</label><input type="text" name="categoryCode"><br>
-    <!--    <select name="categoryCode" id="categoryCode">-->
-    <!-- ajax로 조회 -->
-    <!--    </select><br>-->
-    <!--    <label>판매 상태 : </label>-->
-    <!--    <select name="orderableStatus">-->
-    <!--        <option value="Y">Y</option>-->
-    <!--        <option value="N">N</option>-->
-    <!--    </select>-->
-    <input type="submit" value="전송"/>
+    <label>카테고리 코드 :</label><input type="text" name="categoryCode"><br
+    <div class="thumbnail-insert-area">
+        <table align="center">
+            <!--        <tr>-->
+            <!--            <td width="100px">제목</td>-->
+            <!--            <td colspan="3"><input type="text" size="45" name="title"></td>-->
+            <!--        </tr>-->
+            <tr>
+                <td>대표 이미지</td>
+                <td colspan="3">
+                    <div class="title-img-area" id="titleImgArea">
+                        <img id="titleImg" width="350" height="200">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>내용 사진</td>
+                <td>
+                    <div class="content-img-area1" id="contentImgArea1">
+                        <img id="contentImg1" width="120" height="100">
+                    </div>
+                </td>
+                <td>
+                    <div class="content-img-area2" id="contentImgArea2">
+                        <img id="contentImg2" width="120" height="100">
+                    </div>
+                </td>
+
+
+            </tr>
+            <!--        <tr>-->
+            <!--            <td width="100px">사진 메모</td>-->
+            <!--            <td colspan="3">-->
+            <!--                <textarea name="body" rows="5" cols="50" style="resize:none;"></textarea>-->
+            <!--            </td>-->
+            <!--        </tr>-->
+        </table>
+        <div class="thumbnail-file-area">
+            <!--        <ul th:each="continet : ${continents}">-->
+            <!--            <li th:text="${continent}"></li>-->
+            <!--        <div th:each="p>-->
+            <input type="file" id="thumbnailImg1" name="imgFile" multiple="multiple" onchange="loadImg(this,1)" hidden="hidden">
+            <input type="file" id="thumbnailImg2" name="imgFile" multiple="multiple" onchange="loadImg(this,2)" hidden="hidden">
+            <input type="file" id="thumbnailImg3" name="imgFile" multiple="multiple" onchange="loadImg(this,3)" hidden="hidden">
+
+        </div>
+    </div>
+    <br>
+    <div class="thumbnail-btn-area">
+        <button>취소하기</button>
+        <button type="submit">작성완료</button>
+    </div>
+</form>
+<!--<form th:action="@{/item/new/pro}" method="post" enctype="multipart/form-data">-->
+<!--    <div class="row g-3">-->
+<!--        <hr/>-->
+<!--        <div class="col-12">-->
+<!--            <label for="name" class="form-label">상품 이름</label>-->
+<!--            <input type="text" class="form-control" id="name" name="name" placeholder="상품 이름을 입력하세요.">-->
+<!--            <div class="invalid-feedback">-->
+<!--                Your name is required.-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="col-12">-->
+<!--            <label for="text" class="form-label">상품 설명</label>-->
+<!--            <input type="text" class="form-control" name="text" id="text" placeholder="상품 설명을 입력하세요.">-->
+<!--            <div class="invalid-feedback">-->
+<!--                Input is empty.-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="col-12">-->
+<!--            <label for="price" class="form-label">상품 가격</label>-->
+<!--            <input type="text" class="form-control" id="price" name="price" placeholder="상품 가격을 입력하세요.">-->
+<!--            <div class="invalid-feedback">-->
+<!--                Input is empty.-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="col-12">-->
+<!--            <label for="stock" class="form-label">상품 재고</label>-->
+<!--            <input type="text" class="form-control" id="stock" name="stock"-->
+<!--                   placeholder="상품 재고를 입력하세요.">-->
+<!--            <div class="invalid-feedback">-->
+<!--                Input is empty.-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="col-12">-->
+<!--            <label for="text" class="form-label">상품 이미지 업로드</label>-->
+<!--            <input type="file" class="form-control" id="imgFile[0]" name="imgFile">-->
+<!--        </div>-->
+<!--<text>첨부파일(클릭시 다운) : </text>-->
+<!--<a th:if="${content.attachFile}" th:href="|/basic-board/attach/${content.id}|" th:text="${content.attachFile.uploadFilename}" />-->
+<!--<br/><br/>-->
+<!--<text>첨부된 이미지 파일들</text>-->
+<!--<br/>-->
+<!--<img th:each="imageFile : ${product.imageFiles}" th:src="|/basic-board/images/${imageFile.storeFilename}|" width="100px" height="100px" style="border-color: black; border-style: solid; border-width: thin;"/>-->
+<!--<br/><br/>-->
+<script th:inline="javascript">
+
+    const $titleImgArea = document.getElementById("titleImgArea");
+    const $contentImgArea1 = document.getElementById("contentImgArea1");
+    const $contentImgArea2 = document.getElementById("contentImgArea2");
+    // const $contentImgArea3 = document.getElementById("contentImgArea3");
+
+    $titleImgArea.onclick = function() {
+        document.getElementById("thumbnailImg1").click();
+    }
+
+    $contentImgArea1.onclick = function() {
+        document.getElementById("thumbnailImg2").click();
+    }
+
+    $contentImgArea2.onclick = function() {
+        document.getElementById("thumbnailImg3").click();
+    }
+
+    // $contentImgArea3.onclick = function() {
+    //     document.getElementById("thumbnailImg4").click();
+    // }
+    function loadImg(value, num) {
+        if (value.files && value.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                switch(num){
+                    case 1:
+                        document.getElementById("titleImg").src = e.target.result;
+                        break;
+                    case 2:
+                        document.getElementById("contentImg1").src = e.target.result;
+                        break;
+                    case 3:
+                        document.getElementById("contentImg2").src = e.target.result;
+                        break;
+                    // case 4:
+                    //     document.getElementById("contentImg3").src = e.target.result;
+                    //     break;
+                }
+            }
+            reader.readAsDataURL(value.files[0]);
+        }
+    }
+</script>
 </form>
 </body>
 </html>

@@ -19,4 +19,6 @@ public interface ProductMapper {
     int editProduct(ProdAndImageDTO newProd);
 
     int addProductImage(ProductImageDTO prodImg);
+
+    int editProductImage(ProductImageDTO prodImg);
 }

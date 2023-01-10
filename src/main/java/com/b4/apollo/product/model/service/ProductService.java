@@ -13,7 +13,7 @@ public interface ProductService {
 
     boolean registProduct(ProdAndImageDTO newProd);
 
-    boolean editProduct(ProdAndImageDTO newProd);
+    boolean editProduct(int code, ProdAndImageDTO newProd);
 
     boolean productDelete(Integer code);
 

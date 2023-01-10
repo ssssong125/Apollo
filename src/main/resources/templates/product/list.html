@@ -11,8 +11,12 @@
         tr{
             color: white;
         }
-        .prodList{
-            grid-template: repeat(3, 1fr);
+        /*.prodList{*/
+        /*    grid-template: repeat(3, 1fr);*/
+        /*}*/
+        .image{
+            width: 200px;
+            height: 300px;
         }
     </style>
 </head>
@@ -26,12 +30,13 @@
 
 <table align="center" border="1">
     <tr>
-        <th>메뉴번호</th>
-        <th>메뉴이름</th>
-        <th>메뉴가격</th>
-        <th>카테고리코드</th>
-        <th>판매상태</th>
-        <th>판매상태</th>
+        <th>번호</th>
+        <th>이름</th>
+        <th>가격</th>
+        <th>설명</th>
+        <th>수량</th>
+        <th>카테고리</th>
+        <th>이미지</th>
     </tr>
     <tr th:each="product : ${ productList }">
         <td th:text="${ product.productNo }"></td><!--dto의 필드명호출, getter없으면 에러남 내부에서 getter호출 -->
@@ -40,21 +45,24 @@
         <td th:text="${ product.productDesc }"></td>
         <td th:text="${ product.productQty }"></td>
         <td th:text="${ product.categoryCode }"></td>
+
+<!--        <a href="item.html" th:href="@{|/basic/items/${item.id}|}"-->
+        <td> <a th:href="@{|/product/detail/${product.productNo}|}"><img th:src="@{${product.productImageDTOList.get(0).getImgPath()}}" class="image"/></a></td>
     </tr>
 </table>
-<div class="prodList">
-    <div class="prod" th:each="product : ${ productList }">
-        <div th:src="@{/img/}"></div>
-        <div th:text="${product.productName}"></div>
-        <div th:text="${product.productPrice}"></div>
-        <div th:include="fragments/button.html"></div>
-
-    </div>
-</div>
-<button onclick="location.href='/product/regist'">상품등록</button>
-<button onclick="location.href='/product/edit'">상품정보수정</button>
-<button onclick="location.href='/product/delete'">상품삭제</button>
-<div th:src="@{${item.getImgPath()}}"></div>
+<!--<div class="prodList">-->
+<!--    <div class="prod" th:each="product : ${ productList }">-->
+<!--        <div th:src="@{/img/}"></div>-->
+<!--        <div th:text="${product.productName}"></div>-->
+<!--        <div th:text="${product.productPrice}"></div>-->
+<!--        <div th:include="fragments/button.html"></div>-->
+<!--        <div th:src="@{${item.getImgPath()}}"></div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--<button onclick="location.href='/product/regist'">상품등록</button>-->
+<!--<button onclick="location.href='/product/edit'">상품정보수정</button>-->
+<!--<button onclick="location.href='/product/delete'">상품삭제</button>-->
+<!--<div th:src="@{${item.getImgPath()}}"></div>-->
 <!--<footer>-->
     <div th:include="fragments/footer.html"></div>
 

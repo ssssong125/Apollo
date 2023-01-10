@@ -31,7 +31,7 @@ class ApolloApplicationTest {
     
 //    @Test
 //    void 상품_등록_테스트(){
-//
+//        dto.setProductNo(1);
 //      dto.setProductName("헬로키티 기타");
 //      dto.setProductPrice(3000);
 //      dto.setProductDesc("매우 귀엽습니다.");

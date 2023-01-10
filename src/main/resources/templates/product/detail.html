@@ -3,25 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        tr{
+            color: white;
+        }
+    </style>
 </head>
 <body style="background-color: black">
+<div th:include="/fragments/header"></div>
 <table align="center" border="1">
     <tr>
-        <th>메뉴번호</th>
-        <th>메뉴이름</th>
-        <th>메뉴가격</th>
-        <th>카테고리코드</th>
-        <th>판매상태</th>
-        <th>판매상태</th>
+        <th>번호</th>
+        <th>이름</th>
+        <th>가격</th>
+        <th>설명</th>
+        <th>수량</th>
+        <th>카테고리</th>
+        <th>대표이미지</th>
+        <th>b</th>
+        <th>s</th>
     </tr>
-    <tr>
-        <td th:text="${ productNo }"></td><!--dto의 필드명호출, getter없으면 에러남 내부에서 getter호출 -->
-        <td th:text="${ productName }"></td>
-        <td th:text="${ product.productPrice }"></td>
-        <td th:text="${ product.productDesc }"></td>
-        <td th:text="${ product.productQty }"></td>
-        <td th:text="${ product.categoryCode }"></td>
+<!--    <tr th:each="product : ${ productList }">-->
+        <tr>
+        <td th:text="${ productDetail.productNo }"></td><!--dto의 필드명호출, getter없으면 에러남 내부에서 getter호출 -->
+        <td th:text="${ productDetail.productName }"></td>
+        <td th:text="${ productDetail.productPrice }"></td>
+        <td th:text="${ productDetail.productDesc }"></td>
+        <td th:text="${ productDetail.productQty }"></td>
+        <td th:text="${ productDetail.categoryCode }"></td>
+        <td> <img th:src="@{${productDetail.productImageDTOList.get(0).getImgPath()}}" class="image"/></td>
+            <td> <img th:src="@{${productDetail.productImageDTOList.get(1).getImgPath()}}" class="image"/></td>
+            <td> <img th:src="@{${productDetail.productImageDTOList.get(2).getImgPath()}}" class="image"/></td>
     </tr>
 </table>
+<button type="button" th:onclick="|location.href='@{/product/edit/15}'|"> 목록으로 돌아가기 </button>
+<!--<button th:onclick="|location.href='@{view(uid=${data.uid})}'|">View page</button>-->
+<!--<button th:onclick="|location.href='@{/product/edit/(uid=${product.productNo})}'|" style="background-color: red">-->
+<!--     상품 정보 수정-->
+<!--</button>-->
 </body>
 </html>
