@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"><head>
     <meta charset="UTF-8">
     <title>마이페이지</title>
 </head>
@@ -104,7 +104,7 @@
         </div>
         <div class="col-sm-1"></div>
         <div class="col-sm-5" style="top: 25px;">
-            <p style="font-weight: bold; font-size: large">님 환영합니다.</p>
+            <h5><span style="font-weight: bold; font-size: large" th:text="${userDetail.userName}"></span>님 환영합니다.</h5>
             <button class="btn btn-outline-warning" id="btn">LOGOUT</button>
         </div>
     </div>
@@ -115,13 +115,13 @@
               <img id="setting" class="setting" src="/img/personality/settings.png">
             </div>
             <div class="col-sm-3">
-              <div id="edit"><a href="#" value="회원정보 수정">회원정보수정</a></div>
+                <div id="edit"><a href="/user/update" value="회원정보 수정">회원정보수정</a></div>
             </div>
             <div class="col-sm-1">
               <div><img id="delete" class="delete" src="/img/personality/delete.png"></div>
             </div>
             <div class="col-sm-3">
-              <div id="remove"><a href="#" value="회원탈퇴">회원탈퇴</a></div>
+                <div id="remove"><a href="/user/delete" value="회원탈퇴">회원탈퇴</a></div>
             </div>
         </div>
         <div class="row" id="row-2">
