@@ -6,6 +6,7 @@
 <mapper namespace="com.b4.apollo.user.model.dao.UserMapper">
     <resultMap type="com.b4.apollo.user.model.dto.UserDTO" id="loginUserResultMap">
         <id property="userId" column="USER_ID"/>
+        <result property="userNo" column="USER_NO"/>
         <result property="userPwd" column="USER_PWD"/>
         <result property="userName" column="USER_NAME"/>
         <result property="userTel" column="USER_TEL"/>
@@ -17,14 +18,22 @@
         <result property="point" column="USER_POINT"/>
     </resultMap>
 
+
+    <select id="userDetail" resultMap="loginUserResultMap">
+        SELECT A.*
+        FROM TBL_USER A
+        WHERE A.USER_ID = #{userId}
+    </select>
+
     <select id="loginUser" resultMap="loginUserResultMap">
         SELECT A.*
         FROM TBL_USER A
-        WHERE A.USER_ID = #{userId} AND A.USER_PWD = #{userPwd} AND A.USER_ACTIVE = 'Y'
+        WHERE A.USER_ID = #{userId} AND A.USER_PWD = #{userPwd}
     </select>
 
     <insert id="insertUser" parameterType="com.b4.apollo.user.model.dto.UserDTO">
         INSERT INTO TBL_USER A (
+            A.USER_NO,
             A.USER_NAME,
             A.USER_ID,
             A.USER_PWD,
@@ -38,6 +47,7 @@
             )
         VALUES
             (
+            SEQ_USER_NO.NEXTVAL,
             #{userName},
             #{userId},
             #{userPwd},
@@ -51,19 +61,19 @@
             )
     </insert>
 
-    <select id="idCheck" parameterType="String" resultType="_int">
-        SELECT COUNT(*) FROM TBL_USER A
-        WHERE A.USER_ID = #{userId}
-    </select>
+<!--    <select id="idCheck" parameterType="String" resultType="_int">-->
+<!--        SELECT COUNT(*) FROM TBL_USER A-->
+<!--        WHERE A.USER_ID = #{userId}-->
+<!--    </select>-->
 
-    <update id="updateUser" parameterType="com.b4.apollo.user.model.dto.UserDTO">
+    <update id="updateUser">
         UPDATE TBL_USER A
         SET
             A.USER_NAME = #{userName},
             A.USER_PWD = #{userPwd},
             A.USER_TEL = #{userTel},
             A.USER_EMAIL = #{userEmail},
-            A.ADDRESS = #{userAddr},
+            A.ADDRESS = #{userAddr}
             WHERE A.USER_ID = #{userId}
     </update>
 

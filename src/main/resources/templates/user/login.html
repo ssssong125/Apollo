@@ -1,4 +1,4 @@
-3<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
     <title>로그인 페이지</title>
@@ -12,6 +12,13 @@
             alert(signupSuccessMessage);
         }
     </script>
+<!--    <script>-->
+<!--        const loginFailMsg = "[[${ loginFailMsg }]]";-->
+<!--        console.log(loginFailMsg);-->
+<!--        if (loginFailMsg){-->
+<!--            alert(loginFailMsg);-->
+<!--        }-->
+<!--    </script>-->
 </head>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
@@ -158,7 +165,7 @@
     </img>
 </div>
 
-<form action="/personality/loginpage" method="post" id="loginform">
+<form action=/user/login method="post" id="loginForm">
 <div class="right">
     <div id='loginsystem' class='loginsystem' style="color: white;">
         LOGIN SYSTEM</div>
@@ -172,15 +179,15 @@
     <div id='login-form' class='login-form'>
         <div class="login-box" style="color: white;">ID</div>
         <div id="login">
-            <input type="text" id="input_id" required="" placeholder="ID를 입력하세요">
+            <input type="text" name="userId" id="input_id" required="" placeholder="ID를 입력하세요">
         </div>
         <div class="login-box" style="color: white;">PWD</div>
         <div id="pwd">
-            <input type="password" id="input_pwd" required="" placeholder="PWD를 입력하세요">
+            <input type="password" name="userPwd" id="input_pwd" required="" placeholder="PWD를 입력하세요">
         </div>
     </div>
 
-    <div class='loginnow'><button type="submit" class="btn btn-outline-warning" id="btn" style="font-weight: bold">LOGIN NOW</button></div>
+    <div class='loginnow'><button type="button" onclick="login_user()" value="Sign In" class="btn btn-outline-warning" id="btn" style="font-weight: bold">LOGIN NOW</button></div>
     <div id='joinin' class='joinin'>Dont have an account? <a href="/user/signup" style="text-decoration:underline; color:white">Join for free</a></div>
 </div>
     <script>
@@ -216,5 +223,12 @@
 
     </script>
 </form>
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script>
+    function login_user() {
+        $("#loginForm").submit();
+    }
+</script>
 </body>
 </html>
