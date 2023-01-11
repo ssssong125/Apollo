@@ -7,7 +7,6 @@
     <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-<!--    <script src="/js/cart/order.js"></script>-->
     <script type="text/javascript" th:src="@{/js/cart/order.js}"></script>
     <link rel="stylesheet" type="text/css" th:href="@{ /css/cart/style.css }">
     <style>
@@ -24,9 +23,8 @@
                 $("#receiverName").val(/*[[ ${user.userName} ]]*/)
                 $("#receiverTel").val(/*[[ ${user.userTel} ]]*/)
                 $("#address").val(/*[[ ${user.userAddr} ]]*/)
-                // $("#comment").val("항상 먹던걸로.")
+                $("#deliveryRequires").val("항상 먹던걸로.")
             }
-
             /*디폴트 및 뉴 선택시 함수 작동*/
             $('input[type=radio][name="place"]').change(function() {
                 let value = $(this).val();
@@ -41,10 +39,10 @@
                     $("#comment").val("")
                 }
                 // else if(value == "other") {
-                //     $("#receiverName").val("")
-                //     $("#receiverTel").val("")
-                //     $("#address").val("")
-                //     $("#comment").val("")
+                // $("#receiverName").val(/*[[ ${user.userName} ]]*/)
+                // $("#receiverTel").val(/*[[ ${user.userTel} ]]*/)
+                // $("#address").val(/*[[ ${user.userAddr} ]]*/)
+                // $("#deliveryRequires").val("항상 먹던걸로.")
                 // }
             });
         })
@@ -82,7 +80,7 @@
                 </div>
             </div>
         </div>
-        <hr class="line">
+        <hr class="thick-line">
         <!--이름, 폰번호 입력 파트-->
         <div class="row">
             <div class="col-lg">
@@ -146,19 +144,35 @@
         <div class="row">
             <div class="col-lg">
                 <div class="form-group">
-                    <label for="comment">Request for delivery</label>
-                    <textarea rows="5" id="comment" placeholder="Please write your request."></textarea>
+                    <label for="deliveryRequires">Request for delivery</label>
+                    <textarea rows="5" id="deliveryRequires" placeholder="Please write your request."></textarea>
                 </div>
             </div>
         </div>
+        <!--/*전달할 데이터*/-->
+<!--            <input type="text" th:field="*{paymentNo}">-->
+        <form id="paymentDTO" th:action="@{payment}" th:object="${paymentDTO}" th:method="post" onsubmit="formSubmit()">
+            <input type="text" th:field="*{userId}">
+            <input type="text" th:field="*{usedPoint}">
+            <input type="text" th:field="*{paymentAmount}">
+            <input type="text" th:field="*{paymentMethod}">
+            <input type="text" id="receiverNameForm" name="receiverName">
+            <input type="text" id="receiverTelForm" name="receiverTel">
+            <input type="text" id="addressForm" name="address">
+            <input type="date" th:field="*{paymentDate}">
+            <input type="text" th:field="*{shippingStatus}">
+            <input type="text" id="deliveryRequiresForm" name="deliveryRequires">
         <!--결제 버튼-->
         <div class="row">
             <div class="col-lg-10">
             </div>
             <div class="col-lg-2">
-                <button class="goldButton" onclick="location.href='payment'">Continue</button>
+<!--                <button type="submit" class="goldButton" onclick="location.href='payment'">Continue</button>-->
+                <button type="submit" class="goldButton">Continue</button>
+<!--                <input type="submit" value="Continue" class="goldButton">-->
             </div>
         </div>
+        </form>
     </div>
 </body>
 </html>

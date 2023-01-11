@@ -57,4 +57,8 @@ public class PaymentDTO {
      * @param shippingStatus 배송 상태
      */
     private String shippingStatus;
+    /**
+     * @param deliveryRequires 배송 요청사항
+     */
+    private String deliveryRequires;
 }
