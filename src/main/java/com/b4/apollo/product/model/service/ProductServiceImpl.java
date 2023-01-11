@@ -5,6 +5,7 @@ import com.b4.apollo.product.model.dto.ProdAndImageDTO;
 import com.b4.apollo.product.model.dto.ProductImageDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -50,19 +51,22 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public boolean editProduct(int code, ProdAndImageDTO newProd) {
+    @Transactional(rollbackFor = Exception.class)
+    public boolean editProduct(ProdAndImageDTO newProd) {
         int result=0;
         int productResult = productMapper.editProduct(newProd);
         List<ProductImageDTO> imgList = newProd.getProductImageDTOList();
+        System.out.println("서비스의 이미지 리스트: "+imgList);
         // ProductImageDTO imgList = prod.getProductImageDTOList();
         int imgResult = 0;
         for(int i = 0 ; i<imgList.size();i++){
+            System.out.println("반복문이 실행됨.");
             imgResult += productMapper.editProductImage(imgList.get(i));
         }
         if(productResult>0 && imgResult == imgList.size()) {
             result = 1;
         }
-        return result>0 ? true:  false;
+        return result>0;
     }
 
     @Override
@@ -72,6 +76,11 @@ public class ProductServiceImpl implements ProductService {
             // throw new Exception("메뉴등록 실패");
         }
         return result>0 ? true:  false;    }
+
+    @Override
+    public List<ProdAndImageDTO> productListByCode() {
+        return productMapper.productListByCode();
+    }
 
 
 
