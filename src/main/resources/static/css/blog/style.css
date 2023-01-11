@@ -1,0 +1,26 @@
+.container.my-3{
+    padding-top: 5%;
+}
+
+.card{
+    color: lightgray;
+    background: black;
+    border-color: black;
+}
+.card-body{
+    background-color: black !important;
+    border: 1px solid black !important;
+}
+btn,
+.btn-primary{
+    background-color: black !important;
+    border-color: #f1ff5c !important;
+    color: #f1ff5c !important;
+}
+.card-text{
+    width: 80%;
+    text-overflow: clip;
+    text-overflow:ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
