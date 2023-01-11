@@ -175,7 +175,7 @@ public class UserController {
     @PostMapping("update")
     public String userUpdate(UserDTO userDTO, RedirectAttributes rttr){
         userService.updateUser(userDTO);
-//        rttr.addAttribute("userId", userDTO.getUserId());
+        rttr.addAttribute("userId", userDTO.getUserId());
         return "user/mypage";
     }
 
