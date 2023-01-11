@@ -1,6 +1,7 @@
 package com.b4.apollo.cart.controller;
 
 import com.b4.apollo.cart.model.dto.CartDTO;
+import com.b4.apollo.cart.model.dto.PaymentDTO;
 import com.b4.apollo.cart.model.service.CartService;
 import com.b4.apollo.user.model.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,24 +47,18 @@ public class CartController {
      */
 //    @GetMapping("trolley")
     @GetMapping(value = {"trolley","cart/trolley"})
-    public ModelAndView trolley(ModelAndView mv) {
+    public ModelAndView trolley(ModelAndView mv, String userId, PaymentDTO paymentDTO) {
+
+        mv.addObject("paymentDTO", paymentDTO);
 
         parameter.put("userId", "user01");
+//        parameter.put("userId", userId);
 
         List<CartDTO> cartList = cartService.getCartList(parameter);
         mv.addObject("cartList", cartList);
 
         UserDTO user = cartService.getUserDetail(parameter);
         mv.addObject("user", user);
-
-        // 합산 가격
-//        int totalPrice = 0;
-//
-//        for(CartDTO cart : cartList) {
-//            totalPrice += cart.getProductInfo().getProductPrice() * cart.getProductCount();
-//        }
-//
-//        mv.addObject("totalPrice", totalPrice);
 
         mv.setViewName("cart/trolley");
 
@@ -78,9 +73,10 @@ public class CartController {
      */
     @ResponseBody
     @PostMapping("trolley")
-    public Model trolleyResult(Model model, Integer cartNo, Integer count) {
+    public Model trolleyResult(Model model, Integer cartNo, Integer count,String userId) {
 
         parameter.put("userId", "user01");
+//        parameter.put("userId", userId);
 
         // null값도 받기 위해 Integer 사용
         if(cartNo != null && count != null) {

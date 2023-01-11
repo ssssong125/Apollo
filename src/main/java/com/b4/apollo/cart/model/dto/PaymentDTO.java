@@ -1,7 +1,9 @@
 package com.b4.apollo.cart.model.dto;
 
-import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.sql.Date;
 
 /**
  @FileName : PaymentDTO.java
@@ -11,11 +13,48 @@ import lombok.Data;
  @프로그램 설명 : 결제 정보를 담은 DTO
  */
 @Data
-@Builder(toBuilder = true) // lombok 기능, 생성자를 조금 바꾼거를 바로바로 생성가능
+@NoArgsConstructor
+//@Builder(toBuilder = true) // lombok 기능, 생성자를 조금 바꾼거를 바로바로 생성가능
 public class PaymentDTO {
 
+    /**
+     * @param paymentNo 결제 번호
+     */
     private int paymentNo;
+    /**
+     * @param userId 유저 아이디
+     */
     private String userId;
-    private String paymentMethod;
+    /**
+     * @param usedPoint 사용 포인트
+     */
+    private int usedPoint;
+    /**
+     * @param paymentAmount 결제 금액
+     */
     private int paymentAmount;
+    /**
+     * @param paymentMethod 결제 방식
+     */
+    private String paymentMethod;
+    /**
+     * @param receiverName 수취인
+     */
+    private String receiverName;
+    /**
+     * @param receiverTel 연락처
+     */
+    private String receiverTel;
+    /**
+     * @param address 주소
+     */
+    private String address;
+    /**
+     * @param paymentDate 주문 날짜
+     */
+    private Date paymentDate;
+    /**
+     * @param shippingStatus 배송 상태
+     */
+    private String shippingStatus;
 }
