@@ -8,15 +8,51 @@
         html{
             background-color: black;
         }
-        tr{
-            color: white;
-        }
+        /*tr{*/
+        /*    color: white;*/
+        /*}*/
         /*.prodList{*/
         /*    grid-template: repeat(3, 1fr);*/
         /*}*/
         .image{
             width: 200px;
             height: 300px;
+
+        }
+
+        .record{
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            column-gap: 50px;
+            row-gap: 20px;
+            padding: 5rem 16rem
+        }
+        .col{
+            /*margin: 30px;*/
+            width: 300px;
+            padding: 10px 10px 20px 10px;
+            border: 1px solid #bfbfbf;
+            background-color: #fff;
+            box-shadow: 2px 2px 3px rgba(135, 139,144,0.4);
+            /* transform: rotate(9deg); */
+            align-content: center;
+        }
+
+        .text-area p{
+            margin-bottom: 0;
+        }
+
+        /*img{*/
+        /*    width: 300px;*/
+        /*    height: 180px;*/
+        /*}*/
+
+        p{
+            text-align: center;
+            /*font-family: "바탕";*/
+            font-weight: 600;
+            font-size: 16px;
+            color: cadetblue;
         }
     </style>
 </head>
@@ -26,30 +62,32 @@
 
 </header>
 
-<!--<div th:include="fragments/sidebar.html"></div>-->
+<div th:include="fragments/sidebar.html"></div>
 
-<table align="center" border="1">
-    <tr>
-        <th>번호</th>
-        <th>이름</th>
-        <th>가격</th>
-        <th>설명</th>
-        <th>수량</th>
-        <th>카테고리</th>
-        <th>이미지</th>
-    </tr>
-    <tr th:each="product : ${ productList }">
-        <td th:text="${ product.productNo }"></td><!--dto의 필드명호출, getter없으면 에러남 내부에서 getter호출 -->
-        <td th:text="${ product.productName }"></td>
-        <td th:text="${ product.productPrice }"></td>
-        <td th:text="${ product.productDesc }"></td>
-        <td th:text="${ product.productQty }"></td>
-        <td th:text="${ product.categoryCode }"></td>
+<div class="record">
+    <div class="col" th:each="product : ${ productList }">
+        <div class="img-area">
+          <a th:href="@{|/product/detail/${product.productNo}|}">
+               <img th:src="@{${product.productImageDTOList.get(0).getImgPath()}}" class="image"/>
+          </a>
+        </div>
+<!--<br>-->
+<!--            <span th:text="${ product.productNo }"></span>-->
+        <div class="text-area">
+            <p th:text="${ product.productName }"></p>
+            <p th:text="${ product.productPrice }"></p>
+            <a href="/cart/trolley">
+            <p th:include="fragments/button.html"></p>
+            </a>
+        </div>
+<!--            <span th:text="${ product.productDesc }"></span>-->
+<!--            <span th:text="${ product.productQty }"></span>-->
+            <!--/*@thymesVar id="productCode" type=""*/-->
+<!--            <span th:text="${ product.categoryCode }"></span>-->
 
 <!--        <a href="item.html" th:href="@{|/basic/items/${item.id}|}"-->
-        <td> <a th:href="@{|/product/detail/${product.productNo}|}"><img th:src="@{${product.productImageDTOList.get(0).getImgPath()}}" class="image"/></a></td>
-    </tr>
-</table>
+    </div>
+</div>
 <!--<div class="prodList">-->
 <!--    <div class="prod" th:each="product : ${ productList }">-->
 <!--        <div th:src="@{/img/}"></div>-->

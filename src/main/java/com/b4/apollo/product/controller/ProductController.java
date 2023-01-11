@@ -5,10 +5,7 @@ import com.b4.apollo.product.model.dto.ProductImageDTO;
 import com.b4.apollo.product.model.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -183,7 +180,12 @@ public class ProductController {
         System.out.println(newProd.getProductImageDTOList());
 
         productService.editProduct(code, newProd);
-        mv.setViewName("redirect:/product/list");
+//        mv.addObject("editProduct", editPage);
+//        mv.setViewName( String.format("redirect:/product/detail/%s", code));
+//        mv.addObject("b", boardService.selectBoard(bno))
+//                .setViewName("board/boardUpdateForm");
+        System.out.println(newProd.getProductNo());
+        mv.addObject("code", newProd.getProductNo()).setViewName(String.format("redirect:/product/detail/%s", code));
 //        rttr.addFlashAttribute("successMessage","신규 메뉴 등록에 성공하셨습니다." );
 
         return mv;
