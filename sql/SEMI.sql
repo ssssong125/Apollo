@@ -125,7 +125,7 @@ CREATE TABLE "TBL_BLOG_BOARD" (
                                   "BLOG_CONTENT"	VARCHAR2(3000)	NOT NULL,
                                   "BLOG_POSTDATE"	DATE		NOT NULL,
                                   "BLOG_COUNT" NUMBER DEFAULT 0,
-                                  "BLOG_STATUS" CHAR(2 BYTE) DEFAULT 'N',
+                                  "BLOG_STATUS" CHAR(2 BYTE) DEFAULT 'Y',
                                   "FILE_NAME" VARCHAR2(300) NOT NULL,
                                   "FILE_PATH" VARCHAR2(300) NOT NULL
 );
