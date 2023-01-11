@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+    <mapper namespace="com.b4.apollo.blog.model.dao.CommentMapper">
+    <resultMap id="commResultSet" type="com.b4.apollo.blog.model.dto.CommentDTO">
+        <id column="COMMENT_NO" property="commNo"/>
+        <result column="COMMENT_CONTENT" property="commContent"/>
+        <result column="COMMENT_POSTDATE" property="commDate"/>
+        <result column="BLOG_NO" property="blogNo"/>
+        <result column="USER_ID" property="commWriter"/>
+        <result column="COMMENT_STATUS" property="commStatus"/>
+    </resultMap>
+
+   <insert id="insertComm">
+       INSERT INTO TBL_BLOG_COMMENT
+       VALUES (SEQ_COMMENT_NO.nextval, #{commContent}, SYSDATE, #{blogNo}, 'user01', DEFAULT)
+   </insert>
+
+    <select id="getList" resultType="com.b4.apollo.blog.model.dto.CommentDTO">
+        SELECT
+            *
+        FROM TBL_BLOG_COMMENT
+        WHERE COMMENT_NO = #{commNo}
+    </select>
+
+</mapper>
