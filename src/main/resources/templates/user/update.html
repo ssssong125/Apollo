@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:name="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>회원정보수정</title>
@@ -8,7 +8,6 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <style>
   @font-face {
     font-family: 'BodoniXT'; /*font 이름*/
@@ -21,8 +20,6 @@
     background-color: #dcdcdc;
     font-family: BodoniXT;
     position: absolute;
-      top: 150px;
-
   }
   h2{
       font-weight: bold;
@@ -32,134 +29,77 @@
       font-size: 30px;
 
   }
-
-  button{
-      width: 150px;
-      height: 44px;
-      background-color: #DF9438;
-      border: none;
-      font-size: 15px;
-      font-family: BodoniXT;
-      font-weight: bold;
-  }
-  button:hover {
-
-      color: white;
-      font-weight: bold;
-      letter-spacing: 2px;
-      transform: scale(1.2);
-      cursor: pointer;
-      background: linear-gradient(
-              45deg,
-              #ff0000,
-              #ff7300,
-              #fffb00,
-              #48ff00,
-              #00ffd5,
-              #002bff,
-              #7a00ff,
-              #ff00c8,
-              #ff0000
-      )
-  }
 </style>
 <body>
-<div id="usermodify" style="margin-left: 300px;">
+    <div id="usermodify">
         <h1>회원정보수정</h1>
             <br>
         <div style="border: 1px solid black; border-right: none; border-left: none; width: 1027px">
-            <!--/*@thymesVar id="UserDTO" type=""*/-->
-            <form action=/user/update method="post" >
-                <input type="hidden" th:value="${userDetail.userId}" name="userId">
-<!--                th:object="*{userDTO}"-->
-                <table style="margin-top: 30px;">
-                <tr>
-                    <td><label for="userName">이름</label></td>
-                    <td><input type="text" id="userName" name="userName" th:value="${userDetail.userName}" size="35" placeholder="NAME" maxlength="10" onfocus="this.placeholder = ''" required>
-<!--                        th:field="*{userName}"-->
-                    </td>
-                </tr>
-                <tr>
-                    <td><label for="userPwd1">비밀번호</label></td>
-                    <td><input type="password" name="userPwd" th:value="${userDetail.userPwd}" id="userPwd1" size="35"
-                       placeholder="PWD: 영문,숫자,특수문자 포함 8자 이상" minlength="8" onfocus="this.placeholder = ''" required>
-                    </td>
-<!--                    th:field="*{userPwd}"-->
-                    <td><span id="spw" style="font-size: medium; font-weight: bold"></span></td>
-                </tr>
-                <tr>
-                    <td><label for="userPwd2">비밀번호확인</label></td>
-                    <td><input type="password" id="userPwd2" size="35" minlength="8" placeholder="CONFIRM PWD"
-                       onfocus="this.placeholder = ''" required></td>
-                    <td><span id="spw2" style="font-size: medium; font-weight: bold"></span></td>
-                </tr>
-                <tr>
-                    <td><label for="phone">연락처</label></td>
-                    <td><input type="tel" id="phone" name="userTel" th:value="${userDetail.userTel}" placeholder="PHONE" maxlength="15" size="35" onfocus="this.placeholder = ''" required></td>
-                </tr>
-<!--                    th:field="*{userTel}"-->
-                <tr>
-                    <td><label for="user_email">이메일</label></td>
-                    <td><input type="text" id="user_email"  placeholder="EMAIL" style="position: relative; width: 210px;" onfocus="this.placeholder = ''" maxlength="18" required>
-                    <input type="text" id="email_address" list="user_email_address" placeholder="직접입력" style="position: relative; width: 211px; text-align: center" maxlength="18" onfocus="this.placeholder = ''"/></td>
+            <form action="/user/update" method="post">
+                <div>
+                    <label for="userName">이름</label>
+                    <input type="text" id="userName" name="userName" size="35" placeholder="NAME" maxlength="10" onfocus="this.placeholder = ''" required>
+                </div>
+                <div>
+                    <label for="userPwd1">비밀번호</label>
+                    <input type="password" name="userPwd" id="userPwd1" size="35"
+                       placeholder="PASSWORD: 영문,숫자,특수문자 포함 8자 이상" minlength="8" onfocus="this.placeholder = ''" required>
+                    <span id="spw" style="font-size: medium; font-weight: bold"></span>
+                </div>
+                <div>
+                    <label for="userPwd2">비밀번호확인</label>
+                    <input type="password" id="userPwd2" size="35" minlength="8" placeholder="CONFIRM PASSWORD"
+                       onfocus="this.placeholder = ''" required>
+                    <span id="spw2" style="font-size: medium; font-weight: bold"></span>
+                </div>
+                <div>
+                    <label for="phone">연락처</label>
+                    <input type="tel" id="phone" name="userTel"placeholder="PHONE" maxlength="15" size="35" onfocus="this.placeholder = ''" required>
+                    <br>
+                </div>
+                <div>
+                    <label for="user_email">이메일</label>
+                    <input type="text" id="user_email"  placeholder="EMAIL" style="position: relative; width: 210px;" onfocus="this.placeholder = ''" maxlength="18" required>
+                    <p id="middle" style="color: white; float: left; font-size: x-large;">@</p>
+                        <input type="text" id="email_address" list="user_email_address" placeholder="직접입력" style="position: relative; width: 211px; text-align: center" maxlength="18" onfocus="this.placeholder = ''"/>
                         <datalist id="user_email_address" >
                             <option value="" selected>직접입력</option>
-                            <option value="@naver.com">@naver.com</option>
-                            <option value="@google.com">@google.com</option>
-                            <option value="@daum.net">@daum.net</option>
-                            <option value="@hotmail.com">@hotmail.com</option>
-                            <option value="@korea.com">@korea.com</option>
-                            <option value="@nate.com">@nate.com</option>
-                            <option value="@yahoo.com">@yahoo.com</option>
+                            <option value="naver.com">@naver.com</option>
+                            <option value="google.com">@google.com</option>
+                            <option value="daum.net">@daum.net</option>
+                            <option value="hotmail.com">@hotmail.com</option>
+                            <option value="korea.com">@korea.com</option>
+                            <option value="nate.com">@nate.com</option>
+                            <option value="yahoo.com">@yahoo.com</option>
                         </datalist>
-                        <input type="hidden" id="totalemail" th:value="${userDetail.userEmail}" name="userEmail" >
-<!--                    th:field="*{userEmail}"-->
-                </tr>
-                <tr>
-                    <td><label for="address_kakao">주소</label></td>
-                    <td><input type="text" id="address_kakao" placeholder="주소" style="width: 210px;" required/>
-                    <input type="text" id="address_detail" placeholder="상세주소" style="width: 350px;" required/></td>
-                    <td><input type="hidden" id="totalAddr" name="userAddr" th:value="${userDetail.userAddr}" value=""></td>
-<!--                    th:field="*{userAddr}"-->
-                </tr>
-                </table>
-                    <div class="row" style="margin: auto; position: relative; padding: 30px;">
-                        <div class="col-3"></div>
-                    <div><button type="submit" class="submitBtn" id="btn1">수정하기</button></div>
-                        <div class="col-1"></div>
-                    <div><button type="reset" class="resetBtn" id="btn2">다시작성</button></div>
-                    </div>
-
+                        <input type="hidden" id="totalemail" name="userEmail" value="">
+                </div>
+                <div>
+                    <label for="address_kakao">주소</label>
+                    <input type="text" id="address_kakao" placeholder="주소" required/>
+                    <input type="text" id="address_detail" placeholder="상세주소" required/>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-outline-warning" id="btn1">수정하기</button>
+                    <button type="reset" class="btn btn-outline-warning" id="btn2">다시작성</button>
+                </div>
             </form>
 
 
-            <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-            <script>
-                window.onload = function(){
-                    document.getElementById("address_kakao").addEventListener("click", function address () { //주소입력칸을 클릭하면
-                        //카카오 지도 발생
-                        new daum.Postcode({
-                            oncomplete: function(data) { //선택시 입력값 세팅
-                                document.getElementById("address_kakao").value = data.address; // 주소 넣기
-                                document.querySelector("input[id=address_detail]").focus(); //상세입력 포커싱
-
-
-
-                            }
-                        }).open();
-                    });
-                };
-
-                $("#address_detail").on("focusout", function() {
-
-                    const $address = $("#address_kakao").val();
-                    const $address_detail = $("#address_detail").val();
-                    if($address != "" && $address_detail != "") {
-                        $("#totalAddr").val($address + $address_detail);
+                <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+                <script>
+                    window.onload = function(){
+                        document.getElementById("address_kakao").addEventListener("click", function(){ //주소입력칸을 클릭하면
+                            //카카오 지도 발생
+                            new daum.Postcode({
+                                oncomplete: function(data) { //선택시 입력값 세팅
+                                    document.getElementById("address_kakao").value = data.address; // 주소 넣기
+                                    document.querySelector("input[name=address_detail]").focus(); //상세입력 포커싱
+                                }
+                            }).open();
+                        });
                     }
-                });
-
-            </script>
+                </script>
                 <script>
                     $("#user_email").blur(function(){
                         email();
@@ -171,9 +111,10 @@
 
                     function email() {
                         const email = $("#user_email").val();
+                        const middle = $("#middle").text();
                         const address = $("#email_address").val();
                         if(email != "" && address != "") {
-                            $("#totalemail").val(email+address);
+                            $("#totalemail").val(email+middle+address);
                         }
                     };
                 </script>

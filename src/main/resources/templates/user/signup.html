@@ -31,14 +31,14 @@
 
     }
 
-    .snowflake{
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background-color: white;
-        position: absolute;
-        top: -8px;
-    }
+    /*.snowflake{*/
+    /*    width: 8px;*/
+    /*    height: 8px;*/
+    /*    border-radius: 50%;*/
+    /*    background-color: white;*/
+    /*    position: absolute;*/
+    /*    top: -8px;*/
+    /*}*/
 
     @keyframes fall{
         from{
@@ -153,7 +153,7 @@
 
 </style>
 <body>
-<div class="snowflake"></div>
+<!--<div class="snowflake"></div>-->
 <div class="content">
 <div class="leftContainer">
     <img id='signinimg' class='signinimg' src='/img/personality/signin.jpg' alt="가입페이지이미지">
@@ -243,36 +243,36 @@
 
                 </script>
 
-        <script>
-            const body = document.querySelector("body");
-            const MIN_DURATION = 10;
+<!--        <script>-->
+<!--            const body = document.querySelector("body");-->
+<!--            const MIN_DURATION = 10;-->
 
-            function makeSnowflake(){
-                const snowflake = document.createElement("div");
-                const delay = Math.random() * 10;
-                const initialOpacity = Math.random();
-                const duration = Math.random() * 20 + MIN_DURATION;
+<!--            function makeSnowflake(){-->
+<!--                const snowflake = document.createElement("div");-->
+<!--                const delay = Math.random() * 10;-->
+<!--                const initialOpacity = Math.random();-->
+<!--                const duration = Math.random() * 20 + MIN_DURATION;-->
 
-                snowflake.classList.add("snowflake")
-                snowflake.style.left = `${Math.random() * window.screen.width}px`;
-                snowflake.style.animationDelay = `${delay}s`;
-                snowflake.style.opacity = initialOpacity;
-                snowflake.style.animation = `fall ${duration}s linear`;
+<!--                snowflake.classList.add("snowflake")-->
+<!--                snowflake.style.left = `${Math.random() * window.screen.width}px`;-->
+<!--                snowflake.style.animationDelay = `${delay}s`;-->
+<!--                snowflake.style.opacity = initialOpacity;-->
+<!--                snowflake.style.animation = `fall ${duration}s linear`;-->
 
-                body.appendChild(snowflake);
+<!--                body.appendChild(snowflake);-->
 
-                setTimeout(()=> {
-                    body.removeChild(snowflake);
-                    makeSnowflake()
-                }, (duration + delay) * 1000);
+<!--                setTimeout(()=> {-->
+<!--                    body.removeChild(snowflake);-->
+<!--                    makeSnowflake()-->
+<!--                }, (duration + delay) * 1000);-->
 
-            }
+<!--            }-->
 
-            makeSnowflake();
-            for(let index = 0; index < 50; index++){
-                setTimeout(makeSnowflake, 500 * index);
-            }
-        </script>
+<!--            makeSnowflake();-->
+<!--            for(let index = 0; index < 50; index++){-->
+<!--                setTimeout(makeSnowflake, 500 * index);-->
+<!--            }-->
+<!--        </script>-->
         <script>
             $("#user_email").blur(function(){
                 email();
