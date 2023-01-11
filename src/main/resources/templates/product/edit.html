@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">>
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -12,7 +12,7 @@
         }
     </style>
 </head>
-<body>
+<body style="background-color: black">
 <div th:include="fragments/header.html"></div>
 <h3 align="center">상품 정보 수정</h3>
 <!--<form action="/product/regist" method="post" enctype="multipart/form-data" align="center">-->
@@ -48,7 +48,11 @@
 
 <!--(code=${productDetail.productNo})-->
 <!--</script>-->
-<form action="/product/edit/${code}" method="post" align="center" enctype="multipart/form-data">
+<form th:object="${edit}" method="post" align="center" enctype="multipart/form-data">
+<!--    th:action="/product/edit/${edit.}"-->
+<!--    @{|/product/edit/${productDetail.productNo}|}-->
+<!--    @{/product/edit/(code= ${productDetail.productNo} )}-->
+<!--    action="/product/edit/(code=${productNo})"-->
     <br>
     <br>
     <br>
