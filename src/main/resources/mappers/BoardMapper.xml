@@ -29,7 +29,7 @@
 	<select id="selectList" resultMap="boardResultSet">
 		SELECT *
 		FROM TBL_QUESTION
-		WHERE STATUS = 'Y'
+		WHERE STATUS ='Y'
 		ORDER BY BOARD_NO DESC
 	</select>
 
@@ -45,8 +45,7 @@
 	<insert id="insertBoard" parameterType="com.b4.apollo.qna.model.dto.QuestionDTO">
 		INSERT INTO TBL_QUESTION
 		VALUES
-			(SEQ_QNA_NO.NEXTVAL, #{userId}, #{boardTitle}, #{boardContent}
-			, SYSDATE, DEFAULT, DEFAULT)
+			(SEQ_QNA_NO.NEXTVAL, 'user01', #{boardTitle}, #{boardContent}, SYSDATE, DEFAULT, DEFAULT)
 	</insert>
 
 	<!-- 게시글 수정 -->
