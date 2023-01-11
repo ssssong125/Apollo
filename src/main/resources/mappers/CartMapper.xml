@@ -22,16 +22,6 @@
 		</association>
 	</resultMap>
 
-<!--	&lt;!&ndash;상품 정보를 담을 resultMap&ndash;&gt;-->
-<!--	<resultMap id="productResultMap" type="com.b4.apollo.product.model.dto.ProductDTO">-->
-<!--		<id property="productNo" column="PRODUCT_NO"/>-->
-<!--		<result property="productName" column="PRODUCT_NAME"/>-->
-<!--		<result property="productPrice" column="PRODUCT_PRICE"/>-->
-<!--		<result property="productDesc" column="PRODUCT_DESC"/>-->
-<!--		<result property="productQty" column="PRODUCT_QTY"/>-->
-<!--		<result property="categoryCode" column="CATEGORY_CODE"/>-->
-<!--	</resultMap>-->
-
 	<!--유저 정보를 담을 resultMap-->
 	<resultMap id="userResultMap" type="com.b4.apollo.user.model.dto.UserDTO">
 		<id property="userId" column="USER_ID"/>
@@ -50,22 +40,39 @@
 	<resultMap id="paymentResultMap" type="com.b4.apollo.cart.model.dto.PaymentDTO">
 		<id property="paymentNo" column="PAYMENT_NO"/>
 		<result property="userId" column="USER_ID"/>
-		<result property="paymentMethod" column="PAYMENT_METHOD"/>
+		<result property="usedPoint" column="USED_POINT"/>
 		<result property="paymentAmount" column="PAYMENT_AMOUNT"/>
+		<result property="paymentMethod" column="PAYMENT_METHOD"/>
+		<result property="receiverName" column="RECEIVER_NAME"/>
+		<result property="receiverTel" column="RECEIVER_TEL"/>
+		<result property="address" column="ADDRESS"/>
+		<result property="paymentDate" column="PAYMENT_DATE"/>
+		<result property="shippingStatus" column="SHIPPING_STATUS"/>
 	</resultMap>
+<!--	<resultMap id="paymentResultMap" type="com.b4.apollo.cart.model.dto.PaymentDTO">-->
+<!--		<id property="paymentNo" column="PAYMENT_NO"/>-->
+<!--		<result property="userId" column="USER_ID"/>-->
+<!--		<result property="paymentMethod" column="PAYMENT_METHOD"/>-->
+<!--		<result property="paymentAmount" column="PAYMENT_AMOUNT"/>-->
+<!--	</resultMap>-->
 
 	<!--주문 정보를 담을 resultMap-->
 	<resultMap id="orderResultMap" type="com.b4.apollo.cart.model.dto.OrderDTO">
 		<id property="orderNo" column="ORDER_NO"/>
 		<result property="paymentNo" column="PAYMENT_NO"/>
-		<result property="orderDate" column="ORDER_DATE"/>
-		<result property="receiverName" column="RECEIVER_NAME"/>
-		<result property="receiverTel" column="RECEIVER_TEL"/>
-		<result property="addressZipCode" column="ADDRESS_ZIPCODE"/>
-		<result property="address" column="ADDRESS"/>
-		<result property="addressDetail" column="ADDRESS_DETAIL"/>
-		<result property="shippingStatus" column="SHIPPING_STATUS"/>
+		<result property="cartNo" column="CART_NO"/>
 	</resultMap>
+<!--	<resultMap id="orderResultMap" type="com.b4.apollo.cart.model.dto.OrderDTO">-->
+<!--		<id property="orderNo" column="ORDER_NO"/>-->
+<!--		<result property="paymentNo" column="PAYMENT_NO"/>-->
+<!--		<result property="orderDate" column="ORDER_DATE"/>-->
+<!--		<result property="receiverName" column="RECEIVER_NAME"/>-->
+<!--		<result property="receiverTel" column="RECEIVER_TEL"/>-->
+<!--		<result property="addressZipCode" column="ADDRESS_ZIPCODE"/>-->
+<!--		<result property="address" column="ADDRESS"/>-->
+<!--		<result property="addressDetail" column="ADDRESS_DETAIL"/>-->
+<!--		<result property="shippingStatus" column="SHIPPING_STATUS"/>-->
+<!--	</resultMap>-->
 
 	<!-- <select> 태그를 이용하여 select 쿼리임을 나타냄. 앞서 mapper에서 말했던 메소드의 이름은 select 쿼리의 id값과 같아야함. -->
 	<!-- 장바구니에 품목추가 -->
@@ -80,7 +87,6 @@
 				SYSDATE
 			)
 	</insert>
-
 	<!--userId를 사용해 카트 정보를 조회-->
 	<select id="getCartList" parameterType="hashmap" resultMap="cartResultMap">
 		SELECT
@@ -94,20 +100,17 @@
 		WHERE 1 = 1
 		AND A.USER_ID = #{userId}
 	</select>
-
 	<!--주문 수량 수정-->
 	<update id="updateProductCount" parameterType="hashmap">
 		UPDATE TBL_CART A
 		SET A.PRODUCT_COUNT = #{count}
 		WHERE A.CART_NO = #{cartNo}
 	</update>
-
 	<!--장바구니에서 품목 삭제-->
 	<delete id="deleteProductInCart" parameterType="Integer">
 		DELETE FROM TBL_CART A
 		WHERE A.CART_NO = #{ cartNo }
 	</delete>
-
 	<!--userId 통해 해당 유저의 상세 정보를 조회-->
 	<select id="getUserDetail" parameterType="String" resultMap="userResultMap">
 		SELECT
@@ -143,27 +146,53 @@
 		SELECT
 			A.PAYMENT_NO,
 			A.USER_ID,
+			A.USED_POINT,
+			A.PAYMENT_AMOUNT,
 			A.PAYMENT_METHOD,
-			A.PAYMENT_AMOUNT
+			A.RECEIVER_NAME,
+			A.RECEIVER_TEL,
+			A.ADDRESS,
+			A.PAYMENT_DATE,
+			A.SHIPPING_STATUS
 		FROM TBL_PAYMENT A
 	 	JOIN TBL_USER B ON A.USER_ID = B.USER_ID
 		WHERE B.USER_ID = #{userId}
 	</select>
+<!--	<select id="getPaymentDetail" parameterType="hashmap" resultMap="paymentResultMap">-->
+<!--		SELECT-->
+<!--			A.PAYMENT_NO,-->
+<!--			A.USER_ID,-->
+<!--			A.PAYMENT_METHOD,-->
+<!--			A.PAYMENT_AMOUNT-->
+<!--		FROM TBL_PAYMENT A-->
+<!--				 JOIN TBL_USER B ON A.USER_ID = B.USER_ID-->
+<!--		WHERE B.USER_ID = #{userId}-->
+<!--	</select>-->
 
 	<!--userId를 통해 주문 정보를 조회-->
 	<select id="getOrderDetail" parameterType="hashmap" resultMap="orderResultMap">
 		SELECT
 			A.ORDER_NO,
-			A.PAYMENT_NO,
-			A.ORDER_DATE,
-			A.RECEIVER_NAME,
-			A.RECEIVER_TEL,
-			A.ADDRESS_ZIPCODE,
-			A.ADDRESS,
-			A.ADDRESS_DETAIL,
-			A.SHIPPING_STATUS
+			B.PAYMENT_NO,
+			C.CART_NO
 		FROM TBL_ORDER A
 	 	JOIN TBL_PAYMENT B ON A.PAYMENT_NO = B.PAYMENT_NO
+		JOIN TBL_CART C ON A.CART_NO = C.CART_NO
+		WHERE B.USER_ID = #{userId}
 	</select>
+<!--	<select id="getOrderDetail" parameterType="hashmap" resultMap="orderResultMap">-->
+<!--		SELECT-->
+<!--			A.ORDER_NO,-->
+<!--			A.PAYMENT_NO,-->
+<!--			A.ORDER_DATE,-->
+<!--			A.RECEIVER_NAME,-->
+<!--			A.RECEIVER_TEL,-->
+<!--			A.ADDRESS_ZIPCODE,-->
+<!--			A.ADDRESS,-->
+<!--			A.ADDRESS_DETAIL,-->
+<!--			A.SHIPPING_STATUS-->
+<!--		FROM TBL_ORDER A-->
+<!--				 JOIN TBL_PAYMENT B ON A.PAYMENT_NO = B.PAYMENT_NO-->
+<!--	</select>-->
 
 </mapper>

@@ -20,24 +20,33 @@
     <!--타임리프 변수를 외부 js파일에서 불러올 수 없어서 html 파일내에 작성함-->
     <script th:inline="javascript">
         $(document).ready(function (){
+            /*고객 기본 주소지 자동 입력*/
             function fillFields() {
                 $("#receiverName").val(/*[[ ${user.userName} ]]*/)
                 $("#receiverTel").val(/*[[ ${user.userTel} ]]*/)
                 $("#address").val(/*[[ ${user.userAddr} ]]*/)
-                $("#comment").val("항상 시키던걸로.")
+                // $("#comment").val("항상 먹던걸로.")
             }
 
+            /*디폴트 및 뉴 선택시 함수 작동*/
             $('input[type=radio][name="place"]').change(function() {
                 let value = $(this).val();
 
                 if(value == "default"){
                     fillFields()
+
                 } else if (value == "new"){
                     $("#receiverName").val("")
                     $("#receiverTel").val("")
                     $("#address").val("")
                     $("#comment").val("")
                 }
+                // else if(value == "other") {
+                //     $("#receiverName").val("")
+                //     $("#receiverTel").val("")
+                //     $("#address").val("")
+                //     $("#comment").val("")
+                // }
             });
         })
     </script>
@@ -93,8 +102,8 @@
             <div class="col-lg">
                 <div class="form-element">
                     <input class="input-type-tel text-input" type="tel" placeholder="010-1234-5678"
-                           id="receiverTel" name="receiverTel"
-                           pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" maxlength="13" th:value="${ user.userTel }">
+                           id="receiverTel" name="receiverTel" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" maxlength="13"
+                           th:value="${ user.userTel }">
 <!--                           pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" maxlength="13">-->
                 </div>
             </div>

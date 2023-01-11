@@ -13,7 +13,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" th:href="@{ /css/cart/style.css }">
-    <script src="/js/cart/trolley.js"></script>
     <style>
         /*div 확인용*/
         /*div{*/
@@ -21,49 +20,129 @@
         /*}*/
     </style>
     <script th:inline="javascript">
-        let size = /*[[ ${cartList.size()} ]]*/;
-        let point = /*[[ ${user.point} ]]*/;
-        // let productQty =
-        //     alert(productQty)
-        // alert(size);
+        /*csrf 토큰 정보*/
+        const token = $("meta[name='_csrf']").attr("content");
+        const header = $("meta[name='_csrf_header']").attr("content");
+        // const userId = $("#userId").val();
 
+        /*타임리프 변수*/
+        const size = /*[[ ${cartList?.size()} ]]*/;
+        const point = /*[[ ${user?.point} ]]*/;
+
+        /*페이지 로드될때 합계 출력*/
+        $(document).ready(function () {
+            sum(size)
+        })
+
+        /*해당 상품 장바구니에서 삭제*/
+        function deleteProductInCart(cartNo) {
+
+            const count = 0;
+
+            /*ajax 설정*/
+            $.ajaxSetup({
+                url: 'trolley', // 요청할 서버url
+                type: "POST" // 타입 (get, post, put 등등)
+                // global: false, // 동시에 실행 x, 비동기화 여부 (default : true)
+            });
+
+            $.ajax({
+                data: // 보낼 데이터 (Object , String, Array)
+                    {
+                        cartNo : cartNo,
+                        count : count
+                    },
+                beforeSend : function(xhr) {
+                    xhr.setRequestHeader(header, token)
+                }
+                // dataType : 'json',       // 데이터 타입 (html, xml, json, text 등등)
+                // headers : {              // Http header
+                //     "Content-Type" : "application/json",
+                //     "X-HTTP-Method-Override" : "POST"
+                // },
+            })
+                .done(function (result) { // 수행할 동작
+                    return location.href = "trolley"
+                })
+                .fail(function(jqXHR) { // 실패시
+                    alert("실패")
+                })
+            // .always(function() { // 항상 동작
+            //     alert("작동");
+            // })
+        }
+
+        /*상품 구매수량 조절*/
+        function updateQty(cartNo, code, max) {
+
+            const count = $('#productQty'+code).val();
+
+            if (count%1 != 0 || count < 1) {
+                alert("다시 입력해주세요.")
+                return false;
+            } else if(count > max) {
+                alert("재고부족으로 인해 최대 "+max+"개 까지만 주문 가능합니다.")
+                return false;
+            }
+
+            sum(size);
+
+            $.ajaxSetup({
+                url: 'trolley', // 요청할 서버url
+                type: "POST" // 타입 (get, post, put 등등)
+                // global: false, // 동시에 실행 x, 비동기화 여부 (default : true)
+            });
+
+            $.ajax({
+                data: // 보낼 데이터 (Object , String, Array)
+                    {
+                        cartNo : cartNo,
+                        count : count
+                    },
+                beforeSend : function(xhr) {
+                    xhr.setRequestHeader(header, token)
+                }
+                // dataType : 'json',       // 데이터 타입 (html, xml, json, text 등등)
+                // headers : {              // Http header
+                //     "Content-Type" : "application/json",
+                //     "X-HTTP-Method-Override" : "POST"
+                // },
+            })
+                .done(function (result) { // 수행할 동작
+                    // return location.href = "trolley"
+                })
+                .fail(function(jqXHR) { // 실패시
+                    // alert("실패!")
+                })
+            // .always(function() { // 항상 동작
+            //     alert("작동");
+            // })
+        }
+        /*합계 계산 및 출력*/
         function sum(size) {
 
             let orderTotal = 0;
 
             for (let i = 1; i <= size; i++) {
                 orderTotal += $("#hiddenPrice" + i).val() * $("#productQty" + i).val()
-                // alert($("#hiddenPrice"+i).val())
-                // alert($("#productQty"+i).val())
-                // const count = $('#productQty'+code).val();
             }
             $("#orderTotal").text(orderTotal+"$")
 
-            // let subTotal = Number(/*[[ ${totalPrice} ]]*/) - Number(/*[[ ${user.point} ]]*/)
-            // let subTotal = Number($("#orderTotal").val())-Number($("#point").val())
             let subTotal = orderTotal - $("#point").val()
 
             if (subTotal < 0) {
                 subTotal = 0
             }
 
+            $("#userPoint").text(point+"$")
             $("#subTotal").text(subTotal+"$")
 
-            $("#userPoint").text(point+"$")
+            $("#totalPrice").val(subTotal)
         }
-
-        $(document).ready(function () {
-            // alert("페이지 로드")
-            sum(size)
-        })
-        // $(".productQty").addEventListener("onchange", function (){
-        //     alert("값 변경")
-        //     sum(size)
-        // });
     </script>
 </head>
 <body>
-    <!--전체 div-->
+    <!--전체 div-->>
     <div class="container">
         <br>
         <!--현재 위치-->
@@ -88,7 +167,7 @@
             </div>
         </div>
         <!--상품 없을시-->
-        <div class="container" th:if="${ cartList.size() } == 0">
+        <div class="container" th:if="${ cartList?.size() } == 0">
             <hr class="line">
             <div class="row">
                 <div class="col-lg" style="height: 128px;" >
@@ -100,48 +179,51 @@
             </div>
         </div>
         <!--상품 추가시-->
-        <th:block th:each="cart : ${ cartList }" th:if="${ cartList.size() } > 0">
-            <input type="hidden" class="size" id="size" th:value="${ cartList.size() }">
-            <div class="container product-box">
-                <hr class="line">
-                <div class="row">
-                    <!--상품 이미지-->
-                    <div class="col-lg-2">
-                        <img class="product" src="/img/cart/naverPay.png" alt="상품 이미지명">
-<!--                        <img class="product" th:src="/img/cart/${ aa.imgName }" alt="상품 이미지명">-->
-                    </div>
-                    <!--상품명-->
-                    <div class="col-lg-6 v-align">
-                        <span th:text="${ cart.productInfo.productName }"/>
-                    </div>
-                    <!--상품 갯수-->
-                    <div class="col-lg-1 v-align">
-                        <input type="number" th:id="|productQty${cartStat.count}|" class="productQty"
-                               th:onchange="|updateQty(${ cart.cartNo },${ cartStat.count })|"
-                               th:value="${ cart.productCount }"
-                               min="1" th:max="${ cart.productInfo.productQty }"
-                               style="width: 50px" required>
-                    </div>
-                    <!--상품 가격-->
-                    <div class="col-lg-2 v-align price">
-                        <span th:id="|price${cartStat.count}|" th:text="${ cart.productInfo.productPrice }" th:value="${ cart.productInfo.productPrice }"/>$
-                        <input th:id="|hiddenPrice${cartStat.count}|" th:value="${ cart.productInfo.productPrice }" type="hidden">
-                    </div>
-                    <!--상품 삭제-->
-                    <div class="col-lg-1 v-align price">
-                            <!--타임리프 이용해서 자바 메소드를 호출해보려 했는데 페이지 로드시 실행됨-->
-<!--                        <a th:onclick="|${@cartServiceImpl.deleteProductInCart(cart.cartNo)}|" href="trolley">-->
-<!--                        <a th:onclick="|deleteProductInCart(${ cart.cartNo })|" href="trolley">-->
-<!--                            <img src="/img/cart/trash.png" alt="trash.png">-->
-<!--                        </a> -->
-<!--                        <button type="button" class="trashCan" th:onclick="|deleteProductInCart(${ cart.cartNo })|">-->
-<!--                            <img src="/img/cart/trash.png" alt="trash.png">-->
-<!--                        </button>-->
-                        <input type="image" th:onclick="|deleteProductInCart(${ cart.cartNo })|" src="/img/cart/trash.png" alt="trash.png"/>
+        <form th:action="@{order}" th:object="${cartList}" th:method="post">
+            <th:block th:each="cart : ${ cartList }" th:if="${ cartList?.size() } > 0">
+                <input type="text" th:field="${cart.cartNo}" th:if="">
+                <input type="hidden" class="size" id="size" th:value="${ cartList?.size() }">
+                <div class="container product-box">
+                    <hr class="line">
+                    <div class="row">
+                        <!--상품 이미지-->
+                        <div class="col-lg-2">
+                            <img class="product" src="/img/cart/naverPay.png" alt="상품 이미지명">
+    <!--                        <img class="product" th:src="/img/cart/${ aa.imgName }" alt="상품 이미지명">-->
+                        </div>
+                        <!--상품명-->
+                        <div class="col-lg-6 v-align">
+                            <span th:text="${ cart?.productInfo?.productName }"/>
+                        </div>
+                        <!--상품 갯수-->
+                        <div class="col-lg-1 v-align">
+                            <input type="number" th:id="|productQty${cartStat?.count}|" class="productQty"
+                                   th:onchange="|updateQty(${ cart?.cartNo },${ cartStat?.count },${cart.productInfo.productQty})|"
+                                   th:value="${ cart?.productCount }"
+                                   min="1" th:max="${ cart?.productInfo?.productQty }"
+                                   style="width: 50px" required>
+                        </div>
+                        <!--상품 가격-->
+                        <div class="col-lg-2 v-align price">
+                            <span th:id="|price${cartStat?.count}|" th:text="${ cart?.productInfo?.productPrice }" th:value="${ cart.productInfo.productPrice }"/>$
+                            <input th:id="|hiddenPrice${cartStat?.count}|" th:value="${ cart?.productInfo?.productPrice }" type="hidden">
+                        </div>
+                        <!--상품 삭제-->
+                        <div class="col-lg-1 v-align price">
+                                <!--타임리프 이용해서 자바 메소드를 호출해보려 했는데 페이지 로드시 실행됨-->
+    <!--                        <a th:onclick="|${@cartServiceImpl.deleteProductInCart(cart.cartNo)}|" href="trolley">-->
+    <!--                        <a th:onclick="|deleteProductInCart(${ cart.cartNo })|" href="trolley">-->
+    <!--                            <img src="/img/cart/trash.png" alt="trash.png">-->
+    <!--                        </a> -->
+    <!--                        <button type="button" class="trashCan" th:onclick="|deleteProductInCart(${ cart.cartNo })|">-->
+    <!--                            <img src="/img/cart/trash.png" alt="trash.png">-->
+    <!--                        </button>-->
+                            <input type="image" th:onclick="|deleteProductInCart(${ cart?.cartNo })|" src="/img/cart/trash.png" alt="trash.png"/>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </th:block>
+            </th:block>
+        </form>
 
         <hr class="thick-line">
         <!--결제 금액-->
@@ -156,7 +238,8 @@
 
             <div class="col-lg-1 price">
     <!--            3000$-->
-                <span id="orderTotal" th:text="${ totalPrice }" th:value="${ totalPrice }"/>
+<!--                <span id="orderTotal" th:text="${ totalPrice }" th:value="${ totalPrice }" style="display: inline-block"/>-->
+                <span id="orderTotal"/>
             </div>
         </div>
         <!--포인트(할인 가격)-->
@@ -171,7 +254,7 @@
             </div>
             <div class="col-lg-1 price">
 <!--                <span id="userPoint" th:text="${ user.point }" th:value="${ user.point}"/>$-->
-                <span id="userPoint"/>
+                <span id="userPoint" style="display: inline-block"/>
             </div>
         </div>
         <!--합산 가격-->
@@ -182,10 +265,26 @@
                 Sub Total
             </div>
             <div class="col-lg-1 price">
-                <span id="subTotal"/>
+                <span id="subTotal" style="display: inline-block"/>
             </div>
         </div>
         <br>
+        <!--전달할 데이터-->
+        <!--    트롤리에서 넘겨줄 값 : 유저 아이디, 사용 포인트, 결제 금액     구매할 상품 cartNo-->
+        <form th:action="@{order}" th:object="${paymentDTO}" th:method="post">
+            <input type="hidden" th:field="*{paymentNo}">
+            <input type="hidden" name="userId" th:value="${ user.userId }">
+            <input type="hidden" th:value="${ user.point }" name="usedPoint">
+            <input type="hidden" id="totalPrice" name="paymentAmount">
+            <input type="hidden" th:field="*{paymentMethod}">
+            <input type="hidden" th:field="*{receiverName}">
+            <input type="hidden" th:field="*{receiverTel}">
+            <input type="hidden" th:field="*{address}">
+            <input type="hidden" th:field="*{paymentDate}">
+            <input type="hidden" th:field="*{shippingStatus}">
+        </form>
+<!--        <form th:action="@{order}" th:object="">-->
+<!--        </form>-->
         <!--구매 버튼-->
         <div class="row">
             <div class="col-lg-10">

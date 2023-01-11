@@ -23,22 +23,18 @@ public class CartDTO extends ProductDTO {
      * @param cartNo 장바구니 번호(고유 일련번호)
      */
     private int cartNo;
-
     /**
      * @param user 유저 아이디
      */
     private String userId;
-
     /**
      * @param productCount 구매 수량
      */
     private int productCount;
-
     /**
      * @param regDate 등록일
      */
     private Date regDate;
-
     /**
      * @param productDTO 상품 객체
      */
