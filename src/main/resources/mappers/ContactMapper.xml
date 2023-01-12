@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.b4.apollo.contact.model.dao.ContactMapper">
     <resultMap type="com.b4.apollo.contact.model.dto.ContactDTO" id="contactResultMap">
-        <id property="contactNo" column="CONTACT_NO"/>
+        <result property="contactNo" column="CONTACT_NO"/>
         <result property="contactName" column="COMNTACT_NAME"/>
         <result property="contactEmail" column="CONTACT_EMAIL"/>
         <result property="contactTitle" column="CONTACT_TITLE"/>
@@ -19,8 +19,7 @@
     </select>
 
     <insert id="sendContent" parameterType="com.b4.apollo.contact.model.dto.ContactDTO">
-        INSERT INTO TBL_CONTACT(
-
+        INSERT INTO TBL_CONTACT A (
             A.CONTACT_NO,
             A.CONTACT_NAME,
             A.CONTACT_EMAIL,
@@ -29,8 +28,8 @@
         )
         VALUES
             (
-            SEQ_PRODUCT_NO.NEXTVAL,
-             #{contactName},
+            SEQ_CONTACT_NO.NEXTVAL,
+            #{contactName},
             #{contactEmail},
             #{contactTitle},
             #{contactContent}

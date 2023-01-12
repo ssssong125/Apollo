@@ -103,16 +103,16 @@ Email:
         <pre style="color:white;">Hola como es tas? </pre>
       </div>
         <div id="contactinfo">
-            <form action="/main/contact" method="post" id="contactform">
+            <form th:action="${contact}" method="post" id="contactform">
       <div class="col-sm-8">
         <div>
-          <div><input type="text" id="name" placeholder="NAME" /></div>
+          <div><input type="text" name="contactName" id="name" placeholder="NAME" required/></div>
           <br>
-          <div><input type="email" id="email" placeholder="EMAIL"/></div>
+          <div><input type="email" id="email" name="contactEmail" placeholder="EMAIL" required/></div>
           <br>
-          <div><input type="title" id="title" placeholder="SUBJECT"/></div>
+          <div><input type="title" id="title" name="contactTitle" placeholder="SUBJECT" required/></div>
           <br>
-          <div><textarea class="massage_text" name="message" cols="63" rows="8" style="resize:none" placeholder="최대 300자까지 입력 가능합니다." maxlength="300"></textarea></div>
+          <div><textarea class="massage_text" name="contactContent" cols="63" rows="8" style="resize:none" placeholder="최대 300자까지 입력 가능합니다." maxlength="300" required></textarea></div>
           <span style="color: white;" id="counter">(0/최대 300자)</span>
             <br>
             <br>
