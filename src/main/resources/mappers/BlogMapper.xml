@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.b4.apollo.blog.model.dao.BlogMapper">
+	<resultMap id="blogResultSet" type="com.b4.apollo.blog.model.dto.BlogDTO">
+		<id column="BLOG_NO" property="blogNo"/>
+		<result column="USER_ID" property="reporter"/>
+		<result column="BLOG_TITLE" property="blogTitle"/>
+		<result column="BLOG_CONTENT" property="blogContent"/>
+		<result column="BLOG_POSTDATE" property="createDate"/>
+		<result column="BLOG_COUNT" property="count"/>
+		<result column="BLOG_STATUS" property="status"/>
+		<result column="FILE_NAME" property="fileName"/>
+		<result column="FILE_PATH" property="filePath"/>
+	</resultMap>
+
+	<update id="updateCount" parameterType="_int">
+		UPDATE TBL_BLOG_BOARD
+		SET BLOG_COUNT = BLOG_COUNT + 1
+		WHERE BLOG_NO = #{blogNo}
+		  AND BLOG_STATUS='Y'
+	</update>
+
+	<insert id="insertBlog" parameterType="com.b4.apollo.blog.model.dto.BlogDTO">
+		INSERT INTO TBL_BLOG_BOARD
+		VALUES
+			(SEQ_BLOG_NO.NEXTVAL, 'user01', #{blogTitle}, #{blogContent}, SYSDATE, DEFAULT, DEFAULT,#{fileName},#{filePath})
+	</insert>
+
+	<select id="selectList" resultMap="blogResultSet">
+		SELECT *
+		FROM TBL_BLOG_BOARD
+		WHERE BLOG_STATUS = 'Y'
+		ORDER BY BLOG_NO DESC
+	</select>
+
+	<select id="selectBlog" resultMap="blogResultSet">
+		SELECT *
+		FROM TBL_BLOG_BOARD
+		WHERE BLOG_STATUS = 'Y'
+		AND BLOG_NO = #{blogNo}
+	</select>
+
+	<update id="updateBlog" parameterType="com.b4.apollo.blog.model.dto.BlogDTO">
+		UPDATE TBL_BLOG_BOARD
+		SET BLOG_TITLE=#{blogTitle}, BLOG_CONTENT= #{blogContent},
+		    	FILE_NAME= #{fileName}, FILE_PATH = #{filePath}
+		WHERE BLOG_NO=#{blogNo}
+		  AND BLOG_STATUS='Y'
+	</update>
+
+	<update id = "deleteBlog" parameterType="com.b4.apollo.blog.model.dto.BlogDTO">
+		UPDATE TBL_BLOG_BOARD
+		SET BLOG_STATUS= 'N'
+		WHERE BLOG_NO=#{blogNo} AND BLOG_STATUS='Y'
+
+	</update>
+
+</mapper>

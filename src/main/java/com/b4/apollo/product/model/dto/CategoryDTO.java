@@ -1,9 +1,14 @@
 package com.b4.apollo.product.model.dto;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @NoArgsConstructor
-@Data
+@ToString
+@Getter
+@Setter
 public class CategoryDTO {
     private String categoryCode;
     private String categoryName;
