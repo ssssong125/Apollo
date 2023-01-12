@@ -5,7 +5,6 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface UserMapper {
-//    MemberDTO loginMember(MemberDTO m) throws Exception;
 
     int insertUser(UserDTO newUser);
 
@@ -14,14 +13,13 @@ public interface UserMapper {
 
 //    int idCheck(String userId);
 
-    int deleteUser(String userId);
+//    int deleteUser(String userId);
 
-//    UserDTO showUserInfo(String userId);
 
     UserDTO loginUser(UserDTO userDTO);
 
     UserDTO userDetail(UserDTO userDTO);
 
-//    List<UserDTO> findAllUser();}
 
+    void deleteUser(UserDTO userDTO);
 }

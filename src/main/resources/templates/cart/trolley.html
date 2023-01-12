@@ -189,7 +189,7 @@
 <!--        <form th:action="@{order}" th:object="${cartList}" th:method="post">-->
 <!--        </form>-->
             <th:block th:each="cart : ${ cartList }" th:if="${ cartList?.size() } > 0">
-<!--                <input type="text" th:field="${cart.cartNo}" th:if="" name id value >-->
+<!--                <input type="text" th:field="${cart.cartNo}" th:if="">-->
                 <input type="hidden" class="size" id="size" th:value="${ cartList?.size() }">
                 <div class="container product-box">
                     <hr class="line">
@@ -288,9 +288,11 @@
             <input type="text" th:field="*{address}">
 <!--            <input type="date" th:field="*{paymentDate}">-->
             <input type="date" th:value="0001-01-01" name="paymentDate">
-<!--            <input type="date" th:value="${#calendars.format(#calendars.createNow())}" name="paymentDate">-->
+<!--            <input type="date" id="currentDate" name="paymentDate">-->
             <input type="text" value="배송 준비중" name="shippingStatus">
             <input type="text" th:field="*{deliveryRequires}">
+<!--        <form th:action="@{order}" th:object="">-->
+<!--        </form>-->
         <!--구매 버튼-->
         <div class="row">
             <div class="col-lg-10">

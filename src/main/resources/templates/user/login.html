@@ -1,24 +1,11 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:layout="http://www.w3.org/1999/xhtml">
 <head>
     <title>로그인 페이지</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/style.css" rel="stylesheet">
-    <script>
-        const signupSuccessMessage = "[[${ signupSuccessMessage }]]";
-        console.log(signupSuccessMessage);
-        if (signupSuccessMessage){
-            alert(signupSuccessMessage);
-        }
-    </script>
-<!--    <script>-->
-<!--        const loginFailMsg = "[[${ loginFailMsg }]]";-->
-<!--        console.log(loginFailMsg);-->
-<!--        if (loginFailMsg){-->
-<!--            alert(loginFailMsg);-->
-<!--        }-->
-<!--    </script>-->
+
 </head>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -105,7 +92,7 @@
         text-align:left;
         font-size:30px;
         position: relative;
-        color: black;
+        color: white;
     }
 
     .login-form
@@ -157,38 +144,58 @@
         background: transparent;
         color: white;
     }
+    a{
+        text-decoration:underline;
+        color:white;
+    }
+    a:hover{
+        color: orange;
+    }
+    #btn{
+        font-weight: bold;
+    }
+    #btn:hover{
+        color: white;
+        background: black;
+    }
 </style>
 <body>
+<div layout:fragment="content">
 <div class="snowflake"></div>
 <div class="left">
-    <img id='loginimg' class='loginimg' src="/img/personality/loginimg.png">
+    <img id='loginimg' class='loginimg' src="/img/personality/loginimg.png" alt="로그인페이지 이미지">
     </img>
 </div>
 
-<form action=/user/login method="post" id="loginForm">
+<form th:action="@{/user/login}" method="post" id="loginForm">
 <div class="right">
-    <div id='loginsystem' class='loginsystem' style="color: white;">
+    <div th:if="${param.error}">
+        <div class="alert alert-danger">
+            사용자ID 또는 비밀번호를 확인해주세요.
+        </div>
+    </div>
+    <div id='loginsystem' class='loginsystem'>
         LOGIN SYSTEM</div>
 
-    <div id='welcomeback' class='welcomeback' style="color: white;">Welcome back</div>
+    <div id='welcomeback' class='welcomeback'>Welcome back</div>
 
-    <div id='logintoyouraccount' class='logintoyouraccount' style="color: white;">
+    <div id='logintoyouraccount' class='logintoyouraccount'>
         Login to your account</div>
 
 
     <div id='login-form' class='login-form'>
-        <div class="login-box" style="color: white;">ID</div>
+        <div class="login-box">ID</div>
         <div id="login">
             <input type="text" name="userId" id="input_id" required="" placeholder="ID를 입력하세요">
         </div>
-        <div class="login-box" style="color: white;">PWD</div>
+        <div class="login-box">PWD</div>
         <div id="pwd">
             <input type="password" name="userPwd" id="input_pwd" required="" placeholder="PWD를 입력하세요">
         </div>
     </div>
 
-    <div class='loginnow'><button type="button" onclick="login_user()" value="Sign In" class="btn btn-outline-warning" id="btn" style="font-weight: bold">LOGIN NOW</button></div>
-    <div id='joinin' class='joinin'>Dont have an account? <a href="/user/signup" style="text-decoration:underline; color:white">Join for free</a></div>
+    <div class='loginnow'><button type="button" onclick="login_user()" value="Sign In" class="btn btn-outline-warning" id="btn">LOGIN NOW</button></div>
+    <div id='joinin' class='joinin'>Dont have an account? <a href="/user/signup">Join for free</a></div>
 </div>
     <script>
         const body = document.querySelector("body");
@@ -222,13 +229,27 @@
 
 
     </script>
+    <script>
+        const signupSuccessMessage = "[[${ signupSuccessMessage }]]";
+        console.log(signupSuccessMessage);
+        if (signupSuccessMessage){
+            alert(signupSuccessMessage);
+        }
+    </script>
+    <script>
+        const loginFailMsg = "[[${ loginFailMsg }]]";
+        console.log(loginFailMsg);
+        if (loginFailMsg){
+            alert(loginFailMsg);
+        }
+    </script>
 </form>
-
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script>
     function login_user() {
         $("#loginForm").submit();
     }
 </script>
+</div>
 </body>
 </html>

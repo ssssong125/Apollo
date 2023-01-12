@@ -16,9 +16,12 @@ public interface ProductMapper {
 
     int productDelete(Integer code);
 
-    int editProduct(ProdAndImageDTO newProd);
+    int editProduct(/*@RequestParam("newProd")*/ ProdAndImageDTO newProd /*@RequestParam("code")*/);
 
     int addProductImage(ProductImageDTO prodImg);
 
-    int editProductImage(ProductImageDTO prodImg);
+    int editProductImage( ProductImageDTO prodImg);
+
+    int deleteImg(int code);
+    List<ProdAndImageDTO> productListByCode();
 }

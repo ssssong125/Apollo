@@ -16,6 +16,7 @@
         <result property="userActive" column="USER_ACTIVE"/>
         <result property="userEntdate" column="USER_ENTDATE"/>
         <result property="point" column="USER_POINT"/>
+        <collection property="userDTOList" resultMap="userResultMap"/>
     </resultMap>
 
 
@@ -78,7 +79,7 @@
     </update>
 
     <delete id="deleteUser">
-        DELETE * FROM TBL_USER A
+        DELETE FROM TBL_USER A
         WHERE A.USER_ID = #{userId}
     </delete>
 

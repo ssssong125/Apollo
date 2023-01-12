@@ -49,7 +49,9 @@
 
 
 <!--</script>-->
-<form action="/product/regist" method="post" align="center" enctype="multipart/form-data">
+<form th:object="${regist}" method="post" align="center" enctype="multipart/form-data">
+<!--    th:object="${regist}"-->
+<!--    action="/product/regist"-->
     <br>
     <br>
     <br>
@@ -59,7 +61,7 @@
     <label> 수량 : </label><input type="number" name="productQty"/><br>
 
 
-    <label>카테고리 코드 :</label><input type="text" name="categoryCode"><br
+    <label>카테고리 코드 :</label><input type="text" name="categoryCode">
 <div class="thumbnail-insert-area">
     <table align="center">
 <!--        <tr>-->

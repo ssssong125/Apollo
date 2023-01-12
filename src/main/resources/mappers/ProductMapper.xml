@@ -88,7 +88,7 @@
 <!--            FROM DUAL-->
 <!--        </selectKey>-->
     </insert>
-    <insert id="addProductImage">
+    <insert id="addProductImage" parameterType="com.b4.apollo.product.model.dto.ProductImageDTO">
         INSERT
         INTO TBL_PRODUCT_IMAGE A
             (
@@ -112,34 +112,77 @@
 
 
     <!-- 예약 수정 -->
-    <update id="editProduct">
+    <update id="editProduct" parameterType="com.b4.apollo.product.model.dto.ProdAndImageDTO">
         UPDATE TBL_PRODUCT A
             SET
             A.PRODUCT_NAME = #{ productName }
-          , A.PRODUCT_PRICE = #{ productPrice }
-          , A.PRODUCT_DESC = #{ productDesc }
-          , A.PRODUCT_QTY = #{ productQty }
-          , A.CATEGORY_CODE = #{ categoryCode }
-        WHERE A.PRODUCT_NO = #{ productNo }
+          , A.PRODUCT_PRICE = #{  productPrice }
+          , A.PRODUCT_DESC = #{  productDesc }
+          , A.PRODUCT_QTY = #{  productQty }
+          , A.CATEGORY_CODE = #{  categoryCode }
+        WHERE A.PRODUCT_NO = #{  productNo }
 
     </update>
-    <update id="editProductImage">
+    <update id="editProductImage" parameterType="com.b4.apollo.product.model.dto.ProductImageDTO">
         UPDATE TBL_PRODUCT_IMAGE A
         SET
 
             A.ORIGIN_NAME = #{ originName }
           , A.STORED_NAME = #{ storedName }
           , A.THUMBNAIL = #{ isThumbnail }
-          , A.PRODUCT_NO = #{ prooductNo }
           , A.IMG_PATH = #{ imgPath }
 
-        WHERE A.FILE_NO = #{ fileNo }
+        WHERE A.PRODUCT_NO = #{ productNo }
+        AND A.FILE_NO = #{ fileNo }
 
     </update>
     <!-- 예약 삭제 -->
+    <delete id="deleteImg">
+        DELETE
+        FROM TBL_PRODUCT_IMAGE
+        WHERE PRODUCT_NO = #{ productNo }
+    </delete>
     <delete id="productDelete" parameterType="_int">
         DELETE
         FROM TBL_PRODUCT
-        WHERE PRODUCT_NO = '3'
+        WHERE PRODUCT_NO = #{ productNo }
     </delete>
+
+
+    <select id="productListByCode" resultMap="productResultMap"><!-- ?????? ????-->
+        SELECT
+            A.*
+             ,B.*
+        FROM TBL_PRODUCT A
+                 JOIN TBL_PRODUCT_IMAGE B
+                      ON A.PRODUCT_NO = B.PRODUCT_NO
+        WHERE A.PRODUCT_QTY > 0
+        AND A.CATEGORY_CODE IN ( 'C1', 'C2', 'C3', 'C4', 'C5', 'C6')
+        ORDER BY A.PRODUCT_NO
+    </select>
+    <select id="selectWinds" resultMap="productResultMap">
+        SELECT
+            A.*
+            , B.*
+        FROM TBL_PRODUCT A
+                 JOIN TBL_PRODUCT_IMAGE B
+                      ON A.PRODUCT_NO = B.PRODUCT_NO
+        WHERE A.PRODUCT_QTY > 0
+          AND A.CATEGORY_CODE IN ( 'C7', 'C8', 'C9')
+        ORDER BY A.PRODUCT_NO
+    </select>
+    <select id="selectClavier" resultMap="productResultMap">
+        SELECT
+            A.*
+             , B.*
+        FROM TBL_PRODUCT A
+                 JOIN TBL_PRODUCT_IMAGE B
+                      ON A.PRODUCT_NO = B.PRODUCT_NO
+        WHERE A.PRODUCT_QTY > 0
+          AND A.CATEGORY_CODE ='C10'
+        ORDER BY A.PRODUCT_NO
+    </select>
+    
+
+
 </mapper>

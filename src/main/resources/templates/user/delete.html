@@ -4,14 +4,110 @@
     <meta charset="UTF-8">
     <title>회원탈퇴페이지</title>
 </head>
+<style>
+    @font-face {
+        font-family: 'BodoniXT'; /*font 이름*/
+        src: url(/static/font/BodoniXT.ttf);
+    }
+    body {
+        width: 100%;
+        margin: 0 auto;
+        background-color: #dcdcdc;
+        position: absolute;
+        top: 150px;
+
+    }
+
+    label{
+        font-weight: normal;
+        font-size: 30px;
+        margin-right: 25px;
+        font-family: BodoniXT;
+    }
+    span{
+        font-size: 25px;
+        font-weight: lighter;
+    }
+    button{
+        width: 150px;
+        height: 44px;
+        background-color: #DF9438;
+        border: none;
+        font-size: 15px;
+        font-family: BodoniXT;
+        font-weight: bold;
+    }
+    button:hover {
+
+        color: white;
+        font-weight: bold;
+        letter-spacing: 2px;
+        transform: scale(1.2);
+        cursor: pointer;
+        background: linear-gradient(
+                45deg,
+                #ff0000,
+                #ff7300,
+                #fffb00,
+                #48ff00,
+                #00ffd5,
+                #002bff,
+                #7a00ff,
+                #ff00c8,
+                #ff0000
+        )
+    }
+    #userdelete{
+        margin-left: 300px;
+        margin-right: 300px;
+    }
+    h1{
+        font-family: BodoniXT;
+        font-size: 2.5rem;
+        font-weight: 500;
+        margin-bottom: 1.0rem;
+        width: 900px;
+    }
+    #confirmbtn{
+        color: #aaa;
+    }
+    #confirmbtn:hover{
+        color: black;
+
+    }
+</style>
 <body>
-    <section id="container">
-        <form action="delete" method="post">
-            <div class="form-group has-feedback">
-                <label class="control-label" for="userId">아이디</label>
-                <input class="form-control" type="text" id="userId" name="userId" value="${}">
+    <div id="userdelete">
+        <h1>회원정보확인</h1>
+        <form th:action="${delete}" th:object="${userDetail}" method="post">
+        <div style="border: 3px solid black; border-right: none; border-left: none; width: 900px">
+            <table style="margin-top: 20px; margin-bottom: 10px; line-height: 55px;">
+                <tr>
+                    <td><label for="userName">이름</label></td>
+                    <td><span id="userName" th:text="${userDetail.userName}"></span></td>
+                </tr>
+                <tr>
+                    <td><label for="userTel">Phone</label></td>
+                    <td><span id="userTel" th:text="${userDetail.userTel}"></span></td>
+                </tr>
+                <tr>
+                    <td><label for="userEmail">Email</label></td>
+                    <td><span id="userEmail" th:text="${userDetail.userEmail}"></span></td>
+                </tr>
+                <tr>
+                    <td><label for="userAddr">주소</label></td>
+                    <td><span id="userAddr" th:text="${userDetail.userAddr}"></span></td>
+                </tr>
+            </table>
+            <div style="margin: auto; position: relative;">
             </div>
+
+        </div>
+        <div style="width: 900px; margin-top: 15px;">
+            <div id="confirmbtn"><label style="font-size: 16px;"><input type="checkbox" name="confirm" value="delete" style="margin-bottom: 15px;">모든 정보가 삭제됩니다. &nbsp;<span style="font-size: 16px; font-weight: bold; border-bottom: solid 1px red;">탈퇴 하시겠습니까?</span></label></div>
+        <div><button type="submit" class="submitBtn" id="btn1" style="margin-bottom: 30px;">탈퇴하기</button></div>
+        </div>
         </form>
-    </section>
+    </div>
 </body>
 </html>
