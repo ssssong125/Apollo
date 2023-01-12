@@ -18,17 +18,11 @@
         margin: 0 auto;
         background-color: #dcdcdc;
         font-family: BodoniXT;
-        position: absolute;
-        top: 150px;
-
-    }
-    h2{
-        font-weight: bold;
     }
     label{
         font-weight: normal;
         font-size: 30px;
-
+        margin-right: 20px;
     }
 
     button{
@@ -41,7 +35,6 @@
         font-weight: bold;
     }
     button:hover {
-
         color: white;
         font-weight: bold;
         letter-spacing: 2px;
@@ -60,15 +53,22 @@
                 #ff0000
         )
     }
-</style><body>
-<div id="usermodify" style="margin-left: 300px;">
-    <h1>회원정보수정</h1>
-    <br>
-    <div style="border: 1px solid black; border-right: none; border-left: none; width: 1027px">
+    #usermodify{
+        position: relative;
+        top: 100px;
+        margin-right:300px;
+        margin-left: 300px;
+    }
+</style>
+<body>
+<div th:fragment="sidebarFragment">
+<div id="usermodify">
+    <h1 style="bottom: 10px; width: 300px;">회원정보수정</h1>
+    <div>
         <form th:action="${update}" th:object="${userDetail}" method="post" >
+        <div style="border: 3px solid black; border-right: none; border-left: none; width: 900px;">
             <input type="hidden" th:field="*{userId}" name="userId">
-            <!--                th:object="*{userDTO}"-->
-            <table style="margin-top: 30px;">
+            <table style="margin-top: 30px; margin-bottom: 30px;">
                 <tr>
                     <td><label for="userName">이름</label></td>
                     <td><input type="text" id="userName" name="userName" th:field="*{userName}" size="35" placeholder="NAME" maxlength="10" onfocus="this.placeholder = ''" required>
@@ -78,25 +78,25 @@
                     <td><label for="userPwd1">비밀번호</label></td>
                     <td><input type="password" name="userPwd" th:field="*{userPwd}" id="userPwd1" size="35"
                                placeholder="PWD: 영문,숫자,특수문자 포함 8자 이상" minlength="8" onfocus="this.placeholder = ''" required>
+                        <br><span id="spw" style="font-size: medium; font-weight: bold"></span>
                     </td>
-                    <!--                    th:field="*{userPwd}"-->
-                    <td><span id="spw" style="font-size: medium; font-weight: bold"></span></td>
                 </tr>
                 <tr>
                     <td><label for="userPwd2">비밀번호확인</label></td>
                     <td><input type="password" id="userPwd2" size="35" minlength="8" placeholder="CONFIRM PWD"
-                               onfocus="this.placeholder = ''" required></td>
-                    <td><span id="spw2" style="font-size: medium; font-weight: bold"></span></td>
+                               onfocus="this.placeholder = ''" required>
+                        <br><span id="spw2" style="font-size: medium; font-weight: bold"></span>
+                    </td>
+
                 </tr>
                 <tr>
-                    <td><label for="phone">연락처</label></td>
+                    <td><label for="phone">Phone</label></td>
                     <td><input type="tel" id="phone" name="userTel" th:field="*{userTel}" placeholder="PHONE" maxlength="15" size="35" onfocus="this.placeholder = ''" required></td>
                 </tr>
-                <!--                    th:field="*{userTel}"-->
                 <tr>
-                    <td><label for="user_email">이메일</label></td>
+                    <td><label for="user_email">Email</label></td>
                     <td><input type="text" id="user_email"  placeholder="EMAIL" style="position: relative; width: 210px;" onfocus="this.placeholder = ''" maxlength="18" required>
-                        <input type="text" id="email_address" list="user_email_address" placeholder="직접입력" style="position: relative; width: 211px; text-align: center" maxlength="18" onfocus="this.placeholder = ''"/></td>
+                        <input type="text" id="email_address" list="user_email_address" placeholder="직접입력" style="position: relative; width: 211px; text-align: center" maxlength="18" onfocus="this.placeholder = ''" required/></td>
                     <datalist id="user_email_address" >
                         <option value="" selected>직접입력</option>
                         <option value="@naver.com">@naver.com</option>
@@ -108,24 +108,24 @@
                         <option value="@yahoo.com">@yahoo.com</option>
                     </datalist>
                     <input type="hidden" id="totalemail" th:field="*{userEmail}" name="userEmail" >
-                    <!--                    th:field="*{userEmail}"-->
                 </tr>
                 <tr>
                     <td><label for="address_kakao">주소</label></td>
                     <td><input type="text" id="address_kakao" placeholder="주소" style="width: 210px;" required/>
                         <input type="text" id="address_detail" placeholder="상세주소" style="width: 350px;" required/></td>
                     <td><input type="hidden" id="totalAddr" name="userAddr" th:field="*{userAddr}" value=""></td>
-                    <!--                    th:field="*{userAddr}"-->
                 </tr>
             </table>
-            <div class="row" style="margin: auto; position: relative; padding: 30px;">
-                <div class="col-3"></div>
-                <div><button type="submit" class="submitBtn" id="btn1">수정하기</button></div>
-                <div class="col-1"></div>
+        </div>
+            <div class="row" style="padding: 30px; width: 900px;">
+                <div class="col-2"></div>
+                <div style="padding-right: 40px;"><button type="submit" class="submitBtn" id="btn1">수정하기</button></div>
                 <div><button type="reset" class="resetBtn" id="btn2">다시작성</button></div>
             </div>
-
         </form>
+    </div>
+</div>
+</div>
         <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
         <script>
             window.onload = function(){
@@ -168,8 +168,34 @@
                 }
             };
         </script>
+        <script type="text/javascript">
+            $("input[name=userPwd]").on("keyup", function(){
 
-        </div>
-    </div>
+                var pw = $(this).val();
+                var pwcheck = /(?=.*\d)(?=.*[a-z]).{8,11}$/;
+
+                if(!pwcheck.test(pw)){
+                    $("#spw").html("비밀번호는 8자 이상, 숫자와 문자를 조합하여 입력해주세요.").css("color","red");
+                }else{
+                    $("#spw").html("").css("color", "orange");
+                }
+            });
+
+        </script>
+        <script type="text/javascript">
+            $("input[id=userPwd2]").on("keyup",function (){
+                var p1 = document.getElementById("userPwd1").value
+                var p2 = document.getElementById("userPwd2").value
+
+                if(p1 == p2){
+                    $("#spw2").html("비밀번호가 일치합니다.").css("color","orange");
+                    return true;
+                } else{
+                    $("#spw2").html("입력하신 두 비밀번호가 일치하지 않습니다.").css("color", "red");
+                    return false;
+                }
+            });
+        </script>
+
 </body>
 </html>

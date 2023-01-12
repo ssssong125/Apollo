@@ -8,13 +8,6 @@
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    const updSuccessMessage = "[[${ updSuccessMessage }]]";
-    console.log(updSuccessMessage);
-    if (updSuccessMessage){
-        alert(updSuccessMessage);
-    }
-</script>
 <style>
     @font-face {
         font-family: 'BodoniXT'; /*font 이름*/
@@ -49,8 +42,9 @@
         position: relative;
     }
 
-
-
+    #totalPage{
+        top: 25px;
+    }
     .delete {
         position: relative;
     }
@@ -82,12 +76,20 @@
     #question{
         margin-left: 50px;
     }
-
+    #qnacol{
+        top: 15px;
+    }
     a {
         font-size: large;
-
         font-weight: bold;
         color: black;
+    }
+    #btn:hover{
+        color: white;
+    }
+    span{
+        font-weight: bold;
+        font-size: large
     }
 </style>
 <body>
@@ -100,11 +102,11 @@
     <div class="row">
         <div class="col-sm-3"></div>
         <div class="col-sm-2">
-            <div><img id="userimg" class="userimg" src="/img/personality/user.png"></div>
+            <div><img id="userimg" class="userimg" src="/img/personality/user.png" alt="유저이미지"></div>
         </div>
         <div class="col-sm-1"></div>
-        <div class="col-sm-5" style="top: 25px;">
-            <h5><span style="font-weight: bold; font-size: large" th:text="${userDetail.userName}"></span>님 환영합니다.</h5>
+        <div class="col-sm-5" id="totalPage">
+            <h5><span th:text="${userDetail.userName}"></span>님 환영합니다.</h5>
             <button class="btn btn-outline-warning" id="btn">LOGOUT</button>
         </div>
     </div>
@@ -112,13 +114,13 @@
         <div class="row" id="row-1">
           <div class="col-sm-3"></div>
             <div class="col-sm-1">
-              <img id="setting" class="setting" src="/img/personality/settings.png">
+              <img id="setting" class="setting" src="/img/personality/settings.png" alt="회원정보수정 이미지">
             </div>
             <div class="col-sm-3">
                 <div id="edit"><a href="/user/update" value="회원정보 수정">회원정보수정</a></div>
             </div>
             <div class="col-sm-1">
-              <div><img id="delete" class="delete" src="/img/personality/delete.png"></div>
+              <div><img id="delete" class="delete" src="/img/personality/delete.png" alt="회원탈퇴 이미지"></div>
             </div>
             <div class="col-sm-3">
                 <div id="remove"><a href="/user/delete" value="회원탈퇴">회원탈퇴</a></div>
@@ -127,16 +129,20 @@
         <div class="row" id="row-2">
           <div class="col-sm-3"></div>
             <div class="col-sm-1">
-              <div><img id="qa" class="qa" src="/img/personality/qa.png"></div>
+              <div><img id="qa" class="qa" src="/img/personality/qa.png" alt="질문하기이미지"></div>
             </div>
-            <div class="col-sm-3">
-
+            <div class="col-sm-3" id="qnacol">
               <div id="question"><a id="qnahref" href="/question/list" value="질문하기">Q&A</a></div>
-
-
             </div>
         </div>
     </div>
 </section>
+<script>
+    const updSuccessMessage = "[[${ updSuccessMessage }]]";
+    console.log(updSuccessMessage);
+    if (updSuccessMessage){
+        alert(updSuccessMessage);
+    }
+</script>
 </body>
 </html>

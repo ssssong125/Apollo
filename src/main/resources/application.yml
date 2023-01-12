@@ -16,6 +16,7 @@ logging:
  level:
   root: DEBUG
 
+
  servlet:
   multipart:
    maxFileSize: 10MB
