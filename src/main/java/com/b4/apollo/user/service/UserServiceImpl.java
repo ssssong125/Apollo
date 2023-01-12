@@ -3,36 +3,17 @@ package com.b4.apollo.user.service;
 
 import com.b4.apollo.user.model.dao.UserMapper;
 import com.b4.apollo.user.model.dto.UserDTO;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
 
 @Service
+@AllArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private UserMapper userMapper;
 
-    @Autowired
-    public UserServiceImpl(UserMapper userMapper){this.userMapper = userMapper;}
-
-
-//    @Override
-//    public List<UserDTO> findAllUser() {
-//        return userMapper.findAllUser();
-//    }
-
-
-//    @Override
-//    public MemberDTO loginMember(MemberDTO m) throws Exception {
-//        MemberDTO loginUser = memberDAO.loginMember(sqlSession, m);
-//        System.out.println("loginUser : " + loginUser);
-//
-//        if (loginUser == null) {
-//            throw new Exception("loginUser확인");
-//        }
-//        return loginUser;
-//    }
 
     @Override
     public boolean insertUser(UserDTO newUser) throws Exception{
@@ -43,30 +24,6 @@ public class UserServiceImpl implements UserService {
         return result>0 ? true:  false;
     }
 
-
-//    @Override
-//    public boolean updateUser(UserDTO updateUTO) throws Exception{
-//        int result = userMapper.updateUser(updateUTO);
-//        if(result<=0){
-//             throw new Exception("회원등록 실패");
-//        }
-//        return result>0 ? true:  false;
-//    }
-
-//    @Override
-//    public int idCheck(String userId) {
-//        int cnt = userMapper.idCheck(userId);
-//        System.out.println("cnt: " + cnt);
-//        return cnt;
-//    }
-
-//        @Override
-//        public void deleteUser(String userId) throws Exception{
-//            int result = userMapper.deleteUser(userId);
-//            if (result < 0) {
-//                throw new Exception("회원탈퇴실패");
-//            }
-//        }
 
     @Override
     public boolean loginUser(UserDTO userDTO, HttpSession session) {
@@ -89,27 +46,12 @@ public class UserServiceImpl implements UserService {
         userMapper.updateUser(userDTO);
     }
 
-    //    @Override
-//    public UserDTO loginUser(UserDTO userDTO) {
-//        userDTO = userMapper.loginUser(userDTO);
-//
-//        return userDTO;
-//    }
+    @Override
+    public void deleteUser(UserDTO userDTO) {
+        userMapper.deleteUser(userDTO);
+    }
 
-//    @Override
-//    public UserDTO showUserInfo(String userId) {
-//        return userMapper.showUserInfo(userId);
-//    }
-//
-//    @Override
-//    public UserDTO findById(Long id) {
-//        return null;
-//    }
 
-    //    @Override
-//    public Map<String, List<String>> getPermitListMap() {
-//        return null;
-//    }
 //    @Override
 //    public void deleteUser(String userId) throws Exception{
 //            int result = userMapper.deleteUser(userId);

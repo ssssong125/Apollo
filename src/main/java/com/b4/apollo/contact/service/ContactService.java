@@ -2,13 +2,13 @@ package com.b4.apollo.contact.service;
 
 import com.b4.apollo.contact.model.dao.ContactMapper;
 import com.b4.apollo.contact.model.dto.ContactDTO;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class ContactService {
     private ContactMapper contactMapper;
 

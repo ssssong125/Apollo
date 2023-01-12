@@ -78,7 +78,7 @@
     </update>
 
     <delete id="deleteUser">
-        DELETE * FROM TBL_USER A
+        DELETE FROM TBL_USER A
         WHERE A.USER_ID = #{userId}
     </delete>
 
