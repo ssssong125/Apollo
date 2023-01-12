@@ -22,6 +22,6 @@ public interface ProductMapper {
 
     int editProductImage( ProductImageDTO prodImg);
 
-
+    int deleteImg(int code);
     List<ProdAndImageDTO> productListByCode();
 }

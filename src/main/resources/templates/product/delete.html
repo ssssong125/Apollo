@@ -3,10 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        label{
+            color: white;
+        }
+    </style>
 </head>
 <body style="background-color: black">
+<form th:object="${delete}" method="post" align="center">
+    <label> 상품 번호 : </label><input type="text" name="productNo"><br>
+    <input type="submit" value="전송">
+</form>
 
-<label> 상품 번호 : </label><input type="number" name="no"><br>
-<input type="submit" value="전송">
 </body>
 </html>

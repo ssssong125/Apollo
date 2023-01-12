@@ -1,16 +1,12 @@
 package com.b4.apollo.product.model.dto;
 
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 import java.util.List;
 
 @NoArgsConstructor
-@ToString
-@Getter
-@Setter
+@Data
 
 public class ProdAndImageDTO {
     private Integer productNo;
