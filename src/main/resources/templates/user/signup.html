@@ -129,6 +129,39 @@
 
     }
 
+    #userId{
+        font-weight: bold; font-size: 12pt;
+    }
+    .id_ok{
+        font-size: medium;
+        font-weight: bold
+    }
+    .id_already{
+        font-size: medium;
+        font-weight: bold
+    }
+    #spw{
+        font-size: medium;
+        font-weight: bold;
+    }
+    #spw2{
+        font-size: medium;
+        font-weight: bold;
+    }
+    #user_email{
+        position: relative;
+        width: 210px;
+    }
+    #middle{
+        color: white;
+        float: left;
+        font-size: x-large;
+    }
+    #email_address{
+        position: relative;
+        width: 208px;
+        text-align: center;
+    }
     input::placeholder {
         font-weight: bold;
         color: white;
@@ -151,6 +184,14 @@
         font-weight: bold;
     }
 
+    #btn1:hover{
+        color: white;
+        background: black;
+    }
+    #btn2:hover{
+        color: white;
+        background: black;
+    }
 </style>
 <body>
 <div class="snowflake"></div>
@@ -169,23 +210,23 @@
             <div class="sub_right">
                     <input type="text" name="userName" size="35" placeholder="NAME" maxlength="10" onfocus="this.placeholder = ''" required>
                     <br><br><br>
-                    <input type="text" id="userId" name ="userId" size="35" oninput="checkId()" placeholder="아이디 영문, 숫자 포함 10글자 이내" maxlength="10" style="font-weight: bold; font-size: 12pt;" onfocus="this.placeholder = ''" required>
+                    <input type="text" id="userId" name ="userId" size="35" oninput="checkId()" placeholder="아이디 영문, 숫자 포함 10글자 이내" maxlength="10" onfocus="this.placeholder = ''" required>
                     <br><br>
-                    <span class="id_ok" style="font-size: medium; font-weight: bold"></span>
-                    <span class="id_already" style="font-size: medium; font-weight: bold"></span>>
+                    <span class="id_ok"></span>
+                    <span class="id_already"></span>>
                     <br>
                     <input type="password" name="userPwd" id="userPwd1" size="35"
                            placeholder="PASSWORD: 영문,숫자,특수문자 포함 8자 이상" minlength="8" onfocus="this.placeholder = ''" required>
-                    <br><br>   <span id="spw" style="font-size: medium; font-weight: bold"></span><br>
+                    <br><br>   <span id="spw"></span><br>
                     <input type="password" id="userPwd2" size="35" minlength="8" placeholder="CONFIRM PASSWORD"
                            onfocus="this.placeholder = ''" required><br><br>
-                    <span id="spw2" style="font-size: medium; font-weight: bold"></span>
+                    <span id="spw2"></span>
                 <br>
-                <input type="tel" name="userTel"placeholder="PHONE" maxlength="15" size="35" onfocus="this.placeholder = ''" required><br><br>
+                <input type="tel" name="userTel"placeholder="PHONE: '-' 생략하지 말고 입력해주세요" maxlength="15" size="35" onfocus="this.placeholder = ''" required><br><br>
                 <br>
-                <input type="text" id="user_email"  placeholder="EMAIL" style="position: relative; width: 210px;" onfocus="this.placeholder = ''" maxlength="18" required>
-                <p id="middle" style="color: white; float: left; font-size: x-large;">@</p>
-                <input type="text" id="email_address" list="user_email_address" placeholder="직접입력" style="position: relative; width: 211px; text-align: center" maxlength="18" onfocus="this.placeholder = ''"/>
+                <input type="text" id="user_email"  placeholder="EMAIL" onfocus="this.placeholder = ''" maxlength="18" required>
+                <p id="middle">@</p>
+                <input type="text" id="email_address" list="user_email_address" placeholder="직접입력" maxlength="18" onfocus="this.placeholder = ''" required/>
                             <datalist id="user_email_address" >
                                 <option value="" selected>직접입력</option>
                                 <option value="naver.com">@naver.com</option>
@@ -218,12 +259,12 @@
                 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
                 <script>
                     window.onload = function(){
-                        document.getElementById("address_kakao").addEventListener("click", function address () { //주소입력칸을 클릭하면
+                        document.getElementById("address_kakao").addEventListener("click", function address () {
                             //카카오 지도 발생
                             new daum.Postcode({
-                                oncomplete: function(data) { //선택시 입력값 세팅
-                                    document.getElementById("address_kakao").value = data.address; // 주소 넣기
-                                    document.querySelector("input[id=address_detail]").focus(); //상세입력 포커싱
+                                oncomplete: function(data) {
+                                    document.getElementById("address_kakao").value = data.address;
+                                    document.querySelector("input[id=address_detail]").focus();
 
 
 

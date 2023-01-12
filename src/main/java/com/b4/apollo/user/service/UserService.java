@@ -10,23 +10,13 @@ public interface UserService {
 
 //    int idCheck(String userId);
 
-//    void deleteUser(String userId) throws Exception;
-
     boolean loginUser(UserDTO userDTO, HttpSession session);
 
     UserDTO userDetail(UserDTO userDTO);
 
     void updateUser(UserDTO userDTO);
 
-
-
-//    UserDTO loginUser(UserDTO userDTO);
-
-//    UserDTO showUserInfo(String userId);
-
-//    UserDTO findById(Long id);
-
-//    Map<String, List<String>> getPermitListMap();
-//    List<UserDTO> findAllUser();
+    void deleteUser(UserDTO userDTO);
+    //    void deleteUser(String userId) throws Exception;
 
 }
