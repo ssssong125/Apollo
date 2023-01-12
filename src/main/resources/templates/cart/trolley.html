@@ -36,6 +36,7 @@
         /*해당 상품 장바구니에서 삭제*/
         function deleteProductInCart(cartNo) {
 
+            // alert("작동")
             const count = 0;
 
             /*ajax 설정*/
@@ -50,10 +51,11 @@
                     {
                         cartNo : cartNo,
                         count : count
-                    },
-                beforeSend : function(xhr) {
-                    xhr.setRequestHeader(header, token)
-                },
+                    }
+                // , beforeSend : function(xhr) {
+                //     xhr.setRequestHeader(header, token)
+                // },
+
                 // dataType : 'json',       // 데이터 타입 (html, xml, json, text 등등)
                 // contentType: 'application/json'
                 // headers : {              // Http header
@@ -62,15 +64,16 @@
                 // },
             })
                 .done(function (result) { // 수행할 동작
+                    // alert("성공")
                     return location.href = "trolley"
                 })
                 .fail(function(jqXHR) { // 실패시
                     // alert("실패")
                     return location.href = "trolley"
                 })
-            // .always(function() { // 항상 동작
-            //     alert("작동");
-            // })
+            .always(function() { // 항상 동작
+                // alert("항상");
+            })
         }
 
         /*상품 구매수량 조절*/
@@ -226,7 +229,7 @@
     <!--                        <button type="button" class="trashCan" th:onclick="|deleteProductInCart(${ cart.cartNo })|">-->
     <!--                            <img src="/img/cart/trash.png" alt="trash.png">-->
     <!--                        </button>-->
-                            <input type="image" th:onclick="|deleteProductInCart(${ cart?.cartNo })|" src="/img/cart/trash.png" alt="trash.png"/>
+                            <input type="image" th:onclick="|deleteProductInCart(${ cart.cartNo })|" src="/img/cart/trash.png" alt="trash.png"/>
                         </div>
                     </div>
                 </div>
