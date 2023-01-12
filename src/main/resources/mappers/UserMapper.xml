@@ -16,6 +16,7 @@
         <result property="userActive" column="USER_ACTIVE"/>
         <result property="userEntdate" column="USER_ENTDATE"/>
         <result property="point" column="USER_POINT"/>
+        <collection property="userDTOList" resultMap="userResultMap"/>
     </resultMap>
 
 

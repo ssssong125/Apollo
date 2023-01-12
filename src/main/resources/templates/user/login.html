@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:layout="http://www.w3.org/1999/xhtml">
 <head>
     <title>로그인 페이지</title>
     <meta charset="UTF-8">
@@ -160,14 +160,20 @@
     }
 </style>
 <body>
+<div layout:fragment="content">
 <div class="snowflake"></div>
 <div class="left">
     <img id='loginimg' class='loginimg' src="/img/personality/loginimg.png" alt="로그인페이지 이미지">
     </img>
 </div>
 
-<form action=/user/login method="post" id="loginForm">
+<form th:action="@{/user/login}" method="post" id="loginForm">
 <div class="right">
+    <div th:if="${param.error}">
+        <div class="alert alert-danger">
+            사용자ID 또는 비밀번호를 확인해주세요.
+        </div>
+    </div>
     <div id='loginsystem' class='loginsystem'>
         LOGIN SYSTEM</div>
 
@@ -244,5 +250,6 @@
         $("#loginForm").submit();
     }
 </script>
+</div>
 </body>
 </html>
