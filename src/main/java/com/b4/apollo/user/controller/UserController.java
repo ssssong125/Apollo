@@ -54,13 +54,15 @@ public class UserController {
         boolean result = userService.loginUser(userDTO, session);
         String msg="";
 
-        if(result == true){
+        if(result){
+            mv.addObject("userId", 1);
             session.setAttribute("userId", userDTO.getUserId());
-            mv.setViewName("redirect:/user/mypage");
+//            mv.setViewName("redirect:/user/mypage");
 //            msg = "<script>location.href='/user/mypage'</script>";
         }else {
+            mv.addObject("userId", 0);
             rttr.addFlashAttribute("loginFailMsg", messageSource.getMessage("loginFail", null, locale));
-            mv.setViewName("redirect:/user/login");
+//            mv.setViewName("redirect:/user/login");
 //            msg = "<script>alert('login_fail. 다시 로그인해주세요');location.href='../login'<script>";
         }
         return mv;
