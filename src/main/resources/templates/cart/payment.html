@@ -6,8 +6,8 @@
     <meta name="_csrf_header" th:content="${_csrf?.headerName}">
     <title>Payment</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <!--    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>-->
     <!-- jQuery -->
+    <!--    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>-->
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
     <!--    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-{SDK-최신버전}.js"></script>-->
     <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
@@ -51,6 +51,7 @@
         <div class="col-lg">
             <div class="paymentImgBox">
                 <img class="paymentImg" src="/img/cart/visa.png" alt="visa.png">
+                <input type="image" class="paymentImg" onclick="inicis()" src="/img/cart/visa.png" alt="visa.png"/>
             </div>
         </div>
         <div class="col-lg">
@@ -65,15 +66,7 @@
         </div>
         <div class="col-lg">
             <div class="paymentImgBox">
-                <!--                    <img class="paymentImg" src="/img/cart/kakaoPay.jpg" alt="kakaoPay.jpg">-->
-                <!--                        <button id="btn-kakaoPay" class="btn btn-primary">카카오페이</button>-->
-                <!--                    <form method="get" action="/kakaoPay">-->
-                <!--                        <button>kakaoPay</button>-->
-                <!--                    </form>-->
-                <!--                    <button id="kakaoPay" onclick="requestPay({{ auth()->check() }})">결제하기</button>-->
-
-                <!--                    <button id="check_module" type="button">테스트 결제</button>-->
-                <button onclick="kakaoPay()" type="button">테스트 결제</button>
+                <input type="image" class="paymentImg" onclick="kakaoPay()" src="/img/cart/kakaoPay.jpg" alt="kakaoPay.jpg"/>
             </div>
         </div>
     </div>

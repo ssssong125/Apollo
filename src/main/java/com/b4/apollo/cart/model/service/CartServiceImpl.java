@@ -44,7 +44,7 @@ public class CartServiceImpl implements CartService{
      * @Method 설명 : 장바구니에 상품을 추가하는 기능 구현체
      */
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackFor = Exception.class) // 오류 발생시 롤백 // 메소드에
     public int addProductToCart(HashMap<String, Object> parameter) {
 
         int result = cartMapper.addProductToCart(parameter);
@@ -136,6 +136,4 @@ public class CartServiceImpl implements CartService{
 
         return cartMapper.getOrderDetail(parameter);
     }
-
 }
-//@Transactional(rollbackFor = Exception.class) // 오류 발생시 롤백 // 메소드에
