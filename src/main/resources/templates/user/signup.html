@@ -204,7 +204,7 @@
     CREATE ACCOUNT
     </span>
     </div>
-        <form action="/user/signup" method="post" id="enrollForm">
+        <form th:action="@{/user/signup}" method="post" id="enrollForm">
             <div class="sub_right">
                     <input type="text" name="userName" size="35" placeholder="NAME" maxlength="10" onfocus="this.placeholder = ''" required>
                     <br><br><br>

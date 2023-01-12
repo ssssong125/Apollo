@@ -65,7 +65,7 @@
 <div id="usermodify">
     <h1 style="bottom: 10px; width: 300px;">회원정보수정</h1>
     <div>
-        <form th:action="${update}" th:object="${userDetail}" method="post" >
+        <form th:action="@{/user/update}" th:object="${userDetail}" method="post" >
         <div style="border: 3px solid black; border-right: none; border-left: none; width: 900px;">
             <input type="hidden" th:field="*{userId}" name="userId">
             <table style="margin-top: 30px; margin-bottom: 30px;">
