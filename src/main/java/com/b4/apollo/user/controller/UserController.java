@@ -19,7 +19,7 @@ import java.util.Locale;
 
 @Controller
 @AllArgsConstructor
-@RequestMapping("user")
+@RequestMapping(value={"user", "fragments"})
 public class UserController {
 
     private final UserService userService;
