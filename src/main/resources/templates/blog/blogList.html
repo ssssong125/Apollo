@@ -3,107 +3,74 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
 <head>
-
-  <style>
-
-    .container.my-3{
-      padding-top: 5%;
-    }
-
-    .card{
-      color: lightgray;
-      background: black;
-      border-color: black;
-    }
-    .card-body{
-      background-color: black !important;
-      border: 1px solid black !important;
-    }
-    btn,
-    .btn-primary{
-      background-color: black !important;
-      border-color: #f1ff5c !important;
-      color: #f1ff5c !important;
-    }
-   .card-text{
-      width: 80%;
-      text-overflow: clip;
-      text-overflow:ellipsis;
-      overflow: hidden;
-      white-space: nowrap;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instruments and Music</title>
+  <link href="/css/blog/style.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
 <div layout:fragment="content" class = "container my-3">
-<table class="table" style="text-decoration: none; color: white; background-color:black">
-<!--  <thead class="table-dark">-->
-<!--  <tr>-->
-<!--    <th>제목</th>-->
-<!--    <th>작성일시</th>-->
-<!--    <th>조회수</th>-->
-<!--  </tr>-->
-<!--  </thead>-->
-  <tbody>
-  <tr th:if="${#lists.size(list)} > 0" th:each="list, loop: ${list.getList()}">
+  <div class="loader prevLoader">loading...</div>
 
-    <div class="col-lg-12">
-      <!-- Featured blog post-->
-      <div class="card mb-4">
+    <table class="table" style="text-decoration: none; color: white; background-color:black">
+      <tbody>
+      <tr th:if="${#lists.size(list)} > 0" th:each="list, loop: ${list.getList()}">
+        <article id = "container">
+          <div class="col-lg-12">
+            <!-- Featured blog post-->
+            <div class="card mb-4">
 
-        <a href="detail/" th:attrappend="href=${list.blogNo}"><img th:src="@{${blog.getFilePath()}}" class="card-img-top" alt="..."/></a>
-        <div class="card-body">
-          <div class="small text-muted" th:text="${#temporals.format(list.createDate, 'yyyy-MM-dd HH:mm')}"></div>
-          <h2 class="card-title" th:text="${list.blogTitle}"></h2>
-          <p class="card-text" th:utext="${list.blogContent}"></p>
-          <a class="btn btn-primary" href="detail/" th:attrappend="href=${list.blogNo}">Read more →</a>
-        </div>
-      </div>
-    </div>
-    </tr>
+              <a href="detail/" th:attrappend="href=${list.blogNo}"><img th:src="@{${blog.getFilePath()}}" class="card-img-top" alt="..."/></a>
+              <div class="card-body">
+                <div class="small text-muted" th:text="${#temporals.format(list.createDate, 'yyyy-MM-dd HH:mm')}"></div>
+                <h2 class="card-title" th:text="${list.blogTitle}"></h2>
+                <p class="card-text" th:utext="${list.blogContent}"></p>
+                <a class="btn btn-primary" href="detail/" th:attrappend="href=${list.blogNo}">Read more →</a>
+              </div>
+            </div>
+          </div>
+        </article>
+        </tr>
+      </tbody>
+    </table>
 
-
-
-
-<!--    <td type="hidden" th:text="${loop.size - loop.count+1}"></td>-->
-<!--    <td type="hidden" th:text="${list.blogNo}"></td>-->
-<!--    <td>-->
-<!--      <a href="detail/" th:attrappend="href=${list.blogNo}" th:text="${list.blogTitle}"></a>-->
-<!--    </td>-->
-<!--    <td th:text="${#temporals.format(list.createDate, 'yyyy-MM-dd HH:mm')}"></td>-->
-<!--    <td th:text="${list.count}"></td>-->
-<!--  </tr>-->
-  </tbody>
-</table>
-
+  <div class = "paging">
+    <a class="prev" href="blogList.html"></a>
+    <a class="next" href=""></a>
+  </div>
+  <div class = "loader nextLoader">loading...</div>
   <!-- 페이징처리 시작 -->
-  <nav>
-    <ul class="pagination justify-content-center">
-      <!-- getPrePage : 이전 페이지 -->
-      <li class="page-item" th:classappend="${list.getPrePage() == 0} ? 'disabled'">
-        <a class="page-link" th:href="@{/blog/list(pageNum=${list.getPrePage()})}">
-          <span>이전</span>
-        </a>
-      </li>
-      <!-- getNavigateFirstPage() : 페이징의 처음 숫자 getNavigateLastPage : 페이징의 마지막 숫자를 이용해 페이징 숫자 출력 -->
+<!--  <nav>-->
+<!--    <ul class="pagination justify-content-center">-->
+<!--      &lt;!&ndash; getPrePage : 이전 페이지 &ndash;&gt;-->
+<!--      <li class="page-item" th:classappend="${list.getPrePage() == 0} ? 'disabled'">-->
+<!--        <a class="page-link" th:href="@{/blog/list(pageNum=${list.getPrePage()})}">-->
+<!--          <span>이전</span>-->
+<!--        </a>-->
+<!--      </li>-->
+<!--      &lt;!&ndash; getNavigateFirstPage() : 페이징의 처음 숫자 getNavigateLastPage : 페이징의 마지막 숫자를 이용해 페이징 숫자 출력 &ndash;&gt;-->
 
-      <li class="page-item" th:each="page: ${#numbers.sequence(list.getNavigateFirstPage(), list.getNavigateLastPage())}" th:classappend="${page == list.getPageNum()} ? 'active'">
-        <a class="page-link" th:text="${page}" th:href="@{/blog/list(pageNum=${page})}"></a>
-      </li>
-      <!-- getPrePage : 다음 페이지 -->
-      <li class="page-item" th:classappend="${list.getNextPage() == 0} ? 'disabled'">
+<!--      <li class="page-item" th:each="page: ${#numbers.sequence(list.getNavigateFirstPage(), list.getNavigateLastPage())}" th:classappend="${page == list.getPageNum()} ? 'active'">-->
+<!--        <a class="page-link" th:text="${page}" th:href="@{/blog/list(pageNum=${page})}"></a>-->
+<!--      </li>-->
+<!--      &lt;!&ndash; getPrePage : 다음 페이지 &ndash;&gt;-->
+<!--      <li class="page-item" th:classappend="${list.getNextPage() == 0} ? 'disabled'">-->
 
-        <a class="page-link" th:href="@{/blog/list(pageNum=${list.getNextPage()})}">
-          <span>다음</span>
-        </a>
-      </li>
-    </ul>
-  </nav>
+<!--        <a class="page-link" th:href="@{/blog/list(pageNum=${list.getNextPage()})}">-->
+<!--          <span>다음</span>-->
+<!--        </a>-->
+<!--      </li>-->
+<!--    </ul>-->
+<!--  </nav>-->
   <!-- 페이징처리 끝 -->
 
   <a th:href="@{/blog/create}" class="btn btn-primary">글 등록하기</a>
 </div>
+
+<!-- infinite Scroll -->
+<script src="/js/blog/infiniteScroll.js"></script>
+<script src="/js/blog/main.js"></script>
 
 </body>
 </html>

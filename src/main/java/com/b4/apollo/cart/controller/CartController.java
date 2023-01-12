@@ -7,10 +7,7 @@ import com.b4.apollo.user.model.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
@@ -45,13 +42,13 @@ public class CartController {
      * @작성자 : 김수용
      * @Method 설명 : GetMapping 방식으로 trolley 값을 받게되면 trolley 페이지로 넘겨줌, null값 처리를 위해 Integer 자료형 사용
      */
-//    @GetMapping("trolley")
     @GetMapping(value = {"trolley","cart/trolley"})
-    public ModelAndView trolley(ModelAndView mv, String userId, PaymentDTO paymentDTO) {
+    public ModelAndView trolley(ModelAndView mv, PaymentDTO paymentDTO) {
 
         mv.addObject("paymentDTO", paymentDTO);
 
         parameter.put("userId", "user01");
+//        getSession httpsession
 //        parameter.put("userId", userId);
 
         List<CartDTO> cartList = cartService.getCartList(parameter);
@@ -73,12 +70,11 @@ public class CartController {
      */
     @ResponseBody
     @PostMapping("trolley")
-    public Model trolleyResult(Model model, Integer cartNo, Integer count,String userId) {
+    public Model trolleyResult(Model model, Integer cartNo, Integer count) { // null값도 받기 위해 Integer 사용
 
         parameter.put("userId", "user01");
 //        parameter.put("userId", userId);
 
-        // null값도 받기 위해 Integer 사용
         if(cartNo != null && count != null) {
 
             if(count >= 1) {
@@ -89,7 +85,7 @@ public class CartController {
 
                 cartService.updateProductCount(parameter);
 
-            } else cartService.deleteProductInCart(cartNo);
+            } else if(count < 1) cartService.deleteProductInCart(cartNo);
 
         }
 
@@ -98,15 +94,6 @@ public class CartController {
 
         UserDTO user = cartService.getUserDetail(parameter);
         model.addAttribute("user", user);
-
-        // 합산 가격
-//        int totalPrice = 0;
-//
-//        for(CartDTO cart : cartList) {
-//            totalPrice += cart.getProductInfo().getProductPrice() * cart.getProductInfo().getProductQty();
-//        }
-//
-//        model.addAttribute("totalPrice", totalPrice);
 
         return model;
     }
@@ -117,32 +104,43 @@ public class CartController {
      * @작성자 : 김수용
      * @Method 설명 : GetMapping방식으로 order 값을 받게되면 order 페이지로 넘겨줌
      */
-    @GetMapping("order")
-//    @GetMapping(value = {"order","cart/order"})
-    public ModelAndView order(ModelAndView mv, String userId) {
+    @GetMapping(value = {"order","cart/order"})
+    public ModelAndView order(ModelAndView mv, PaymentDTO paymentDTO) {
 
 //        parameter.put("userId", userId);
         parameter.put("userId", "user01");
 
         UserDTO user = cartService.getUserDetail(parameter);
-
         mv.addObject("user", user);
+
+        mv.addObject("paymentDTO", paymentDTO);
+
         mv.setViewName("cart/order");
 
         return mv;
+    }
 
-//        List<CartDTO> cartList = cartService.getCartList(parameter);
-//
-//        mv.addObject("cartList", cartList);
-//
-//        // 합산 가격
-//        int totalPrice = 0;
-//
-//        for(CartDTO cart : cartList) {
-//            totalPrice += cart.getProductInfo().getProductPrice() * cart.getProductCount();
-//        }
-//
-//        mv.addObject("totalPrice", totalPrice);
+    /**
+     * @MethodName : orderResult
+     * @작성일 : 2023. 01. 11.
+     * @작성자 : 김수용
+     * @Method 설명 : PostMapping 방식으로 order 페이지에 출력될 값을 반환해줌
+     */
+    @ResponseBody
+    @PostMapping("order")
+    public Model orderResult(Model model, PaymentDTO paymentDTO) {
+//        @RequestBody 더 이상 필요 x -> Content type 'application/x-www-form-urlencoded;charset=UTF-8' not supported 유발함
+//    public ModelAndView orderResult(ModelAndView mv, @ModelAttribute("paymentDTO") PaymentDTO paymentDTO) {
+
+        parameter.put("userId", "user01");
+//        parameter.put("userId", userId);
+
+        model.addAttribute("paymentDTO", paymentDTO);
+
+        UserDTO user = cartService.getUserDetail(parameter);
+        model.addAttribute("user", user);
+
+        return model;
     }
 
     /**
@@ -152,11 +150,30 @@ public class CartController {
      * @Method 설명 : GetMapping방식으로 payment 값을 받게되면 payment 페이지로 넘겨줌
      */
     @GetMapping("payment")
-    public ModelAndView payment(ModelAndView mv) {
+    public ModelAndView payment(ModelAndView mv, PaymentDTO paymentDTO) {
+
+        mv.addObject("paymentDTO", paymentDTO);
 
         mv.setViewName("cart/payment");
 
         return mv;
+    }
+
+    /**
+     * @MethodName : paymentResult
+     * @작성일 : 2023. 01. 11.
+     * @작성자 : 김수용
+     * @Method 설명 : PostMapping 방식으로 payment 페이지에 출력될 값을 반환해줌
+     */
+    @ResponseBody
+    @PostMapping("payment")
+    public Model paymentResult(Model model, PaymentDTO paymentDTO) {
+
+        parameter.put("userId", "user01");
+
+        model.addAttribute("paymentDTO", paymentDTO);
+
+        return model;
     }
 
     /**

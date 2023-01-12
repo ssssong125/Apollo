@@ -48,6 +48,7 @@
 		<result property="address" column="ADDRESS"/>
 		<result property="paymentDate" column="PAYMENT_DATE"/>
 		<result property="shippingStatus" column="SHIPPING_STATUS"/>
+		<result property="deliveryRequires" column="DELIVERY_REQUIRES"/>
 	</resultMap>
 <!--	<resultMap id="paymentResultMap" type="com.b4.apollo.cart.model.dto.PaymentDTO">-->
 <!--		<id property="paymentNo" column="PAYMENT_NO"/>-->
@@ -153,7 +154,8 @@
 			A.RECEIVER_TEL,
 			A.ADDRESS,
 			A.PAYMENT_DATE,
-			A.SHIPPING_STATUS
+			A.SHIPPING_STATUS,
+			A.DELIVERY_REQUIRES
 		FROM TBL_PAYMENT A
 	 	JOIN TBL_USER B ON A.USER_ID = B.USER_ID
 		WHERE B.USER_ID = #{userId}
