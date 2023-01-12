@@ -2,19 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="_csrf" th:content="${_csrf?.token}">
-    <meta name="_csrf_header" th:content="${_csrf?.headerName}">
     <title>Payment</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-<!--    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>-->
-    <!-- jQuery -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
-    <!-- iamport.payment.js -->
-<!--    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-{SDK-최신버전}.js"></script>-->
-    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" th:src="@{/js/payment/payment.js}"></script>
+    <!--    <link href="/css/cart/style.css" rel="stylesheet" type="text/css">-->
     <link rel="stylesheet" type="text/css" th:href="@{ /css/cart/style.css }">
     <style>
         /*div 확인용*/
@@ -36,121 +29,113 @@
     </script>
 </head>
 <body>
-    <!--전체 div-->
-    <div class="container">
-        <br>
-        <!--현재 위치-->
-        <div class="row">
-            <div class="col">
-                <span class="big-font">Payment</span>
-                <hr class="thick-line">
-            </div>
+<!--전체 div-->
+<div class="container">
+    <br>
+    <!--현재 위치-->
+    <div class="row">
+        <div class="col">
+            <span class="big-font">Payment</span>
+            <hr class="thick-line">
         </div>
+    </div>
 
-        <!--결제 수단 선택-->
-        <div class="row">
-            <div class="col-lg">
-                <div class="paymentImgBox">
-                    <img class="paymentImg" src="/img/cart/visa.png" alt="visa.png">
-                </div>
+    <!--결제 수단 선택-->
+    <div class="row">
+        <div class="col-lg">
+            <div class="paymentImgBox">
+                <img class="paymentImg" src="/img/cart/visa.png" alt="visa.png">
             </div>
-            <div class="col-lg">
-                <div class="paymentImgBox">
-                    <img class="paymentImg" src="/img/cart/master.png" alt="master.png">
-                </div>
+        </div>
+        <div class="col-lg">
+            <div class="paymentImgBox">
+                <img class="paymentImg" src="/img/cart/master.png" alt="master.png">
             </div>
-            <div class="col-lg">
-                <div class="paymentImgBox">
-                    <img class="paymentImg" src="/img/cart/naverPay.png" alt="naverPay.png">
-                </div>
+        </div>
+        <div class="col-lg">
+            <div class="paymentImgBox">
+                <img class="paymentImg" src="/img/cart/naverPay.png" alt="naverPay.png">
             </div>
-            <div class="col-lg">
-                <div class="paymentImgBox">
-<!--                    <img class="paymentImg" src="/img/cart/kakaoPay.jpg" alt="kakaoPay.jpg">-->
-<!--                        <button id="btn-kakaoPay" class="btn btn-primary">카카오페이</button>-->
-<!--                    <form method="get" action="/kakaoPay">-->
-<!--                        <button>kakaoPay</button>-->
-<!--                    </form>-->
-<!--                    <button id="kakaoPay" onclick="requestPay({{ auth()->check() }})">결제하기</button>-->
+        </div>
+        <div class="col-lg">
+            <div class="paymentImgBox">
+                <img class="paymentImg" src="/img/cart/kakaoPay.jpg" alt="kakaoPay.jpg">
+            </div>
+        </div>
+    </div>
+    <hr class="line">
+    <!--카드 정보 입력-->
+    <div class="row">
+        <div class="col-lg">
+            <label for="cardNumber">Card Number</label>
+        </div>
+        <div class="col-lg">
+            <label for="eDate">Expiration date</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg">
+            <input type="text" class="text-input" placeholder="1111 2222 3333 4444" id="cardNumber" name="cardNumber">
+        </div>
+        <div class="col-lg">
+            <input type="text" class="text-input" placeholder="MM / YY" id="eDate" name="eDate">
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-lg">
+            <label for="nameOnCard">Name on card</label>
+        </div>
+        <div class="col-lg">
+            <label for="cvc">CVC</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg">
+            <input type="text" class="text-input" placeholder="Name" id="nameOnCard" name="nameOnCard">
+        </div>
+        <div class="col-lg">
+            <input type="text" class="text-input" placeholder="123" id="cvc" name="cvc">
+        </div>
+    </div>
+    <hr class="thick-line">
+    <!--결제 금액-->
+    <div class="row">
+        <div class="col-lg-9">
 
-<!--                    <button id="check_module" type="button">테스트 결제</button>-->
-                    <button onclick="kakaoPay()" type="button">테스트 결제</button>
-                </div>
-            </div>
         </div>
-        <hr class="line">
-        <!--카드 정보 입력-->
-        <div class="row">
-            <div class="col-lg">
-                <label for="cardNumber">Card Number</label>
-            </div>
-            <div class="col-lg">
-                <label for="eDate">Expiration date</label>
-            </div>
+        <div class="col-lg-2">
+            Order Total
         </div>
-        <div class="row">
-            <div class="col-lg">
-                <input type="text" class="text-input" placeholder="1111 2222 3333 4444" id="cardNumber" name="cardNumber">
-            </div>
-            <div class="col-lg">
-                <input type="text" class="text-input" placeholder="MM / YY" id="eDate" name="eDate">
-            </div>
+        <div class="col-lg-1">
+            <span th:text="${paymentDTO.paymentAmount}+'$'"/>
         </div>
-        <br>
-        <div class="row">
-            <div class="col-lg">
-                <label for="nameOnCard">Name on card</label>
-            </div>
-            <div class="col-lg">
-                <label for="cvc">CVC</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg">
-                <input type="text" class="text-input" placeholder="Name" id="nameOnCard" name="nameOnCard">
-            </div>
-            <div class="col-lg">
-                <input type="text" class="text-input" placeholder="123" id="cvc" name="cvc">
-            </div>
-        </div>
-        <hr class="thick-line">
-        <!--결제 금액-->
-        <div class="row">
-            <div class="col-lg-9">
+    </div>
+    <br>
+    <!--/*전달할 데이터*/-->
+    <!--            <th:block th:each="pa"-->
+    <!--            <span th:text="${paymentDTO.userId}"></span>-->
+    <!--            <span th:text="${paymentDTO.usedPoint}"></span>-->
+    <!--            <span th:text="${paymentDTO.paymentAmount}"></span>-->
+    <!--            <span th:text="${paymentDTO.paymentMethod}"></span>-->
+    <!--            <span th:text="${paymentDTO.receiverName}"></span>-->
+    <!--            <span th:text="${paymentDTO.receiverTel}"></span>-->
+    <!--            <span th:text="${paymentDTO.address}"></span>-->
+    <!--            <span th:text="${paymentDTO.paymentDate}"></span>-->
+    <!--            <span th:text="${paymentDTO.shippingStatus}"></span>-->
+    <!--            <span th:text="${paymentDTO.deliveryRequires}"></span>-->
 
-            </div>
-            <div class="col-lg-2">
-                Order Total
-            </div>
-            <div class="col-lg-1">
-                <span th:text="${paymentDTO.paymentAmount}+'$'"/>
-            </div>
-        </div>
-        <br>
-        <!--/*전달할 데이터*/-->
-<!--            <th:block th:each="pa"-->
-<!--            <span th:text="${paymentDTO.userId}"></span>-->
-<!--            <span th:text="${paymentDTO.usedPoint}"></span>-->
-<!--            <span th:text="${paymentDTO.paymentAmount}"></span>-->
-<!--            <span th:text="${paymentDTO.paymentMethod}"></span>-->
-<!--            <span th:text="${paymentDTO.receiverName}"></span>-->
-<!--            <span th:text="${paymentDTO.receiverTel}"></span>-->
-<!--            <span th:text="${paymentDTO.address}"></span>-->
-<!--            <span th:text="${paymentDTO.paymentDate}"></span>-->
-<!--            <span th:text="${paymentDTO.shippingStatus}"></span>-->
-<!--            <span th:text="${paymentDTO.deliveryRequires}"></span>-->
-
-        <form th:action="@{payment}" th:object="${paymentDTO}" th:method="post">
-            <input type="text" th:field="*{userId}">
-            <input type="text" th:field="*{usedPoint}">
-            <input type="text" th:field="*{paymentAmount}">
-            <input type="text" th:field="*{paymentMethod}">
-            <input type="text" th:field="*{receiverName}">
-            <input type="text" th:field="*{receiverTel}">
-            <input type="text" th:field="*{address}">
-            <input type="date" th:field="*{paymentDate}">
-            <input type="text" th:field="*{shippingStatus}">
-            <input type="text" th:field="*{deliveryRequires}">
+    <form th:action="@{payment}" th:object="${paymentDTO}" th:method="post">
+        <input type="text" th:field="*{userId}">
+        <input type="text" th:field="*{usedPoint}">
+        <input type="text" th:field="*{paymentAmount}">
+        <input type="text" th:field="*{paymentMethod}">
+        <input type="text" th:field="*{receiverName}">
+        <input type="text" th:field="*{receiverTel}">
+        <input type="text" th:field="*{address}">
+        <input type="date" th:field="*{paymentDate}">
+        <input type="text" th:field="*{shippingStatus}">
+        <input type="text" th:field="*{deliveryRequires}">
         <!--구매 버튼-->
         <div class="row">
             <div class="col-lg-10">
@@ -160,7 +145,7 @@
                 <button class="goldButton" onclick="payment()">Payment</button>
             </div>
         </div>
-        </form>
-    </div>
+    </form>
+</div>
 </body>
 </html>
