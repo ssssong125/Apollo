@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -24,6 +25,7 @@ import java.util.List;
 //@RestController
 @Controller
 @RequestMapping("cart")
+@SessionAttributes({"tid","order"})
 public class CartController {
 
     private final CartService cartService;
@@ -61,7 +63,6 @@ public class CartController {
 
         return mv;
     }
-
     /**
      * @MethodName : trolleyResult
      * @작성일 : 2023. 01. 06.
@@ -97,7 +98,6 @@ public class CartController {
 
         return model;
     }
-
     /**
      * @MethodName : order
      * @작성일 : 2022. 12. 28.
@@ -119,7 +119,6 @@ public class CartController {
 
         return mv;
     }
-
     /**
      * @MethodName : orderResult
      * @작성일 : 2023. 01. 11.
@@ -142,15 +141,14 @@ public class CartController {
 
         return model;
     }
-
     /**
      * @MethodName : payment
      * @작성일 : 2022. 12. 28.
      * @작성자 : 김수용
-     * @Method 설명 : GetMapping방식으로 payment 값을 받게되면 payment 페이지로 넘겨줌
+     * @Method 설명 : GetMapping 방식으로 payment 값을 받게되면 payment 페이지로 넘겨줌
      */
     @GetMapping("payment")
-    public ModelAndView payment(ModelAndView mv, PaymentDTO paymentDTO) {
+    public ModelAndView payment(ModelAndView mv, PaymentDTO paymentDTO) throws IOException {
 
         mv.addObject("paymentDTO", paymentDTO);
 
@@ -158,7 +156,6 @@ public class CartController {
 
         return mv;
     }
-
     /**
      * @MethodName : paymentResult
      * @작성일 : 2023. 01. 11.
@@ -175,12 +172,11 @@ public class CartController {
 
         return model;
     }
-
     /**
      * @MethodName : success
      * @작성일 : 2022. 12. 28.
      * @작성자 : 김수용
-     * @Method 설명 : GetMapping방식으로 success 값을 받게되면 success 페이지로 넘겨줌
+     * @Method 설명 : GetMapping 방식으로 success 값을 받게되면 success 페이지로 넘겨줌
      */
     @GetMapping("success")
     public ModelAndView success(ModelAndView mv) {
@@ -189,12 +185,11 @@ public class CartController {
 
         return mv;
     }
-
     /**
      * @MethodName : fail
      * @작성일 : 2022. 12. 28.
      * @작성자 : 김수용
-     * @Method 설명 : GetMapping방식으로 fail 값을 받게되면 fail 페이지로 넘겨줌
+     * @Method 설명 : GetMapping 방식으로 fail 값을 받게되면 fail 페이지로 넘겨줌
      */
     @GetMapping("fail")
     public ModelAndView fail(ModelAndView mv) {
