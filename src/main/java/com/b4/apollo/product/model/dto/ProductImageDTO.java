@@ -3,9 +3,7 @@ package com.b4.apollo.product.model.dto;
 import lombok.*;
 
 @NoArgsConstructor
-@ToString
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 public class ProductImageDTO {
 

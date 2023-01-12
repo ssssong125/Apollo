@@ -70,12 +70,23 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public boolean productDelete(Integer code) {
-        int result = productMapper.productDelete(code);
-        if(result<=0){
-            // throw new Exception("메뉴등록 실패");
+    public boolean productDelete(ProdAndImageDTO prod) {
+
+        int prodResult = productMapper.productDelete(prod.getProductNo());
+        //만약 이미지가 없다면 성공
+        //이미지 받아오기 그러려면 매개변수가 dto여야 한다?
+        //prodNo에 해당하는 이미지 리스트가 비어있으면 성공
+        //
+        int imgResult =0;
+        List<ProductImageDTO> imgList = prod.getProductImageDTOList();
+        if(imgList.isEmpty()){
+            imgResult = productMapper.deleteImg(prod.getProductNo());
         }
-        return result>0 ? true:  false;    }
+       // if(result<=0){
+            // throw new Exception("메뉴등록 실패");
+     //   }
+        int result = prodResult + imgResult;
+        return result>1 ? true:  false;    }
 
     @Override
     public List<ProdAndImageDTO> productListByCode() {
