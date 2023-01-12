@@ -142,6 +142,8 @@ public class ProductController {
     @GetMapping("edit/{code}")
 //    @GetMapping("edit")
     public String editPage(@PathVariable("code") int code){
+//        public void editPage
+//    (@PathVariable("code") int code){
         System.out.println("갯지렁이 겟 도달 여기까지는 도달");
         return "/product/edit";
     }
@@ -233,9 +235,15 @@ public class ProductController {
 
         return mv;
     }
-    @GetMapping("delete") /*  int code 에 대한 것을 {}로 써야함 ???  */
-    public ModelAndView productDelete(ModelAndView mv, Integer code) {
-        productService.productDelete(code);
+    @GetMapping("delete")
+    public void deletePage(){
+
+    }
+    @PostMapping("delete") /*  int code 에 대한 것을 {}로 써야함 ???  */
+    public ModelAndView productDelete(ModelAndView mv, ProdAndImageDTO prod) {
+        System.out.println(prod);
+        prod = productService.productDetail(prod.getProductNo());
+        productService.productDelete(prod);
 //        mv.addObject("productDelete", productDelete);
         mv.setViewName("redirect:/product/list");
         return mv;

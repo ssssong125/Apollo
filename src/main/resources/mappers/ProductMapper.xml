@@ -137,11 +137,17 @@
 
     </update>
     <!-- 예약 삭제 -->
+    <delete id="deleteImg">
+        DELETE
+        FROM TBL_PRODUCT_IMAGE
+        WHERE PRODUCT_NO = #{ productNo }
+    </delete>
     <delete id="productDelete" parameterType="_int">
         DELETE
         FROM TBL_PRODUCT
-        WHERE PRODUCT_NO = '3'
+        WHERE PRODUCT_NO = #{ productNo }
     </delete>
+
 
     <select id="productListByCode" resultMap="productResultMap"><!-- ?????? ????-->
         SELECT
@@ -154,5 +160,29 @@
         AND A.CATEGORY_CODE IN ( 'C1', 'C2', 'C3', 'C4', 'C5', 'C6')
         ORDER BY A.PRODUCT_NO
     </select>
+    <select id="selectWinds" resultMap="productResultMap">
+        SELECT
+            A.*
+            , B.*
+        FROM TBL_PRODUCT A
+                 JOIN TBL_PRODUCT_IMAGE B
+                      ON A.PRODUCT_NO = B.PRODUCT_NO
+        WHERE A.PRODUCT_QTY > 0
+          AND A.CATEGORY_CODE IN ( 'C7', 'C8', 'C9')
+        ORDER BY A.PRODUCT_NO
+    </select>
+    <select id="selectClavier" resultMap="productResultMap">
+        SELECT
+            A.*
+             , B.*
+        FROM TBL_PRODUCT A
+                 JOIN TBL_PRODUCT_IMAGE B
+                      ON A.PRODUCT_NO = B.PRODUCT_NO
+        WHERE A.PRODUCT_QTY > 0
+          AND A.CATEGORY_CODE ='C10'
+        ORDER BY A.PRODUCT_NO
+    </select>
+    
+
 
 </mapper>
