@@ -19,7 +19,7 @@ import java.util.Locale;
 
 @Controller
 @AllArgsConstructor
-@RequestMapping(value={"user", "fragments"})
+@RequestMapping("user")
 public class UserController {
 
     private final UserService userService;
@@ -69,7 +69,7 @@ public class UserController {
     }
 
 
-    @GetMapping("/mypage")
+    @GetMapping(value = {"/mypage","/header"})
     public String userpage(UserDTO userDTO, HttpSession session, Model model){
         String userId = (String)session.getAttribute("userId");
         userDTO.setUserId(userId);
