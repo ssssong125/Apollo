@@ -8,7 +8,6 @@ public interface UserService {
 
     boolean insertUser(UserDTO newUser) throws Exception;
 
-//    int idCheck(String userId);
 
     boolean loginUser(UserDTO userDTO, HttpSession session);
 
