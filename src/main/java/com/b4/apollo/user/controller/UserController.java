@@ -105,25 +105,16 @@ public class UserController {
         userDTO.setUserId(userId);
         userService.userDetail(userDTO);
         model.addAttribute("userDetail", userService.userDetail(userDTO));
-
         return "/user/delete";
     }
 
     @PostMapping("delete")
-    public String deleteUser(UserDTO userDTO, HttpSession session){
+    public String deleteUser(UserDTO userDTO, HttpSession session, RedirectAttributes rttr, Locale locale){
         userDTO.setUserId((String)session.getAttribute("userId"));
         userService.deleteUser(userDTO);
+        rttr.addFlashAttribute("deleSuccessMessage", messageSource.getMessage("deleteUser", null, locale));
         session.invalidate();
         return "redirect:/main";
     }
-//    @PostMapping("delete")
-//    public ModelAndView deleteUser(ModelAndView mv, String userId, RedirectAttributes rttr, Locale locale) throws Exception {
-//        userService.deleteUser(userId);
-//        mv.setViewName("redirect:/main");
-//        rttr.addFlashAttribute("deleSuccessMessage", messageSource.getMessage("deleteUser", null, locale));
-//        return mv;
-//    }
-
-
 
 }

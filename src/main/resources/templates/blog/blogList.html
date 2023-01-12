@@ -11,22 +11,23 @@
 
 <body>
 <div layout:fragment="content" class = "container my-3">
-  <div class="loader prevLoader">loading...</div>
 
+
+  <div class="infinite">
     <table class="table" style="text-decoration: none; color: white; background-color:black">
       <tbody>
-      <tr th:if="${#lists.size(list)} > 0" th:each="list, loop: ${list.getList()}">
+      <tr th:if="${#lists.size(list)} > 0" th:each="blog : ${list.getList()}">
         <article id = "container">
           <div class="col-lg-12">
             <!-- Featured blog post-->
             <div class="card mb-4">
 
-              <a href="detail/" th:attrappend="href=${list.blogNo}"><img th:src="@{${blog.getFilePath()}}" class="card-img-top" alt="..."/></a>
+              <a href="detail/" th:attrappend="href=${blog.blogNo}"><img th:src="@{${blog.getFilePath()}}" class="card-img-top" alt="..."/></a>
               <div class="card-body">
-                <div class="small text-muted" th:text="${#temporals.format(list.createDate, 'yyyy-MM-dd HH:mm')}"></div>
-                <h2 class="card-title" th:text="${list.blogTitle}"></h2>
-                <p class="card-text" th:utext="${list.blogContent}"></p>
-                <a class="btn btn-primary" href="detail/" th:attrappend="href=${list.blogNo}">Read more →</a>
+                <div class="small text-muted" th:text="${#temporals.format(blog.createDate, 'yyyy-MM-dd HH:mm')}"></div>
+                <h2 class="card-title" th:text="${blog.blogTitle}"></h2>
+                <p class="card-text" th:utext="${blog.blogContent}"></p>
+                <a class="btn btn-primary" href="detail/" th:attrappend="href=${blog.blogNo}">Read more →</a>
               </div>
             </div>
           </div>
@@ -34,12 +35,8 @@
         </tr>
       </tbody>
     </table>
-
-  <div class = "paging">
-    <a class="prev" href="blogList.html"></a>
-    <a class="next" href=""></a>
   </div>
-  <div class = "loader nextLoader">loading...</div>
+  <div class="pagination"> 페이지네이션</div>
   <!-- 페이징처리 시작 -->
 <!--  <nav>-->
 <!--    <ul class="pagination justify-content-center">-->
@@ -69,8 +66,45 @@
 </div>
 
 <!-- infinite Scroll -->
-<script src="/js/blog/infiniteScroll.js"></script>
-<script src="/js/blog/main.js"></script>
+<!--<script layout:fragment="script" type='text/javascript'>-->
+<!--  function infiniteScroll(){-->
+<!--    const pagination = document.querySelector('.pagination');-->
+<!--    const fullContent = document.querySelector('.infinite')-->
+<!--    const screenHeight = screen.height;-->
+<!--    let oneTime = false;-->
+<!--    document.addEventListener('scroll', Onscroll, {passive:true})-->
+
+<!--    function OnScroll(){-->
+<!--      const fullHeight = fullContent.clientHeight;-->
+<!--      const scrollPosition = pageYOffset;-->
+<!--      if(fullHeight-screenHeight/2 <= scrollPosition && !oneTime){-->
+<!--        oneTime = true;-->
+<!--        madeBox();-->
+<!--      }-->
+<!--    }-->
+<!--  }-->
+<!--  infiniteScroll()-->
+
+<!--  madeBox(){-->
+
+<!--    const xhr = new XMLHttpRequest();-->
+<!--    xhr.onreadystatechange = function () {-->
+<!--      if(xhr.readyState === xhr.DONE){-->
+<!--        if(xhr.status === 200 || xhr.status === 201){-->
+<!--          const data = xhr.response;-->
+<!--          const addList = data.querySelector('.blog')-->
+<!--          fullContent.appendChild(addList);-->
+<!--          oneTime = false;-->
+<!--        } else {-->
+<!--          console.error(xhr.response);-->
+<!--        }-->
+<!--      }-->
+<!--    };-->
+<!--    xhr.open('GET', nextURL);-->
+<!--    xhr.send();-->
+<!--    xhr.responseType="document";-->
+<!--  }-->
+<!--</script>-->
 
 </body>
 </html>

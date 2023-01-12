@@ -51,16 +51,6 @@ public class UserServiceImpl implements UserService {
         userMapper.deleteUser(userDTO);
     }
 
-
-//    @Override
-//    public void deleteUser(String userId) throws Exception{
-//            int result = userMapper.deleteUser(userId);
-//            if (result < 0) {
-//                throw new Exception("회원탈퇴실패");
-//            }
-//        }
-
-
 }
 
 
