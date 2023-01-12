@@ -67,7 +67,7 @@ public class UserController {
     }
 
 
-    @GetMapping("/mypage")
+    @GetMapping(value = {"/mypage","/header"})
     public String userpage(UserDTO userDTO, HttpSession session, Model model){
         String userId = (String)session.getAttribute("userId");
         userDTO.setUserId(userId);
