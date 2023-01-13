@@ -91,27 +91,4 @@ public class BlogController {
         return "redirect:/blog/list";
     }
 
-    @RequestMapping(value = "/view", method = { RequestMethod.POST })
-    public String viewPostMethod(Model model, @RequestParam(required = false) Map<String, Object> param){
-        this.paramMap = param;
-        CommentDTO comm = new CommentDTO();
-        comm.setCommWriter(param.get("commWriter").toString());
-        comm.setBlogNo((Integer) param.get("blogNo"));
-
-        //DB 댓글 추가
-        commentService.insertComm(comm);
-
-        // 댓글 리스트 추가
-        model.addAttribute("commentList", commentService.getList(comm));
-
-        // 수정&삭제 버튼 게시를 위한 유저 정보 전달
-        Map<String, Object> userInform = new HashMap<String, Object>();
-        userInform.put("commWriter", param.get("userId"));
-        model.addAttribute("userInform", userInform);
-
-        return "/view :: #commentTable";
-    }
-
-
-
 }

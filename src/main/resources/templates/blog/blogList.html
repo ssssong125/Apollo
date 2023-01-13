@@ -65,46 +65,5 @@
   <a th:href="@{/blog/create}" class="btn btn-primary">글 등록하기</a>
 </div>
 
-<!-- infinite Scroll -->
-<!--<script layout:fragment="script" type='text/javascript'>-->
-<!--  function infiniteScroll(){-->
-<!--    const pagination = document.querySelector('.pagination');-->
-<!--    const fullContent = document.querySelector('.infinite')-->
-<!--    const screenHeight = screen.height;-->
-<!--    let oneTime = false;-->
-<!--    document.addEventListener('scroll', Onscroll, {passive:true})-->
-
-<!--    function OnScroll(){-->
-<!--      const fullHeight = fullContent.clientHeight;-->
-<!--      const scrollPosition = pageYOffset;-->
-<!--      if(fullHeight-screenHeight/2 <= scrollPosition && !oneTime){-->
-<!--        oneTime = true;-->
-<!--        madeBox();-->
-<!--      }-->
-<!--    }-->
-<!--  }-->
-<!--  infiniteScroll()-->
-
-<!--  madeBox(){-->
-
-<!--    const xhr = new XMLHttpRequest();-->
-<!--    xhr.onreadystatechange = function () {-->
-<!--      if(xhr.readyState === xhr.DONE){-->
-<!--        if(xhr.status === 200 || xhr.status === 201){-->
-<!--          const data = xhr.response;-->
-<!--          const addList = data.querySelector('.blog')-->
-<!--          fullContent.appendChild(addList);-->
-<!--          oneTime = false;-->
-<!--        } else {-->
-<!--          console.error(xhr.response);-->
-<!--        }-->
-<!--      }-->
-<!--    };-->
-<!--    xhr.open('GET', nextURL);-->
-<!--    xhr.send();-->
-<!--    xhr.responseType="document";-->
-<!--  }-->
-<!--</script>-->
-
 </body>
 </html>

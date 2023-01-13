@@ -2,13 +2,16 @@ package com.b4.apollo.blog.service;
 
 import com.b4.apollo.blog.model.dto.CommentDTO;
 
-import javax.xml.stream.events.Comment;
 import java.util.List;
 
 public interface CommentService {
 
+    public boolean registerComment(CommentDTO comm);
 
-    void insertComm(CommentDTO comm);
+    public boolean deleteComment(Integer commNo);
 
-    List<CommentDTO> getList(CommentDTO comm);
+    public List<CommentDTO> getCommentList(CommentDTO comm);
+
+
+
 }
