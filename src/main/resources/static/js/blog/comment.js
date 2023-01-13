@@ -1,26 +1,20 @@
-function updateComment() {
-const  commWriter = $("#commWriter").val(),
-       content = $("#commentContent").val(),
-       blogNo =  $("#blogNo").val()
-    // $.ajaxSetup({
-    //     url: "/view", // 요청할 서버url
-    //     type: "POST" // 타입 (get, post, put 등등)
-    //     // global: false, // 동시에 실행 x, 비동기화 여부 (default : true)
-    // });
-
+function listReply2(){
     $.ajax({
-        url: "/question/view",
-        type: "POST",
-        data:
-            {   commWriter: commWriter,
-                content: content,
-                blogNo: blogNo
+        type: "get",
+        //contentType: "application/json", ==> 생략가능(RestController이기때문에 가능)
+        url: "${path}/reply/listJson.do?bno=${dto.bno}",
+        success: function(result){
+            console.log(result);
+            var output = "<table>";
+            for(var i in result){
+                output += "<tr>";
+                output += "<td>"+result[i].userName;
+                output += "("+changeDate(result[i].regdate)+")<br>";
+                output += result[i].replytext+"</td>";
+                output += "<tr>";
             }
-        // beforeSend : function(xhr) {
-        //     xhr.setRequestHeader(header, token)
-        // }
-    })
-        // .done(function (fragment) {
-        //     $('#commentTable').replaceWith(fragment);
-        // });
+            output += "</table>";
+            $("#listReply").html(output);
+        }
+    });
 }

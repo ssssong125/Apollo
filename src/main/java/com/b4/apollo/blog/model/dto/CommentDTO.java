@@ -11,10 +11,10 @@ import java.time.LocalDateTime;
 @ToString
 @Data
 public class CommentDTO {
-    private int commNo;
+    private Integer commNo;
     private String commContent;
     private LocalDateTime commDate;
-    private int blogNo;
+    private Integer blogNo;
     private String commWriter;
     private String commStatus;
 
