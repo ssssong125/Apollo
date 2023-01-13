@@ -56,7 +56,6 @@ public class CartServiceImpl implements CartService{
 
         return result;
     }
-
     /**
      * @MethodName : getCartList
      * @작성일 : 2022. 12. 30.
@@ -77,6 +76,19 @@ public class CartServiceImpl implements CartService{
         if(result < 1) {
 
             throw new CommonException("구매 수량 조절 실패");
+        }
+
+        return result;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public int updateCheckStatus(HashMap<String, Object> parameter) {
+
+        int result = cartMapper.updateCheckStatus(parameter);
+
+        if(result < 1) {
+
+            throw new CommonException("구매 여부 수정 실패");
         }
 
         return result;

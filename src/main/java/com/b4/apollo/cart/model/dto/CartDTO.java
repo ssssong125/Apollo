@@ -36,6 +36,10 @@ public class CartDTO extends ProductDTO {
      */
     private Date regDate;
     /**
+     * @param checkStatus 체크 상태
+     */
+    private char checkStatus;
+    /**
      * @param productDTO 상품 객체
      */
     private ProductDTO productInfo;

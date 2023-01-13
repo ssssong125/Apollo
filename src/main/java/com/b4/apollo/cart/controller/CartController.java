@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -29,6 +30,9 @@ public class CartController {
     private final CartService cartService;
 
     HashMap<String, String> parameter = new HashMap<>();
+//    ArrayList<Integer> purchaseList = new ArrayList<>();
+
+
 //    String userId = userId;
 
     @Autowired
@@ -53,6 +57,7 @@ public class CartController {
 
         List<CartDTO> cartList = cartService.getCartList(parameter);
         mv.addObject("cartList", cartList);
+//        mv.addObject("purchaseList", purchaseList);
 
         UserDTO user = cartService.getUserDetail(parameter);
         mv.addObject("user", user);
@@ -63,14 +68,14 @@ public class CartController {
     }
 
     /**
-     * @MethodName : trolleyResult
+     * @MethodName : trolleyResultCount
      * @작성일 : 2023. 01. 06.
      * @작성자 : 김수용
      * @Method 설명 : PostMapping 방식으로 trolley 페이지에 출력될 값을 반환해줌
      */
     @ResponseBody
-    @PostMapping("trolley")
-    public Model trolleyResult(Model model, Integer cartNo, Integer count) { // null값도 받기 위해 Integer 사용
+    @PostMapping("trolley-count")
+    public Model trolleyResultCount(Model model, Integer cartNo, Integer count) { // null값도 받기 위해 Integer 사용
 
         parameter.put("userId", "user01");
 //        parameter.put("userId", userId);
@@ -91,6 +96,38 @@ public class CartController {
 
         List<CartDTO> cartList = cartService.getCartList(parameter);
         model.addAttribute("cartList", cartList);
+//        model.addAttribute("purchaseList", purchaseList);
+
+        UserDTO user = cartService.getUserDetail(parameter);
+        model.addAttribute("user", user);
+
+        return model;
+    }
+
+    /**
+     * @MethodName : trolleyResultCheck
+     * @작성일 : 2023. 01. 13.
+     * @작성자 : 김수용
+     * @Method 설명 : PostMapping 방식으로 trolley 페이지에 출력될 값을 반환해줌 체크 여부 수정
+     */
+    @ResponseBody
+    @PostMapping("trolley-check")
+    public Model trolleyResultCheck(Model model, Integer cartNo, char check) { // null값도 받기 위해 Integer 사용
+
+        parameter.put("userId", "user01");
+//        parameter.put("userId", userId);
+
+//        if (check == 'Y' || check == 'N') {
+            HashMap<String, Object> checkParameter = new HashMap<>();
+            checkParameter.put("cartNo", cartNo);
+            checkParameter.put("check", check);
+
+            cartService.updateCheckStatus(checkParameter);
+//        }
+
+        List<CartDTO> cartList = cartService.getCartList(parameter);
+        model.addAttribute("cartList", cartList);
+//        model.addAttribute("purchaseList", purchaseList);
 
         UserDTO user = cartService.getUserDetail(parameter);
         model.addAttribute("user", user);
@@ -105,7 +142,7 @@ public class CartController {
      * @Method 설명 : GetMapping방식으로 order 값을 받게되면 order 페이지로 넘겨줌
      */
     @GetMapping(value = {"order","cart/order"})
-    public ModelAndView order(ModelAndView mv, PaymentDTO paymentDTO) {
+    public ModelAndView order(ModelAndView mv, PaymentDTO paymentDTO, ArrayList<Integer> purchaseList) {
 
 //        parameter.put("userId", userId);
         parameter.put("userId", "user01");
@@ -114,6 +151,8 @@ public class CartController {
         mv.addObject("user", user);
 
         mv.addObject("paymentDTO", paymentDTO);
+
+        mv.addObject("purchaseList", purchaseList);
 
         mv.setViewName("cart/order");
 
@@ -128,7 +167,7 @@ public class CartController {
      */
     @ResponseBody
     @PostMapping("order")
-    public Model orderResult(Model model, PaymentDTO paymentDTO) {
+    public Model orderResult(Model model, PaymentDTO paymentDTO, ArrayList<Integer> purchaseList) {
 //        @RequestBody 더 이상 필요 x -> Content type 'application/x-www-form-urlencoded;charset=UTF-8' not supported 유발함
 //    public ModelAndView orderResult(ModelAndView mv, @ModelAttribute("paymentDTO") PaymentDTO paymentDTO) {
 
@@ -136,6 +175,8 @@ public class CartController {
 //        parameter.put("userId", userId);
 
         model.addAttribute("paymentDTO", paymentDTO);
+
+        model.addAttribute("purchaseList", purchaseList);
 
         UserDTO user = cartService.getUserDetail(parameter);
         model.addAttribute("user", user);

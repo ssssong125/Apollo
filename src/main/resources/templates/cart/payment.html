@@ -28,8 +28,10 @@
 
             if (cvc != null) {
                 window.location.href="success";
+                return "success";
             } else {
                 window.location.href="fail";
+                return "fail";
             }
         }
     </script>
@@ -45,7 +47,6 @@
             <hr class="thick-line">
         </div>
     </div>
-
     <!--결제 수단 선택-->
     <div class="row">
         <div class="col-lg">
@@ -57,13 +58,13 @@
         <div class="col-lg">
             <div class="paymentImgBox">
 <!--                <img class="paymentImg" src="/img/cart/master.png" alt="master.png">-->
-                <input type="image" class="paymentImg" onclick="kakaoPay()" src="/img/cart/kakaoPay.jpg" alt="kakaoPay.jpg"/>
+                <input type="image" class="paymentImg" onclick="inicis()" src="/img/cart/master.png" alt="master.png"/>
             </div>
         </div>
         <div class="col-lg">
             <div class="paymentImgBox">
 <!--                <img class="paymentImg" src="/img/cart/naverPay.png" alt="naverPay.png">-->
-                <input type="image" class="paymentImg" onclick="toss()" src="/img/cart/toss.png" alt="toss.png"/>
+                <input type="image" class="paymentImg" onclick="toss()" src="/img/cart/toss_3.png" alt="toss.png"/>
             </div>
         </div>
         <div class="col-lg">
@@ -72,41 +73,41 @@
             </div>
         </div>
     </div>
-    <hr class="line">
+<!--    <hr class="line">-->
     <!--카드 정보 입력-->
-    <div class="row">
-        <div class="col-lg">
-            <label for="cardNumber">Card Number</label>
-        </div>
-        <div class="col-lg">
-            <label for="eDate">Expiration date</label>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg">
-            <input type="text" class="text-input" placeholder="1111 2222 3333 4444" id="cardNumber" name="cardNumber">
-        </div>
-        <div class="col-lg">
-            <input type="text" class="text-input" placeholder="MM / YY" id="eDate" name="eDate">
-        </div>
-    </div>
-    <br>
-    <div class="row">
-        <div class="col-lg">
-            <label for="nameOnCard">Name on card</label>
-        </div>
-        <div class="col-lg">
-            <label for="cvc">CVC</label>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg">
-            <input type="text" class="text-input" placeholder="Name" id="nameOnCard" name="nameOnCard">
-        </div>
-        <div class="col-lg">
-            <input type="text" class="text-input" placeholder="123" id="cvc" name="cvc">
-        </div>
-    </div>
+<!--    <div class="row">-->
+<!--        <div class="col-lg">-->
+<!--            <label for="cardNumber">Card Number</label>-->
+<!--        </div>-->
+<!--        <div class="col-lg">-->
+<!--            <label for="eDate">Expiration date</label>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="row">-->
+<!--        <div class="col-lg">-->
+<!--            <input type="text" class="text-input" placeholder="1111 2222 3333 4444" id="cardNumber" name="cardNumber">-->
+<!--        </div>-->
+<!--        <div class="col-lg">-->
+<!--            <input type="text" class="text-input" placeholder="MM / YY" id="eDate" name="eDate">-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <br>-->
+<!--    <div class="row">-->
+<!--        <div class="col-lg">-->
+<!--            <label for="nameOnCard">Name on card</label>-->
+<!--        </div>-->
+<!--        <div class="col-lg">-->
+<!--            <label for="cvc">CVC</label>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="row">-->
+<!--        <div class="col-lg">-->
+<!--            <input type="text" class="text-input" placeholder="Name" id="nameOnCard" name="nameOnCard">-->
+<!--        </div>-->
+<!--        <div class="col-lg">-->
+<!--            <input type="text" class="text-input" placeholder="123" id="cvc" name="cvc">-->
+<!--        </div>-->
+<!--    </div>-->
     <hr class="thick-line">
     <!--결제 금액-->
     <div class="row">
@@ -138,7 +139,8 @@
         <input type="text" th:field="*{userId}">
         <input type="text" th:field="*{usedPoint}">
         <input type="text" th:field="*{paymentAmount}">
-        <input type="text" th:field="*{paymentMethod}">
+<!--        <input type="text" th:field="*{paymentMethod}">-->
+        <input type="text" id="paymentMethod" name="paymentMethod">
         <input type="text" th:field="*{receiverName}">
         <input type="text" th:field="*{receiverTel}">
         <input type="text" th:field="*{address}">
@@ -146,14 +148,14 @@
         <input type="text" th:field="*{shippingStatus}">
         <input type="text" th:field="*{deliveryRequires}">
         <!--구매 버튼-->
-        <div class="row">
-            <div class="col-lg-10">
+<!--        <div class="row">-->
+<!--            <div class="col-lg-10">-->
 
-            </div>
-            <div class="col-lg-2">
-                <button class="goldButton" onclick="payment()">Payment</button>
-            </div>
-        </div>
+<!--            </div>-->
+<!--            <div class="col-lg-2">-->
+<!--                <button class="goldButton" onclick="payment()">Payment</button>-->
+<!--            </div>-->
+<!--        </div>-->
     </form>
 </div>
 </body>
