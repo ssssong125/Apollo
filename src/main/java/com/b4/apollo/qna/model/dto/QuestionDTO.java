@@ -1,5 +1,7 @@
 package com.b4.apollo.qna.model.dto;
 
+import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.PageSerializable;
 import lombok.*;
 import org.springframework.lang.Nullable;
 

@@ -22,7 +22,7 @@
             <!-- Featured blog post-->
             <div class="card mb-4">
 
-              <a href="detail/" th:attrappend="href=${blog.blogNo}"><img th:src="@{${blog.getFilePath()}}" class="card-img-top" alt="..."/></a>
+              <a href="detail/" th:attrappend="href=${blog.blogNo}"><img th:src="@{${blog.getFilePath()}}" onerror="this.src='/img/blog/default.jpg'" class="card-img-top" alt="..."/></a>
               <div class="card-body">
                 <div class="small text-muted" th:text="${#temporals.format(blog.createDate, 'yyyy-MM-dd HH:mm')}"></div>
                 <h2 class="card-title" th:text="${blog.blogTitle}"></h2>
@@ -36,31 +36,31 @@
       </tbody>
     </table>
   </div>
-  <div class="pagination"> 페이지네이션</div>
-  <!-- 페이징처리 시작 -->
-<!--  <nav>-->
-<!--    <ul class="pagination justify-content-center">-->
-<!--      &lt;!&ndash; getPrePage : 이전 페이지 &ndash;&gt;-->
-<!--      <li class="page-item" th:classappend="${list.getPrePage() == 0} ? 'disabled'">-->
-<!--        <a class="page-link" th:href="@{/blog/list(pageNum=${list.getPrePage()})}">-->
-<!--          <span>이전</span>-->
-<!--        </a>-->
-<!--      </li>-->
-<!--      &lt;!&ndash; getNavigateFirstPage() : 페이징의 처음 숫자 getNavigateLastPage : 페이징의 마지막 숫자를 이용해 페이징 숫자 출력 &ndash;&gt;-->
+  <div class="pagination"></div>
+<!--   페이징처리 시작-->
+  <nav>
+    <ul class="pagination justify-content-center">
+      <!-- getPrePage : 이전 페이지 -->
+      <li class="page-item" th:classappend="${list.getPrePage() == 0} ? 'disabled'">
+        <a class="page-link" th:href="@{/blog/list(pageNum=${list.getPrePage()})}">
+          <span>이전</span>
+        </a>
+      </li>
+      <!-- getNavigateFirstPage() : 페이징의 처음 숫자 getNavigateLastPage : 페이징의 마지막 숫자를 이용해 페이징 숫자 출력 -->
 
-<!--      <li class="page-item" th:each="page: ${#numbers.sequence(list.getNavigateFirstPage(), list.getNavigateLastPage())}" th:classappend="${page == list.getPageNum()} ? 'active'">-->
-<!--        <a class="page-link" th:text="${page}" th:href="@{/blog/list(pageNum=${page})}"></a>-->
-<!--      </li>-->
-<!--      &lt;!&ndash; getPrePage : 다음 페이지 &ndash;&gt;-->
-<!--      <li class="page-item" th:classappend="${list.getNextPage() == 0} ? 'disabled'">-->
+      <li class="page-item" th:each="page: ${#numbers.sequence(list.getNavigateFirstPage(), list.getNavigateLastPage())}" th:classappend="${page == list.getPageNum()} ? 'active'">
+        <a class="page-link" th:text="${page}" th:href="@{/blog/list(pageNum=${page})}"></a>
+      </li>
+      <!-- getPrePage : 다음 페이지 -->
+      <li class="page-item" th:classappend="${list.getNextPage() == 0} ? 'disabled'">
 
-<!--        <a class="page-link" th:href="@{/blog/list(pageNum=${list.getNextPage()})}">-->
-<!--          <span>다음</span>-->
-<!--        </a>-->
-<!--      </li>-->
-<!--    </ul>-->
-<!--  </nav>-->
-  <!-- 페이징처리 끝 -->
+        <a class="page-link" th:href="@{/blog/list(pageNum=${list.getNextPage()})}">
+          <span>다음</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+<!--   페이징처리 끝-->
 
   <a th:href="@{/blog/create}" class="btn btn-primary">글 등록하기</a>
 </div>
