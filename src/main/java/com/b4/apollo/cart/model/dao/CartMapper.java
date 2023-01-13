@@ -27,7 +27,6 @@ public interface CartMapper {
      * @Method 설명 : CartService에서 호출되어 품목을 장바구니에 추가하는 쿼리문을 실행시킴
      */
     int addProductToCart(HashMap<String, Object> parameter);
-
     /**
      * @MethodName : getCartList
      * @작성일 : 2022. 12. 30.
@@ -35,7 +34,6 @@ public interface CartMapper {
      * @Method 설명 : CartService에서 호출되어 장바구니 품목을 조회할 쿼리문을 실행시킴
      */
     List<CartDTO> getCartList(Map<String, String> parameter);
-
     /**
      * @MethodName : updateProductCount
      * @작성일 : 2023. 01. 05.
@@ -43,7 +41,13 @@ public interface CartMapper {
      * @Method 설명 : CartService에서 호출되어 장바구니 품목의 구매수량 수정함
      */
     int updateProductCount(HashMap<String, Integer> parameter);
-
+    /**
+     * @MethodName : updateProductCount
+     * @작성일 : 2023. 01. 13.
+     * @작성자 : 김수용
+     * @Method 설명 : CartService에서 호출되어 장바구니 품목의 구매 여부를 수정함
+     */
+    int updateCheckStatus(HashMap<String, Object> parameter);
     /**
      * @MethodName : deleteProduct
      * @작성일 : 2023. 01. 03.
@@ -51,7 +55,6 @@ public interface CartMapper {
      * @Method 설명 : CartService에서 호출되어 장바구니에서 품목을 제거함
      */
     int deleteProductInCart(Integer cartNo);
-
     /**
      * @MethodName : getUserDetail
      * @작성일 : 2023. 01. 09.
@@ -59,7 +62,20 @@ public interface CartMapper {
      * @Method 설명 : CartService에서 호출되어 유저 정보를 조회할 쿼리문을 실행시킴
      */
     UserDTO getUserDetail(Map<String, String> parameter);
-
+    /**
+     * @MethodName : order
+     * @작성일 : 2023. 01. 13.
+     * @작성자 : 김수용
+     * @Method 설명 : CartService에서 호출되어 주문 쿼리문을 실행시킴
+     */
+    int order(List<CartDTO> cartList);
+    /**
+     * @MethodName : payment
+     * @작성일 : 2023. 01. 13.
+     * @작성자 : 김수용
+     * @Method 설명 : CartService에서 호출되어 결제 쿼리문을 실행시킴
+     */
+    int payment(PaymentDTO paymentDTO);
     /**
      * @MethodName : getOrder
      * @작성일 : 2022. 12. 30.
@@ -67,7 +83,6 @@ public interface CartMapper {
      * @Method 설명 : CartService에서 호출되어 오더정보를 조회할 쿼리문을 실행시킴
      */
     OrderDTO getOrderDetail(Map<String, Integer> parameter);
-
     /**
      * @MethodName : getPaymentDetail
      * @작성일 : 2022. 12. 30.
@@ -75,12 +90,10 @@ public interface CartMapper {
      * @Method 설명 : CartService에서 호출되어 결제정보를 조회할 쿼리문을 실행시킴
      */
     PaymentDTO getPaymentDetail(HashMap<String, Integer> parameter);
-
     /**
      * @MethodName : order
      * @작성일 : 2023. 01. 03.
      * @작성자 : 김수용
      * @Method 설명 : CartService에서 호출되어 주문시 필요한 주소지를 입력받음
      */
-//    int order(HashMap<String, String> parameter);
 }

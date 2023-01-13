@@ -12,6 +12,7 @@
 		<result property="userId" column="USER_ID"/>
 		<result property="productCount" column="PRODUCT_COUNT"/>
 		<result property="regDate" column="REG_DATE"/>
+		<result property="checkStatus" column="CHECK_STATUS"/>
 		<association property="productInfo" javaType="com.b4.apollo.product.model.dto.ProductDTO">
 			<id property="productNo" column="PRODUCT_NO"/>
 			<result property="productName" column="PRODUCT_NAME"/>
@@ -95,6 +96,7 @@
 			A.USER_ID,
 			A.PRODUCT_COUNT,
 			A.REG_DATE,
+			A.CHECK_STATUS,
 			B.*
 		FROM TBL_CART A
 		JOIN TBL_PRODUCT B ON A.PRODUCT_NO = B.PRODUCT_NO
@@ -105,6 +107,12 @@
 	<update id="updateProductCount" parameterType="hashmap">
 		UPDATE TBL_CART A
 		SET A.PRODUCT_COUNT = #{count}
+		WHERE A.CART_NO = #{cartNo}
+	</update>
+	<!--체크 상태 수정-->
+	<update id="updateCheckStatus" parameterType="hashmap">
+		UPDATE TBL_CART A
+		SET A.CHECK_STATUS = #{check}
 		WHERE A.CART_NO = #{cartNo}
 	</update>
 	<!--장바구니에서 품목 삭제-->

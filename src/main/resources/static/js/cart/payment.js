@@ -109,6 +109,8 @@ const header = $("meta[name='_csrf_header']").attr("content");
 
 function kakaoPay() {
 
+    $("#paymentMethod").val("KakaoPay")
+
     var IMP = window.IMP; // 생략가능
     IMP.init('imp27843145');
     // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
@@ -142,7 +144,7 @@ function kakaoPay() {
             참고하세요.
             나중에 포스팅 해볼게요.
          */
-        name: '주문명:결제테스트', //결제창에서 보여질 이름
+        name: 'Apollo', //결제창에서 보여질 이름
         amount: 1000, //가격
         buyer_email: 'iamport@siot.do',
         buyer_name: '구매자이름',
@@ -163,9 +165,13 @@ function kakaoPay() {
             msg += '상점 거래ID : ' + rsp.merchant_uid;
             msg += '결제 금액 : ' + rsp.paid_amount;
             msg += '카드 승인번호 : ' + rsp.apply_num;
+            // return location.href = "redirect:success";
+            window.location = "success"
         } else {
             var msg = '결제에 실패하였습니다.';
             msg += '에러내용 : ' + rsp.error_msg;
+            // return location.href = "redirect:fail";
+            window.location = "fail"
         }
         alert(msg);
     });
