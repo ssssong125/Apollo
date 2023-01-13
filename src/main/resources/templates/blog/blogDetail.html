@@ -58,7 +58,7 @@
           
           <!-- Preview image figure-->
           <figure class="mb-4"><img class="img-fluid rounded"
-                                    th:src="@{${blog.getFilePath()}}" alt="..." /></figure>
+                                    th:src="@{${blog.getFilePath()}}" onerror="this.src='/img/blog/default.jpg'" alt="..." /></figure>
 
           <!-- Post content-->
           <section class="mb-5">
