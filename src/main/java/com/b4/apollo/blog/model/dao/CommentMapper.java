@@ -8,16 +8,8 @@ import java.util.List;
 @Mapper
 public interface CommentMapper {
 
-    public int insertComment(CommentDTO comm);
 
-    public CommentDTO selectCommentDetail(int commNo);
+    List<CommentDTO> selectCommList(int bno);
 
-    public int updateComment(CommentDTO comm);
-
-    public int deleteComment(int commNo);
-
-    public List<CommentDTO> selectCommentList(CommentDTO comm);
-
-    public int selectCommentTotalCount(CommentDTO comm);
-
+    int insertComm(CommentDTO comm);
 }

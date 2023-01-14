@@ -6,6 +6,7 @@ import com.b4.apollo.blog.model.dto.CommentDTO;
 import com.b4.apollo.blog.service.BlogService;
 import com.b4.apollo.blog.service.CommentService;
 import com.github.pagehelper.PageInfo;
+import com.google.gson.GsonBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RequestMapping("/blog")
@@ -24,10 +25,6 @@ public class BlogController {
 
     @Autowired
     private BlogService blogService;
-    @Autowired
-    private CommentService commentService;
-    private Map paramMap;
-
 
     @GetMapping("/list")
     public String selectList(BlogDTO blog, @RequestParam(required = false, defaultValue = "1") int pageNum, Model model) {
