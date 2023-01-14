@@ -15,13 +15,11 @@
       article>figure{
         text-align: center;
       }
-      .col-lg-12{
-        background-image: url("/img/blog/back.jpg");
-      }
 
     </style>
   <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script type="text/javascript" th:src="@{/js/blog/comment.js}"></script>
+
 </head>
 <body>
 
@@ -75,44 +73,29 @@
              class="delete btn btn-sm btn-outline-secondary" th:text="삭제"></a>
         </div>
     </div>
-
-      <!-- 작성란&버튼 -->
-      <div class="col justify-content-center my-1 mx-0">
-        <form method="POST" th:onclick="|updateComment()|" id="commentForm">
-          <!-- hidden 영역 -->
-          <input type="hidden" name="USER_ID" th:value="${comm.commWriter}">
-          <input type="hidden" name="BLOG_NO" th:value="${comm.blogNo}">
-
-          <!-- 입력 영역 -->
-          <input type="text" id="content" name="CONTENT">
-          <input type="button" th:onclick="|updateComment()|" value="댓글작성">
-        </form>
-      </div>
-
-      <!-- 댓글 목록 -->
-      <div id="commentTable">
-        <div th:each="comment:${commentList}">
-          <form method="POST">
-            <input type="hidden" id="commNo" name="commNo" th:value="${comm.commNo}">
-            <div>
-              <input type="button" class="btn p-0 btn-md" name="commWriter" th:value="${comm.commWriter}" />
-              <small th:text="${#strings.substring(comm.commDate,0,19)}"></small>
-            </div>
-            <div th:text="${comm.commContent}"></div>
-            <div class="text-right" th:if="${comm.commWriter==userInform.commWriter}">
-              <span><button type="submit" name="submit" value="update">수정</button></span>
-              <span><button type="submit" name="submit" value="delete">삭제</button></span>
-            </div>
-          </form>
-        </div>
-      </div>
+        <input type="hidden" id="blogNo" th:value="${blog.blogNo}">
+        <table align="center" width="500" border="1">
+            <tr>
+                <td><textarea rows="3" cols="55" placeholder="내용을 작성하세요"
+                              name="commContent" id="commContent" required="required"></textarea></td>
+                <td>
+                    <button type="button" onclick="insertComm(this)" th:method="get" >등록하기</button>
+<!--                    <button  type="button" th:onclick="insertComm" class="btn btn-sm btn-outline-secondary">등록하기</button>-->
+                </td>
+            </tr>
+        </table>
+        <table align="center" width="500" border="1" id="rtb">
+            <thead>
+            <td colspan="4"><b id="rCount">댓글목록</b></td>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
 
     </div>
   </div>
 </main>
 <!-- End #main -->
-
-
 
   <!-- 게시글 삭제 스크립트 -->
 <script layout:fragment="script" type='text/javascript'>

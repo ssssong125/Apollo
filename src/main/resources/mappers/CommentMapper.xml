@@ -13,50 +13,15 @@
         <result column="COMMENT_STATUS" property="commStatus"/>
     </resultMap>
 
-    <insert id="insertComment">
+    <insert id="insertComm">
         INSERT INTO TBL_BLOG_COMMENT
         VALUES (SEQ_COMMENT_NO.nextval, #{commContent}, SYSDATE, #{blogNo}, 'user01', DEFAULT)
     </insert>
 
-    <select id="selectCommentDetail" resultMap="commResultSet">
-        SELECT
-        *
-        FROM TBL_BLOG_COMMENT
-        WHERE COMMENT_NO = '${commNo}'
-    </select>
-
-
-    <select id="selectCommentList" resultMap="commResultSet">
-        SELECT
-            *
-        FROM TBL_BLOG_COMMENT
-        WHERE COMMENT_STATUS = 'Y'
-        AND COMMENT_NO = #{commNo}
-        ORDER BY COMMENT_NO DESC
-    </select>
-
-    <update id="updateComment" parameterType="com.b4.apollo.blog.model.dto.CommentDTO">
-        UPDATE TBL_BLOG_COMMENT
-        SET
-            COMMENT_CONTENT = #{commContent}
-          , USER_ID = #{commWriter}
-        WHERE COMMENT_NO = #{commNo}
-    </update>
-
-    <update id="deleteComment" parameterType="_int">
-        UPDATE TBL_BLOG_COMMENT
-        SET COMMENT_STATUS = 'N'
-        WHERE COMMENT_NO = #{commNo}
-    </update>
-
-    <select id="selectCommentTotalCount" parameterType="com.b4.apollo.blog.model.dto.CommentDTO" resultType="int">
-        SELECT
-            COUNT(*)
-        FROM TBL_BLOG_COMMENT
-        WHERE COMMENT_STATUS = 'Y'
-          AND BLOG_NO = #{blogNo}
-    </select>
-
-
+  <select id="selectCommList" resultMap="commResultSet">
+    SELECT *
+    FROM TBL_BLOG_COMMENT
+    WHERE COMMENT_STATUS = 'Y'
+  </select>
 
 </mapper>
