@@ -46,7 +46,7 @@ public class PaymentDTO {
      */
     private String receiverTel;
     /**
-     * @param address 주소
+     * @param address 배송지 주소
      */
     private String address;
     /**
