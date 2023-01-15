@@ -31,7 +31,7 @@ public class CommentServiceImpl implements CommentService{
     }
 
     @Override
-    public CommentDTO commModify(Integer commNo) {
+    public int commModify(Integer commNo) {
         return commentMapper.commModify(commNo);
     }
 

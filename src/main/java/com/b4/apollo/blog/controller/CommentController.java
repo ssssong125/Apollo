@@ -8,6 +8,7 @@ import com.google.gson.GsonBuilder;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -43,18 +44,25 @@ public class CommentController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/commModify", produces = "application/json;charset=utf-8", method = RequestMethod.GET)
-    public String commModify(@RequestParam("commNo") Integer commNo) {
-        CommentDTO comm = commentService.commModify(commNo);
+    @RequestMapping(value = "/selectComm", produces = "application/json;charset=utf-8", method = RequestMethod.GET)
+    public String selectOneComm(@RequestParam("commNo") Integer commNo) {
+        CommentDTO comm = commentService.selectComm(commNo);
         JSONObject jsonObj = new JSONObject();
         jsonObj.put("commContent",comm.getCommContent());
+
         return jsonObj.toString();
     }
 
-    @RequestMapping(value = "/commDelete", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
+    @RequestMapping(value = "/modifyComm", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
     @ResponseBody
-    private String deleteComm(@RequestParam(value = "commNo")  Integer commNo) {
-        System.out.println("commNo = " + commNo);
+    private String modifyComm(@RequestParam(value = "commNo")  Integer commNo) {
+
+        int result = commentService.commModify(commNo);
+        return String.valueOf(result);
+    }
+
+    @RequestMapping(value = "/commDelete/{commNo}", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
+    private String deleteComm(Model model, @PathVariable(value = "commNo")  Integer commNo) {
         CommentDTO comm = commentService.selectComm(commNo);
         int result = commentService.deleteComm(comm);
         return String.valueOf(result);

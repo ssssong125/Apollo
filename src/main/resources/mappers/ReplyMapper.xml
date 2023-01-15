@@ -23,6 +23,7 @@
         SELECT *
         FROM TBL_QUESTION_REPLY
         WHERE REPLY_STATUS = 'Y'
+          AND BOARD_NO = #{boardNo}
           AND REPLY_NO = #{replyNo}
     </select>
 
@@ -30,6 +31,7 @@
         SELECT *
         FROM TBL_QUESTION_REPLY
         WHERE REPLY_STATUS = 'Y'
+        AND BOARD_NO = #{boardNo}
         ORDER BY REPLY_NO DESC
     </select>
 
