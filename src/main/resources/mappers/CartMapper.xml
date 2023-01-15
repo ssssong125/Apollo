@@ -60,7 +60,7 @@
 
 	<!--주문 정보를 담을 resultMap-->
 	<resultMap id="orderResultMap" type="com.b4.apollo.cart.model.dto.OrderDTO">
-		<id property="orderNo" column="ORDER_NO"/>
+<!--		<id property="orderNo" column="ORDER_NO"/>-->
 		<result property="paymentNo" column="PAYMENT_NO"/>
 		<result property="cartNo" column="CART_NO"/>
 	</resultMap>
@@ -102,6 +102,7 @@
 		JOIN TBL_PRODUCT B ON A.PRODUCT_NO = B.PRODUCT_NO
 		WHERE 1 = 1
 		  AND A.USER_ID = #{userId}
+		  AND A.PURCHASE_STATUS = 'N'
 	</select>
 	<!--userId를 사용해 체크된 카트 정보를 조회-->
 	<select id="getCheckedCartList" parameterType="hashmap" resultMap="cartResultMap">
@@ -117,6 +118,7 @@
 		WHERE 1 = 1
 		  AND A.USER_ID = #{userId}
 		  AND A.CHECK_STATUS = 'Y'
+		  AND A.PURCHASE_STATUS = 'N'
 	</select>
 	<!--주문 수량 수정-->
 	<update id="updateProductCount" parameterType="hashmap">
@@ -170,22 +172,26 @@
 		     	#{deliveryRequires}
 			)
 	</insert>
-	<!--결제 번호, 카트 번호를 주문 테이블에 등록-->
+<!--	결제 번호, 카트 번호를 주문 테이블에 등록-->
 	<insert id="order" parameterType="java.util.List">
-		INSERT TBL_ORDER
-		    (
-		    	ORDER_NO,
-		    	PAYMENT_NO,
-		    	CART_NO
-		    )
-		VALUES
-		<foreach item="cart" index="index" collection="list">
-			(
-			SEQ_ORDER_NO.NEXTVAL,
-			SEQ_PAYMENT_NO.CURRTVAL,
-			#(cart.cartNo)
-			)
+-- 		CREATE FUNCTION GET_SEQ RETURN NUMBER IS
+-- 		BEGIN
+-- 		RETURN SEQ_ORDER_NO.NEXTVAL;
+-- 		END;
+-- 		/
+		<foreach collection="list" item="cart" open="INSERT ALL" close="" separator=" ">
+			INTO TBL_ORDER (
+-- 							ORDER_NO,
+							PAYMENT_NO,
+							CART_NO
+				) VALUES (
+-- 							GET_SEQ,
+							SEQ_PAYMENT_NO.CURRVAL,
+							#{cart.cartNo}
+						)
 		</foreach>
+		SELECT SYSDATE
+		FROM DUAL
 	</insert>
 	<!--paymentNo를 통해 결제 정보를 조회-->
 	<select id="getPaymentDetailByPaymentNo" parameterType="int" resultMap="paymentResultMap">
@@ -204,12 +210,10 @@
 		FROM TBL_PAYMENT A
 		WHERE A.PAYMENT_NO = #{paymentNo}
 	</select>
-	<update id="buyCartItems" parameterType="java.util.List">
+	<update id="buyCartItem" parameterType="int">
 		UPDATE TBL_CART A
 		SET A.PURCHASE_STATUS = 'Y'
-		<foreach item="cart" index="index" collection="list">
-			WHERE A.CART_NO = #{cart.cartNo}
-		</foreach>
+		WHERE A.CART_NO = #{cartNo}
 	</update>
 <!--	public int buyCartItems(List<CartDTO> checkedCartList) {-->
 	

@@ -189,9 +189,9 @@ public class CartServiceImpl implements CartService{
      */
     @Override
     @Transactional(rollbackFor = Exception.class) // 오류 발생시 롤백 // 메소드에
-    public int buyCartItems(List<CartDTO> checkedCartList) {
+    public int buyCartItem(int cartNo) {
 
-        return cartMapper.buyCartItems(checkedCartList);
+        return cartMapper.buyCartItem(cartNo);
     }
     /**
      * @MethodName : getOrderDetail

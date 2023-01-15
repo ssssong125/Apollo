@@ -96,10 +96,14 @@ public interface CartMapper {
      * @작성자 : 김수용
      * @Method 설명 : CartService에서 호출되어 장바구니의 체크된 품목들을 구매완료상태로 변화시키는 쿼리문을 실행시킴
      */
-    int buyCartItems(List<CartDTO> checkedCartList);
-
-
-
+    int buyCartItem(int cartNo);
+    /**
+     * @MethodName : moveToPurchasedCartTable
+     * @작성일 : 2023. 01. 15.
+     * @작성자 : 김수용
+     * @Method 설명 : CartService에서 호출되어 구매한 상품을 구매완료 테이블로 이동시키는 쿼리문을 실행시킴
+     */
+    int moveToPurchasedCartTable(List<CartDTO> cartList);
     /**
      * @MethodName : getOrder
      * @작성일 : 2022. 12. 30.

@@ -4,6 +4,7 @@ import com.b4.apollo.cart.model.dto.CartDTO;
 import com.b4.apollo.cart.model.dto.PaymentDTO;
 import com.b4.apollo.cart.model.service.CartService;
 import com.b4.apollo.user.model.dto.UserDTO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +24,7 @@ import java.util.List;
  */
 //@Controller
 //@RestController
+@Slf4j
 @Controller
 @RequestMapping("cart")
 public class CartController {
@@ -114,13 +116,11 @@ public class CartController {
         parameter.put("userId", "user01");
 //        parameter.put("userId", userId);
 
-//        if (check == 'Y' || check == 'N') {
-            HashMap<String, Object> checkParameter = new HashMap<>();
-            checkParameter.put("cartNo", cartNo);
-            checkParameter.put("check", check);
+        HashMap<String, Object> checkParameter = new HashMap<>();
+        checkParameter.put("cartNo", cartNo);
+        checkParameter.put("check", check);
 
-            cartService.updateCheckStatus(checkParameter);
-//        }
+        cartService.updateCheckStatus(checkParameter);
 
         List<CartDTO> cartList = cartService.getCartList(parameter);
         model.addAttribute("cartList", cartList);
@@ -229,9 +229,41 @@ public class CartController {
      * @작성자 : 김수용
      * @Method 설명 : GetMapping방식으로 success 값을 받게되면 success 페이지로 넘겨줌
      */
-    @GetMapping("success")
-    public ModelAndView success(ModelAndView mv, PaymentDTO paymentDTO) {
+//    @GetMapping("success")
+////    public ModelAndView success(ModelAndView mv, PaymentDTO paymentDTO) {
+//    public ModelAndView success(ModelAndView mv) {
+//
+//        log.debug("success 겟 작동");
+//
+////        /*결제 테이블에 등록*/
+////        cartService.payment(paymentDTO);
+////
+////        /*주문 테이블에 등록*/
+////        List<CartDTO> checkedCartList = cartService.getCheckedCartList(parameter);
+////        cartService.order(checkedCartList);
+////
+////        /*구매상태 Y로 전환(카트 테이블에서 삭제)*/
+////        cartService.buyCartItems(checkedCartList);
+//
+//        mv.setViewName("cart/success");
+//
+//        return mv;
+//    }
 
+    @GetMapping("success")
+    public void success() {}
+    /**
+     * @MethodName : successResult
+     * @작성일 : 2023. 01. 14.
+     * @작성자 : 김수용
+     * @Method 설명 : PostMapping 방식으로 success 페이지에 출력될 값을 반환해줌
+     */
+//    @ResponseBody
+//    @PostMapping("success")
+//    public Model successResult(Model model, PaymentDTO paymentDTO) {
+//
+//        log.debug("success 포스트 작동");
+//
 //        /*결제 테이블에 등록*/
 //        cartService.payment(paymentDTO);
 //
@@ -241,20 +273,15 @@ public class CartController {
 //
 //        /*구매상태 Y로 전환(카트 테이블에서 삭제)*/
 //        cartService.buyCartItems(checkedCartList);
-
-        mv.setViewName("cart/success");
-
-        return mv;
-    }
-    /**
-     * @MethodName : successResult
-     * @작성일 : 2023. 01. 14.
-     * @작성자 : 김수용
-     * @Method 설명 : PostMapping 방식으로 success 페이지에 출력될 값을 반환해줌
-     */
+//
+//        return model;
+//    }
     @ResponseBody
     @PostMapping("success")
-    public Model successResult(Model model, PaymentDTO paymentDTO) {
+    public ModelAndView successResult(ModelAndView mv, PaymentDTO paymentDTO) {
+
+        log.debug("success 포스트 작동");
+        parameter.put("userId", "user01");
 
         /*결제 테이블에 등록*/
         cartService.payment(paymentDTO);
@@ -264,9 +291,16 @@ public class CartController {
         cartService.order(checkedCartList);
 
         /*구매상태 Y로 전환(카트 테이블에서 삭제)*/
-        cartService.buyCartItems(checkedCartList);
+//        cartService.buyCartItems(checkedCartList);
+        for (CartDTO checkedCart : checkedCartList) {
+            cartService.buyCartItem(checkedCart.getCartNo());
+        }
 
-        return model;
+        mv.addObject("paymentDTO", paymentDTO);
+
+        mv.setViewName("cart/success");
+
+        return mv;
     }
     /**
      * @MethodName : fail

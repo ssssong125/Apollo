@@ -93,9 +93,9 @@ public interface CartService {
      * @MethodName : buyCartItems
      * @작성일 : 2023. 01. 14.
      * @작성자 : 김수용
-     * @Method 설명 : 장바구니에 있는 품목의 구매상태를 변경하는 기능
+     * @Method 설명 : 장바구니에 있는 품목의 구매하는 기능
      */
-    int buyCartItems(List<CartDTO> checkedCartList);
+    int buyCartItem(int cartNo);
     /**
      * @MethodName : getOrderDetail
      * @작성일 : 2022. 12. 30.
