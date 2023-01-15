@@ -23,16 +23,16 @@
         /*    border: solid red 1px;*/
         /*}*/
     </style>
-        <script th:inline="javascript">
-            /*변수*/
-            const size = /*[[ ${checkedCartList?.size()} ]]*/ '1';
-            let productName = /*[[ ${checkedCartList[0].productInfo.productName} ]]*/ '상품명';
-            const buyerName = /*[[ ${paymentDTO?.receiverName} ]]*/ '구매자명';
-            const amount = /*[[ ${paymentDTO.paymentAmount} ]]*/ '0';
-            const buyerAddr = /*[[ ${paymentDTO.address} ]]*/ '서울';
-            const buyerTel = /*[[ ${paymentDTO?.receiverTel} ]]*/ '010-1234-5678';
-            const email = /*[[ ${user.userEmail} ]]*/ 'user01@naver.com';
-        </script>
+    <script th:inline="javascript">
+        /*변수*/
+        const size = /*[[ ${checkedCartList?.size()} ]]*/ '1';
+        let productName = /*[[ ${checkedCartList[0].productInfo.productName} ]]*/ '상품명';
+        const buyerName = /*[[ ${paymentDTO?.receiverName} ]]*/ '구매자명';
+        const amount = /*[[ ${paymentDTO.paymentAmount} ]]*/ '0';
+        const buyerAddr = /*[[ ${paymentDTO.address} ]]*/ '서울';
+        const buyerTel = /*[[ ${paymentDTO?.receiverTel} ]]*/ '010-1234-5678';
+        const email = /*[[ ${user.userEmail} ]]*/ 'user01@naver.com';
+    </script>
 </head>
 <body>
 <!--<div th:text="${checkedCartList.size()}"-->
@@ -123,24 +123,11 @@
     </div>
     <br>
     <!--/*전달할 데이터*/-->
-    <!--            <th:block th:each="pa"-->
-    <!--            <span th:text="${paymentDTO.userId}"></span>-->
-    <!--            <span th:text="${paymentDTO.usedPoint}"></span>-->
-    <!--            <span th:text="${paymentDTO.paymentAmount}"></span>-->
-    <!--            <span th:text="${paymentDTO.paymentMethod}"></span>-->
-    <!--            <span th:text="${paymentDTO.receiverName}"></span>-->
-    <!--            <span th:text="${paymentDTO.receiverTel}"></span>-->
-    <!--            <span th:text="${paymentDTO.address}"></span>-->
-    <!--            <span th:text="${paymentDTO.paymentDate}"></span>-->
-    <!--            <span th:text="${paymentDTO.shippingStatus}"></span>-->
-    <!--            <span th:text="${paymentDTO.deliveryRequires}"></span>-->
-
-    <form th:action="@{payment}" th:object="${paymentDTO}" th:method="post">
+    <form id="paymentForm" th:action="@{success}" th:object="${paymentDTO}" th:method="post">
         <input type="number" th:field="*{paymentNo}">
         <input type="text" th:field="*{userId}">
         <input type="number" th:field="*{usedPoint}">
         <input type="number" id="amount" th:field="*{paymentAmount}">
-<!--        <input type="text" id="paymentMethod" name="paymentMethod">-->
         <input type="text" id="paymentMethod" th:field="*{paymentMethod}">
         <input id="buyerName" type="text" th:field="*{receiverName}">
         <input id="buyerTel" type="text" th:field="*{receiverTel}">
@@ -149,10 +136,10 @@
         <input type="text" th:field="*{shippingStatus}">
         <input type="text" th:field="*{deliveryRequires}">
     </form>
-        <input type="text" th:value="${checkedCartList[0].productInfo.productName}">
-        <input id="size" type="number" th:value="${checkedCartList.size()}">
-        <input id="email" type="text" th:value="${user.userEmail}">
-    <button th:onclick="check()">가격 확인</button>
+        <input type="text" th:value="${checkedCartList[0].productInfo.productName}" hidden="hidden">
+        <input id="size" type="number" th:value="${checkedCartList.size()}" hidden="hidden">
+        <input id="email" type="text" th:value="${user.userEmail}" hidden="hidden">
+<!--    <button th:onclick="check()">가격 확인</button>-->
         <!--구매 버튼-->
 <!--        <div class="row">-->
 <!--            <div class="col-lg-10">-->

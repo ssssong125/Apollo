@@ -11,17 +11,16 @@ const header = $("meta[name='_csrf_header']").attr("content");
 // const buyerTel = $("#buyerTel").val();
 // const email = $("#email").val();
 
-
-function check() {
-    // alert()
-    alert(size)
-    alert(productName)
-    alert(buyerName)
-    alert(amount)
-    alert(buyerAddr)
-    alert(buyerTel)
-    alert(email)
-}
+// function check() {
+//     // alert()
+//     alert(size)
+//     alert(productName)
+//     alert(buyerName)
+//     alert(amount)
+//     alert(buyerAddr)
+//     alert(buyerTel)
+//     alert(email)
+// }
 
 /*토스 키*/
 // var clientKey = 'test_ck_4Gv6LjeKD8ayzMd1KP08wYxAdXy1'
@@ -91,14 +90,17 @@ function kakaoPay() {
             msg += '결제 금액 : ' + rsp.paid_amount;
             msg += '카드 승인번호 : ' + rsp.apply_num;
             // return location.href = "redirect:success";
-            window.location.href = "success"
+
+            $("#paymentForm").submit();
+
+            // window.location.href = "success"
         } else {
             var msg = '결제에 실패하였습니다.';
             msg += '에러내용 : ' + rsp.error_msg;
             // return location.href = "redirect:fail";
             window.location.href = "fail"
         }
-        alert(msg);
+        // alert(msg); // 결제 결과 알림
     });
 }
 
