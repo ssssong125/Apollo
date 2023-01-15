@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.b4.apollo.qna.model.dao.ReplyMapper">
+    <resultMap id="replyResultSet" type="com.b4.apollo.qna.model.dto.ReplyDTO">
+        <id column="REPLY_NO" property="replyNo"/>
+        <result column="BOARD_NO" property="boardNo"/>
+        <result column="USER_ID" property="replyWriter"/>
+        <result column="REPLY_CONTENT" property="replyContent"/>
+        <result column=":REPLY_DATE" property="replyDate"/>
+        <result column=":REPLY_STATUS" property="replyStatus"/>
+        <result column=":REPLY_COUNT" property="replyCount"/>
+    </resultMap>
+
+    <insert id="insertReply">
+        INSERT INTO TBL_QUESTION_REPLY
+        VALUES (SEQ_REP_NO.nextval, #{boardNo}, 'user01', #{replyContent}, SYSDATE,  DEFAULT, DEFAULT)
+    </insert>
+
+    <select id="selectReply" resultMap="replyResultSet">
+        SELECT *
+        FROM TBL_QUESTION_REPLY
+        WHERE REPLY_STATUS = 'Y'
+          AND REPLY_NO = #{replyNo}
+    </select>
+
+    <select id="selectReplyList" resultMap="replyResultSet">
+        SELECT *
+        FROM TBL_QUESTION_REPLY
+        WHERE REPLY_STATUS = 'Y'
+        ORDER BY REPLY_NO DESC
+    </select>
+
+    <update id="replyModify" parameterType="com.b4.apollo.qna.model.dto.ReplyDTO">
+        UPDATE TBL_QUESTION_REPLY
+        SET REPLY_CONTENT = #{replyContent}
+        WHERE REPLY_STATUS = 'Y'
+          AND REPLY_NO = #{replyNo}
+    </update>
+
+    <update id="deleteReply">
+        UPDATE TBL_QUESTION_REPLY
+        SET REPLY_STATUS = 'N'
+        WHERE REPLY_NO = #{replyNo}
+    </update>
+
+    <update id="updateReply">
+        UPDATE TBL_QUESTION_REPLY
+        SET  REPLY_COUNT = (
+                SELECT COUNT(*)
+                FROM  TBL_QUESTION_REPLY
+                WHERE BOARD_NO = #{boardNo}
+                AND REPLY_STATUS = 'Y')
+        WHERE BOARD_NO = #{boardNo}
+    </update>
+
+</mapper>

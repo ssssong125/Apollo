@@ -2,7 +2,9 @@ package com.b4.apollo.qna.controller;
 
 import com.b4.apollo.qna.model.dto.QuestionDTO;
 import com.b4.apollo.qna.model.dto.QuestionForm;
+import com.b4.apollo.qna.model.dto.ReplyDTO;
 import com.b4.apollo.qna.service.BoardService;
+import com.b4.apollo.qna.service.ReplyService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,9 +34,10 @@ public class BoardController {
     //질문 게시판 전체 조회
     @GetMapping("/list")
     public String selectList(@RequestParam(required = false, defaultValue = "1") int pageNum, Model model) {
-
+        ReplyDTO rep = new ReplyDTO();
         PageInfo<QuestionDTO> list = new PageInfo<>(boardService.selectList(pageNum), 10);
 
+        model.addAttribute("rep", rep);
         model.addAttribute("list", list);
         return "qna/boardList";
     }
@@ -58,7 +61,12 @@ public class BoardController {
     @GetMapping(value = "/detail/{bno}")
     public String selectBoard(@PathVariable("bno") int bno, Model model) {
         QuestionDTO questionDTO = boardService.selectBoard(bno);
+        ReplyDTO rep = new ReplyDTO();
+
+        model.addAttribute("rep", rep);
         model.addAttribute("question", questionDTO);
+
+
         return "/qna/boardDetail";
     }
 

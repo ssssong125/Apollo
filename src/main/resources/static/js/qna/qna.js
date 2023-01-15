@@ -1,13 +1,13 @@
 $(document).ready(function () {
-    getCommList();
+    getReplyList();
 })
 
-function insertComm(){
+function insertReply(){
 
-    let commContent = $("#commContent").val(),
-         blogNo = $("#blogNo").val();
+    let replyContent = $("#replyContent").val(),
+        boardNo = $("#boardNo").val();
     $.ajaxSetup({
-        url: '/blog/commInsert',
+        url: '/question/detail/replyInsert',
         type: "get",
         dataType : "json",
         contentType: "application/json; charset=utf-8",
@@ -15,8 +15,8 @@ function insertComm(){
     $.ajax({
         data:
             {
-                commContent : commContent,
-                blogNo : blogNo
+                replyContent : replyContent,
+                boardNo : boardNo
             }
     })
         .done(function (result) { // 수행할 동작
@@ -24,8 +24,8 @@ function insertComm(){
             if (result === "success") {
                 alert("등록성공")
             }
-            $('#commContent').val('') //댓글 등록시 댓글 등록창 초기화
-            getCommList(); //등록후 댓글 목록 불러오기 함수 실행
+            $('#replyContent').val('') //댓글 등록시 댓글 등록창 초기화
+            getReplyList(); //등록후 댓글 목록 불러오기 함수 실행
             //DOM 조작 함수호츨 등 가능
         })
         .fail(function(result) { // 실패시
@@ -38,7 +38,7 @@ function insertComm(){
         })
 }
 
-function modifyComm(blogNo) {
+function modifyComm(boardNo) {
     $.ajax({
         url : "/blog/moidfyComm",
         data : {
@@ -62,10 +62,7 @@ function modifyComm(blogNo) {
 
         }
     })
-
-
 }
-
 
 function modifyDo(commNo){
     let commContent = $('#commContent'+commNo).val();
@@ -90,11 +87,12 @@ function modifyDo(commNo){
         }
     })
 }
-function getCommList() {
-    let commNo = $("#commNo").val();
-    let blogNo = $("#blogNo").val();
+function getReplyList() {
+    let replyNo = $("#replyNo").val();
+    let boardNo = $("#boardNo").val();
+    let replyDate = $("#replyDate").val();
     $.ajaxSetup({
-        url: '/blog/commList',
+        url: '/question/detail/replyList',
         type: "get",
         dataType : "json",
         contentType: "application/json; charset=utf-8",
@@ -103,13 +101,12 @@ function getCommList() {
         async: false,
         data:
             {
-                "blogNo" : blogNo
+                "boardNo" : boardNo
             }
     })
         .done(function (result) { // 수행할 동작
-
             if (result === "success") {
-                alert("등록성공" + commNo)
+                alert("등록성공" + replyNo)
             }
             let $tableBody = $('#rtb tbody');
             $tableBody.html(''); //tbody를 초기화 시켜야 댓글 목록의 중첩을 막을수 있음 아니면 등록할떄마다 append로 이어짐
@@ -119,19 +116,19 @@ function getCommList() {
                 console.log(result);
                 for (let i in result) {
                     let $tr = $("<tr>");
-                    let $commWriter = $("<td width='100'>").text(
-                        result[i].commWriter);
-                    let $commContent = $("<td>").text(
-                        result[i].commContent);
-                    let $commDate = $("<td width='100'>").text(
-                        result[i].commDate);
+                    let $replyWriter = $("<td width='100'>").text(
+                        result[i].replyWriter);
+                    let $replyContent = $("<td>").text(
+                        result[i].replyContent);
+                    let $replyDate = $("<td width='100'>").text(
+                        result[i].replyDate);
                     let $btnArea = $("<td width='80'>").append(
-                        "<a href=javascript:void(0);' onclick='modifyComm()'>수정</a>").append(
+                        "<a href=javascript:void(0);' onclick='modifyReply()'>수정</a>").append(
                         "<a href='#'>삭제</a>");
 
-                    $tr.append($commWriter);
-                    $tr.append($commContent);
-                    // $tr.append($commDate);
+                    $tr.append($replyWriter);
+                    $tr.append($replyContent);
+                    $tr.append($replyDate);
                     $tr.append($btnArea);
                     $tableBody.append($tr);
                 }

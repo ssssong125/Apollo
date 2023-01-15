@@ -44,7 +44,7 @@ public class CommentServiceImpl implements CommentService{
     public int deleteComm(CommentDTO comm) {
         int result = commentMapper.deleteComm(comm);
         if(result < 0) {
-            throw new CommonException("댓글 추가 실패 ");
+            throw new CommonException("댓글 삭제 실패 ");
         }
         return result;
     }
