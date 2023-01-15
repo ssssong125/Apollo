@@ -6,11 +6,16 @@ import java.util.List;
 
 public interface CommentService {
 
-    public boolean registerComment(CommentDTO comm);
+    List<CommentDTO> selectCommList(int bno);
 
-    public boolean deleteComment(Integer commNo);
+    int insertComm(CommentDTO blogNo);
 
-    public List<CommentDTO> getCommentList(CommentDTO comm);
+    CommentDTO commModify(Integer commNo);
+
+
+    CommentDTO selectComm(Integer commNo);
+
+    int deleteComm(CommentDTO comm);
 
 
 

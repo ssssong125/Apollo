@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 public class CommentDTO {
     private Integer commNo;
     private String commContent;
+
     private LocalDateTime commDate;
     private Integer blogNo;
     private String commWriter;
