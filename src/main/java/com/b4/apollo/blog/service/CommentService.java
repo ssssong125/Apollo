@@ -10,7 +10,7 @@ public interface CommentService {
 
     int insertComm(CommentDTO blogNo);
 
-    CommentDTO commModify(Integer commNo);
+    int commModify(Integer commNo);
 
 
     CommentDTO selectComm(Integer commNo);

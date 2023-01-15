@@ -16,9 +16,15 @@
     #replyContent{
       margin-left: 3%;
     }
+    .btn,
+    .btn-outline-secondary{
+      color : gold !important;
+      border: 1px solid gold;
+    }
   </style>
   <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script type="text/javascript" th:src="@{/js/qna/qna.js}"></script>
+  <title>Question And Answer</title>
 </head>
 
 <div layout:fragment="content" class="container my-3">
@@ -65,7 +71,6 @@
         </div>
       </div>
     </form>
-    <br>
     <table align="center" width="95%" border="1" id="rtb">
       <thead>
       <td colspan="4"><b id="rCount">댓글목록</b></td>

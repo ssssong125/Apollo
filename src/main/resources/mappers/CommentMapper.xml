@@ -29,6 +29,7 @@
         SELECT *
         FROM TBL_BLOG_COMMENT
         WHERE COMMENT_STATUS = 'Y'
+        AND BLOG_NO = #{blogNo}
         ORDER BY COMMENT_NO DESC
     </select>
 

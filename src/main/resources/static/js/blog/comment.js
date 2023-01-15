@@ -4,6 +4,7 @@ $(document).ready(function () {
 
 function insertComm(){
 
+    alert("작동하냐?")
     let commContent = $("#commContent").val(),
          blogNo = $("#blogNo").val();
     $.ajaxSetup({
@@ -38,19 +39,21 @@ function insertComm(){
         })
 }
 
-function modifyComm(blogNo) {
+// 해당 댓글 번호 가져오기
+function selectComm(commNo) {
+
     $.ajax({
-        url : "/blog/moidfyComm",
+        url : "/blog/selectComm",
         data : {
             "commNo" : commNo,
         },
         type : "get",
         success : function(result) {
-
+            alert("이건 되나?")
             let $td = $("<td colspan='3'>");
             let $textarea= "<textarea rows='3' cols='55' placeholder='내용을 작성하세요' name='commContent' id='commContent"+commNo+"' required='required'>"
                 +result.rContents+"</textarea>"
-            let apTd = "<td><button onclick='modifyDo("+commNo+")'>수정하기</button> "
+            let apTd = "<td><button onclick='modifyComm("+commNo+")'>수정하기</button> "
             $td.html($textarea)
 
             console.log(result.rContents);
@@ -66,18 +69,18 @@ function modifyComm(blogNo) {
 
 }
 
-
-function modifyDo(commNo){
+function modifyComm(commNo){
+    alert("여기로 넘오 오나?")
     let commContent = $('#commContent'+commNo).val();
     $.ajax({
-        url : "/blog/doModify.do",
+        url : "/blog/modifyComm",
         data : {
             "commContent" : commContent,
             "commNo" : commNo
         },
         type : "post",
         success : function(result) {
-            if (result == "success") {
+            if (result === "success") {
                 alert("등록성공")
             }
 
@@ -86,11 +89,27 @@ function modifyDo(commNo){
         },
         error : function() {
             alert("등록 실패")
-
         }
     })
 }
+
+//삭제
+function delComment(commNo) {
+    console.log()
+    $.ajax({
+        type: "POST",
+        url: "/blog/commDelete",
+        data: {commNo: commNo},
+        success: function (response) {
+            alert(response["msg"])
+            window.location.reload()
+        }
+    }); // $.ajax
+}
+
+
 function getCommList() {
+    alert("어디까지 되냐?")
     let commNo = $("#commNo").val();
     let blogNo = $("#blogNo").val();
     $.ajaxSetup({
@@ -115,26 +134,25 @@ function getCommList() {
             $tableBody.html(''); //tbody를 초기화 시켜야 댓글 목록의 중첩을 막을수 있음 아니면 등록할떄마다 append로 이어짐
             $('#rCount').text("댓글 (" + result.length + ")")
 
-            if (true) {
-                console.log(result);
-                for (let i in result) {
-                    let $tr = $("<tr>");
-                    let $commWriter = $("<td width='100'>").text(
-                        result[i].commWriter);
-                    let $commContent = $("<td>").text(
-                        result[i].commContent);
-                    let $commDate = $("<td width='100'>").text(
-                        result[i].commDate);
-                    let $btnArea = $("<td width='80'>").append(
-                        "<a href=javascript:void(0);' onclick='modifyComm()'>수정</a>").append(
-                        "<a href='#'>삭제</a>");
+            console.log(result);
+            for (let i in result) {
+                let $tr = $("<tr>");
+                let $commWriter = $("<td width='100'>").text(
+                    result[i].commWriter);
+                let $commContent = $("<td>").text(
+                    result[i].commContent);
+                let $commDate = $("<td width='100'>").text(
+                    result[i].commDate);
+                let $btnArea = $("<td width='80'>")
+                    .append(
+                        "<button onclick='selectComm("+result[i].commNo+")'>수정</button>").append(
+                        "<a href='javascript:void(0);' class='btn btn-sm btn-outline-secondary' onclick='delComment("+result[i].commNo+")'>삭제</a>");
 
-                    $tr.append($commWriter);
-                    $tr.append($commContent);
-                    // $tr.append($commDate);
-                    $tr.append($btnArea);
-                    $tableBody.append($tr);
-                }
+                $tr.append($commWriter);
+                $tr.append($commContent);
+                $tr.append($commDate);
+                $tr.append($btnArea);
+                $tableBody.append($tr);
             }
         })
         .fail(function(request, error) { // 실패시
