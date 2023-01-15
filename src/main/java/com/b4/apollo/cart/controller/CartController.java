@@ -39,7 +39,6 @@ public class CartController {
     public CartController(CartService cartService) {
         this.cartService = cartService;
     };
-
     /**
      * @MethodName : trolley
      * @작성일 : 2022. 12. 28.
@@ -66,7 +65,6 @@ public class CartController {
 
         return mv;
     }
-
     /**
      * @MethodName : trolleyResultCount
      * @작성일 : 2023. 01. 06.
@@ -103,7 +101,6 @@ public class CartController {
 
         return model;
     }
-
     /**
      * @MethodName : trolleyResultCheck
      * @작성일 : 2023. 01. 13.
@@ -134,7 +131,6 @@ public class CartController {
 
         return model;
     }
-
     /**
      * @MethodName : order
      * @작성일 : 2022. 12. 28.
@@ -158,7 +154,6 @@ public class CartController {
 
         return mv;
     }
-
     /**
      * @MethodName : orderResult
      * @작성일 : 2023. 01. 11.
@@ -183,7 +178,6 @@ public class CartController {
 
         return model;
     }
-
     /**
      * @MethodName : payment
      * @작성일 : 2022. 12. 28.
@@ -193,13 +187,20 @@ public class CartController {
     @GetMapping("payment")
     public ModelAndView payment(ModelAndView mv, PaymentDTO paymentDTO) {
 
+        parameter.put("userId", "user01");
+
+        UserDTO user = cartService.getUserDetail(parameter);
+        mv.addObject("user", user);
+
+        List<CartDTO> checkedCartList = cartService.getCheckedCartList(parameter);
+        mv.addObject("checkedCartList", checkedCartList);
+
         mv.addObject("paymentDTO", paymentDTO);
 
-        mv.setViewName("cart/payment");
+        mv.setViewName("cart/paym   ent");
 
         return mv;
     }
-
     /**
      * @MethodName : paymentResult
      * @작성일 : 2023. 01. 11.
@@ -212,11 +213,16 @@ public class CartController {
 
         parameter.put("userId", "user01");
 
+        UserDTO user = cartService.getUserDetail(parameter);
+        model.addAttribute("user", user);
+
+        List<CartDTO> checkedCartList = cartService.getCheckedCartList(parameter);
+        model.addAttribute("checkedCartList", checkedCartList);
+
         model.addAttribute("paymentDTO", paymentDTO);
 
         return model;
     }
-
     /**
      * @MethodName : success
      * @작성일 : 2022. 12. 28.
@@ -224,13 +230,44 @@ public class CartController {
      * @Method 설명 : GetMapping방식으로 success 값을 받게되면 success 페이지로 넘겨줌
      */
     @GetMapping("success")
-    public ModelAndView success(ModelAndView mv) {
+    public ModelAndView success(ModelAndView mv, PaymentDTO paymentDTO) {
+
+//        /*결제 테이블에 등록*/
+//        cartService.payment(paymentDTO);
+//
+//        /*주문 테이블에 등록*/
+//        List<CartDTO> checkedCartList = cartService.getCheckedCartList(parameter);
+//        cartService.order(checkedCartList);
+//
+//        /*구매상태 Y로 전환(카트 테이블에서 삭제)*/
+//        cartService.buyCartItems(checkedCartList);
 
         mv.setViewName("cart/success");
 
         return mv;
     }
+    /**
+     * @MethodName : successResult
+     * @작성일 : 2023. 01. 14.
+     * @작성자 : 김수용
+     * @Method 설명 : PostMapping 방식으로 success 페이지에 출력될 값을 반환해줌
+     */
+    @ResponseBody
+    @PostMapping("success")
+    public Model successResult(Model model, PaymentDTO paymentDTO) {
 
+        /*결제 테이블에 등록*/
+        cartService.payment(paymentDTO);
+
+        /*주문 테이블에 등록*/
+        List<CartDTO> checkedCartList = cartService.getCheckedCartList(parameter);
+        cartService.order(checkedCartList);
+
+        /*구매상태 Y로 전환(카트 테이블에서 삭제)*/
+        cartService.buyCartItems(checkedCartList);
+
+        return model;
+    }
     /**
      * @MethodName : fail
      * @작성일 : 2022. 12. 28.

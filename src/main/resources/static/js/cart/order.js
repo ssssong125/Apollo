@@ -21,5 +21,6 @@ function formSubmit() {
     $("#addressForm").val($("#sample5_address").val())
     $("#deliveryRequiresForm").val($("#deliveryRequires").val())
 
-    return location.href = "redirect:payment";
+    // return location.href = "redirect:payment";
+    return window.location.href = "payment";
 }

@@ -101,7 +101,22 @@
 		FROM TBL_CART A
 		JOIN TBL_PRODUCT B ON A.PRODUCT_NO = B.PRODUCT_NO
 		WHERE 1 = 1
-		AND A.USER_ID = #{userId}
+		  AND A.USER_ID = #{userId}
+	</select>
+	<!--userId를 사용해 체크된 카트 정보를 조회-->
+	<select id="getCheckedCartList" parameterType="hashmap" resultMap="cartResultMap">
+		SELECT
+			A.CART_NO,
+			A.USER_ID,
+			A.PRODUCT_COUNT,
+			A.REG_DATE,
+			A.CHECK_STATUS,
+			B.*
+		FROM TBL_CART A
+		JOIN TBL_PRODUCT B ON A.PRODUCT_NO = B.PRODUCT_NO
+		WHERE 1 = 1
+		  AND A.USER_ID = #{userId}
+		  AND A.CHECK_STATUS = 'Y'
 	</select>
 	<!--주문 수량 수정-->
 	<update id="updateProductCount" parameterType="hashmap">
@@ -137,7 +152,67 @@
 		WHERE A.USER_ID = #{userId}
 		  AND A.USER_ACTIVE = 'Y'
 	</select>
-
+	<!--결제테이블에 결제 정보 등록-->
+	<insert id="payment" parameterType="com.b4.apollo.cart.model.dto.PaymentDTO">
+		INSERT INTO TBL_PAYMENT
+		VALUES
+		    (
+		    	SEQ_PAYMENT_NO.NEXTVAL,
+		     	#{userId},
+		     	#{usedPoint},
+		     	#{paymentAmount},
+		     	#{paymentMethod},
+		     	#{receiverName},
+		     	#{receiverTel},
+		     	#{address},
+				SYSDATE,
+		     	'배송 준비중',
+		     	#{deliveryRequires}
+			)
+	</insert>
+	<!--결제 번호, 카트 번호를 주문 테이블에 등록-->
+	<insert id="order" parameterType="java.util.List">
+		INSERT TBL_ORDER
+		    (
+		    	ORDER_NO,
+		    	PAYMENT_NO,
+		    	CART_NO
+		    )
+		VALUES
+		<foreach item="cart" index="index" collection="list">
+			(
+			SEQ_ORDER_NO.NEXTVAL,
+			SEQ_PAYMENT_NO.CURRTVAL,
+			#(cart.cartNo)
+			)
+		</foreach>
+	</insert>
+	<!--paymentNo를 통해 결제 정보를 조회-->
+	<select id="getPaymentDetailByPaymentNo" parameterType="int" resultMap="paymentResultMap">
+		SELECT
+			A.PAYMENT_NO,
+			A.USER_ID,
+			A.USED_POINT,
+			A.PAYMENT_AMOUNT,
+			A.PAYMENT_METHOD,
+			A.RECEIVER_NAME,
+			A.RECEIVER_TEL,
+			A.ADDRESS,
+			A.PAYMENT_DATE,
+			A.SHIPPING_STATUS,
+			A.DELIVERY_REQUIRES
+		FROM TBL_PAYMENT A
+		WHERE A.PAYMENT_NO = #{paymentNo}
+	</select>
+	<update id="buyCartItems" parameterType="java.util.List">
+		UPDATE TBL_CART A
+		SET A.PURCHASE_STATUS = 'Y'
+		<foreach item="cart" index="index" collection="list">
+			WHERE A.CART_NO = #{cart.cartNo}
+		</foreach>
+	</update>
+<!--	public int buyCartItems(List<CartDTO> checkedCartList) {-->
+	
 	<!--productNo를 통해 해당 상품의 상세 정보를 조회-->
 	<!--	<select id="getProductDetail" parameterType="_int" resultMap="productResultMap">-->
 	<!--		SELECT-->
@@ -151,7 +226,7 @@
 	<!--	</select>-->
 
 	<!--userId를 통해 결제 정보를 조회-->
-	<select id="getPaymentDetail" parameterType="hashmap" resultMap="paymentResultMap">
+	<select id="getPaymentDetailByUserId" parameterType="hashmap" resultMap="paymentResultMap">
 		SELECT
 			A.PAYMENT_NO,
 			A.USER_ID,

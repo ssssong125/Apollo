@@ -220,9 +220,10 @@
         <!--/*전달할 데이터*/-->
 <!--            <input type="text" th:field="*{paymentNo}">-->
         <form id="paymentDTO" th:action="@{payment}" th:object="${paymentDTO}" th:method="post" onsubmit="formSubmit()">
+            <input type="number" th:field="*{paymentNo}">
             <input type="text" th:field="*{userId}">
-            <input type="text" th:field="*{usedPoint}">
-            <input type="text" th:field="*{paymentAmount}">
+            <input type="number" th:field="*{usedPoint}">
+            <input type="number" th:field="*{paymentAmount}">
             <input type="text" th:field="*{paymentMethod}">
             <input type="text" id="receiverNameForm" name="receiverName">
             <input type="text" id="receiverTelForm" name="receiverTel">
