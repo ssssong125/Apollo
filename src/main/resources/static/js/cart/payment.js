@@ -11,17 +11,6 @@ const header = $("meta[name='_csrf_header']").attr("content");
 // const buyerTel = $("#buyerTel").val();
 // const email = $("#email").val();
 
-// function check() {
-//     // alert()
-//     alert(size)
-//     alert(productName)
-//     alert(buyerName)
-//     alert(amount)
-//     alert(buyerAddr)
-//     alert(buyerTel)
-//     alert(email)
-// }
-
 /*토스 키*/
 // var clientKey = 'test_ck_4Gv6LjeKD8ayzMd1KP08wYxAdXy1'
 var clientKey = 'test_ck_4Gv6LjeKD8ayzMd1KP08wYxAdXy1'

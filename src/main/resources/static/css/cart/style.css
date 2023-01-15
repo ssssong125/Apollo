@@ -13,6 +13,10 @@ body {
   letter-spacing: 1px;
 }
 
+body .container{
+  color: white !important;
+}
+
 /*파트별 폰트 크기 설정*/
 .big-font {
   font-size: 3em;
@@ -115,11 +119,13 @@ input[type=radio]:checked.custom-radio:before {
 .line {
   border: solid 1px gray;
   background-color: white;
+  opacity: 1;
 }
 
 .thick-line {
   border: solid 2px white;
   background-color: white;
+  opacity: 1;
 }
 
 /*버튼*/
