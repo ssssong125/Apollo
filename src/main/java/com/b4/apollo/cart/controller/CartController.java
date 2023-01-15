@@ -283,11 +283,13 @@ public class CartController {
         log.debug("success 포스트 작동");
         parameter.put("userId", "user01");
 
+        List<CartDTO> checkedCartList = cartService.getCheckedCartList(parameter);
+//        checkedCartList = nul;l return trolley; 널값이면
+
         /*결제 테이블에 등록*/
         cartService.payment(paymentDTO);
 
         /*주문 테이블에 등록*/
-        List<CartDTO> checkedCartList = cartService.getCheckedCartList(parameter);
         cartService.order(checkedCartList);
 
         /*구매상태 Y로 전환(카트 테이블에서 삭제)*/
