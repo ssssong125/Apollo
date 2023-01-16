@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("blog")
@@ -43,28 +45,70 @@ public class CommentController {
         return String.valueOf(result);
     }
 
-    @ResponseBody
-    @RequestMapping(value = "/selectComm", produces = "application/json;charset=utf-8", method = RequestMethod.GET)
-    public String selectOneComm(@RequestParam("commNo") Integer commNo) {
-        CommentDTO comm = commentService.selectComm(commNo);
-        JSONObject jsonObj = new JSONObject();
-        jsonObj.put("commContent",comm.getCommContent());
+//    @ResponseBody
+//    @RequestMapping(value = "/selectComm", produces = "application/json;charset=utf-8", method = RequestMethod.GET)
+//    public String selectOneComm(@RequestParam("commNo") Integer commNo) {
+//        CommentDTO comm = commentService.selectComm(commNo);
+//        JSONObject jsonObj = new JSONObject();
+//        jsonObj.put("commContent",comm.getCommContent());
+//
+//        return jsonObj.toString();
+//    }
+//
+//    @RequestMapping(value = "/modifyComm", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
+//    @ResponseBody
+//    private String modifyComm(@RequestParam(value = "commNo")  Integer commNo) {
+//
+//        int result = commentService.commModify(commNo);
+//        return String.valueOf(result);
+//    }
 
-        return jsonObj.toString();
+
+    @RequestMapping(value = "/commModify/{commNo}/{commContent}", produces = "application/json;charset=utf-8" , method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> modifyComm(@PathVariable("commNo") Integer commNo, @PathVariable("commContent") String commContent){
+        Map<String, Object> map = new HashMap<>();
+
+        try {
+            CommentDTO comm = commentService.selectComm(commNo);
+            comm.setCommNo(commNo);
+            comm.setCommContent(commContent);
+            commentService.commModify(comm);
+
+            map.put("result", "success");
+        } catch (Exception e){
+            e.printStackTrace();
+            map.put("result", "fail");
+
+        }
+        return map;
+
     }
 
-    @RequestMapping(value = "/modifyComm", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
+
+
+//    @RequestMapping(value = "/commDelete/{commNo}", produces = "application/json;charset=utf-8" , method = RequestMethod.GET)
+//    public String deleteComm(@PathVariable("commNo") Integer commNo){
+//        return "redirect:/blog/detail/{commNo}";
+//    }
+
+    @RequestMapping(value = "/commDelete/{commNo}", produces = "application/json;charset=utf-8" , method = RequestMethod.POST)
     @ResponseBody
-    private String modifyComm(@RequestParam(value = "commNo")  Integer commNo) {
+    public Map<String, Object> deleteComm(Model model, @PathVariable("commNo") Integer commNo){
+        Map<String, Object> map = new HashMap<>();
 
-        int result = commentService.commModify(commNo);
-        return String.valueOf(result);
-    }
+        try {
+            CommentDTO comm = commentService.selectComm(commNo);
+            comm.setCommNo(commNo);
+            commentService.deleteComm(comm);
 
-    @RequestMapping(value = "/commDelete/{commNo}", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
-    private String deleteComm(Model model, @PathVariable(value = "commNo")  Integer commNo) {
-        CommentDTO comm = commentService.selectComm(commNo);
-        int result = commentService.deleteComm(comm);
-        return String.valueOf(result);
+            map.put("result", "success");
+        } catch (Exception e){
+            e.printStackTrace();
+            map.put("result", "fail");
+
+        }
+        return map;
+
     }
 }

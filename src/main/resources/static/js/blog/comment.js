@@ -4,7 +4,7 @@ $(document).ready(function () {
 
 function insertComm(){
 
-    alert("작동하냐?")
+    // alert("작동테스트?")
     let commContent = $("#commContent").val(),
          blogNo = $("#blogNo").val();
     $.ajaxSetup({
@@ -40,76 +40,90 @@ function insertComm(){
 }
 
 // 해당 댓글 번호 가져오기
-function selectComm(commNo) {
-
-    $.ajax({
-        url : "/blog/selectComm",
-        data : {
-            "commNo" : commNo,
-        },
-        type : "get",
-        success : function(result) {
-            alert("이건 되나?")
-            let $td = $("<td colspan='3'>");
-            let $textarea= "<textarea rows='3' cols='55' placeholder='내용을 작성하세요' name='commContent' id='commContent"+commNo+"' required='required'>"
-                +result.rContents+"</textarea>"
-            let apTd = "<td><button onclick='modifyComm("+commNo+")'>수정하기</button> "
-            $td.html($textarea)
-
-            console.log(result.rContents);
-            $('#'+commNo).html(''); //현재 댓글 출력창의 tr부분을 비운다
-            $('#'+commNo).append($td).append(apTd); //비워진 tr에 td와 apTd를 넣어 수정창으로 바꾼다
-        },
-        error : function() {
-            alert("등록 실패")
-
-        }
-    })
 
 
+function modifyComm(commNo,commContent){
+    alert("왜 안돼!!!")
+  let commentMod = "";
+  commentMod += '<div id="commNo' + commNo+'">';
+  commentMod += '<strong>';
+  commentMod += '댓글 내용 : &nbsp;&nbsp;&nbsp';
+  commentMod += '<textarea class="form-control" id=commContent">';
+  commentMod += commContent;
+  commentMod += '</textarea>';
+  commentMod += '<br/>';
+  commentMod += '<button class="btn btn-sm btn-outline-secondary"';
+  commentMod += 'onclick=updateBtn(' + commNo + ')"> 댓글작성 </button>';
+  commentMod += '<button type="button" class="btn btn-sm btn-outline-secondary" onClick="getCommList()">';
+  commentMod += '취소';
+  commentMod += '</button>';
+  commentMod += '</div>';
+  commentMod += '<br/>';
+
+  $('#commNo' + commNo).replaceWith(commentMod);
+  $('#commNo' + commNo + '#commContent').focus();
 }
 
-function modifyComm(commNo){
-    alert("여기로 넘오 오나?")
-    let commContent = $('#commContent'+commNo).val();
-    $.ajax({
-        url : "/blog/modifyComm",
-        data : {
-            "commContent" : commContent,
-            "commNo" : commNo
-        },
-        type : "post",
-        success : function(result) {
-            if (result === "success") {
-                alert("등록성공")
-            }
+function updateBtn(commNo, commWriter){
+    alert("아 좀!")
+    let updateUrl = "/blog/commModify";
+    let commContent = $("#commContent").val();
 
-            getReplyList(); //등록후 댓글 목록 불러오기 함수 실행
+    $.ajax({
+        url: updateUrl + commNo + '/' + commContent,
+        type: "post",
+        dataType : "json",
+        contentType: "application/json; charset=utf-8",
+    })
+        .done(function (result) { // 수행할 동작
+
+            getCommList(); //등록후 댓글 목록 불러오기 함수 실행
+
             //DOM 조작 함수호츨 등 가능
-        },
-        error : function() {
-            alert("등록 실패")
-        }
-    })
+        })
+        .fail(function(result) { // 실패시
+            if(result ==="error"){
+                alert("등록 실패")
+            }
+        })
+        .always(function() { // 항상 동작
+
+        })
+
 }
+
+
 
 //삭제
 function delComment(commNo) {
     console.log()
+
     $.ajax({
-        type: "POST",
-        url: "/blog/commDelete",
-        data: {commNo: commNo},
-        success: function (response) {
-            alert(response["msg"])
-            window.location.reload()
-        }
-    }); // $.ajax
+        url: "/blog/commDelete/"+commNo,
+        type: "post",
+        dataType : "json",
+        contentType: "application/json; charset=utf-8",
+    })
+        .done(function (result) { // 수행할 동작
+
+            getCommList(); //등록후 댓글 목록 불러오기 함수 실행
+            alert("여기 테스트")
+            // window.location.href= "/blog/commDelete/"+commNo;
+            //DOM 조작 함수호츨 등 가능
+        })
+        .fail(function(result) { // 실패시
+            if(result ==="error"){
+                alert("등록 실패")
+            }
+        })
+        .always(function() { // 항상 동작
+
+        })
 }
 
 
 function getCommList() {
-    alert("어디까지 되냐?")
+
     let commNo = $("#commNo").val();
     let blogNo = $("#blogNo").val();
     $.ajaxSetup({
@@ -137,15 +151,16 @@ function getCommList() {
             console.log(result);
             for (let i in result) {
                 let $tr = $("<tr>");
-                let $commWriter = $("<td width='100'>").text(
+                let $commWriter = $("<td width='80'>").text(
                     result[i].commWriter);
                 let $commContent = $("<td>").text(
                     result[i].commContent);
-                let $commDate = $("<td width='100'>").text(
+                let $commDate = $("<td width='200'>").text(
                     result[i].commDate);
-                let $btnArea = $("<td width='80'>")
+                let $btnArea = $("<td width='120'>")
                     .append(
-                        "<button onclick='selectComm("+result[i].commNo+")'>수정</button>").append(
+                        "<a href='javascript:void(0);' class='btn btn-sm btn-outline-secondary' onclick='modifyComm("+ result[i].commNo +", " + result[i].commContent +")'>수정</a>").append(
+                        // "<button class='btn btn-sm btn-outline-secondary' onclick='selectComm("+result[i].commNo+")'>수정</button>").append(
                         "<a href='javascript:void(0);' class='btn btn-sm btn-outline-secondary' onclick='delComment("+result[i].commNo+")'>삭제</a>");
 
                 $tr.append($commWriter);

@@ -5,13 +5,16 @@ import com.b4.apollo.qna.model.dto.QuestionForm;
 import com.b4.apollo.qna.model.dto.ReplyDTO;
 import com.b4.apollo.qna.service.BoardService;
 import com.b4.apollo.qna.service.ReplyService;
+import com.b4.apollo.user.model.dto.UserDTO;
 import com.github.pagehelper.PageInfo;
+import groovy.transform.Undefined;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 /**
  @FileName : BoardController.java
@@ -49,11 +52,14 @@ public class BoardController {
     }
 
     @PostMapping("/create")
-    public String questionCreate(@Valid QuestionForm questionForm, BindingResult bindingResult) {
+    public String questionCreate(HttpSession session, @Valid QuestionForm questionForm, BindingResult bindingResult) throws Exception {
         if (bindingResult.hasErrors()) {
             return "qna/boardForm";
         }
-        boardService.insertBoard(questionForm.getUserId(), questionForm.getBoardTitle(), questionForm.getBoardContent());
+        String writer = (String) session.getAttribute("userId");
+
+        boardService.insertBoard(writer, questionForm.getBoardTitle(), questionForm.getBoardContent());
+
         return "redirect:/question/list"; // 질문 저장후 질문목록으로 이동
     }
 

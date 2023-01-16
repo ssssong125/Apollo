@@ -36,6 +36,7 @@
       </tbody>
     </table>
   </div>
+
   <div class="pagination"></div>
 <!--   페이징처리 시작-->
   <nav>
@@ -62,7 +63,10 @@
   </nav>
 <!--   페이징처리 끝-->
 
-  <a th:href="@{/blog/create}" class="btn btn-primary">글 등록하기</a>
+  <!-- 작성자 아이디가 관리자와 일치 할 때만 글 등록하기 -->
+<!--  <th:if th:value="${session['member'].role == ""}">-->
+    <a th:href="@{/blog/create}" class="btn btn-primary">글 등록하기</a>
+<!--  </th:if>-->
 </div>
 
 </body>
