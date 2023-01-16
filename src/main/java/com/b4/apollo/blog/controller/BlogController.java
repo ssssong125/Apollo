@@ -75,10 +75,13 @@ public class BlogController {
 
      //질문 게시판 상세 조회
     @GetMapping(value = "/detail/{bno}")
-    public String selectBlog(@PathVariable("bno") int bno, Model model) {
+    public String selectBlog(HttpSession session, @PathVariable("bno") int bno, Model model) {
         BlogDTO blog = blogService.selectBlog(bno);
         CommentDTO comm = new CommentDTO();
 
+        String reporter = (String) session.getAttribute("userId");
+
+        model.addAttribute("reporter", reporter);
         model.addAttribute("comm", comm);
         model.addAttribute("blog", blog);
         return "/blog/blogDetail";

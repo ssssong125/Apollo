@@ -2,31 +2,14 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
 <head>
-    <style>
-      body{
-        color : white !important;
-      }
-      article{
-        margin-top: 5%;
-      }
-      h1{
-        color:white;
-      }
-      article>figure{
-        text-align: center;
-      }
-      .btn-outline-secondary{
-          color : gold !important;
-          border: 1px solid gold !important;
-      }
-      #commContent{
-          border: 1px solid gold !important;
-      }
+    <title>Instruments and Music</title>
 
-    </style>
+    <!-- ajax 사용을 위한 script -->
   <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script type="text/javascript" th:src="@{/js/blog/comment.js}"></script>
 
+    <!-- custom css -->
+    <link rel="stylesheet" href="/css/blog/blogDetail.css">
 </head>
 <body>
 
@@ -71,14 +54,16 @@
           </section>
         </article>
 
-        <!-- 질문 수정 -->
-        <div class="my-3">
-          <a th:href="@{|/blog/modify/${blog.blogNo}|}" class="btn btn-sm btn-outline-secondary" th:text="수정"></a>
+          <th:block th:if="${reporter.equals('admin')}">
+                <!-- 블로그 게시글 수정 -->
+                <div class="my-3">
+                  <a th:href="@{|/blog/modify/${blog.blogNo}|}" class="btn btn-sm btn-outline-secondary" th:text="수정"></a>
 
-          <!-- 질문 삭제-->
-          <a href="javascript:void(0);" th:data-uri="@{|/blog/delete/${blog.blogNo}|}"
-             class="delete btn btn-sm btn-outline-secondary" th:text="삭제"></a>
-        </div>
+                  <!-- 블로그 게시글  삭제-->
+                  <a href="javascript:void(0);" th:data-uri="@{|/blog/delete/${blog.blogNo}|}"
+                     class="delete btn btn-sm btn-outline-secondary" th:text="삭제"></a>
+                </div>
+          </th:block>
     </div>
 
         <!-- 댓글 영역 -->
