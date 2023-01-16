@@ -2,10 +2,8 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <!--  xml 파일을 사용할 mapper가 있는 경로 -->
 <mapper namespace="com.b4.apollo.cart.model.dao.CartMapper">
-
 	<!--카트 정보를 담을 resultMap-->
 	<resultMap id="cartResultMap" type="com.b4.apollo.cart.model.dto.CartDTO">
 		<id property="cartNo" column="CART_NO"/>
@@ -22,7 +20,6 @@
 			<result property="categoryCode" column="CATEGORY_CODE"/>
 		</association>
 	</resultMap>
-
 	<!--유저 정보를 담을 resultMap-->
 	<resultMap id="userResultMap" type="com.b4.apollo.user.model.dto.UserDTO">
 		<id property="userId" column="USER_ID"/>
@@ -36,7 +33,6 @@
 		<result property="userEntdate" column="USER_ENTDATE"/>
 		<result property="point" column="USER_POINT"/>
 	</resultMap>
-
 	<!--결제 정보를 담을 resultMap-->
 	<resultMap id="paymentResultMap" type="com.b4.apollo.cart.model.dto.PaymentDTO">
 		<id property="paymentNo" column="PAYMENT_NO"/>
@@ -51,31 +47,12 @@
 		<result property="shippingStatus" column="SHIPPING_STATUS"/>
 		<result property="deliveryRequires" column="DELIVERY_REQUIRES"/>
 	</resultMap>
-<!--	<resultMap id="paymentResultMap" type="com.b4.apollo.cart.model.dto.PaymentDTO">-->
-<!--		<id property="paymentNo" column="PAYMENT_NO"/>-->
-<!--		<result property="userId" column="USER_ID"/>-->
-<!--		<result property="paymentMethod" column="PAYMENT_METHOD"/>-->
-<!--		<result property="paymentAmount" column="PAYMENT_AMOUNT"/>-->
-<!--	</resultMap>-->
-
 	<!--주문 정보를 담을 resultMap-->
 	<resultMap id="orderResultMap" type="com.b4.apollo.cart.model.dto.OrderDTO">
 <!--		<id property="orderNo" column="ORDER_NO"/>-->
 		<result property="paymentNo" column="PAYMENT_NO"/>
 		<result property="cartNo" column="CART_NO"/>
 	</resultMap>
-<!--	<resultMap id="orderResultMap" type="com.b4.apollo.cart.model.dto.OrderDTO">-->
-<!--		<id property="orderNo" column="ORDER_NO"/>-->
-<!--		<result property="paymentNo" column="PAYMENT_NO"/>-->
-<!--		<result property="orderDate" column="ORDER_DATE"/>-->
-<!--		<result property="receiverName" column="RECEIVER_NAME"/>-->
-<!--		<result property="receiverTel" column="RECEIVER_TEL"/>-->
-<!--		<result property="addressZipCode" column="ADDRESS_ZIPCODE"/>-->
-<!--		<result property="address" column="ADDRESS"/>-->
-<!--		<result property="addressDetail" column="ADDRESS_DETAIL"/>-->
-<!--		<result property="shippingStatus" column="SHIPPING_STATUS"/>-->
-<!--	</resultMap>-->
-
 	<!-- <select> 태그를 이용하여 select 쿼리임을 나타냄. 앞서 mapper에서 말했던 메소드의 이름은 select 쿼리의 id값과 같아야함. -->
 	<!-- 장바구니에 품목추가 -->
 	<insert id="addProductToCart" parameterType="hashmap">
@@ -172,13 +149,20 @@
 		     	#{deliveryRequires}
 			)
 	</insert>
+	<!--상품 재고 조회-->
+	<select id="getProductQty" parameterType="int" resultType="int">
+		SELECT A.PRODUCT_QTY
+		FROM TBL_PRODUCT A
+		WHERE A.PRODUCT_NO = #{productNo}
+	</select>
+	<!--상품 재고 수량 수정-->
+	<update id="updateProductQty" parameterType="hashmap">
+		UPDATE TBL_PRODUCT A
+		SET A.PRODUCT_QTY = (A.PRODUCT_QTY - #{productCount})
+		WHERE A.PRODUCT_NO = #{productNo}
+	</update>
 <!--	결제 번호, 카트 번호를 주문 테이블에 등록-->
 	<insert id="order" parameterType="java.util.List">
--- 		CREATE FUNCTION GET_SEQ RETURN NUMBER IS
--- 		BEGIN
--- 		RETURN SEQ_ORDER_NO.NEXTVAL;
--- 		END;
--- 		/
 		<foreach collection="list" item="cart" open="INSERT ALL" close="" separator=" ">
 			INTO TBL_ORDER (
 -- 							ORDER_NO,
@@ -210,25 +194,12 @@
 		FROM TBL_PAYMENT A
 		WHERE A.PAYMENT_NO = #{paymentNo}
 	</select>
+	<!--해당 카트 품목을 구매상태로 변경-->
 	<update id="buyCartItem" parameterType="int">
 		UPDATE TBL_CART A
 		SET A.PURCHASE_STATUS = 'Y'
 		WHERE A.CART_NO = #{cartNo}
 	</update>
-<!--	public int buyCartItems(List<CartDTO> checkedCartList) {-->
-	
-	<!--productNo를 통해 해당 상품의 상세 정보를 조회-->
-	<!--	<select id="getProductDetail" parameterType="_int" resultMap="productResultMap">-->
-	<!--		SELECT-->
-	<!--			A.PRODUCT_NO,-->
-	<!--			A.PRODUCT_NAME,-->
-	<!--			A.PRODUCT_PRICE,-->
-	<!--			A.PRODUCT_DESC,-->
-	<!--			A.PRODUCT_QTY,-->
-	<!--			A.CATEGORY_CODE-->
-	<!--		FROM TBL_PRODUCT A-->
-	<!--	</select>-->
-
 	<!--userId를 통해 결제 정보를 조회-->
 	<select id="getPaymentDetailByUserId" parameterType="hashmap" resultMap="paymentResultMap">
 		SELECT
@@ -247,17 +218,6 @@
 	 	JOIN TBL_USER B ON A.USER_ID = B.USER_ID
 		WHERE B.USER_ID = #{userId}
 	</select>
-<!--	<select id="getPaymentDetail" parameterType="hashmap" resultMap="paymentResultMap">-->
-<!--		SELECT-->
-<!--			A.PAYMENT_NO,-->
-<!--			A.USER_ID,-->
-<!--			A.PAYMENT_METHOD,-->
-<!--			A.PAYMENT_AMOUNT-->
-<!--		FROM TBL_PAYMENT A-->
-<!--				 JOIN TBL_USER B ON A.USER_ID = B.USER_ID-->
-<!--		WHERE B.USER_ID = #{userId}-->
-<!--	</select>-->
-
 	<!--userId를 통해 주문 정보를 조회-->
 	<select id="getOrderDetail" parameterType="hashmap" resultMap="orderResultMap">
 		SELECT
@@ -269,19 +229,4 @@
 		JOIN TBL_CART C ON A.CART_NO = C.CART_NO
 		WHERE B.USER_ID = #{userId}
 	</select>
-<!--	<select id="getOrderDetail" parameterType="hashmap" resultMap="orderResultMap">-->
-<!--		SELECT-->
-<!--			A.ORDER_NO,-->
-<!--			A.PAYMENT_NO,-->
-<!--			A.ORDER_DATE,-->
-<!--			A.RECEIVER_NAME,-->
-<!--			A.RECEIVER_TEL,-->
-<!--			A.ADDRESS_ZIPCODE,-->
-<!--			A.ADDRESS,-->
-<!--			A.ADDRESS_DETAIL,-->
-<!--			A.SHIPPING_STATUS-->
-<!--		FROM TBL_ORDER A-->
-<!--				 JOIN TBL_PAYMENT B ON A.PAYMENT_NO = B.PAYMENT_NO-->
-<!--	</select>-->
-
 </mapper>

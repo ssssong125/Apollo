@@ -98,12 +98,19 @@ public interface CartMapper {
      */
     int buyCartItem(int cartNo);
     /**
-     * @MethodName : moveToPurchasedCartTable
-     * @작성일 : 2023. 01. 15.
+     * @MethodName : getProductQty
+     * @작성일 : 2023. 01. 16.
      * @작성자 : 김수용
-     * @Method 설명 : CartService에서 호출되어 구매한 상품을 구매완료 테이블로 이동시키는 쿼리문을 실행시킴
+     * @Method 설명 : CartService에서 호출되어 해당하는 상품의 재고를 출력하는 쿼리문을 실행시킴
      */
-    int moveToPurchasedCartTable(List<CartDTO> cartList);
+    int getProductQty(int productNo);
+    /**
+     * @MethodName : updateProductQty
+     * @작성일 : 2023. 01. 16.
+     * @작성자 : 김수용
+     * @Method 설명 : CartService에서 호출되어 상품 재고를 수정하는 쿼리문을 실행시킴
+     */
+    int updateProductQty(Map<String, Integer> parameter);
     /**
      * @MethodName : getOrder
      * @작성일 : 2022. 12. 30.
@@ -111,4 +118,11 @@ public interface CartMapper {
      * @Method 설명 : CartService에서 호출되어 오더정보를 조회할 쿼리문을 실행시킴
      */
     OrderDTO getOrderDetail(Map<String, Integer> parameter);
+//    /**
+//     * @MethodName : moveToPurchasedCartTable
+//     * @작성일 : 2023. 01. 15.
+//     * @작성자 : 김수용
+//     * @Method 설명 : CartService에서 호출되어 구매한 상품을 구매완료 테이블로 이동시키는 쿼리문을 실행시킴
+//     */
+//    int moveToPurchasedCartTable(List<CartDTO> cartList);
 }

@@ -58,7 +58,9 @@ public class CartController {
 
         List<CartDTO> cartList = cartService.getCartList(parameter);
         mv.addObject("cartList", cartList);
-//        mv.addObject("purchaseList", purchaseList);
+
+        List<CartDTO> checkedCartList = cartService.getCheckedCartList(parameter);
+        mv.addObject("checkedCartList", checkedCartList);
 
         UserDTO user = cartService.getUserDetail(parameter);
         mv.addObject("user", user);
@@ -124,10 +126,12 @@ public class CartController {
 
         List<CartDTO> cartList = cartService.getCartList(parameter);
         model.addAttribute("cartList", cartList);
-//        model.addAttribute("purchaseList", purchaseList);
 
         UserDTO user = cartService.getUserDetail(parameter);
         model.addAttribute("user", user);
+
+        List<CartDTO> checkedCartList = cartService.getCheckedCartList(parameter);
+        model.addAttribute("checkedCartList", checkedCartList);
 
         return model;
     }
@@ -283,11 +287,35 @@ public class CartController {
         log.debug("success 포스트 작동");
         parameter.put("userId", "user01");
 
+        mv.setViewName("cart/success");
+
         List<CartDTO> checkedCartList = cartService.getCheckedCartList(parameter);
-//        checkedCartList = nul;l return trolley; 널값이면
+
+        if (checkedCartList.size() < 1) {
+
+            mv.addObject("msg", "에러 :  선택된 상품이 없습니다.");
+            mv.setViewName("cart/fail");
+        }
+
+        /*상품 재고 수정*/
+        for (CartDTO checkedCart : checkedCartList) {
+
+            HashMap<String, Integer> productParameter = new HashMap<>();
+            productParameter.put("productNo", checkedCart.getProductInfo().getProductNo());
+            productParameter.put("productCount", checkedCart.getProductInfo().getProductQty());
+
+            if (cartService.updateProductQty(productParameter) < 1)
+                
+                mv.addObject("msg", "에러 : 상품 재고 부족");
+                mv.setViewName("cart/fail");
+        }
 
         /*결제 테이블에 등록*/
-        cartService.payment(paymentDTO);
+        if (cartService.payment(paymentDTO) < 1) {
+
+            mv.addObject("msg", "에러 : 상품 결제 에러");
+            mv.setViewName("cart/fail");
+        }
 
         /*주문 테이블에 등록*/
         cartService.order(checkedCartList);
@@ -300,7 +328,6 @@ public class CartController {
 
         mv.addObject("paymentDTO", paymentDTO);
 
-        mv.setViewName("cart/success");
 
         return mv;
     }

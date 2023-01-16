@@ -171,6 +171,19 @@ public class CartServiceImpl implements CartService{
         return cartMapper.payment(paymentDTO);
     }
     /**
+     * @MethodName : payment
+     * @작성일 : 2023. 01. 14.
+     * @작성자 : 김수용
+     * @Method 설명 : 결제 테이블에 삽입할 인터페이스의 구현체
+     */
+    public int updateProductQty(Map<String, Integer> parameter) {
+
+        if (cartMapper.getProductQty(parameter.get("productNo")) >= parameter.get("productCount"))
+            return cartMapper.updateProductQty(parameter);
+         else
+            return 0;
+    }
+    /**
      * @MethodName : getPaymentDetail
      * @작성일 : 2022. 12. 30.
      * @작성자 : 김수용

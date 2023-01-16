@@ -83,6 +83,13 @@ public interface CartService {
      */
     int payment(PaymentDTO paymentDTO);
     /**
+     * @MethodName : updateProductQty
+     * @작성일 : 2023. 01. 16.
+     * @작성자 : 김수용
+     * @Method 설명 : 상품 재고를 수정하는 기능
+     */
+    int updateProductQty(Map<String, Integer> parameter);
+    /**
      * @MethodName : getPaymentDetail
      * @작성일 : 2022. 12. 30.
      * @작성자 : 김수용

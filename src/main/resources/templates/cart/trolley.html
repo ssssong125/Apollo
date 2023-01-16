@@ -160,6 +160,7 @@
             </div>
         </div>
         <br>
+        <input id="checkedSize" type="number" th:value="${checkedCartList.size()}">
         <!--/*전달할 데이터*/-->
 <!--        <span th:text="${#calendars.format(#calendars.createNow())}"/>-->
         <form th:action="@{order}" th:object="${paymentDTO}" th:method="post">
@@ -188,8 +189,8 @@
             <div class="col-lg-10">
             </div>
             <div class="col-lg-2">
-<!--                <button type="submit" class="goldButton" onclick="location.href='order'">Purchase</button>-->
-                <button type="submit" class="goldButton" onclick="window.location.href='order'">Purchase</button>
+<!--                <button type="submit" class="goldButton" onclick="window.location.href='order'">Purchase</button>-->
+                <button type="submit" class="goldButton" onclick="goOrder()">Purchase</button>
             </div>
         </div>
         </form>
