@@ -33,10 +33,11 @@ public class UserController {
     }
 
     @PostMapping("signup")
-    public ModelAndView insertUser(ModelAndView mv, UserDTO newUser, RedirectAttributes rttr, Locale locale) throws Exception{
+    public ModelAndView insertUser(UserDTO newUser, ModelAndView mv, RedirectAttributes rttr, Locale locale) throws Exception{
         userService.insertUser(newUser);
         mv.setViewName("redirect:/user/login");
         rttr.addFlashAttribute("signupSuccessMessage", messageSource.getMessage("insertUser", null, locale));
+
         return mv;
     }
 
@@ -47,23 +48,56 @@ public class UserController {
         return "/user/login";
     }
 
+//    @PostMapping("login")
+//    public  String userLogin(UserDTO userDTO, HttpSession session){
+//        String inputPwd = "";
+//        String endcodePwd = "";
+//
+//        UserDTO user = userService.loadUserByUsername(userDTO.getUsername());
+//
+//        if(userDTO != null){
+//            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//            inputPwd = userDTO.getPassword();
+//            endcodePwd = user.getPassword();
+//
+//            if(true == passwordEncoder.matches(inputPwd, endcodePwd)){
+//                user.setPassword("");
+//                session.setAttribute("user", user);
+//                return "/user/mypage";
+//            } else {
+//                return "/user/login";
+//            }
+//
+//            }else {
+//            return "/user/login";
+//        }
+//    }
+//    @PostMapping("login")
+//    public String userLogin(UserDTO userDTO, Model model){
+//        UserDTO loginUser = userService.loginUser(userDTO.getUsername());
+//        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+//        if( loginUser != null && bCryptPasswordEncoder.matches(userDTO.getPassword(), loginUser.getPassword())){
+//            model.addAttribute("loginUser", loginUser);
+//            return "/user/mypage";
+//        }else{
+//            model.addAttribute("msg", "로그인 실패!");
+//            return "/user/login";
+//        }
+//    }
     @PostMapping("/login")
     @ResponseBody
-    public ModelAndView loginUser(ModelAndView mv, UserDTO userDTO, HttpSession session, RedirectAttributes rttr, Locale locale) throws Exception{
-
+    public ModelAndView loginUser(ModelAndView mv, UserDTO userDTO, HttpSession session, Locale locale) {
         boolean result = userService.loginUser(userDTO, session);
-        String msg="";
-
         if(result){
-            mv.addObject("userId", 1);
-            session.setAttribute("userId", userDTO.getUserId());
-//            mv.setViewName("redirect:/user/mypage");
-//            msg = "<script>location.href='/user/mypage'</script>";
+            session.setAttribute("userId", userDTO.getUsername());
+            String userId = (String)session.getAttribute("userId");
+            userDTO.setUsername(userId);
+            userDTO = userService.userDetail(userDTO);
+            mv.setViewName("user/mypage");
+//            System.out.println("로그인 페이지 : "+userDTO);
         }else {
-            mv.addObject("userId", 0);
-            rttr.addFlashAttribute("loginFailMsg", messageSource.getMessage("loginFail", null, locale));
-//            mv.setViewName("redirect:/user/login");
-//            msg = "<script>alert('login_fail. 다시 로그인해주세요');location.href='../login'<script>";
+            mv.addObject("loginFailMsg", messageSource.getMessage("loginFail", null, locale));
+            mv.setViewName("user/login");
         }
         return mv;
     }
@@ -71,12 +105,13 @@ public class UserController {
 
     @GetMapping(value = {"/mypage","/header"})
     public String userpage(UserDTO userDTO, HttpSession session, Model model){
+        session.setAttribute("userId", userDTO.getUsername());
         String userId = (String)session.getAttribute("userId");
-        userDTO.setUserId(userId);
-        userService.userDetail(userDTO);
+        userDTO.setUsername(userId);
+        userDTO = userService.userDetail(userDTO);
         model.addAttribute("userDetail", userService.userDetail(userDTO));
-
-        return "user/mypage";
+        System.out.println("마이 페이지 컨트롤러"+userDTO);
+        return "/mypage";
     }
 
 
@@ -84,7 +119,7 @@ public class UserController {
     @GetMapping("update")
     public String userDetail(UserDTO userDTO, HttpSession session, Model model){
         String userId = (String)session.getAttribute("userId");
-        userDTO.setUserId(userId);
+        userDTO.setUsername(userId);
         UserDTO userDetail = userService.userDetail(userDTO);
         model.addAttribute("userDetail", userDetail);
 
@@ -104,7 +139,7 @@ public class UserController {
     public String deletepage(UserDTO userDTO, HttpSession session, Model model){
 
         String userId = (String)session.getAttribute("userId");
-        userDTO.setUserId(userId);
+        userDTO.setUsername(userId);
         userService.userDetail(userDTO);
         model.addAttribute("userDetail", userService.userDetail(userDTO));
         return "/user/delete";
@@ -112,7 +147,7 @@ public class UserController {
 
     @PostMapping("delete")
     public String deleteUser(UserDTO userDTO, HttpSession session, RedirectAttributes rttr, Locale locale){
-        userDTO.setUserId((String)session.getAttribute("userId"));
+        userDTO.setUsername((String)session.getAttribute("userId"));
         userService.deleteUser(userDTO);
         rttr.addFlashAttribute("deleSuccessMessage", messageSource.getMessage("deleteUser", null, locale));
         session.invalidate();

@@ -44,6 +44,7 @@ public class CartServiceImpl implements CartService{
      * @Method 설명 : 장바구니에 상품을 추가하는 기능 구현체
      */
     @Override
+
     @Transactional(rollbackFor = Exception.class) // 오류 발생시 롤백 // 메소드에
     public int addProductToCart(HashMap<String, Object> parameter) {
 
@@ -56,6 +57,7 @@ public class CartServiceImpl implements CartService{
 
         return result;
     }
+
     /**
      * @MethodName : getCartList
      * @작성일 : 2022. 12. 30.
@@ -67,6 +69,7 @@ public class CartServiceImpl implements CartService{
 
         return cartMapper.getCartList(parameter);
     }
+
     /**
      * @MethodName : getCheckedCartList
      * @작성일 : 2023. 01. 14.
@@ -89,7 +92,7 @@ public class CartServiceImpl implements CartService{
     public int updateProductCount(HashMap<String, Integer> parameter) {
 
         int result = cartMapper.updateProductCount(parameter);
-        
+
         if(result < 1) {
 
             throw new CommonException("구매 수량 조절 실패");
@@ -97,6 +100,7 @@ public class CartServiceImpl implements CartService{
 
         return result;
     }
+
     /**
      * @MethodName : updateCheckStatus
      * @작성일 : 2023. 01. 13.
@@ -135,6 +139,7 @@ public class CartServiceImpl implements CartService{
 
         return result;
     }
+
     /**
      * @MethodName : getPaymentDetail
      * @작성일 : 2022. 12. 30.
@@ -146,6 +151,7 @@ public class CartServiceImpl implements CartService{
 
         return cartMapper.getUserDetail(parameter);
     }
+
     /**
      * @MethodName : order
      * @작성일 : 2023. 01. 14.
@@ -190,6 +196,7 @@ public class CartServiceImpl implements CartService{
      * @Method 설명 : 결제 정보를 불러올 인터페이스의 구현체
      */
     @Override
+
     public PaymentDTO getPaymentDetailByPaymentNo(int paymentNo) {
 
         return cartMapper.getPaymentDetailByPaymentNo(paymentNo);
@@ -220,4 +227,5 @@ public class CartServiceImpl implements CartService{
 
         return cartMapper.getOrderDetail(parameter);
     }
+
 }

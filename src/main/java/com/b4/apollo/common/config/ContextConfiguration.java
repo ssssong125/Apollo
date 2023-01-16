@@ -6,6 +6,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 
+import java.util.Locale;
+
 /**
  @FileName : ContextConfiguration.java
  @Project : Apollo
@@ -23,7 +25,7 @@ public class ContextConfiguration {
     ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
         messageSource.setBasename("classpath:/messages/message");
         messageSource.setDefaultEncoding("UTF-8");
-    //messageSource.setDefaultLocale(Locale.KOREA);
+        messageSource.setDefaultLocale(Locale.KOREA);
     //한글이 깨지면
         return messageSource;}
 
