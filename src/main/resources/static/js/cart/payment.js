@@ -58,7 +58,7 @@ function kakaoPay() {
             나중에 포스팅 해볼게요.
          */
         name: productName, //결제창에서 보여질 이름
-        amount: amount, //가격
+        amount: amount * 1300, //가격
         buyer_email: email,
         buyer_name: buyerName,
         buyer_tel: buyerTel,

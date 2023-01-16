@@ -68,53 +68,7 @@ textarea:focus {
   color: #FFD700;
 }
 
-.active-label, input[type=radio]:checked.custom-radio, .custom-radio:focus, .custom-radio:hover, .custom-radio:active {
-  color: #FFD700;
-}
-.active-label:before, input[type=radio].custom-radio:checked:before, .custom-radio:focus:before, .custom-radio:hover:before, .custom-radio:active:before {
-  background: #FFD700;
-  border-color: #FFD700;
-}
-
-.custom-radio {
-  font-size: 1rem;
-  font-weight: bold;
-  line-height: 1;
-  cursor: pointer;
-  display: block;
-  padding: 1rem 1rem 1rem 3rem;
-  position: relative;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  whitespace: no-wrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  transition: all 0.15s ease;
-  /**
-   * This is the radio fake dot basically
-   */
-}
-.custom-radio:first-of-type {
-  border: 0;
-}
-.custom-radio:before {
-  content: "";
-  position: absolute;
-  left: 1rem;
-  top: 1rem;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  border: 0.2rem solid #ccc;
-}
-
-/**
- * How it should look when checked
- */
-input[type=radio]:checked.custom-radio:before {
-  border: none white;
-  background: #FFD700;
-}
-
+/*커스텀 라디오 css*/
 /*구분선*/
 .line {
   border: solid 1px gray;

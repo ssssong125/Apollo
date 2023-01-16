@@ -140,8 +140,9 @@ public class CartController {
         UserDTO user = cartService.getUserDetail(parameter);
         model.addAttribute("user", user);
 
-        List<CartDTO> checkedCartList = cartService.getCheckedCartList(parameter);
-        model.addAttribute("checkedCartList", checkedCartList);
+//        체크갯수 구할라했는데 필요없을듯
+//        List<CartDTO> checkedCartList = cartService.getCheckedCartList(parameter);
+//        model.addAttribute("checkedCartList", checkedCartList);
 
         return model;
     }
@@ -252,30 +253,19 @@ public class CartController {
      * @작성자 : 김수용
      * @Method 설명 : GetMapping방식으로 success 값을 받게되면 success 페이지로 넘겨줌
      */
+    @GetMapping("success")
+//    public ModelAndView success(ModelAndView mv, PaymentDTO paymentDTO) {
+    public ModelAndView success(ModelAndView mv, PaymentDTO paymentDTO) {
+
+        mv.addObject("paymentDTO", paymentDTO);
+
+        mv.setViewName("cart/success");
+
+        return mv;
+    }
 
 //    @GetMapping("success")
-////    public ModelAndView success(ModelAndView mv, PaymentDTO paymentDTO) {
-//    public ModelAndView success(ModelAndView mv) {
-//
-//        log.debug("success 겟 작동");
-//
-////        /*결제 테이블에 등록*/
-////        cartService.payment(paymentDTO);
-////
-////        /*주문 테이블에 등록*/
-////        List<CartDTO> checkedCartList = cartService.getCheckedCartList(parameter);
-////        cartService.order(checkedCartList);
-////
-////        /*구매상태 Y로 전환(카트 테이블에서 삭제)*/
-////        cartService.buyCartItems(checkedCartList);
-//
-//        mv.setViewName("cart/success");
-//
-//        return mv;
-//    }
-
-    @GetMapping("success")
-    public void success() {}
+//    public void success() {}
     /**
      * @MethodName : successResult
      * @작성일 : 2023. 01. 14.
@@ -315,39 +305,39 @@ public class CartController {
 
             mv.addObject("msg", "에러 :  선택된 상품이 없습니다.");
             mv.setViewName("cart/fail");
-        }
-
-        /*상품 재고 수정*/
-        for (CartDTO checkedCart : checkedCartList) {
-
+        } else {
+            /*상품 재고 수정*/
             HashMap<String, Integer> productParameter = new HashMap<>();
-            productParameter.put("productNo", checkedCart.getProductInfo().getProductNo());
-            productParameter.put("productCount", checkedCart.getProductInfo().getProductQty());
 
-            if (cartService.updateProductQty(productParameter) < 1)
-                
-                mv.addObject("msg", "에러 : 상품 재고 부족");
+            for (CartDTO checkedCart : checkedCartList) {
+
+                productParameter.clear();
+//                productParameter.put("productCount", checkedCart.getProductInfo().getProductQty());
+                productParameter.put("productCount", checkedCart.getProductCount());
+                productParameter.put("productNo", checkedCart.getProductInfo().getProductNo());
+
+                if (cartService.updateProductQty(productParameter) < 1) {
+
+                    mv.addObject("msg", "에러 : 상품 재고 부족");
+                    mv.setViewName("cart/fail");
+                }
+            }
+            /*결제 테이블에 등록*/
+            if (cartService.payment(paymentDTO) < 1) {
+
+                mv.addObject("msg", "에러 : 상품 결제 에러");
                 mv.setViewName("cart/fail");
+            }
+            /*주문 테이블에 등록*/
+            cartService.order(checkedCartList);
+            /*구매상태 Y로 전환(카트 테이블에서 삭제)*/
+            for (CartDTO checkedCart : checkedCartList) {
+                cartService.buyCartItem(checkedCart.getCartNo());
+            }
+
+//            mv.addObject("paymentNo", cartService.getPaymentNo(checkedCartList.get(0).getCartNo()));
+            mv.addObject("paymentNo", cartService.getPaymentNo(checkedCartList.get(0).getCartNo()));
         }
-
-        /*결제 테이블에 등록*/
-        if (cartService.payment(paymentDTO) < 1) {
-
-            mv.addObject("msg", "에러 : 상품 결제 에러");
-            mv.setViewName("cart/fail");
-        }
-
-        /*주문 테이블에 등록*/
-        cartService.order(checkedCartList);
-
-        /*구매상태 Y로 전환(카트 테이블에서 삭제)*/
-//        cartService.buyCartItems(checkedCartList);
-        for (CartDTO checkedCart : checkedCartList) {
-            cartService.buyCartItem(checkedCart.getCartNo());
-        }
-
-        mv.addObject("paymentDTO", paymentDTO);
-
 
         return mv;
     }
@@ -364,13 +354,4 @@ public class CartController {
 
         return mv;
     }
-
-//        logger.info(name);
-
-//    <button onclick="location.href='/cart/trolley'">장바구니 조회</button>
-//    <button onclick="location.href='/cart/order'">주문 정보 입력</button>
-//    <button onclick="location.href='/cart/payment'">결제</button>
-//    <button onclick="location.href='/cart/success'">결제 성공</button>
-//    <button onclick="location.href='/cart/fail'">결제 실패</button>
-
 }

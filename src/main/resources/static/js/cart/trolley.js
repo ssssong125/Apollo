@@ -33,14 +33,18 @@ $(document).ready(function () {
         sum(size);
     })
 })
-function goOrder() {
+/*품목 체크 확인*/
+function checkForm() {
 
     if($("#checkedSize").val() > 0){
+
         window.location.href='order'
+        return true;
     } else {
+
         alert("선택된 상품이 없습니다.")
+        return false;
     }
-    // <button type="submit" className="goldButton" onClick="window.location.href='order'">Purchase</button>
 }
 /*체크 여부 수정*/
 function updateCheckStatus(cartNo, check) {
@@ -79,7 +83,17 @@ function updateCheckStatus(cartNo, check) {
         })
         .always(function() { // 항상 동작
             // alert("항상");
+            let cSize = 0;
+
+            for (let i = 1; i <= size; i++) {
+                if($("#checkBox"+i).is(':checked')) {
+                    cSize += 1;
+                }
+            }
+
+            $("#checkedSize").val(cSize)
         })
+
 }
 /*해당 상품 장바구니에서 삭제*/
 function deleteProductInCart(cartNo) {

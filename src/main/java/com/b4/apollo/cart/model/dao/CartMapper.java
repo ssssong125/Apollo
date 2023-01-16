@@ -112,6 +112,13 @@ public interface CartMapper {
      */
     int updateProductQty(Map<String, Integer> parameter);
     /**
+     * @MethodName : getPaymentNo
+     * @작성일 : 2023. 01. 16.
+     * @작성자 : 김수용
+     * @Method 설명 : CartService에서 호출되어 해당 카트번호에 해당하는 결제번호를 출력하는 쿼리문을 실행시킴
+     */
+    List<HashMap<String, Integer>> getPaymentNo(Integer cartNo);
+    /**
      * @MethodName : getOrder
      * @작성일 : 2022. 12. 30.
      * @작성자 : 김수용
