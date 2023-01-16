@@ -1,27 +1,30 @@
 <!doctype html>
-<html lang="ko" xmlns:layout="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!--    <meta charset="utf-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">-->
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" type="text/css" th:href="@{/css/common/bootstrap.min.css}">
-    <title>layout</title>
+<!--    <link rel="stylesheet" type="text/css" th:href="@{/css/common/bootstrap.min.css}">-->
+<!--    <title>layout</title>-->
+    <meta charset="UTF-8"/>
+    <th:block th:replace="common/config :: configFragment"></th:block>
 </head>
-<body>
-
 <!-- 헤더 -->
-<div th:include="fragments/header.html"></div>
+<!--<div th:include="fragments/header.html"></div>-->
+<!--<th:block th:replace="fragments/header :: headerFragment"></th:block>-->
+<header th:replace="fragments/header :: headerFragment"></header>
 
 <!-- 기본 템플릿 안에 삽입될 내용 Start -->
-<th:block layout:fragment="content"></th:block>
-<!-- 기본 템플릿 안에 삽입될 내용 End -->
+<!--<th:block layout:fragment="content"></th:block>-->
+<body layout:fragment="content"></body>
 
 <!-- 푸터 -->
-<div th:include="fragments/footer.html"></div>
+<!--<div th:include="fragments/footer.html"></div>-->
+<!--<th:block th:replace="fragments/footer ::  footerFragment"></th:block>-->
+<footer th:replace="fragments/footer ::  footerFragment"></footer>
 
 <!-- 자바스크립트 Start -->
-<th:block layout:fragment="script"></th:block>
+<!--<th:block layout:fragment="script"></th:block>-->
 <!-- 자바스크립트 End -->
-</body>
 </html>
