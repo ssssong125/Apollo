@@ -28,12 +28,19 @@ public interface CartMapper {
      */
     int addProductToCart(HashMap<String, Object> parameter);
     /**
+     * @MethodName : addCart
+     * @작성일 : 2023. 01. 01.
+     * @작성자 : 김수용
+     * @Method 설명 : CartService에서 호출되어 품목을 장바구니에 추가하는 쿼리문을 실행시킴
+     */
+    int addProductCountToCart(HashMap<String, Object> parameter);
+    /**
      * @MethodName : getCartList
      * @작성일 : 2022. 12. 30.
      * @작성자 : 김수용
      * @Method 설명 : CartService에서 호출되어 장바구니 품목을 조회할 쿼리문을 실행시킴
      */
-    List<CartDTO> getCartList(Map<String, String> parameter);
+    List<CartDTO> getCartList(String userId);
     /**
      * @MethodName : getCheckedCartList
      * @작성일 : 2023. 01. 14.

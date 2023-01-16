@@ -73,26 +73,26 @@ function updateCheckStatus(cartNo, check) {
         //     "X-HTTP-Method-Override" : "POST"
         // },
     })
-        .done(function (result) { // 수행할 동작
-            // alert("성공")
-            // return location.href = "trolley"
-        })
-        .fail(function(jqXHR) { // 실패시
-            // alert("실패")
-            // return location.href = "trolley"
-        })
-        .always(function() { // 항상 동작
-            // alert("항상");
-            let cSize = 0;
+    .done(function (result) { // 수행할 동작
+        // alert("성공")
+        // return location.href = "trolley"
+    })
+    .fail(function(jqXHR) { // 실패시
+        // alert("실패")
+        // return location.href = "trolley"
+    })
+    .always(function() { // 항상 동작
+        // alert("항상");
+        let cSize = 0;
 
-            for (let i = 1; i <= size; i++) {
-                if($("#checkBox"+i).is(':checked')) {
-                    cSize += 1;
-                }
+        for (let i = 1; i <= size; i++) {
+            if($("#checkBox"+i).is(':checked')) {
+                cSize += 1;
             }
+        }
 
-            $("#checkedSize").val(cSize)
-        })
+        $("#checkedSize").val(cSize)
+    })
 
 }
 /*해당 상품 장바구니에서 삭제*/
@@ -127,17 +127,17 @@ function deleteProductInCart(cartNo) {
         //     "X-HTTP-Method-Override" : "POST"
         // },
     })
-        .done(function (result) { // 수행할 동작
-            // alert("성공")
-            return location.href = "trolley"
-        })
-        .fail(function(jqXHR) { // 실패시
-            // alert("실패")
-            return location.href = "trolley"
-        })
-        .always(function() { // 항상 동작
-            // alert("항상");
-        })
+    .done(function (result) { // 수행할 동작
+        // alert("성공")
+        return location.href = "trolley"
+    })
+    .fail(function(jqXHR) { // 실패시
+        // alert("실패")
+        return location.href = "trolley"
+    })
+    .always(function() { // 항상 동작
+        // alert("항상");
+    })
 }
 /*상품 구매수량 조절*/
 function updateQty(cartNo, code, max) {
@@ -194,10 +194,13 @@ function sum(size) {
     let orderTotal = 0;
 
     for (let i = 1; i <= size; i++) {
+
         let check = 0;
+
         if($("#checkBox"+i).is(':checked')) {
             check = 1;
         }
+
         orderTotal += $("#hiddenPrice" + i).val() * $("#productQty" + i).val() * check
     }
 

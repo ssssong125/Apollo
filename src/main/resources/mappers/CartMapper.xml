@@ -62,12 +62,21 @@
 				SEQ_CART_NO.NEXTVAL,
 				#{ productNo },
 				#{ userId },
-				#{ productCount },
-				SYSDATE
+				#{ count },
+				SYSDATE,
+			 	'Y',
+			 	'N'
 			)
 	</insert>
+	<!-- 장바구니에 품목 갯수추가 -->
+	<update id="addProductCountToCart" parameterType="hashmap">
+		UPDATE TBL_CART A
+		SET A.PRODUCT_COUNT = (A.PRODUCT_COUNT + #{count})
+		WHERE A.USER_ID = #{userId}
+		AND A.PRODUCT_NO = #{productNo}
+	</update>
 	<!--userId를 사용해 카트 정보를 조회-->
-	<select id="getCartList" parameterType="hashmap" resultMap="cartResultMap">
+	<select id="getCartList" parameterType="String" resultMap="cartResultMap">
 		SELECT
 			A.CART_NO,
 			A.USER_ID,

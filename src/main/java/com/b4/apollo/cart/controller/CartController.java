@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,10 +35,7 @@ public class CartController {
 
     private final CartService cartService;
 
-    HashMap<String, String> parameter = new HashMap<>();
-
 //    ArrayList<Integer> purchaseList = new ArrayList<>();
-
 
 //    String userId = userId;
 
@@ -55,13 +53,16 @@ public class CartController {
     @GetMapping(value = {"trolley","cart/trolley"})
     public ModelAndView trolley(ModelAndView mv, PaymentDTO paymentDTO) {
 
+
         mv.addObject("paymentDTO", paymentDTO);
 
+        HashMap<String, String> parameter = new HashMap<>();
         parameter.put("userId", "user01");
+        String userId = "user01";
 //        getSession httpsession
 //        parameter.put("userId", userId);
 
-        List<CartDTO> cartList = cartService.getCartList(parameter);
+        List<CartDTO> cartList = cartService.getCartList(userId);
         mv.addObject("cartList", cartList);
 
 
@@ -87,24 +88,26 @@ public class CartController {
     @PostMapping("trolley-count")
     public Model trolleyResultCount(Model model, Integer cartNo, Integer count) { // null값도 받기 위해 Integer 사용
 
+        HashMap<String, String> parameter = new HashMap<>();
         parameter.put("userId", "user01");
 //        parameter.put("userId", userId);
+        String userId = "user01";
 
         if(cartNo != null && count != null) {
 
             if(count >= 1) {
 
-                HashMap<String, Integer> parameter = new HashMap<>();
-                parameter.put("cartNo", cartNo);
-                parameter.put("count", count);
+                HashMap<String, Integer> cartParameter = new HashMap<>();
+                cartParameter.put("cartNo", cartNo);
+                cartParameter.put("count", count);
 
-                cartService.updateProductCount(parameter);
+                cartService.updateProductCount(cartParameter);
 
             } else if(count < 1) cartService.deleteProductInCart(cartNo);
 
         }
 
-        List<CartDTO> cartList = cartService.getCartList(parameter);
+        List<CartDTO> cartList = cartService.getCartList(userId);
         model.addAttribute("cartList", cartList);
 
 //        model.addAttribute("purchaseList", purchaseList);
@@ -125,7 +128,9 @@ public class CartController {
     @PostMapping("trolley-check")
     public Model trolleyResultCheck(Model model, Integer cartNo, char check) { // null값도 받기 위해 Integer 사용
 
+        HashMap<String, String> parameter = new HashMap<>();
         parameter.put("userId", "user01");
+        String userId = "user01";
 //        parameter.put("userId", userId);
 
         HashMap<String, Object> checkParameter = new HashMap<>();
@@ -134,7 +139,7 @@ public class CartController {
 
         cartService.updateCheckStatus(checkParameter);
 
-        List<CartDTO> cartList = cartService.getCartList(parameter);
+        List<CartDTO> cartList = cartService.getCartList(userId);
         model.addAttribute("cartList", cartList);
 
         UserDTO user = cartService.getUserDetail(parameter);
@@ -156,6 +161,7 @@ public class CartController {
 
     public ModelAndView order(ModelAndView mv, PaymentDTO paymentDTO, ArrayList<Integer> purchaseList) {
 
+        HashMap<String, String> parameter = new HashMap<>();
 //        parameter.put("userId", userId);
         parameter.put("userId", "user01");
 
@@ -185,6 +191,7 @@ public class CartController {
 //        @RequestBody 더 이상 필요 x -> Content type 'application/x-www-form-urlencoded;charset=UTF-8' not supported 유발함
 //    public ModelAndView orderResult(ModelAndView mv, @ModelAttribute("paymentDTO") PaymentDTO paymentDTO) {
 
+        HashMap<String, String> parameter = new HashMap<>();
         parameter.put("userId", "user01");
 //        parameter.put("userId", userId);
 
@@ -208,7 +215,7 @@ public class CartController {
     @GetMapping("payment")
     public ModelAndView payment(ModelAndView mv, PaymentDTO paymentDTO) {
 
-
+        HashMap<String, String> parameter = new HashMap<>();
         parameter.put("userId", "user01");
 
         UserDTO user = cartService.getUserDetail(parameter);
@@ -233,8 +240,8 @@ public class CartController {
     @PostMapping("payment")
     public Model paymentResult(Model model, PaymentDTO paymentDTO) {
 
+        HashMap<String, String> parameter = new HashMap<>();
         parameter.put("userId", "user01");
-
 
         UserDTO user = cartService.getUserDetail(parameter);
         model.addAttribute("user", user);
@@ -294,7 +301,7 @@ public class CartController {
     @PostMapping("success")
     public ModelAndView successResult(ModelAndView mv, PaymentDTO paymentDTO) {
 
-        log.debug("success 포스트 작동");
+        HashMap<String, String> parameter = new HashMap<>();
         parameter.put("userId", "user01");
 
         mv.setViewName("cart/success");
@@ -353,5 +360,21 @@ public class CartController {
         mv.setViewName("cart/fail");
 
         return mv;
+    }
+
+    @ResponseBody
+    @PostMapping("addToCart")
+    public void addToCart(HttpSession session, int productNo, int count) {
+
+//        String userId = (String) session.getAttribute("userId");
+        String userId = "user01";
+
+        HashMap<String, Object> parameter = new HashMap<>();
+
+        parameter.put("userId",  userId);
+        parameter.put("productNo", productNo);
+        parameter.put("count", count);
+
+        cartService.addProductToCart(parameter);
     }
 }
