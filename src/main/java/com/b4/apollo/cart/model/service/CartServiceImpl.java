@@ -154,9 +154,15 @@ public class CartServiceImpl implements CartService{
      */
     @Override
     @Transactional(rollbackFor = Exception.class) // 오류 발생시 롤백 // 메소드에
-    public int order(List<CartDTO> cartList) {
+    public Integer order(List<CartDTO> cartList) {
 
         return cartMapper.order(cartList);
+    }
+    @Override
+    public int getPaymentNo(Integer cartNo) {
+
+        return Integer.parseInt(String.valueOf(cartMapper.getPaymentNo(cartNo).get(0).get("PAYMENT_NO")));
+//        return cartMapper.getPaymentNo(cartNo).get(0).get("PAYMENT_NO");
     }
     /**
      * @MethodName : payment

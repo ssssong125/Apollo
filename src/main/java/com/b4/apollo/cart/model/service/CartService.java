@@ -74,7 +74,14 @@ public interface CartService {
      * @작성자 : 김수용
      * @Method 설명 : 주문 테이블에 삽입하는 기능
      */
-    int order(List<CartDTO> cartList);
+    Integer order(List<CartDTO> cartList);
+    /**
+     * @MethodName : order
+     * @작성일 : 2023. 01. 14.
+     * @작성자 : 김수용
+     * @Method 설명 : 주문 테이블에 삽입하는 기능
+     */
+    int getPaymentNo(Integer cartNo);
     /**
      * @MethodName : payment
      * @작성일 : 2023. 01. 14.

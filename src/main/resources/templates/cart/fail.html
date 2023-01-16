@@ -39,22 +39,35 @@
             </div>
         </div>
         <br>
-
-        <!--실패 사유-->
-        <div class="row menu">
+            <!--실패 사유-->
+        <div class="row menu" th:if="${msg} != null">
             <div class="col-lg" style="text-align: center">
-                No balance
+                <span th:text="${msg}"></span>
             </div>
         </div>
         <br>
-
-        <!--실패 사유-->
         <div class="row menu">
             <div class="col-lg" style="text-align: center">
-                Transaction is denied
+                Try Again
             </div>
         </div>
         <br>
+        <!--실패 사유-->
+<!--        <div class="row menu">-->
+<!--            <div class="col-lg" style="text-align: center">-->
+<!--                No balance-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <br>-->
+
+        <!--실패 사유-->
+<!--        <div class="row menu">-->
+<!--            <div class="col-lg" style="text-align: center">-->
+<!--                Transaction is denied-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <br>-->
+
         <hr class="thick-line">
         
         <!--확인 버튼-->

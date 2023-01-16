@@ -22,5 +22,7 @@ function formSubmit() {
     $("#deliveryRequiresForm").val($("#deliveryRequires").val())
 
     // return location.href = "redirect:payment";
-    return window.location.href = "payment";
+    // return window.location.href = "payment";
+
+    return true;
 }
