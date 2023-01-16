@@ -2,13 +2,21 @@ package com.b4.apollo.blog.service;
 
 import com.b4.apollo.blog.model.dto.CommentDTO;
 
-import javax.xml.stream.events.Comment;
 import java.util.List;
 
 public interface CommentService {
 
+    List<CommentDTO> selectCommList(int bno);
 
-    void insertComm(CommentDTO comm);
+    int insertComm(CommentDTO blogNo);
 
-    List<CommentDTO> getList(CommentDTO comm);
+    int commModify(Integer commNo);
+
+
+    CommentDTO selectComm(Integer commNo);
+
+    int deleteComm(CommentDTO comm);
+
+
+
 }

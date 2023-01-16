@@ -1,10 +1,7 @@
 package com.b4.apollo.common.config;
 
-//import com.b4.apollo.product.model.dto.ProdAndImageDTO;
-//import com.b4.apollo.product.model.service.ProductService;
-//import com.b4.apollo.qna.service.BoardService;
-
 import org.springframework.boot.test.context.SpringBootTest;
+
 
 @SpringBootTest
 class ApolloApplicationTest {

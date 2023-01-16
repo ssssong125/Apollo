@@ -36,6 +36,14 @@ public interface CartService {
     List<CartDTO> getCartList(HashMap<String, String> parameter);
 
     /**
+     * @MethodName : getCheckedCartList
+     * @작성일 : 2023. 01. 14.
+     * @작성자 : 김수용
+     * @Method 설명 : 체크된 장바구니 품목들을 불러오는 기능
+     */
+    List<CartDTO> getCheckedCartList(Map<String, String> parameter);
+
+    /**
      * @MethodName : updateProductCount
      * @작성일 : 2023. 01. 05.
      * @작성자 : 김수용
@@ -43,6 +51,13 @@ public interface CartService {
      */
     int updateProductCount(HashMap<String, Integer> parameter);
 
+    /**
+     * @MethodName : updateCheckStatus
+     * @작성일 : 2023. 01. 13.
+     * @작성자 : 김수용
+     * @Method 설명 : 장바구니에 담긴 품목의 구매 여부를 수정하는 기능
+     */
+    int updateCheckStatus(HashMap<String, Object> parameter);
     /**
      * @MethodName : deleteProduct
      * @작성일 : 2023. 01. 03.
@@ -60,13 +75,41 @@ public interface CartService {
     UserDTO getUserDetail(Map<String, String> parameter);
 
     /**
+     * @MethodName : order
+     * @작성일 : 2023. 01. 14.
+     * @작성자 : 김수용
+     * @Method 설명 : 주문 테이블에 삽입하는 기능
+     */
+    int order(List<CartDTO> cartList);
+    /**
+     * @MethodName : payment
+     * @작성일 : 2023. 01. 14.
+     * @작성자 : 김수용
+     * @Method 설명 : 결제 테이블에 삽입하는 기능
+     */
+    int payment(PaymentDTO paymentDTO);
+    /**
+     * @MethodName : updateProductQty
+     * @작성일 : 2023. 01. 16.
+     * @작성자 : 김수용
+     * @Method 설명 : 상품 재고를 수정하는 기능
+     */
+    int updateProductQty(Map<String, Integer> parameter);
+    /**
      * @MethodName : getPaymentDetail
      * @작성일 : 2022. 12. 30.
      * @작성자 : 김수용
      * @Method 설명 : 결제 정보를 불러오는 기능
      */
-    PaymentDTO getPaymentDetail(int paymentNo);
 
+    PaymentDTO getPaymentDetailByPaymentNo(int paymentNo);
+    /**
+     * @MethodName : buyCartItems
+     * @작성일 : 2023. 01. 14.
+     * @작성자 : 김수용
+     * @Method 설명 : 장바구니에 있는 품목의 구매하는 기능
+     */
+    int buyCartItem(int cartNo);
     /**
      * @MethodName : getOrderDetail
      * @작성일 : 2022. 12. 30.
