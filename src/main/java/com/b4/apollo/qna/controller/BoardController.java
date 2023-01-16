@@ -41,10 +41,13 @@ public class BoardController {
 
     //질문 게시판 전체 조회
     @GetMapping("/list")
-    public String selectList(@RequestParam(required = false, defaultValue = "1") int pageNum, Model model) {
+    public String selectList(HttpSession session, @RequestParam(required = false, defaultValue = "1") int pageNum, Model model) {
         ReplyDTO rep = new ReplyDTO();
         PageInfo<QuestionDTO> list = new PageInfo<>(boardService.selectList(pageNum), 10);
 
+        String writer = (String) session.getAttribute("userId");
+
+        model.addAttribute("writer", writer);
         model.addAttribute("rep", rep);
         model.addAttribute("list", list);
         return "qna/boardList";

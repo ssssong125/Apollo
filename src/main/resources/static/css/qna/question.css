@@ -1,13 +1,78 @@
-textarea {
-    width:100%;
-}
-
-input[type=submit] {
-    margin-top:10px;
-}
-
-a{
+tbody>tr>td>a, tbody>tr>td>th {
     text-decoration: none;
-    color: black;
+    color: white;
+}
+.container.my-3{
+    padding-top: 5%;
+}
+
+.card,
+.card-title,
+.card-body{
+    color : white;
+    border: 1px solid #171E22 !important;
+    background-color: #171E22 !important;
+
+}
+
+.card-text{
+    width: 80%;
+    text-overflow: clip;
+    text-overflow:ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+/*--------------------------------------------------------------
+# btn
+--------------------------------------------------------------*/
+btn,
+.btn-primary{
+    background-color: #292E32 !important;
+    border-color: #292E32 !important;
+    color: white !important;
+    font-weight: bold;
+}
+.btn-primary:hover {
+    border-color: #f1ff5c !important;
+    color: white !important;
+    box-shadow: 0 0.5em 0.5em -0.4em #f1ff5c;
+    transform: translateY(-0.25em);
+    cursor: pointer;
+}
+
+
+/*--------------------------------------------------------------
+# pagination
+--------------------------------------------------------------*/
+.pagination{
+    border-radius: 50%;
+}
+.pagination > li > a:focus,
+.pagination > li > a:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover
+{
+    color: #5a5a5a;
+    background-color: #eee;
+    border-color: #ddd;
+}
+
+.pagination > .active > a
+{
+    color: white !important;
+    background-color: #DF9438 !Important;
+    border: solid 1px #DF9438 !Important;
+}
+
+.pagination > .active > a:hover
+{
+    color: black !important;
+    background-color: #f1ff5c !important;
+    border: solid 1px #f1ff5c;
+}
+.page-item .page-link {
+    border: solid 1px #292E32 !important;
+    background-color: #292E32 !important;
+    color: white !important;
 }
 
