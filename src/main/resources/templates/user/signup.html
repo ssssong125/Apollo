@@ -206,9 +206,9 @@
     </div>
         <form th:action="@{/user/signup}" method="post" id="enrollForm">
             <div class="sub_right">
-                    <input type="text" id="userName" name="memberName" size="35" placeholder="NAME" maxlength="10" onfocus="this.placeholder = ''" required>
+                    <input type="text" id="userName" name="userName" size="35" placeholder="NAME" maxlength="10" onfocus="this.placeholder = ''" required>
                     <br><br><br>
-                    <input type="text" id="userId" name ="username" size="35" oninput="checkId()" placeholder="아이디 영문, 숫자 포함 10글자 이내" maxlength="10" onfocus="this.placeholder = ''" required>
+                    <input type="text" id="userId" name ="userId" size="35" oninput="checkId()" placeholder="아이디 영문, 숫자 포함 10글자 이내" maxlength="10" onfocus="this.placeholder = ''" required>
                     <br><br>
                     <span class="id_ok"></span>
                     <span class="id_already"></span>>

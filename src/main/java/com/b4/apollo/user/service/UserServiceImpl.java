@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean loginUser(UserDTO userDTO, HttpSession session) {
-        UserDTO loginUser = userMapper.loginUser(userDTO.getUsername());
+        UserDTO loginUser = userMapper.loginUser(userDTO.getUserId());
         boolean result = false;
         if(loginUser != null /*&& bCryptPasswordEncoder.matches(userDTO.getPassword(), loginUser.getPassword())*/){
             session.setAttribute("loginUser", loginUser);

@@ -7,9 +7,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserDTO /*implements UserDetails*/ {
     private Integer userNo;
-    private String username;
+    private String userId;
     private String password;
-    private String memberName;
+    private String userName;
     private String userTel;
     private String userAddr;
     private String userEmail;

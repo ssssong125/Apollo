@@ -89,9 +89,9 @@ public class UserController {
     public ModelAndView loginUser(ModelAndView mv, UserDTO userDTO, HttpSession session, Locale locale) {
         boolean result = userService.loginUser(userDTO, session);
         if(result){
-            session.setAttribute("userId", userDTO.getUsername());
+            session.setAttribute("userId", userDTO.getUserId());
             String userId = (String)session.getAttribute("userId");
-            userDTO.setUsername(userId);
+            userDTO.setUserId(userId);
             userDTO = userService.userDetail(userDTO);
             mv.setViewName("user/mypage");
 //            System.out.println("로그인 페이지 : "+userDTO);
@@ -105,9 +105,9 @@ public class UserController {
 
     @GetMapping(value = {"/mypage","/header"})
     public String userpage(UserDTO userDTO, HttpSession session, Model model){
-        session.setAttribute("userId", userDTO.getUsername());
+        session.setAttribute("userId", userDTO.getUserId());
         String userId = (String)session.getAttribute("userId");
-        userDTO.setUsername(userId);
+        userDTO.setUserId(userId);
         userDTO = userService.userDetail(userDTO);
         model.addAttribute("userDetail", userService.userDetail(userDTO));
         System.out.println("마이 페이지 컨트롤러"+userDTO);
@@ -119,7 +119,7 @@ public class UserController {
     @GetMapping("update")
     public String userDetail(UserDTO userDTO, HttpSession session, Model model){
         String userId = (String)session.getAttribute("userId");
-        userDTO.setUsername(userId);
+        userDTO.setUserId(userId);
         UserDTO userDetail = userService.userDetail(userDTO);
         model.addAttribute("userDetail", userDetail);
 
@@ -139,7 +139,7 @@ public class UserController {
     public String deletepage(UserDTO userDTO, HttpSession session, Model model){
 
         String userId = (String)session.getAttribute("userId");
-        userDTO.setUsername(userId);
+        userDTO.setUserId(userId);
         userService.userDetail(userDTO);
         model.addAttribute("userDetail", userService.userDetail(userDTO));
         return "/user/delete";
@@ -147,7 +147,7 @@ public class UserController {
 
     @PostMapping("delete")
     public String deleteUser(UserDTO userDTO, HttpSession session, RedirectAttributes rttr, Locale locale){
-        userDTO.setUsername((String)session.getAttribute("userId"));
+        userDTO.setUserId((String)session.getAttribute("userId"));
         userService.deleteUser(userDTO);
         rttr.addFlashAttribute("deleSuccessMessage", messageSource.getMessage("deleteUser", null, locale));
         session.invalidate();
