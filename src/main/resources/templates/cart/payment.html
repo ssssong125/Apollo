@@ -1,19 +1,20 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="~{common/layout}">
 <head>
     <meta charset="UTF-8">
     <meta name="_csrf" th:content="${_csrf?.token}">
     <meta name="_csrf_header" th:content="${_csrf?.headerName}">
     <title>Payment</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <!-- jQuery -->
+<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">-->
+<!--    <script src="https://js.tosspayments.com/v1/payment"></script>-->
     <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
-        <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-{SDK-최신버전}.js"></script>
-<!--    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>-->
-    <script src="https://js.tosspayments.com/v1/payment"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <!--토스 결제-->
     <script type="text/javascript" th:src="@{/js/cart/payment.js}"></script>
     <link rel="stylesheet" type="text/css" th:href="@{/css/cart/style.css}">
@@ -36,7 +37,7 @@
 </head>
 <body>
 <!--전체 div-->
-<div class="container">
+<div layout:fragment="content" class="container" style="margin: 5% auto 10% auto">
     <br>
     <!--현재 위치-->
     <div class="row">
@@ -133,6 +134,17 @@
         <input type="date" th:field="*{paymentDate}" hidden="hidden">
         <input type="text" th:field="*{shippingStatus}" hidden="hidden">
         <input type="text" th:field="*{deliveryRequires}" hidden="hidden">
+<!--        <input type="number" th:field="*{paymentNo}">-->
+<!--        <input type="text" th:field="*{userId}">-->
+<!--        <input type="number" th:field="*{usedPoint}">-->
+<!--        <input type="number" id="amount" th:field="*{paymentAmount}">-->
+<!--        <input type="text" id="paymentMethod" th:field="*{paymentMethod}">-->
+<!--        <input id="buyerName" type="text" th:field="*{receiverName}">-->
+<!--        <input id="buyerTel" type="text" th:field="*{receiverTel}">-->
+<!--        <input id="buyerAddr" type="text" th:field="*{address}">-->
+<!--        <input type="date" th:field="*{paymentDate}">-->
+<!--        <input type="text" th:field="*{shippingStatus}">-->
+<!--        <input type="text" th:field="*{deliveryRequires}">-->
     </form>
         <input type="text" th:value="${checkedCartList[0].productInfo.productName}" hidden="hidden">
         <input id="size" type="number" th:value="${checkedCartList.size()}" hidden="hidden">

@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="~{common/layout}">
 <head>
     <meta charset="UTF-8">
     <title>Order</title>
@@ -38,7 +41,7 @@
                     $("#sample5_address").val("")
                     $("#deliveryRequires").val("")
                 }
-                // else if(value == "other") {
+                // else if(value == "other") { // 기존 주문 정보를 토대로 출력
                 // $("#receiverName").val(/*[[ ${user.userName} ]]*/)
                 // $("#receiverTel").val(/*[[ ${user.userTel} ]]*/)
                 // $("#address").val(/*[[ ${user.userAddr} ]]*/)
@@ -50,7 +53,7 @@
 </head>
 <body>
     <!--전체 div-->
-    <div class="container">
+    <div layout:fragment="content" class="container" style="margin: 5% auto 5% auto">
         <br>
         <!--현재 위치-->
         <div class="row">
@@ -66,16 +69,16 @@
                 <div class="form-check-inline">
                     <label class="form-check-label custom-radio">
 <!--                        <input type="radio" class="form-check-input" name="place" value="default" checked>Default-->
-                        <input type="radio" class="custom-radio" id="default" name="place" value="default" checked>Default
+                        <input type="radio" class="custom-radio" id="default" name="place" value="default" checked> Default
                     </label>
                 </div>
             </div>
-            <!--Other-->
+            <!--New-->
             <div class="col-lg mid-font">
                 <div class="form-check-inline">
                     <label class="form-check-label custom-radio">
 <!--                        <input type="radio" class="form-check-input" name="place" value="other">Other-->
-                        <input type="radio" id="new" name="place" value="new">New
+                        <input type="radio" id="new" name="place" value="new"> New
                     </label>
                 </div>
             </div>
