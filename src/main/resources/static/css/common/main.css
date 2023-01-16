@@ -21,7 +21,6 @@
   --color-default: #fafafa;
   --color-primary: #27a776;
   --color-secondary: #161718;
-  --color-highlihgt: #ffa260;
 }
 
 /* Smooth scroll behavior */
@@ -98,7 +97,7 @@ h6 {
 # Page Header
 --------------------------------------------------------------*/
 .page-header {
-  padding: 120px 0 0 0;
+  padding: 120px 0 60px 0;
   min-height: 30vh;
   position: relative;
 }
@@ -106,8 +105,7 @@ h6 {
 .page-header h2 {
   font-size: 56px;
   font-weight: 500;
-  color: rgb(224, 195, 29);
-  text-emphasis-color: gold;
+  color: #fff;
   font-family: var(--font-secondary);
 }
 
@@ -139,10 +137,6 @@ h6 {
   background: #2cbc85;
 }
 
-.page-header h2 {
-  margin-bottom: 0;
-}
-
 /*--------------------------------------------------------------
 # Scroll top button
 --------------------------------------------------------------*/
@@ -153,7 +147,7 @@ h6 {
   right: 15px;
   bottom: -15px;
   z-index: 99999;
-  border: 2px solid #ffa260;
+  background: var(--color-primary);
   width: 44px;
   height: 44px;
   border-radius: 50px;
@@ -161,18 +155,14 @@ h6 {
 }
 
 .scroll-top i {
-  font-size: 1.5em;
-  color: #ffa260;
+  font-size: 24px;
+  color: #fff;
   line-height: 0;
-  transition: color 0.25s, border-color 0.25s, box-shadow 0.25s, transform 0.25s;
 }
 
 .scroll-top:hover {
-  color: white;
-  border-color: #f1ff5c;
-  box-shadow: 0 0.5em 0.5em -0.4em #f1ff5c;
-  transform: translateY(-0.25em);
-  cursor: pointer;
+  background: rgba(39, 167, 118, 0.8);
+  color: #fff;
 }
 
 .scroll-top.active {
@@ -180,7 +170,6 @@ h6 {
   opacity: 1;
   bottom: 15px;
 }
-
 
 /*--------------------------------------------------------------
 # Preloader
@@ -1317,125 +1306,4 @@ h6 {
 
 .footer .credits a {
   color: var(--color-primary);
-}
-
-/*--------------------------------------------------------------
-# SummerNote
---------------------------------------------------------------*/
-
-.editor-contents {
-  height: 700px;
-  padding-bottom: 50px;
-  margin-top: 50px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-
-#tip-title-box {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-#tip-title {
-  width: 70%;
-  height: 40px;
-  background-color: black;
-  color: white;
-  border: 1px solid gold;
-  border-radius: 5px;
-  margin: 0;
-  padding: 0 10px;
-  margin-bottom: 10px;
-  font-family: 'Apple SD Gothic Neo';
-  font-size: 14px;
-}
-
-#editor-box {
-  width: 100%;
-}
-
-.note-editor {
-  width: 70%;
-  margin: auto;
-  color: white;
-  outline: 1px solid #ffa260;
-}
-
-.note-icon-link::before {
-  content: "링크"
-}
-
-.note-icon-picture::before {
-  content: "이미지"
-}
-
-.note-icon-video::before {
-  content: "동영상"
-}
-
-/*--------------------------------------------------------------
-# Summit and Reset Btn
---------------------------------------------------------------*/
-
-#btn-box {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin-top: 1%;
-}
-
-#btn-box-center {
-  width: max-content;
-}
-
-.space {
-  width: 2em;
-  height: auto;
-  display: inline-block;
-}
-
-#cancel-btn {
-  width: 8em;
-  height: 3em;
-  border-radius: 7px;
-  float: left;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#submit-btn {
-  width: 8em;
-  height: 3em;
-  border-radius: 7px;
-  float: right;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/*--------------------------------------------------------------
-# Common Button
---------------------------------------------------------------*/
-
-button {
-  background: none;
-  color: #ffa260;
-  border: 2px solid;
-  padding: 1em 2em;
-  font-size: 1em;
-  transition: color 0.25s, border-color 0.25s, box-shadow 0.25s, transform 0.25s;
-}
-
-button:hover {
-  border-color: #f1ff5c;
-  color: white;
-  box-shadow: 0 0.5em 0.5em -0.4em #f1ff5c;
-  transform: translateY(-0.25em);
-  cursor: pointer;
 }
