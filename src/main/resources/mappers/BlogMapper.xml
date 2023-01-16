@@ -26,7 +26,7 @@
 	<insert id="insertBlog" parameterType="com.b4.apollo.blog.model.dto.BlogDTO">
 		INSERT INTO TBL_BLOG_BOARD
 		VALUES
-			(SEQ_BLOG_NO.NEXTVAL, 'user01', #{blogTitle}, #{blogContent}, SYSDATE, DEFAULT, DEFAULT,#{fileName},#{filePath})
+			(SEQ_BLOG_NO.NEXTVAL, #{reporter}, #{blogTitle}, #{blogContent}, SYSDATE, DEFAULT, DEFAULT,#{fileName},#{filePath})
 	</insert>
 
 	<select id="selectList" resultMap="blogResultSet">

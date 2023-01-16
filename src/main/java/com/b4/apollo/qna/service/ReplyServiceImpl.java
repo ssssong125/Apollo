@@ -40,7 +40,7 @@ public class ReplyServiceImpl  implements ReplyService{
     public int deleteReply(ReplyDTO rep) {
         int result = replyMapper.deleteReply(rep);
         if(result < 0) {
-            throw new CommonException("댓글 수정 실패 ");
+            throw new CommonException("댓글 삭제 실패 ");
         }
         return result;
     }

@@ -16,14 +16,13 @@
 
     <insert id="insertReply">
         INSERT INTO TBL_QUESTION_REPLY
-        VALUES (SEQ_REP_NO.nextval, #{boardNo}, 'user01', #{replyContent}, SYSDATE,  DEFAULT, DEFAULT)
+        VALUES (SEQ_REP_NO.nextval, #{boardNo}, #{replyWriter}, #{replyContent}, SYSDATE,  DEFAULT, DEFAULT)
     </insert>
 
     <select id="selectReply" resultMap="replyResultSet">
         SELECT *
         FROM TBL_QUESTION_REPLY
         WHERE REPLY_STATUS = 'Y'
-          AND BOARD_NO = #{boardNo}
           AND REPLY_NO = #{replyNo}
     </select>
 
