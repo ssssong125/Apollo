@@ -67,16 +67,16 @@
     <div>
         <form th:action="@{/user/update}" th:object="${userDetail}" method="post" >
         <div style="border: 3px solid black; border-right: none; border-left: none; width: 900px;">
-            <input type="hidden" th:field="*{userId}" name="userId">
+            <input type="hidden" th:field="*{username}" name="username">
             <table style="margin-top: 30px; margin-bottom: 30px;">
                 <tr>
                     <td><label for="userName">이름</label></td>
-                    <td><input type="text" id="userName" name="userName" th:field="*{userName}" size="35" placeholder="NAME" maxlength="10" onfocus="this.placeholder = ''" required>
+                    <td><input type="text" id="userName" name="memberName" th:field="*{memberName}" size="35" placeholder="NAME" maxlength="10" onfocus="this.placeholder = ''" required>
                     </td>
                 </tr>
                 <tr>
                     <td><label for="userPwd1">비밀번호</label></td>
-                    <td><input type="password" name="userPwd" th:field="*{userPwd}" id="userPwd1" size="35"
+                    <td><input type="password" name="password" th:field="*{password}" id="userPwd1" size="35"
                                placeholder="PWD: 영문,숫자,특수문자 포함 8자 이상" minlength="8" onfocus="this.placeholder = ''" required>
                         <br><span id="spw" style="font-size: medium; font-weight: bold"></span>
                     </td>

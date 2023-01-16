@@ -17,7 +17,7 @@
         <java.version>11</java.version>
     </properties>
     <dependencies>
-        <!--시큐리티-->
+<!--        시큐리티-->
 <!--        <dependency>-->
 <!--            <groupId>org.springframework.boot</groupId>-->
 <!--            <artifactId>spring-boot-starter-security</artifactId>-->
@@ -103,7 +103,6 @@
             <artifactId>commons-io</artifactId>
             <version>2.11.0</version>
         </dependency>
-
     </dependencies>
     <build>
         <plugins>
