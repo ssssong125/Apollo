@@ -1,5 +1,6 @@
 package com.b4.apollo.qna.controller;
 
+import com.b4.apollo.blog.exception.CommonException;
 import com.b4.apollo.qna.model.dto.QuestionDTO;
 import com.b4.apollo.qna.model.dto.QuestionForm;
 import com.b4.apollo.qna.model.dto.ReplyDTO;
@@ -8,6 +9,7 @@ import com.b4.apollo.qna.service.ReplyService;
 import com.b4.apollo.user.model.dto.UserDTO;
 import com.github.pagehelper.PageInfo;
 import groovy.transform.Undefined;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,6 +35,9 @@ public class BoardController {
 
     @Autowired
     private BoardService boardService;
+
+    @Autowired
+    private UserDTO userDTO;
 
     //질문 게시판 전체 조회
     @GetMapping("/list")
@@ -78,30 +83,55 @@ public class BoardController {
 
     // 질문 수정
     @GetMapping("/modify/{boardNo}")
-    public String questionModify(QuestionForm questionForm, @PathVariable("boardNo") int boardNo) {
+    public String questionModify(HttpSession session, QuestionForm questionForm, @PathVariable("boardNo") int boardNo) {
         QuestionDTO questionDTO = this.boardService.selectBoard(boardNo);
+
+        String writer = (String) session.getAttribute("userId");
+        questionDTO.setUserId(writer);
+
         questionForm.setBoardTitle(questionDTO.getBoardTitle());
         questionForm.setBoardContent(questionDTO.getBoardContent());
         return "/qna/boardForm";
     }
 
     @PostMapping("/modify/{boardNo}")
-    public String questionModify(@Valid QuestionForm questionForm, BindingResult bindingResult,
-                                 @PathVariable("boardNo") int boardNo) {
+    public String questionModify(HttpSession session, @Valid QuestionForm questionForm, BindingResult bindingResult,
+                                 @PathVariable("boardNo") int boardNo) throws Exception {
         if (bindingResult.hasErrors()) {
             return "/qna/boardForm";
         }
         QuestionDTO q = this.boardService.selectBoard(boardNo);
-        this.boardService.updateBoard(q, questionForm.getBoardTitle(), questionForm.getBoardContent());
-        return String.format("redirect:/question/detail/%s", boardNo);
+
+        String writer = (String) session.getAttribute("userId");
+
+        try {
+            if (writer.equals(q.getUserId())) {
+
+                boardService.updateBoard(q, questionForm.getBoardTitle(), questionForm.getBoardContent());
+                return String.format("redirect:/question/detail/%s", boardNo);
+            }
+        }catch(NullPointerException e){
+            throw new CommonException("수정 실패 ");
+        }
+        return "redirect:/question/list";
     }
 
 
     // 질문 삭제
     @GetMapping("/delete/{boardNo}")
-    private String deleteBoard(@PathVariable("boardNo")  int boardNo) {
-        boardService.deleteBoard(boardNo);
-        return "redirect:/question/list";
+    private String deleteBoard(HttpSession session, @PathVariable("boardNo")  int boardNo) {
+
+            QuestionDTO q = this.boardService.selectBoard(boardNo);
+            String writer = (String) session.getAttribute("userId");
+        try {
+            if (writer.equals(q.getUserId())) {
+                boardService.deleteBoard(boardNo);
+                return "redirect:/question/list";
+            }
+        } catch(NullPointerException e){
+            throw new CommonException("삭제 실패 ");
+        }
+        return "/qna/boardDetail";
     }
 
     //FAQ

@@ -1,6 +1,7 @@
 package com.b4.apollo.blog.controller;
 
 import com.b4.apollo.blog.adapter.GsonLocalDateTimeAdapter;
+import com.b4.apollo.blog.exception.CommonException;
 import com.b4.apollo.blog.model.dto.CommentDTO;
 import com.b4.apollo.blog.service.CommentService;
 import com.google.gson.Gson;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -40,9 +42,23 @@ public class CommentController {
     // 댓글 등록
     @ResponseBody
     @RequestMapping(value = "commInsert")
-    public String insertComm(CommentDTO comm) {
-        int result = commentService.insertComm(comm);
-        return String.valueOf(result);
+    public String insertComm(HttpSession session, CommentDTO comm) {
+
+        String commenter = (String) session.getAttribute("userId");
+
+        comm.setCommWriter(commenter);
+
+        try{
+            if(commenter != null){
+                int result = commentService.insertComm(comm);
+                return String.valueOf(result);
+            }
+        }catch(NullPointerException e){
+            throw new CommonException("댓글 등록 실패");
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return "/blog/blogDetail";
     }
 
 //    @ResponseBody
@@ -94,21 +110,29 @@ public class CommentController {
 
     @RequestMapping(value = "/commDelete/{commNo}", produces = "application/json;charset=utf-8" , method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> deleteComm(Model model, @PathVariable("commNo") Integer commNo){
+    public Map<String, Object> deleteComm(HttpSession session, Model model, @PathVariable("commNo") Integer commNo){
         Map<String, Object> map = new HashMap<>();
 
+        String commenter = (String) session.getAttribute("userId");
+        System.out.println("commenter = " + commenter);
+    
         try {
             CommentDTO comm = commentService.selectComm(commNo);
             comm.setCommNo(commNo);
-            commentService.deleteComm(comm);
+            System.out.println("comm.getCommWriter() = " + comm.getCommWriter());
 
-            map.put("result", "success");
+            if(commenter.equals(comm.getCommWriter())) {
+
+                commentService.deleteComm(comm);
+                map.put("result", "success");
+            }
+        } catch(NullPointerException e) {
+            throw new CommonException("Null, 댓글 삭제 실패 ");
         } catch (Exception e){
             e.printStackTrace();
             map.put("result", "fail");
 
         }
         return map;
-
     }
 }

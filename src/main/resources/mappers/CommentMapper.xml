@@ -15,7 +15,7 @@
 
     <insert id="insertComm">
         INSERT INTO TBL_BLOG_COMMENT
-        VALUES (SEQ_COMMENT_NO.nextval, #{commContent}, SYSDATE, #{blogNo}, 'user01', DEFAULT)
+        VALUES (SEQ_COMMENT_NO.nextval, #{commContent}, SYSDATE, #{blogNo}, #{commWriter}, DEFAULT)
     </insert>
 
     <select id="selectComm" resultMap="commResultSet">
