@@ -11,6 +11,7 @@
       background-color: #171E22 !important;
     }
     .container.my-3{
+      color: white;
       padding-top: 5%;
     }
     #replyContent{
@@ -43,7 +44,7 @@
 <div layout:fragment="content" class="container my-3">
   <!-- 질문 -->
 
-  <input type="hidden" th:text="${question.userId}">
+  <span style="color: white !important;">작성자&nbsp:&nbsp</span><input type="hidden" th:text="${question.userId}">
   <h2 class="border-bottom py-2" th:text="${question.boardTitle}"></h2>
   <div class="card my-3">
     <div class="card-body">

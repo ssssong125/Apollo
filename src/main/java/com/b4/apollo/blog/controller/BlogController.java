@@ -30,12 +30,13 @@ public class BlogController {
     private BlogService blogService;
 
     @GetMapping("/list")
-    public String selectList(BlogDTO blog, @RequestParam(required = false, defaultValue = "1") int pageNum, Model model) {
+    public String selectList(HttpSession session, BlogDTO blog, @RequestParam(required = false, defaultValue = "1") int pageNum, Model model) {
 
         PageInfo<BlogDTO> list = new PageInfo<>(blogService.selectList(pageNum), 10);
-
+        String reporter = (String) session.getAttribute("userId");
         UserDTO user = new UserDTO();
 
+        model.addAttribute("reporter", reporter);
         model.addAttribute("user", user);
         model.addAttribute("blog", blog);
         model.addAttribute("list", list);

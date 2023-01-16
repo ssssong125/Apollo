@@ -2,34 +2,22 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
 <head>
-    <style>
-    h5, label{
-    color : white !important;
-    }
-    article{
-            margin-top: 5%;
-    }
-    button {
-        background-color: black !important;
-        color: gold !important;
-        border: 1px solid gold !important;
-    }
-    </style>
+    <link rel="stylesheet" href="/css/blog/blogForm.css">
 </head>
 <body>
 <div layout:fragment="content" class="container">
-    <h5 class="my-3 border-bottom pb-2">블로그 게시</h5>
+    <h5 class="my-3 border-bottom pb-2">블로그</h5>
     <form th:object="${blogForm}" method="post" enctype="multipart/form-data">
         <div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">
             <div th:each="err : ${#fields.allErrors()}" th:text="${err}" />
         </div>
-        <div class="mb-3">
+        <div class="mb-3" id="firstInput">
             <label for="blogTitle" class="form-label">제목</label>
-            <input type="text"  th:field="*{blogTitle}"  class="form-control">
+            <input type="text"  th:field="*{blogTitle}" id="inputTitle" class="form-control">
         </div>
         <div class="mb-3">
             <label for="blogContent" class="form-label">내용</label>
-            <textarea th:field="*{blogContent}" class="form-control" rows="10"></textarea>
+            <textarea th:field="*{blogContent}" id="inputContent" class="form-control" rows="10"></textarea>
         </div>
         <div class="mb-3">
             <input type="file" name="file" onchange="readURL(this);">
