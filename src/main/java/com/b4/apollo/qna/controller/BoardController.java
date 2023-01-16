@@ -36,9 +36,6 @@ public class BoardController {
     @Autowired
     private BoardService boardService;
 
-    @Autowired
-    private UserDTO userDTO;
-
     //질문 게시판 전체 조회
     @GetMapping("/list")
     public String selectList(HttpSession session, @RequestParam(required = false, defaultValue = "1") int pageNum, Model model) {
@@ -73,10 +70,13 @@ public class BoardController {
 
      //질문 게시판 상세 조회
     @GetMapping(value = "/detail/{bno}")
-    public String selectBoard(@PathVariable("bno") int bno, Model model) {
+    public String selectBoard(HttpSession session, @PathVariable("bno") int bno, Model model) {
         QuestionDTO questionDTO = boardService.selectBoard(bno);
         ReplyDTO rep = new ReplyDTO();
 
+        String writer = (String) session.getAttribute("userId");
+
+        model.addAttribute("writer", writer);
         model.addAttribute("rep", rep);
         model.addAttribute("question", questionDTO);
 

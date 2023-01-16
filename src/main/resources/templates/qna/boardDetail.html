@@ -2,43 +2,14 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
 <head>
-  <style>
-    h2,
-    .card,
-    .card-body{
-      color : white;
-      border: 1px solid #171E22 !important;
-      background-color: #171E22 !important;
-    }
-    .container.my-3{
-      color: white;
-      padding-top: 5%;
-    }
-    #replyContent{
-      margin-left: 3%;
-    }
-    .btn,
-    .btn-outline-secondary{
-      color : gold !important;
-      border: 1px solid gold;
-    }
-    h1{
-      color:white;
-    }
-    article>figure{
-      text-align: center;
-    }
-    .btn-outline-secondary{
-      color : gold !important;
-      border: 1px solid gold !important;
-    }
-    #commContent{
-      border: 1px solid gold !important;
-    }
-  </style>
+  <title>Question And Answer</title>
+
+  <!-- ajax 사용을 위한 script -->
   <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script type="text/javascript" th:src="@{/js/qna/qna.js}"></script>
-  <title>Question And Answer</title>
+
+  <!-- custom css -->
+  <link rel="stylesheet" href="/css/qna/boardDetail.css">
 </head>
 
 <div layout:fragment="content" class="container my-3">
@@ -54,15 +25,16 @@
           <div th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}"></div>
         </div>
       </div>
-      <!-- 질문 수정 -->
-      <div class="my-3">
-        <a th:href="@{|/question/modify/${question.boardNo}|}" class="btn btn-sm btn-outline-secondary" th:text="수정"></a>
+      <th:block th:if="${writer.equals(question.getUserId())}">
+        <!-- 질문 수정 -->
+        <div class="my-3">
+          <a th:href="@{|/question/modify/${question.boardNo}|}" class="btn btn-sm btn-outline-secondary" th:text="수정"></a>
 
-        <!-- 질문 삭제-->
-          <a href="javascript:void(0);" th:data-uri="@{|/question/delete/${question.boardNo}|}"
-             class="delete btn btn-sm btn-outline-secondary" th:text="삭제"></a>
-
-      </div>
+          <!-- 질문 삭제-->
+            <a href="javascript:void(0);" th:data-uri="@{|/question/delete/${question.boardNo}|}"
+               class="delete btn btn-sm btn-outline-secondary" th:text="삭제"></a>
+        </div>
+      </th:block>
     </div>
 
     <!-- 댓글 -->

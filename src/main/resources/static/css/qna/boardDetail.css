@@ -1,0 +1,41 @@
+h2,
+.card,
+.card-body{
+    color : white;
+    border: 1px solid #171E22 !important;
+    background-color: #171E22 !important;
+}
+.container.my-3{
+    color: white;
+    padding-top: 5%;
+}
+#replyContent{
+    margin-left: 3%;
+}
+.btn,
+.btn-outline-secondary{
+    color : gold !important;
+    border: 1px solid gold;
+}
+h1{
+    color:white;
+}
+article>figure{
+    text-align: center;
+}
+.btn-outline-secondary{
+    color : gold !important;
+    border: 1px solid gold !important;
+}
+#replyContent{
+    background-color: #171E22;
+    border: 1px solid gold !important;
+    margin-right: 1px;
+    border-radius: 5px;
+}
+
+#replyContent:focus {
+    border-color: #f1ff5c !important;
+    box-shadow: 0 0.5em 0.5em -0.4em #f1ff5c;
+    cursor: pointer;
+}
