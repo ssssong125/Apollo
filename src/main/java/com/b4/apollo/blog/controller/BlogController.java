@@ -5,6 +5,7 @@ import com.b4.apollo.blog.model.dto.BlogForm;
 import com.b4.apollo.blog.model.dto.CommentDTO;
 import com.b4.apollo.blog.service.BlogService;
 import com.b4.apollo.blog.service.CommentService;
+import com.b4.apollo.user.model.dto.UserDTO;
 import com.github.pagehelper.PageInfo;
 import com.google.gson.GsonBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,9 @@ public class BlogController {
 
         PageInfo<BlogDTO> list = new PageInfo<>(blogService.selectList(pageNum), 10);
 
+        UserDTO user = new UserDTO();
+
+        model.addAttribute("user", user);
         model.addAttribute("blog", blog);
         model.addAttribute("list", list);
         return "blog/blogList";

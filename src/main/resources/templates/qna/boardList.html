@@ -11,6 +11,12 @@
     .container.my-3{
       padding-top: 5%;
     }
+    .btn,
+    .btn-primary{
+      color: gold !important;
+      background-color: black !important;
+      border: 1px solid gold !important;
+    }
   </style>
 </head>
 
@@ -65,7 +71,9 @@
   </nav>
   <!-- 페이징처리 끝 -->
 
-  <a th:href="@{/question/create}" class="btn btn-primary">질문 등록하기</a>
+  <th:if th:value="${session.login != null}">
+    <a th:href="@{/question/create}" class="btn btn-primary">질문 등록하기</a>
+  </th:if>
 </div>
 
 

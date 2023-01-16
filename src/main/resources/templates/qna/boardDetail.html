@@ -21,6 +21,19 @@
       color : gold !important;
       border: 1px solid gold;
     }
+    h1{
+      color:white;
+    }
+    article>figure{
+      text-align: center;
+    }
+    .btn-outline-secondary{
+      color : gold !important;
+      border: 1px solid gold !important;
+    }
+    #commContent{
+      border: 1px solid gold !important;
+    }
   </style>
   <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script type="text/javascript" th:src="@{/js/qna/qna.js}"></script>
@@ -29,6 +42,8 @@
 
 <div layout:fragment="content" class="container my-3">
   <!-- 질문 -->
+
+  <input type="hidden" th:text="${question.userId}">
   <h2 class="border-bottom py-2" th:text="${question.boardTitle}"></h2>
   <div class="card my-3">
     <div class="card-body">
