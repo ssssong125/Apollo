@@ -16,7 +16,7 @@ public interface UserMapper {
 //    int deleteUser(String userId);
 
 
-    UserDTO loginUser(String username, String password);
+    UserDTO loginUser(String userId, String password);
 
     UserDTO userDetail(UserDTO userDTO);
 

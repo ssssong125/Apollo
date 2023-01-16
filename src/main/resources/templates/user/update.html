@@ -67,11 +67,11 @@
     <div>
         <form th:action="@{/user/update}" th:object="${userDetail}" method="post" >
         <div style="border: 3px solid black; border-right: none; border-left: none; width: 900px;">
-            <input type="hidden" th:field="*{username}" name="username">
+            <input type="hidden" th:field="*{userId}" name="userId">
             <table style="margin-top: 30px; margin-bottom: 30px;">
                 <tr>
                     <td><label for="userName">이름</label></td>
-                    <td><input type="text" id="userName" name="memberName" th:field="*{memberName}" size="35" placeholder="NAME" maxlength="10" onfocus="this.placeholder = ''" required>
+                    <td><input type="text" id="userName" name="userName" th:field="*{userName}" size="35" placeholder="NAME" maxlength="10" onfocus="this.placeholder = ''" required>
                     </td>
                 </tr>
                 <tr>
