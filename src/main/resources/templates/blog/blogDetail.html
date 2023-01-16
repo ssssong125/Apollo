@@ -2,26 +2,14 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
 <head>
-    <style>
-      body{
-        color : white !important;
-      }
-      article{
-        margin-top: 5%;
-      }
-      h1{
-        color:white;
-      }
-      article>figure{
-        text-align: center;
-      }
-      .col-lg-12{
-        background-image: url("/img/blog/back.jpg");
-      }
+    <title>Instruments and Music</title>
 
-    </style>
+    <!-- ajax 사용을 위한 script -->
   <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script type="text/javascript" th:src="@{/js/blog/comment.js}"></script>
+
+    <!-- custom css -->
+    <link rel="stylesheet" href="/css/blog/blogDetail.css">
 </head>
 <body>
 
@@ -58,7 +46,7 @@
           
           <!-- Preview image figure-->
           <figure class="mb-4"><img class="img-fluid rounded"
-                                    th:src="@{${blog.getFilePath()}}" alt="..." /></figure>
+                                    th:src="@{${blog.getFilePath()}}" onerror="this.src='/img/blog/default.jpg'" alt="..." /></figure>
 
           <!-- Post content-->
           <section class="mb-5">
@@ -66,53 +54,53 @@
           </section>
         </article>
 
-        <!-- 질문 수정 -->
-        <div class="my-3">
-          <a th:href="@{|/blog/modify/${blog.blogNo}|}" class="btn btn-sm btn-outline-secondary" th:text="수정"></a>
+          <th:block th:if="${reporter.equals('admin')}">
+                <!-- 블로그 게시글 수정 -->
+                <div class="my-3">
+                  <a th:href="@{|/blog/modify/${blog.blogNo}|}" class="btn btn-sm btn-outline-secondary" th:text="수정"></a>
 
-          <!-- 질문 삭제-->
-          <a href="javascript:void(0);" th:data-uri="@{|/blog/delete/${blog.blogNo}|}"
-             class="delete btn btn-sm btn-outline-secondary" th:text="삭제"></a>
-        </div>
+                  <!-- 블로그 게시글  삭제-->
+                  <a href="javascript:void(0);" th:data-uri="@{|/blog/delete/${blog.blogNo}|}"
+                     class="delete btn btn-sm btn-outline-secondary" th:text="삭제"></a>
+                </div>
+          </th:block>
     </div>
 
-      <!-- 작성란&버튼 -->
-      <div class="col justify-content-center my-1 mx-0">
-        <form method="POST" th:onclick="|updateComment()|" id="commentForm">
-          <!-- hidden 영역 -->
-          <input type="hidden" name="USER_ID" th:value="${comm.commWriter}">
-          <input type="hidden" name="BLOG_NO" th:value="${comm.blogNo}">
+        <!-- 댓글 영역 -->
+        <!-- 히든을 사용하여 자바스크립트로 value 전달 -->
+        <input type="hidden" id="blogNo" th:value="${blog.blogNo}">
+        <input type="hidden" id="commNo" th:value="${comm.commNo}">
+        <input type="hidden" id="commDate" th:value="${comm.commDate}">
+        <input type="hidden" id="commWriter" th:value="${comm.commWriter}">
 
-          <!-- 입력 영역 -->
-          <input type="text" id="content" name="CONTENT">
-          <input type="button" th:onclick="|updateComment()|" value="댓글작성">
+        <form class="form-horizontal form-view">
+            <div class="input-group margin-bottom-20">
+                <input type="text" style="width: 90%" placeholder="내용을 작성하세요"  name="commContent" id="commContent" required="required" />
+                <div class="input-group-btn">
+                    <button type="button" class="btn btn-outline-secondary" onclick="insertComm(this)" th:method="get">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-dots" viewBox="0 0 16 16">
+                            <path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                            <path d="m2.165 15.803.02-.004c1.83-.363 2.948-.842 3.468-1.105A9.06 9.06 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.437 10.437 0 0 1-.524 2.318l-.003.011a10.722 10.722 0 0 1-.244.637c-.079.186.074.394.273.362a21.673 21.673 0 0 0 .693-.125zm.8-3.108a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6c0 3.193-3.004 6-7 6a8.06 8.06 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a10.97 10.97 0 0 0 .398-2z"/>
+                        </svg>
+                        등록하기
+                    </button>
+                </div>
+<!--                <button onclick='modifyComm(" + commNo + ")'>수정하기</button>-->
+            </div>
         </form>
-      </div>
-
-      <!-- 댓글 목록 -->
-      <div id="commentTable">
-        <div th:each="comment:${commentList}">
-          <form method="POST">
-            <input type="hidden" id="commNo" name="commNo" th:value="${comm.commNo}">
-            <div>
-              <input type="button" class="btn p-0 btn-md" name="commWriter" th:value="${comm.commWriter}" />
-              <small th:text="${#strings.substring(comm.commDate,0,19)}"></small>
-            </div>
-            <div th:text="${comm.commContent}"></div>
-            <div class="text-right" th:if="${comm.commWriter==userInform.commWriter}">
-              <span><button type="submit" name="submit" value="update">수정</button></span>
-              <span><button type="submit" name="submit" value="delete">삭제</button></span>
-            </div>
-          </form>
-        </div>
-      </div>
+        <br>
+        <table align="center" width="500" border="1" id="rtb">
+            <thead>
+            <td colspan="4"><b id="rCount">댓글목록</b></td>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
 
     </div>
   </div>
 </main>
 <!-- End #main -->
-
-
 
   <!-- 게시글 삭제 스크립트 -->
 <script layout:fragment="script" type='text/javascript'>
@@ -124,6 +112,7 @@
             };
         });
     });
+
 </script>
 </body>
 </html>

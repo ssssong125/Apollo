@@ -7,16 +7,16 @@
     <resultMap type="com.b4.apollo.user.model.dto.UserDTO" id="loginUserResultMap">
         <id property="userId" column="USER_ID"/>
         <result property="userNo" column="USER_NO"/>
-        <result property="userPwd" column="USER_PWD"/>
+        <result property="password" column="USER_PWD"/>
         <result property="userName" column="USER_NAME"/>
         <result property="userTel" column="USER_TEL"/>
         <result property="userAddr" column="ADDRESS"/>
         <result property="userEmail" column="USER_EMAIL"/>
-        <result property="userRole" column="USER_ROLE"/>
+        <result property="userRole" column="ROLE_USER"/>
         <result property="userActive" column="USER_ACTIVE"/>
         <result property="userEntdate" column="USER_ENTDATE"/>
         <result property="point" column="USER_POINT"/>
-        <collection property="userDTOList" resultMap="userResultMap"/>
+<!--        <collection property="userDTOList" resultMap="userResultMap"/>-->
     </resultMap>
 
 
@@ -29,36 +29,24 @@
     <select id="loginUser" resultMap="loginUserResultMap">
         SELECT A.*
         FROM TBL_USER A
-        WHERE A.USER_ID = #{userId} AND A.USER_PWD = #{userPwd}
+        WHERE A.USER_ID = #{userId}
     </select>
 
     <insert id="insertUser" parameterType="com.b4.apollo.user.model.dto.UserDTO">
-        INSERT INTO TBL_USER A (
-            A.USER_NO,
-            A.USER_NAME,
-            A.USER_ID,
-            A.USER_PWD,
-            A.USER_TEL,
-            A.USER_EMAIL,
-            A.ADDRESS,
-            A.USER_ROLE,
-            A.USER_ACTIVE,
-            A.USER_ENTDATE,
-            A.USER_POINT
-            )
+        INSERT INTO TBL_USER
         VALUES
             (
             SEQ_USER_NO.NEXTVAL,
-            #{userName},
             #{userId},
-            #{userPwd},
+            #{password},
+            #{userName},
             #{userTel},
-            #{userEmail},
             #{userAddr},
-            'USER',
+            #{userEmail},
             'Y',
-            SYSDATE,
-            1000
+            1000,
+            'ROLE_USER',
+            DEFAULT
             )
     </insert>
 
@@ -71,7 +59,7 @@
         UPDATE TBL_USER A
         SET
             A.USER_NAME = #{userName},
-            A.USER_PWD = #{userPwd},
+            A.USER_PWD = #{password},
             A.USER_TEL = #{userTel},
             A.USER_EMAIL = #{userEmail},
             A.ADDRESS = #{userAddr}

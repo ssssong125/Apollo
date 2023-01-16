@@ -8,6 +8,13 @@ import java.util.List;
 @Mapper
 public interface CommentMapper {
 
-    List<CommentDTO> getList(CommentDTO commNo);   //목록 요청
-    void insertComm(CommentDTO comm);
+    List<CommentDTO> selectCommList(int bno);
+
+    int insertComm(CommentDTO comm);
+
+    int commModify(CommentDTO commNo);
+
+    int deleteComm(CommentDTO comm);
+
+    CommentDTO selectComm(Integer commNo);
 }

@@ -16,10 +16,12 @@ public interface UserMapper {
 //    int deleteUser(String userId);
 
 
-    UserDTO loginUser(UserDTO userDTO);
+    UserDTO loginUser(String userId, String password);
 
     UserDTO userDetail(UserDTO userDTO);
 
 
     void deleteUser(UserDTO userDTO);
+
+    UserDTO loginUser(String username);
 }

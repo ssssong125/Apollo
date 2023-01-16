@@ -15,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -40,7 +39,7 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public void insertBlog(String userId, String blogTitle, String blogContent, MultipartFile file) throws IOException {
+    public void insertBlog(String reporter, String blogTitle, String blogContent, MultipartFile file) throws IOException {
         BlogDTO blog = new BlogDTO();
 
         String projectPath = System.getProperty("user.dir") + "/src/main/resources/static\\upload";
@@ -57,7 +56,7 @@ public class BlogServiceImpl implements BlogService {
             e.printStackTrace();
             throw new CommonException("file Upload Error");
         }
-        blog.setReporter(userId);
+        blog.setReporter(reporter);
         blog.setBlogTitle(blogTitle);
         blog.setBlogContent(blogContent);
         blog.setFileName(fileName);

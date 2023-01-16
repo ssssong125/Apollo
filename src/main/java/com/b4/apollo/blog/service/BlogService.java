@@ -11,7 +11,7 @@ public interface BlogService {
    
     BlogDTO selectBlog(int blogNo);
 
-    void insertBlog(String userId, String blogTitle, String blogContent, MultipartFile file) throws IOException;
+    void insertBlog(String reporter, String blogTitle, String blogContent, MultipartFile file) throws IOException;
 
     void updateBlog(BlogDTO blog, String blogTitle, String blogContent, MultipartFile file) throws IOException;
 

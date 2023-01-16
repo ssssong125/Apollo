@@ -1,0 +1,46 @@
+/*------------------------------------------------------------------------------
+Button
+------------------------------------------------------------------------------*/
+
+
+btn,
+.btn-primary {
+    background-color: black !important;
+    color: #ffa260 !important;
+    border: 2px solid #ffa260 !important;
+    padding: 1em 2em;
+    font-size: 1em;
+    transition: color 0.25s, border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+}
+
+.btn-primary:hover {
+    border-color: #f1ff5c !important;
+    color: white !important;
+    box-shadow: 0 0.5em 0.5em -0.4em #f1ff5c;
+    transform: translateY(-0.25em);
+    cursor: pointer;
+}
+/*-----------------------------------------------------------------------------
+Color Change
+------------------------------------------------------------------------------*/
+h5,
+.mb-3{
+    color: white;
+}
+#firstInput{
+    margin-top: 5%;
+}
+
+#inputTitle,
+#inputContent{
+    background-color: black;
+    border: 1px solid #ffa260;
+    color : white;
+}
+
+#inputTitle:focus,
+#inputContent:focus{
+    border-color: #f1ff5c !important;
+    box-shadow: 0 0.5em 0.5em -0.4em #f1ff5c;
+    cursor: pointer;
+}

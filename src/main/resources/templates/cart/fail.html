@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="~{common/layout}">
 <head>
     <meta charset="UTF-8">
     <title>Fail</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-<!--    <link href="/css/cart/style.css" rel="stylesheet" type="text/css">-->
     <link rel="stylesheet" type="text/css" th:href="@{ /css/cart/style.css }">
     <style>
         /*div{*/
@@ -14,8 +16,8 @@
 </head>
 <body>
     <!--전체 div-->
-    <div class="container">
-        <br>
+    <div layout:fragment="content" class="container" style="margin: 5% auto 10% auto">
+    <br>
         <!--현재 위치-->
         <div class="row">
             <div class="col">
@@ -39,22 +41,35 @@
             </div>
         </div>
         <br>
-
-        <!--실패 사유-->
-        <div class="row menu">
+            <!--실패 사유-->
+        <div class="row menu" th:if="${msg} != null">
             <div class="col-lg" style="text-align: center">
-                No balance
+                <span th:text="${msg}"></span>
             </div>
         </div>
         <br>
-
-        <!--실패 사유-->
         <div class="row menu">
             <div class="col-lg" style="text-align: center">
-                Transaction is denied
+                Try Again
             </div>
         </div>
         <br>
+        <!--실패 사유-->
+<!--        <div class="row menu">-->
+<!--            <div class="col-lg" style="text-align: center">-->
+<!--                No balance-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <br>-->
+
+        <!--실패 사유-->
+<!--        <div class="row menu">-->
+<!--            <div class="col-lg" style="text-align: center">-->
+<!--                Transaction is denied-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <br>-->
+
         <hr class="thick-line">
         
         <!--확인 버튼-->

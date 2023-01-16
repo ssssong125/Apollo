@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-    <mapper namespace="com.b4.apollo.blog.model.dao.CommentMapper">
+<mapper namespace="com.b4.apollo.blog.model.dao.CommentMapper">
     <resultMap id="commResultSet" type="com.b4.apollo.blog.model.dto.CommentDTO">
         <id column="COMMENT_NO" property="commNo"/>
         <result column="COMMENT_CONTENT" property="commContent"/>
@@ -13,16 +13,38 @@
         <result column="COMMENT_STATUS" property="commStatus"/>
     </resultMap>
 
-   <insert id="insertComm">
-       INSERT INTO TBL_BLOG_COMMENT
-       VALUES (SEQ_COMMENT_NO.nextval, #{commContent}, SYSDATE, #{blogNo}, 'user01', DEFAULT)
-   </insert>
+    <insert id="insertComm">
+        INSERT INTO TBL_BLOG_COMMENT
+        VALUES (SEQ_COMMENT_NO.nextval, #{commContent}, SYSDATE, #{blogNo}, #{commWriter}, DEFAULT)
+    </insert>
 
-    <select id="getList" resultType="com.b4.apollo.blog.model.dto.CommentDTO">
-        SELECT
-            *
+    <select id="selectComm" resultMap="commResultSet">
+        SELECT *
         FROM TBL_BLOG_COMMENT
-        WHERE COMMENT_NO = #{commNo}
+        WHERE COMMENT_STATUS = 'Y'
+          AND COMMENT_NO = #{commNo}
     </select>
+
+    <select id="selectCommList" resultMap="commResultSet">
+        SELECT *
+        FROM TBL_BLOG_COMMENT
+        WHERE COMMENT_STATUS = 'Y'
+        AND BLOG_NO = #{blogNo}
+        ORDER BY COMMENT_NO DESC
+    </select>
+
+    <update id="commModify" parameterType="com.b4.apollo.blog.model.dto.CommentDTO">
+        UPDATE TBL_BLOG_COMMENT
+        SET COMMENT_CONTENT = #{commContent}
+        WHERE COMMENT_STATUS = 'Y'
+          AND COMMENT_NO = #{commNo}
+    </update>
+
+    <update id="deleteComm">
+        UPDATE TBL_BLOG_COMMENT
+        SET COMMENT_STATUS = 'N'
+        WHERE COMMENT_NO = #{commNo}
+    </update>
+
 
 </mapper>

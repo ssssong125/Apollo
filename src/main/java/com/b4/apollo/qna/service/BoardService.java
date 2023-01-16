@@ -18,13 +18,15 @@ public interface BoardService {
 
     void deleteBoard(int boardNo);
 
+//    void insertBoard(String usrId, String boardTitle, String boardContent);
 
-    void insertBoard(String usrId, String boardTitle, String boardContent);
+//    void insertBoard(HttpSession session, String usrId, String boardTitle, String boardContent);
 
-//    void updateBoard(int boardNo);
+    //    void updateBoard(int boardNo);
     void updateBoard(QuestionDTO q, String boardTitle, String boardContent);
 
-
     Page<QuestionDTO> selectList(int pageNum);
+
+    void insertBoard(String writer, String boardTitle, String boardContent);
 
 }

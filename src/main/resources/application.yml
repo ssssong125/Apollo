@@ -14,8 +14,7 @@ spring:
 ## log Level: TRACE > DEBUG > INFO > WARN > ERROR > FATAL
 logging:
  level:
-  root: DEBUG
-
+  root: INFO
 
  servlet:
   multipart:

@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="~{common/layout}">
 <head>
     <meta charset="UTF-8">
     <title>Success</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-<!--    <link href="/css/cart/style.css" rel="stylesheet" type="text/css">-->
-    <link rel="stylesheet" type="text/css" th:href="@{ /css/cart/style.css }">
+        <link rel="stylesheet" type="text/css" th:href="@{ css/cart/style.css }">
+        <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
     <style>
         /*div{*/
         /*    border: solid 1px red;*/
@@ -17,7 +19,7 @@
 </head>
 <body>
     <!--전체 div-->
-    <div class="container">
+    <div layout:fragment="content" class="container" style="margin: 5% auto 5% auto">
         <br>
         <!--현재 위치-->
         <div class="row">
@@ -26,7 +28,6 @@
                 <hr class="thick-line">
             </div>
         </div>
-
         <!--결제 성공 이미지-->
         <div class="row">
             <div class="col-lg" style="text-align: center">
@@ -34,7 +35,6 @@
             </div>
         </div>
         <br>
-
         <!--결제 성공 메세지-->
         <div class="row menu">
             <div class="col-lg" style="text-align: center">
@@ -42,30 +42,30 @@
             </div>
         </div>
         <br>
-
         <!--주문 번호-->
         <div class="row menu">
             <div class="col-lg-6" style="text-align: right">
                 Order Number
             </div>
             <div class="col-lg-6">
-                123456789
+<!--                123456789-->
+<!--                <span th:text="${paymentNo}"></span>-->
+                <span th:text="${paymentNo}"></span>
             </div>
         </div>
         <br>
-
         <!--결제 금액-->
         <div class="row menu">
             <div class="col-lg-6" style="text-align: right">
                 Order Total
             </div>
             <div class="col-lg-6">
-                15,000$
+                <span th:text="${paymentDTO.paymentAmount}+'$'"></span>
+<!--                15,000$-->
             </div>
         </div>
         <br>
         <hr class="thick-line">
-
         <!--확인 버튼-->
         <div class="row">
             <div class="col-md-10">

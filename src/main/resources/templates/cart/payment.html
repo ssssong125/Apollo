@@ -1,151 +1,163 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="~{common/layout}">
 <head>
     <meta charset="UTF-8">
+    <meta name="_csrf" th:content="${_csrf?.token}">
+    <meta name="_csrf_header" th:content="${_csrf?.headerName}">
     <title>Payment</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">-->
+<!--    <script src="https://js.tosspayments.com/v1/payment"></script>-->
     <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-<!--    <link href="/css/cart/style.css" rel="stylesheet" type="text/css">-->
-    <link rel="stylesheet" type="text/css" th:href="@{ /css/cart/style.css }">
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <!--토스 결제-->
+    <script type="text/javascript" th:src="@{/js/cart/payment.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/cart/style.css}">
     <style>
         /*div 확인용*/
         /*div{*/
         /*    border: solid red 1px;*/
         /*}*/
     </style>
-    <script>
-        function payment() {
-
-            let cvc = document.getElementById("cvc");
-
-            if (cvc != null) {
-                window.location.href="success";
-            } else {
-                window.location.href="fail";
-            }
-        }
+    <script th:inline="javascript">
+        /*변수*/
+        const size = /*[[ ${checkedCartList?.size()} ]]*/ '1';
+        let productName = /*[[ ${checkedCartList[0].productInfo.productName} ]]*/ '상품명';
+        const buyerName = /*[[ ${paymentDTO?.receiverName} ]]*/ '구매자명';
+        const amount = /*[[ ${paymentDTO.paymentAmount} ]]*/ '0';
+        const buyerAddr = /*[[ ${paymentDTO.address} ]]*/ '서울';
+        const buyerTel = /*[[ ${paymentDTO?.receiverTel} ]]*/ '010-1234-5678';
+        const email = /*[[ ${user.userEmail} ]]*/ 'user01@naver.com';
     </script>
 </head>
 <body>
-    <!--전체 div-->
-    <div class="container">
-        <br>
-        <!--현재 위치-->
-        <div class="row">
-            <div class="col">
-                <span class="big-font">Payment</span>
-                <hr class="thick-line">
-            </div>
+<!--전체 div-->
+<div layout:fragment="content" class="container" style="margin: 5% auto 10% auto">
+    <br>
+    <!--현재 위치-->
+    <div class="row">
+        <div class="col">
+            <span class="big-font">Payment</span>
+            <hr class="thick-line">
         </div>
-
-        <!--결제 수단 선택-->
-        <div class="row">
-            <div class="col-lg">
-                <div class="paymentImgBox">
-                    <img class="paymentImg" src="/img/cart/visa.png" alt="visa.png">
-                </div>
-            </div>
-            <div class="col-lg">
-                <div class="paymentImgBox">
-                    <img class="paymentImg" src="/img/cart/master.png" alt="master.png">
-                </div>
-            </div>
-            <div class="col-lg">
-                <div class="paymentImgBox">
-                    <img class="paymentImg" src="/img/cart/naverPay.png" alt="naverPay.png">
-                </div>
-            </div>
-            <div class="col-lg">
-                <div class="paymentImgBox">
-                    <img class="paymentImg" src="/img/cart/kakaoPay.jpg" alt="kakaoPay.jpg">
-                </div>
-            </div>
-        </div>
-        <hr class="line">
-        <!--카드 정보 입력-->
-        <div class="row">
-            <div class="col-lg">
-                <label for="cardNumber">Card Number</label>
-            </div>
-            <div class="col-lg">
-                <label for="eDate">Expiration date</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg">
-                <input type="text" class="text-input" placeholder="1111 2222 3333 4444" id="cardNumber" name="cardNumber">
-            </div>
-            <div class="col-lg">
-                <input type="text" class="text-input" placeholder="MM / YY" id="eDate" name="eDate">
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-lg">
-                <label for="nameOnCard">Name on card</label>
-            </div>
-            <div class="col-lg">
-                <label for="cvc">CVC</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg">
-                <input type="text" class="text-input" placeholder="Name" id="nameOnCard" name="nameOnCard">
-            </div>
-            <div class="col-lg">
-                <input type="text" class="text-input" placeholder="123" id="cvc" name="cvc">
-            </div>
-        </div>
-        <hr class="thick-line">
-        <!--결제 금액-->
-        <div class="row">
-            <div class="col-lg-9">
-
-            </div>
-            <div class="col-lg-2">
-                Order Total
-            </div>
-            <div class="col-lg-1">
-                <span th:text="${paymentDTO.paymentAmount}+'$'"/>
-            </div>
-        </div>
-        <br>
-        <!--/*전달할 데이터*/-->
-<!--            <th:block th:each="pa"-->
-<!--            <span th:text="${paymentDTO.userId}"></span>-->
-<!--            <span th:text="${paymentDTO.usedPoint}"></span>-->
-<!--            <span th:text="${paymentDTO.paymentAmount}"></span>-->
-<!--            <span th:text="${paymentDTO.paymentMethod}"></span>-->
-<!--            <span th:text="${paymentDTO.receiverName}"></span>-->
-<!--            <span th:text="${paymentDTO.receiverTel}"></span>-->
-<!--            <span th:text="${paymentDTO.address}"></span>-->
-<!--            <span th:text="${paymentDTO.paymentDate}"></span>-->
-<!--            <span th:text="${paymentDTO.shippingStatus}"></span>-->
-<!--            <span th:text="${paymentDTO.deliveryRequires}"></span>-->
-
-        <form th:action="@{payment}" th:object="${paymentDTO}" th:method="post">
-            <input type="text" th:field="*{userId}">
-            <input type="text" th:field="*{usedPoint}">
-            <input type="text" th:field="*{paymentAmount}">
-            <input type="text" th:field="*{paymentMethod}">
-            <input type="text" th:field="*{receiverName}">
-            <input type="text" th:field="*{receiverTel}">
-            <input type="text" th:field="*{address}">
-            <input type="date" th:field="*{paymentDate}">
-            <input type="text" th:field="*{shippingStatus}">
-            <input type="text" th:field="*{deliveryRequires}">
-        <!--구매 버튼-->
-        <div class="row">
-            <div class="col-lg-10">
-
-            </div>
-            <div class="col-lg-2">
-                <button class="goldButton" onclick="payment()">Payment</button>
-            </div>
-        </div>
-        </form>
     </div>
+    <!--결제 수단 선택-->
+    <div class="row">
+        <div class="col-lg">
+            <div class="paymentImgBox">
+<!--                <img class="paymentImg" src="/img/cart/visa.png" alt="visa.png">-->
+<!--                <input type="image" class="paymentImg" onclick="inicis()" src="/img/cart/visa.png" alt="visa.png"/>-->
+                <input type="image" class="paymentImg" onclick="alert(new Date().getTime())" src="/img/cart/visa.png" alt="visa.png"/>
+            </div>
+        </div>
+        <div class="col-lg">
+            <div class="paymentImgBox">
+                <input type="image" class="paymentImg" onclick="inicis()" src="/img/cart/master.png" alt="master.png"/>
+            </div>
+        </div>
+        <div class="col-lg">
+            <div class="paymentImgBox">
+<!--                <img class="paymentImg" src="/img/cart/naverPay.png" alt="naverPay.png">-->
+                <input type="image" class="paymentImg" onclick="toss()" src="/img/cart/toss_3.png" alt="toss.png"/>
+            </div>
+        </div>
+        <div class="col-lg">
+            <div class="paymentImgBox">
+                <input type="image" class="paymentImg" onclick="kakaoPay()" src="/img/cart/kakaoPay.jpg" alt="kakaoPay.jpg"/>
+            </div>
+        </div>
+    </div>
+    <!--카드 정보 입력-->
+<!--    <hr class="line">-->
+<!--    <div class="row">-->
+<!--        <div class="col-lg">-->
+<!--            <label for="cardNumber">Card Number</label>-->
+<!--        </div>-->
+<!--        <div class="col-lg">-->
+<!--            <label for="eDate">Expiration date</label>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="row">-->
+<!--        <div class="col-lg">-->
+<!--            <input type="text" class="text-input" placeholder="1111 2222 3333 4444" id="cardNumber" name="cardNumber">-->
+<!--        </div>-->
+<!--        <div class="col-lg">-->
+<!--            <input type="text" class="text-input" placeholder="MM / YY" id="eDate" name="eDate">-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <br>-->
+<!--    <div class="row">-->
+<!--        <div class="col-lg">-->
+<!--            <label for="nameOnCard">Name on card</label>-->
+<!--        </div>-->
+<!--        <div class="col-lg">-->
+<!--            <label for="cvc">CVC</label>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="row">-->
+<!--        <div class="col-lg">-->
+<!--            <input type="text" class="text-input" placeholder="Name" id="nameOnCard" name="nameOnCard">-->
+<!--        </div>-->
+<!--        <div class="col-lg">-->
+<!--            <input type="text" class="text-input" placeholder="123" id="cvc" name="cvc">-->
+<!--        </div>-->
+<!--    </div>-->
+    <hr class="thick-line">
+    <!--결제 금액-->
+    <div class="row">
+        <div class="col-lg-9">
+
+        </div>
+        <div class="col-lg-2">
+            Order Total
+        </div>
+        <div class="col-lg-1">
+            <span th:text="${paymentDTO.paymentAmount}+'$'"/>
+        </div>
+    </div>
+    <br>
+    <!--/*전달할 데이터*/-->
+    <form id="paymentForm" th:action="@{success}" th:object="${paymentDTO}" th:method="post">
+        <input type="number" th:field="*{paymentNo}" hidden="hidden">
+        <input type="text" th:field="*{userId}" hidden="hidden">
+        <input type="number" th:field="*{usedPoint}" hidden="hidden">
+        <input type="number" id="amount" th:field="*{paymentAmount}" hidden="hidden">
+        <input type="text" id="paymentMethod" th:field="*{paymentMethod}" hidden="hidden">
+        <input id="buyerName" type="text" th:field="*{receiverName}" hidden="hidden">
+        <input id="buyerTel" type="text" th:field="*{receiverTel}" hidden="hidden">
+        <input id="buyerAddr" type="text" th:field="*{address}" hidden="hidden">
+        <input type="date" th:field="*{paymentDate}" hidden="hidden">
+        <input type="text" th:field="*{shippingStatus}" hidden="hidden">
+        <input type="text" th:field="*{deliveryRequires}" hidden="hidden">
+<!--        <input type="number" th:field="*{paymentNo}">-->
+<!--        <input type="text" th:field="*{userId}">-->
+<!--        <input type="number" th:field="*{usedPoint}">-->
+<!--        <input type="number" id="amount" th:field="*{paymentAmount}">-->
+<!--        <input type="text" id="paymentMethod" th:field="*{paymentMethod}">-->
+<!--        <input id="buyerName" type="text" th:field="*{receiverName}">-->
+<!--        <input id="buyerTel" type="text" th:field="*{receiverTel}">-->
+<!--        <input id="buyerAddr" type="text" th:field="*{address}">-->
+<!--        <input type="date" th:field="*{paymentDate}">-->
+<!--        <input type="text" th:field="*{shippingStatus}">-->
+<!--        <input type="text" th:field="*{deliveryRequires}">-->
+    </form>
+        <input type="text" th:value="${checkedCartList[0].productInfo.productName}" hidden="hidden">
+        <input id="size" type="number" th:value="${checkedCartList.size()}" hidden="hidden">
+        <input id="email" type="text" th:value="${user.userEmail}" hidden="hidden">
+        <!--구매 버튼-->
+<!--        <div class="row">-->
+<!--            <div class="col-lg-10">-->
+
+<!--            </div>-->
+<!--            <div class="col-lg-2">-->
+<!--                <button class="goldButton" onclick="payment()">Payment</button>-->
+<!--            </div>-->
+<!--        </div>-->
+</div>
 </body>
 </html>

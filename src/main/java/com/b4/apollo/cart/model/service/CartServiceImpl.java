@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,27 +37,37 @@ public class CartServiceImpl implements CartService{
     public CartServiceImpl(CartMapper cartDAO) {
         this.cartMapper = cartDAO;
     }
-
-    /*
+    /**
      * @MethodName : addProductToCart
      * @작성일 : 2023. 01. 01.
      * @작성자 : 김수용
      * @Method 설명 : 장바구니에 상품을 추가하는 기능 구현체
      */
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    public int addProductToCart(HashMap<String, Object> parameter) {
+    @Transactional(rollbackFor = Exception.class) // 오류 발생시 롤백
+    public void addProductToCart(HashMap<String, Object> parameter) {
 
-        int result = cartMapper.addProductToCart(parameter);
+        String userId = (String) parameter.get("userId");
+        int productNo = (int) parameter.get("productNo");
 
-        if(result <= 0) {
+        List<CartDTO> cartList = cartMapper.getCartList(userId);
+        ArrayList<Integer> productNoList = new ArrayList();
 
-            throw new CommonException("장바구니 담기 실패");
+        for (CartDTO cart : cartList) {
+
+            productNoList.add(cart.getProductInfo().getProductNo());
+            System.out.println(cart.getProductNo());
         }
 
-        return result;
-    }
+        if (productNoList.contains(productNo)) {
+            /*상품 갯수 추가*/
+            cartMapper.addProductCountToCart(parameter);
 
+        } else {
+            /*상품 등록*/
+            cartMapper.addProductToCart(parameter);
+        }
+    }
     /**
      * @MethodName : getCartList
      * @작성일 : 2022. 12. 30.
@@ -64,16 +75,33 @@ public class CartServiceImpl implements CartService{
      * @Method 설명 : 장바구니 페이지에 출력할 장바구니 품목들을 불러올 인터페이스의 구현체
      */
     @Override
-    public List<CartDTO> getCartList(HashMap<String, String> parameter) {
+    public List<CartDTO> getCartList(String userId) {
 
-        return cartMapper.getCartList(parameter);
+        return cartMapper.getCartList(userId);
     }
+    /**
+     * @MethodName : getCheckedCartList
+     * @작성일 : 2023. 01. 14.
+     * @작성자 : 김수용
+     * @Method 설명 : 체크된 장바구니 품목들을 불러올 인터페이스의 구현체
+     */
+    @Override
+    public List<CartDTO> getCheckedCartList(Map<String, String> parameter) {
 
+        return cartMapper.getCheckedCartList(parameter);
+    }
+    /**
+     * @MethodName : updateProductCount
+     * @작성일 : 2023. 01. 06.
+     * @작성자 : 김수용
+     * @Method 설명 : 장바구니 페이지에서 구매수량을 수정할 인터페이스의 구현체
+     */
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public int updateProductCount(HashMap<String, Integer> parameter) {
 
         int result = cartMapper.updateProductCount(parameter);
-        
+
         if(result < 1) {
 
             throw new CommonException("구매 수량 조절 실패");
@@ -82,7 +110,33 @@ public class CartServiceImpl implements CartService{
         return result;
     }
 
+    /**
+     * @MethodName : updateCheckStatus
+     * @작성일 : 2023. 01. 13.
+     * @작성자 : 김수용
+     * @Method 설명 : 장바구니 페이지에서 품목의 체크상태를 수정할 인터페이스의 구현체
+     */
     @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int updateCheckStatus(HashMap<String, Object> parameter) {
+
+        int result = cartMapper.updateCheckStatus(parameter);
+
+        if(result < 1) {
+
+            throw new CommonException("구매 여부 수정 실패");
+        }
+
+        return result;
+    }
+    /**
+     * @MethodName : deleteProductInCart
+     * @작성일 : 2023. 01. 07.
+     * @작성자 : 김수용
+     * @Method 설명 : 장바구니 페이지에서 품목을 삭제하는 인터페이스의 구현체
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class) // 오류 발생시 롤백
     public int deleteProductInCart(Integer cartNo) {
 
         int result = cartMapper.deleteProductInCart(cartNo);
@@ -108,20 +162,72 @@ public class CartServiceImpl implements CartService{
     }
 
     /**
+     * @MethodName : order
+     * @작성일 : 2023. 01. 14.
+     * @작성자 : 김수용
+     * @Method 설명 : 주문 테이블에 삽입할 인터페이스의 구현체
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class) // 오류 발생시 롤백
+    public Integer order(List<CartDTO> cartList) {
+
+        return cartMapper.order(cartList);
+    }
+    @Override
+    public int getPaymentNo(Integer cartNo) {
+
+        return Integer.parseInt(String.valueOf(cartMapper.getPaymentNo(cartNo).get(0).get("PAYMENT_NO")));
+//        return cartMapper.getPaymentNo(cartNo).get(0).get("PAYMENT_NO");
+    }
+    /**
+     * @MethodName : payment
+     * @작성일 : 2023. 01. 14.
+     * @작성자 : 김수용
+     * @Method 설명 : 결제 테이블에 삽입할 인터페이스의 구현체
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class) // 오류 발생시 롤백
+    public int payment(PaymentDTO paymentDTO) {
+
+        return cartMapper.payment(paymentDTO);
+    }
+    /**
+     * @MethodName : payment
+     * @작성일 : 2023. 01. 14.
+     * @작성자 : 김수용
+     * @Method 설명 : 결제 테이블에 삽입할 인터페이스의 구현체
+     */
+    public int updateProductQty(Map<String, Integer> parameter) {
+
+        if (cartMapper.getProductQty(parameter.get("productNo")) >= parameter.get("productCount"))
+            return cartMapper.updateProductQty(parameter);
+         else
+            return 0;
+    }
+    /**
      * @MethodName : getPaymentDetail
      * @작성일 : 2022. 12. 30.
      * @작성자 : 김수용
      * @Method 설명 : 결제 정보를 불러올 인터페이스의 구현체
      */
     @Override
-    public PaymentDTO getPaymentDetail(int paymentNo) {
 
-        HashMap<String, Integer> parameter = new HashMap<>();
-        parameter.put("paymentNo", paymentNo);
+    public PaymentDTO getPaymentDetailByPaymentNo(int paymentNo) {
 
-        return cartMapper.getPaymentDetail(parameter);
+        return cartMapper.getPaymentDetailByPaymentNo(paymentNo);
     }
+    /**
+     * @MethodName : buyCartItems
+     * @작성일 : 2023. 01. 14.
+     * @작성자 : 김수용
+     * @Method 설명 : 체크된 장바구니 품목들의 구매상태를 변경하는 인터페이스의 구현체
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class) // 오류 발생시 롤백
+    public int buyCartItem(int cartNo) {
 
+        return cartMapper.buyCartItem(cartNo);
+    }
     /**
      * @MethodName : getOrderDetail
      * @작성일 : 2022. 12. 30.
@@ -138,4 +244,3 @@ public class CartServiceImpl implements CartService{
     }
 
 }
-//@Transactional(rollbackFor = Exception.class) // 오류 발생시 롤백 // 메소드에

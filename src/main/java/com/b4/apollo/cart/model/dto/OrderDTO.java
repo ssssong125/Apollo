@@ -18,7 +18,7 @@ public class OrderDTO {
     /**
      * @param orderNo 주문 번호
      */
-    private int orderNo;
+//    private int orderNo;
     /**
      * @param paymentNo 결제 번호
      */

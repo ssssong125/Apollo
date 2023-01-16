@@ -206,14 +206,14 @@
     </div>
         <form th:action="@{/user/signup}" method="post" id="enrollForm">
             <div class="sub_right">
-                    <input type="text" name="userName" size="35" placeholder="NAME" maxlength="10" onfocus="this.placeholder = ''" required>
+                    <input type="text" id="userName" name="userName" size="35" placeholder="NAME" maxlength="10" onfocus="this.placeholder = ''" required>
                     <br><br><br>
                     <input type="text" id="userId" name ="userId" size="35" oninput="checkId()" placeholder="아이디 영문, 숫자 포함 10글자 이내" maxlength="10" onfocus="this.placeholder = ''" required>
                     <br><br>
                     <span class="id_ok"></span>
                     <span class="id_already"></span>>
                     <br>
-                    <input type="password" name="userPwd" id="userPwd1" size="35"
+                    <input type="password" name="password" id="userPwd1" size="35"
                            placeholder="PASSWORD: 영문,숫자,특수문자 포함 8자 이상" minlength="8" onfocus="this.placeholder = ''" required>
                     <br><br>   <span id="spw"></span><br>
                     <input type="password" id="userPwd2" size="35" minlength="8" placeholder="CONFIRM PASSWORD"

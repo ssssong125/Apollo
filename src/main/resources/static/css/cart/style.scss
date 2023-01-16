@@ -1,8 +1,18 @@
 /*페이지 설정*/
 @charset "UTF-8";
 body{
+    /*폰트 설정*/
+    font-family: "Libre Bodoni", sans-serif;
+    font-size: 1em;
+    letter-spacing : 1px;
+    /*배경색 글자색 설정*/
     background-color: black;
     color: white;
+    /*main content 설정*/
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 1 !important;
 }
 /*전체 폰트 설정*/
 @import url('https://fonts.googleapis.com/css2?family=Libre+Bodoni&display=swap');
@@ -13,10 +23,8 @@ body{
 //    //src: url("https://www.dafont.com/bodoni-xt.font");
 //    //src: url("BodoniXT.ttf");
 //}
-body{
-    font-family: "Libre Bodoni", sans-serif;
-    font-size: 1em;
-    letter-spacing : 1px;
+body .container{
+    color: white !important;
 }
 /*파트별 폰트 크기 설정*/
 .big-font{
@@ -61,78 +69,79 @@ textarea:focus{
     border: solid 1px #FFD700;
     color: #FFD700;
 }
-
-input[type=radio]{
-    //display: none;
-}
-.active-label{
-    color: #FFD700;
-
-    &:before{
-        background: #FFD700;
-        border-color: #FFD700;
-    }
-}
-.custom-radio{
-    font-size: 1rem;
-    font-weight: bold;
-    line-height: 1;
-    cursor: pointer;
-    display: block;
-    padding: 1rem 1rem 1rem 3rem;
-    position: relative;
-    border-top: 1px solid rgba(black,.1);
-    whitespace: no-wrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    transition: all .15s ease;
-
-    &:focus,
-    &:hover,
-    &:active{
-        @extend .active-label;
-    }
-
-    &:first-of-type{
-        border: 0;
-    }
-
-    /**
-     * This is the radio fake dot basically
-     */
-    &:before{
-        content: "";
-        position: absolute;
-        left: 1rem;
-        top: 1rem;
-        width: 16px;
-        height: 16px;
-        border-radius: 50%;
-        border: .2rem solid #ccc;
-    }
-}
-
-/**
- * How it should look when checked
- */
-//input[type="radio"]:checked+.custom-radio{
-input[type="radio"]:checked.custom-radio{
-    @extend .active-label;
-
-    &:before{
-        border: none white;
-        background: #FFD700;
-    }
-}
-
+/*커스텀 라디오 css*/
+//input[type=radio]{
+//    //display: none;
+//}
+//.active-label{
+//    color: #FFD700;
+//
+//    &:before{
+//        background: #FFD700;
+//        border-color: #FFD700;
+//    }
+//}
+//.custom-radio{
+//    font-size: 1rem;
+//    font-weight: bold;
+//    line-height: 1;
+//    cursor: pointer;
+//    display: block;
+//    padding: 1rem 1rem 1rem 3rem;
+//    position: relative;
+//    border-top: 1px solid rgba(black,.1);
+//    whitespace: no-wrap;
+//    overflow: hidden;
+//    text-overflow: ellipsis;
+//    transition: all .15s ease;
+//
+//    &:focus,
+//    &:hover,
+//    &:active{
+//        @extend .active-label;
+//    }
+//
+//    &:first-of-type{
+//        border: 0;
+//    }
+//
+//    /**
+//     * This is the radio fake dot basically
+//     */
+//    &:before{
+//        content: "";
+//        position: absolute;
+//        left: 1rem;
+//        top: 1rem;
+//        width: 16px;
+//        height: 16px;
+//        border-radius: 50%;
+//        border: .2rem solid #ccc;
+//    }
+//}
+//
+///**
+// * How it should look when checked
+// */
+////input[type="radio"]:checked+.custom-radio{
+//input[type="radio"]:checked.custom-radio{
+//    @extend .active-label;
+//
+//    &:before{
+//        border: none white;
+//        background: #FFD700;
+//    }
+//}
 /*구분선*/
 .line{
     border: solid 1px gray;
     background-color: white;
+    opacity: 1;
 }
 .thick-line{
     border: solid 2px white;
     background-color: white;
+    opacity: 1;
 }
 /*버튼*/
 .goldButton{

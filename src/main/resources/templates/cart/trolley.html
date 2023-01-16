@@ -1,16 +1,18 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="~{common/layout}">
 <head>
     <meta charset="UTF-8">
     <meta name="_csrf" th:content="${_csrf?.token}">
     <meta name="_csrf_header" th:content="${_csrf?.headerName}">
-
     <title>Cart</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>-->
 <!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>-->
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/cart/trolley.js}"></script>
     <link rel="stylesheet" type="text/css" th:href="@{ /css/cart/style.css }">
     <style>
         /*div 확인용*/
@@ -19,138 +21,15 @@
         /*}*/
     </style>
     <script th:inline="javascript">
-        /*csrf 토큰 정보*/
-        const token = $("meta[name='_csrf']").attr("content");
-        const header = $("meta[name='_csrf_header']").attr("content");
-        // const userId = $("#userId").val();
-
         /*타임리프 변수 기본값 0*/
         const size = /*[[ ${cartList?.size()} ]]*/ '0';
         const point = /*[[ ${user?.point} ]]*/ '0';
-
-        /*페이지 로드될때 합계 출력*/
-        $(document).ready(function () {
-            sum(size)
-        })
-
-        /*해당 상품 장바구니에서 삭제*/
-        function deleteProductInCart(cartNo) {
-
-            const count = 0;
-
-            /*ajax 설정*/
-            $.ajaxSetup({
-                url: 'trolley', // 요청할 서버url
-                type: "POST" // 타입 (get, post, put 등등)
-                // global: false, // 동시에 실행 x, 비동기화 여부 (default : true)
-            });
-
-            $.ajax({
-                data: // 보낼 데이터 (Object , String, Array)
-                    {
-                        cartNo : cartNo,
-                        count : count
-                    },
-                beforeSend : function(xhr) {
-                    xhr.setRequestHeader(header, token)
-                },
-                // dataType : 'json',       // 데이터 타입 (html, xml, json, text 등등)
-                // contentType: 'application/json'
-                // headers : {              // Http header
-                //     "Content-Type" : "application/json",
-                //     "X-HTTP-Method-Override" : "POST"
-                // },
-            })
-                .done(function (result) { // 수행할 동작
-                    return location.href = "trolley"
-                })
-                .fail(function(jqXHR) { // 실패시
-                    // alert("실패")
-                    return location.href = "trolley"
-                })
-            // .always(function() { // 항상 동작
-            //     alert("작동");
-            // })
-        }
-
-        /*상품 구매수량 조절*/
-        function updateQty(cartNo, code, max) {
-
-            const count = $('#productQty'+code).val();
-
-            if (count%1 != 0 || count < 1) {
-                alert("다시 입력해주세요.")
-                $(this).focus()
-                return false;
-            } else if(count > max) {
-                alert("재고부족으로 인해 최대 "+max+"개 까지만 주문 가능합니다.")
-                return false;
-            }
-
-            sum(size);
-
-            $.ajaxSetup({
-                url: 'trolley', // 요청할 서버url
-                type: "POST" // 타입 (get, post, put 등등)
-                // global: false, // 동시에 실행 x, 비동기화 여부 (default : true)
-            });
-
-            $.ajax({
-                data: // 보낼 데이터 (Object , String, Array)
-                    {
-                        cartNo : cartNo,
-                        count : count
-                    },
-                beforeSend : function(xhr) {
-                    xhr.setRequestHeader(header, token)
-                }
-                // dataType : 'json',       // 데이터 타입 (html, xml, json, text 등등)
-                // headers : {              // Http header
-                //     "Content-Type" : "application/json",
-                //     "X-HTTP-Method-Override" : "POST"
-                // },
-            })
-                .done(function (result) { // 수행할 동작
-                    // return location.href = "trolley"
-                })
-                .fail(function(jqXHR) { // 실패시
-                    // alert("실패!")
-                })
-            // .always(function() { // 항상 동작
-            //     alert("작동");
-            // })
-        }
-        /*합계 계산 및 출력*/
-        function sum(size) {
-
-            let orderTotal = 0;
-
-            for (let i = 1; i <= size; i++) {
-                orderTotal += $("#hiddenPrice" + i).val() * $("#productQty" + i).val()
-            }
-            $("#orderTotal").text(orderTotal+"$")
-
-            let subTotal = orderTotal - $("#point").val()
-
-            if (subTotal < 0) {
-                subTotal = 0
-            }
-
-            $("#userPoint").text(point+"$")
-            $("#subTotal").text(subTotal+"$")
-
-            $("#totalPrice").val(subTotal)
-        }
-        // - $.get()  : GET 메소드 요청하고, 서버로부터 데이터 로딩
-        // - $.post() : POST 메소드 요청하고, 서버로부터 데이터 로딩
-        // - $.getJSON() : GET 메소드 요청하고, 서버로부터 JSON 형식의 데이터를 로딩
-        // - $.getScript() : GET 메소드 요청하고, 서버로부터 자바스크립트 파일을 로딩 후 실행
-        // - $.load() : 서버로부터 데이터를 선택 요소의 컨텐츠로 대체 로딩
     </script>
 </head>
 <body>
+<!--    <div th:include="fragments/header.html"></div>-->
     <!--전체 div-->
-    <div class="container">
+    <div layout:fragment="content" class="container" style="margin: 5% auto 5% auto">
         <br>
         <!--현재 위치-->
         <div class="row">
@@ -186,21 +65,29 @@
             </div>
         </div>
         <!--상품 추가시-->
-<!--        <form th:action="@{order}" th:object="${cartList}" th:method="post">-->
-<!--        </form>-->
             <th:block th:each="cart : ${ cartList }" th:if="${ cartList?.size() } > 0">
 <!--                <input type="text" th:field="${cart.cartNo}" th:if="">-->
                 <input type="hidden" class="size" id="size" th:value="${ cartList?.size() }">
                 <div class="container product-box">
                     <hr class="line">
                     <div class="row">
+                        <div class="col-lg-1 v-align" style="text-align: center">
+                            <!--체크 값 확인-->
+<!--                            <span th:text="${cart.checkStatus}"/>-->
+                            <input th:id="|checkBox${cartStat.count}|" type="checkbox" class="checkStatus" th:value="${cart.cartNo}" th:checked="${cart.checkStatus} == 'Y'">
+<!--                            체크됐을때 쿼리로 yn넣고 밸류는 카트넘버-->
+                        </div>
                         <!--상품 이미지-->
                         <div class="col-lg-2">
-                            <img class="product" src="/img/cart/naverPay.png" alt="상품 이미지명">
+<!--                            <img class="product" src="/img/cart/naverPay.png" alt="상품 이미지">-->
+                            <img class="product" th:src="@{${cart.imgPath}}" alt="상품 이미지">
+
+<!--                            <img th:src="@{${product.productImageDTOList.get(0).getImgPath()}}" class="image"/>-->
+
     <!--                        <img class="product" th:src="/img/cart/${ aa.imgName }" alt="상품 이미지명">-->
                         </div>
                         <!--상품명-->
-                        <div class="col-lg-6 v-align">
+                        <div class="col-lg-5 v-align">
                             <span th:text="${ cart?.productInfo?.productName }"/>
                         </div>
                         <!--상품 갯수-->
@@ -226,7 +113,7 @@
     <!--                        <button type="button" class="trashCan" th:onclick="|deleteProductInCart(${ cart.cartNo })|">-->
     <!--                            <img src="/img/cart/trash.png" alt="trash.png">-->
     <!--                        </button>-->
-                            <input type="image" th:onclick="|deleteProductInCart(${ cart?.cartNo })|" src="/img/cart/trash.png" alt="trash.png"/>
+                            <input type="image" th:onclick="|deleteProductInCart(${ cart.cartNo })|" src="/img/cart/trash.png" alt="trash.png"/>
                         </div>
                     </div>
                 </div>
@@ -275,31 +162,26 @@
             </div>
         </div>
         <br>
+        <input id="checkedSize" type="number" th:value="${checkedCartList.size()}" hidden="hidden">
         <!--/*전달할 데이터*/-->
-<!--        <span th:text="${#calendars.format(#calendars.createNow())}"/>-->
-        <form th:action="@{order}" th:object="${paymentDTO}" th:method="post">
-<!--            <input type="text" th:field="*{paymentNo}">-->
-            <input type="text" th:value="${ user.userId }" name="userId">
-            <input type="text" th:value="${ user.point }" name="usedPoint">
-            <input type="text" value="0" id="totalPrice" name="paymentAmount">
-            <input type="text" th:field="*{paymentMethod}">
-            <input type="text" th:field="*{receiverName}">
-            <input type="text" th:field="*{receiverTel}">
-            <input type="text" th:field="*{address}">
-<!--            <input type="date" th:field="*{paymentDate}">-->
-            <input type="date" th:value="0001-01-01" name="paymentDate">
-<!--            <input type="date" id="currentDate" name="paymentDate">-->
-            <input type="text" value="배송 준비중" name="shippingStatus">
-            <input type="text" th:field="*{deliveryRequires}">
-<!--        <form th:action="@{order}" th:object="">-->
-<!--        </form>-->
+        <form id="paymentForm" th:action="@{order}" th:object="${paymentDTO}" th:method="post" onsubmit="return checkForm()">
+            <input type="number" th:field="*{paymentNo}" hidden="hidden">
+            <input type="text" th:value="${ user.userId }" name="userId" hidden="hidden">
+            <input type="number" th:value="${ user.point }" name="usedPoint" hidden="hidden">
+            <input type="number" value="0" id="totalPrice" name="paymentAmount" hidden="hidden">
+            <input type="text" th:field="*{paymentMethod}" hidden="hidden">
+            <input type="text" th:field="*{receiverName}" hidden="hidden">
+            <input type="text" th:field="*{receiverTel}" hidden="hidden">
+            <input type="text" th:field="*{address}" hidden="hidden">
+            <input type="date" th:value="0001-01-01" name="paymentDate" hidden="hidden">
+            <input type="text" value="배송 준비중" name="shippingStatus" hidden="hidden">
+            <input type="text" th:field="*{deliveryRequires}" hidden="hidden">
         <!--구매 버튼-->
         <div class="row">
             <div class="col-lg-10">
             </div>
             <div class="col-lg-2">
-<!--                <button class="goldButton" onclick="location.href='order'">Purchase</button>-->
-                <button type="submit" class="goldButton" onclick="location.href='order'">Purchase</button>
+                <button type="submit" class="goldButton">Purchase</button>
             </div>
         </div>
         </form>

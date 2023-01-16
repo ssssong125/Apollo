@@ -1,22 +1,27 @@
 <html layout:decorate="~{/common/layout}" lang="ko"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
-
+<head>
+    <title>Question And Answer</title>
+    <link rel="stylesheet" href="/css/qna/boardForm.css">
+</head>
+<body>
 <div layout:fragment="content" class="container">
     <h5 class="my-3 border-bottom pb-2">질문등록</h5>
     <form th:object="${questionForm}" method="post">
         <div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">
             <div th:each="err : ${#fields.allErrors()}" th:text="${err}" />
         </div>
-        <div class="mb-3">
+        <div class="mb-3" id="firstInput">
             <label for="boardTitle" class="form-label">제목</label>
-            <input type="text"  th:field="*{boardTitle}"  class="form-control">
+            <input type="text"  id="inputTitle" th:field="*{boardTitle}"  class="form-control">
         </div>
         <div class="mb-3">
             <label for="boardContent" class="form-label">내용</label>
-            <textarea th:field="*{boardContent}" class="form-control" rows="10"></textarea>
+            <textarea th:field="*{boardContent}" id="inputContent" class="form-control" rows="10"></textarea>
         </div>
         <input type="submit" value="저장하기" class="btn btn-primary my-2">
     </form>
 </div>
+</body>
 </html>
