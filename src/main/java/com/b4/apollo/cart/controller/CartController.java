@@ -50,15 +50,15 @@ public class CartController {
      * @Method 설명 : GetMapping 방식으로 trolley 값을 받게되면 trolley 페이지로 넘겨줌, null값 처리를 위해 Integer 자료형 사용
      */
     @GetMapping(value = {"trolley","cart/trolley"})
-    public ModelAndView trolley(ModelAndView mv, PaymentDTO paymentDTO) {
+    public ModelAndView trolley(HttpSession session, ModelAndView mv, PaymentDTO paymentDTO) {
+
+        String userId = (String) session.getAttribute("userId");
 
         mv.addObject("paymentDTO", paymentDTO);
 
         HashMap<String, String> parameter = new HashMap<>();
-        parameter.put("userId", "user01");
-        String userId = "user01";
-//        getSession httpsession
-//        parameter.put("userId", userId);
+//        parameter.put("userId", "user01");
+        parameter.put("userId", userId);
 
         List<CartDTO> cartList = cartService.getCartList(userId);
         mv.addObject("cartList", cartList);
@@ -82,12 +82,13 @@ public class CartController {
      */
     @ResponseBody
     @PostMapping("trolley-count")
-    public Model trolleyResultCount(Model model, Integer cartNo, Integer count) { // null값도 받기 위해 Integer 사용
+    public Model trolleyResultCount(HttpSession session, Model model, Integer cartNo, Integer count) { // null값도 받기 위해 Integer 사용
+
+        String userId = (String) session.getAttribute("userId");
 
         HashMap<String, String> parameter = new HashMap<>();
-        parameter.put("userId", "user01");
-//        parameter.put("userId", userId);
-        String userId = "user01";
+//        parameter.put("userId", "user01");
+        parameter.put("userId", userId);
 
         if(cartNo != null && count != null) {
 
@@ -122,12 +123,13 @@ public class CartController {
      */
     @ResponseBody
     @PostMapping("trolley-check")
-    public Model trolleyResultCheck(Model model, Integer cartNo, char check) { // null값도 받기 위해 Integer 사용
+    public Model trolleyResultCheck(HttpSession session, Model model, Integer cartNo, char check) { // null값도 받기 위해 Integer 사용
+
+        String userId = (String) session.getAttribute("userId");
 
         HashMap<String, String> parameter = new HashMap<>();
-        parameter.put("userId", "user01");
-        String userId = "user01";
-//        parameter.put("userId", userId);
+//        parameter.put("userId", "user01");
+        parameter.put("userId", userId);
 
         HashMap<String, Object> checkParameter = new HashMap<>();
         checkParameter.put("cartNo", cartNo);
@@ -155,11 +157,13 @@ public class CartController {
      */
     @GetMapping(value = {"order","cart/order"})
 
-    public ModelAndView order(ModelAndView mv, PaymentDTO paymentDTO, ArrayList<Integer> purchaseList) {
+    public ModelAndView order(HttpSession session, ModelAndView mv, PaymentDTO paymentDTO, ArrayList<Integer> purchaseList) {
+
+        String userId = (String) session.getAttribute("userId");
 
         HashMap<String, String> parameter = new HashMap<>();
-//        parameter.put("userId", userId);
-        parameter.put("userId", "user01");
+//        parameter.put("userId", "user01");
+        parameter.put("userId", userId);
 
         UserDTO user = cartService.getUserDetail(parameter);
         mv.addObject("user", user);
@@ -183,13 +187,15 @@ public class CartController {
     @ResponseBody
     @PostMapping("order")
 
-    public Model orderResult(Model model, PaymentDTO paymentDTO, ArrayList<Integer> purchaseList) {
+    public Model orderResult(HttpSession session, Model model, PaymentDTO paymentDTO, ArrayList<Integer> purchaseList) {
 //        @RequestBody 더 이상 필요 x -> Content type 'application/x-www-form-urlencoded;charset=UTF-8' not supported 유발함
 //    public ModelAndView orderResult(ModelAndView mv, @ModelAttribute("paymentDTO") PaymentDTO paymentDTO) {
 
+        String userId = (String) session.getAttribute("userId");
+
         HashMap<String, String> parameter = new HashMap<>();
-        parameter.put("userId", "user01");
-//        parameter.put("userId", userId);
+//        parameter.put("userId", "user01");
+        parameter.put("userId", userId);
 
         model.addAttribute("paymentDTO", paymentDTO);
 
@@ -209,10 +215,13 @@ public class CartController {
      * @Method 설명 : GetMapping방식으로 payment 값을 받게되면 payment 페이지로 넘겨줌
      */
     @GetMapping("payment")
-    public ModelAndView payment(ModelAndView mv, PaymentDTO paymentDTO) {
+    public ModelAndView payment(HttpSession session, ModelAndView mv, PaymentDTO paymentDTO) {
+
+        String userId = (String) session.getAttribute("userId");
 
         HashMap<String, String> parameter = new HashMap<>();
-        parameter.put("userId", "user01");
+//        parameter.put("userId", "user01");
+        parameter.put("userId", userId);
 
         UserDTO user = cartService.getUserDetail(parameter);
         mv.addObject("user", user);
@@ -234,10 +243,13 @@ public class CartController {
      */
     @ResponseBody
     @PostMapping("payment")
-    public Model paymentResult(Model model, PaymentDTO paymentDTO) {
+    public Model paymentResult(HttpSession session, Model model, PaymentDTO paymentDTO) {
+
+        String userId = (String) session.getAttribute("userId");
 
         HashMap<String, String> parameter = new HashMap<>();
-        parameter.put("userId", "user01");
+//        parameter.put("userId", "user01");
+        parameter.put("userId", userId);
 
         UserDTO user = cartService.getUserDetail(parameter);
         model.addAttribute("user", user);
@@ -258,7 +270,7 @@ public class CartController {
      */
     @GetMapping("success")
 //    public ModelAndView success(ModelAndView mv, PaymentDTO paymentDTO) {
-    public ModelAndView success(ModelAndView mv, PaymentDTO paymentDTO) {
+    public ModelAndView success(HttpSession session, ModelAndView mv, PaymentDTO paymentDTO) {
 
         mv.addObject("paymentDTO", paymentDTO);
 
@@ -295,10 +307,13 @@ public class CartController {
 //    }
     @ResponseBody
     @PostMapping("success")
-    public ModelAndView successResult(ModelAndView mv, PaymentDTO paymentDTO) {
+    public ModelAndView successResult(HttpSession session, ModelAndView mv, PaymentDTO paymentDTO) {
+
+        String userId = (String) session.getAttribute("userId");
 
         HashMap<String, String> parameter = new HashMap<>();
-        parameter.put("userId", "user01");
+//        parameter.put("userId", "user01");
+        parameter.put("userId", userId);
 
         mv.setViewName("cart/success");
 
@@ -362,8 +377,8 @@ public class CartController {
     @PostMapping("addToCart")
     public void addToCart(HttpSession session, int productNo, int count) {
 
-//        String userId = (String) session.getAttribute("userId");
-        String userId = "user01";
+        String userId = (String) session.getAttribute("userId");
+//        String userId = "user01";
 
         HashMap<String, Object> parameter = new HashMap<>();
 
