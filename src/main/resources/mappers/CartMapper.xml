@@ -11,6 +11,7 @@
 		<result property="productCount" column="PRODUCT_COUNT"/>
 		<result property="regDate" column="REG_DATE"/>
 		<result property="checkStatus" column="CHECK_STATUS"/>
+		<result property="imgPath" column="IMG_PATH"/>
 		<association property="productInfo" javaType="com.b4.apollo.product.model.dto.ProductDTO">
 			<id property="productNo" column="PRODUCT_NO"/>
 			<result property="productName" column="PRODUCT_NAME"/>
@@ -74,6 +75,7 @@
 		SET A.PRODUCT_COUNT = (A.PRODUCT_COUNT + #{count})
 		WHERE A.USER_ID = #{userId}
 		AND A.PRODUCT_NO = #{productNo}
+		AND A.PURCHASE_STATUS = 'N'
 	</update>
 	<!--userId를 사용해 카트 정보를 조회-->
 	<select id="getCartList" parameterType="String" resultMap="cartResultMap">
@@ -83,12 +85,19 @@
 			A.PRODUCT_COUNT,
 			A.REG_DATE,
 			A.CHECK_STATUS,
+			C.IMG_PATH,
+-- 			(SELECT C.IMG_PATH
+-- 			 FROM TBL_PRODUCT_IMAGE C
+-- 			 WHERE C.THUMBNAIL = 'Y'
+-- 			   AND A.PRODUCT_NO = C.PRODUCT_NO),
 			B.*
 		FROM TBL_CART A
 		JOIN TBL_PRODUCT B ON A.PRODUCT_NO = B.PRODUCT_NO
+		JOIN TBL_PRODUCT_IMAGE C ON A.PRODUCT_NO = C.PRODUCT_NO
 		WHERE 1 = 1
 		  AND A.USER_ID = #{userId}
 		  AND A.PURCHASE_STATUS = 'N'
+		  AND C.THUMBNAIL = 'Y'
 	</select>
 	<!--userId를 사용해 체크된 카트 정보를 조회-->
 	<select id="getCheckedCartList" parameterType="hashmap" resultMap="cartResultMap">
@@ -98,6 +107,10 @@
 			A.PRODUCT_COUNT,
 			A.REG_DATE,
 			A.CHECK_STATUS,
+			(SELECT C.IMG_PATH
+			 FROM TBL_PRODUCT_IMAGE C
+			 WHERE C.THUMBNAIL = 'Y'
+			   AND A.PRODUCT_NO = C.PRODUCT_NO),
 			B.*
 		FROM TBL_CART A
 		JOIN TBL_PRODUCT B ON A.PRODUCT_NO = B.PRODUCT_NO

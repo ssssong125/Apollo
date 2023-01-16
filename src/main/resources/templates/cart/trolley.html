@@ -80,7 +80,11 @@
                         </div>
                         <!--상품 이미지-->
                         <div class="col-lg-2">
-                            <img class="product" src="/img/cart/naverPay.png" alt="상품 이미지명">
+<!--                            <img class="product" src="/img/cart/naverPay.png" alt="상품 이미지">-->
+                            <img class="product" th:src="@{${cart.imgPath}}" alt="상품 이미지">
+
+<!--                            <img th:src="@{${product.productImageDTOList.get(0).getImgPath()}}" class="image"/>-->
+
     <!--                        <img class="product" th:src="/img/cart/${ aa.imgName }" alt="상품 이미지명">-->
                         </div>
                         <!--상품명-->
@@ -159,20 +163,20 @@
             </div>
         </div>
         <br>
-        <input id="checkedSize" type="number" th:value="${checkedCartList.size()}">
+        <input id="checkedSize" type="number" th:value="${checkedCartList.size()}" hidden="hidden">
         <!--/*전달할 데이터*/-->
         <form id="paymentForm" th:action="@{order}" th:object="${paymentDTO}" th:method="post" onsubmit="return checkForm()">
-            <input type="number" th:field="*{paymentNo}">
-            <input type="text" th:value="${ user.userId }" name="userId">
-            <input type="number" th:value="${ user.point }" name="usedPoint">
-            <input type="number" value="0" id="totalPrice" name="paymentAmount">
-            <input type="text" th:field="*{paymentMethod}">
-            <input type="text" th:field="*{receiverName}">
-            <input type="text" th:field="*{receiverTel}">
-            <input type="text" th:field="*{address}">
-            <input type="date" th:value="0001-01-01" name="paymentDate">
-            <input type="text" value="배송 준비중" name="shippingStatus">
-            <input type="text" th:field="*{deliveryRequires}">
+            <input type="number" th:field="*{paymentNo}" hidden="hidden">
+            <input type="text" th:value="${ user.userId }" name="userId" hidden="hidden">
+            <input type="number" th:value="${ user.point }" name="usedPoint" hidden="hidden">
+            <input type="number" value="0" id="totalPrice" name="paymentAmount" hidden="hidden">
+            <input type="text" th:field="*{paymentMethod}" hidden="hidden">
+            <input type="text" th:field="*{receiverName}" hidden="hidden">
+            <input type="text" th:field="*{receiverTel}" hidden="hidden">
+            <input type="text" th:field="*{address}" hidden="hidden">
+            <input type="date" th:value="0001-01-01" name="paymentDate" hidden="hidden">
+            <input type="text" value="배송 준비중" name="shippingStatus" hidden="hidden">
+            <input type="text" th:field="*{deliveryRequires}" hidden="hidden">
         <!--구매 버튼-->
         <div class="row">
             <div class="col-lg-10">
