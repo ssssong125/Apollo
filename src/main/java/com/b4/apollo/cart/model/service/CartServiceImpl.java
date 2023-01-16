@@ -79,7 +79,6 @@ public class CartServiceImpl implements CartService{
 
         return cartMapper.getCartList(userId);
     }
-
     /**
      * @MethodName : getCheckedCartList
      * @작성일 : 2023. 01. 14.

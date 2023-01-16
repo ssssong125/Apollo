@@ -4,14 +4,14 @@ import com.b4.apollo.cart.model.dto.CartDTO;
 import com.b4.apollo.cart.model.dto.PaymentDTO;
 import com.b4.apollo.cart.model.service.CartService;
 import com.b4.apollo.user.model.dto.UserDTO;
-
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -28,7 +28,6 @@ import java.util.List;
 //@Controller
 //@RestController
 
-@Slf4j
 @Controller
 @RequestMapping("cart")
 public class CartController {
@@ -53,7 +52,6 @@ public class CartController {
     @GetMapping(value = {"trolley","cart/trolley"})
     public ModelAndView trolley(ModelAndView mv, PaymentDTO paymentDTO) {
 
-
         mv.addObject("paymentDTO", paymentDTO);
 
         HashMap<String, String> parameter = new HashMap<>();
@@ -64,7 +62,6 @@ public class CartController {
 
         List<CartDTO> cartList = cartService.getCartList(userId);
         mv.addObject("cartList", cartList);
-
 
         List<CartDTO> checkedCartList = cartService.getCheckedCartList(parameter);
         mv.addObject("checkedCartList", checkedCartList);
@@ -84,7 +81,6 @@ public class CartController {
      * @Method 설명 : PostMapping 방식으로 trolley 페이지에 출력될 값을 반환해줌
      */
     @ResponseBody
-
     @PostMapping("trolley-count")
     public Model trolleyResultCount(Model model, Integer cartNo, Integer count) { // null값도 받기 위해 Integer 사용
 
