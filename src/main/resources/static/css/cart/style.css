@@ -2,17 +2,21 @@
 /*페이지 설정*/
 @import url("https://fonts.googleapis.com/css2?family=Libre+Bodoni&display=swap");
 body {
-  background-color: black;
-  color: white;
-}
-
-/*전체 폰트 설정*/
-body {
+  /*폰트 설정*/
   font-family: "Libre Bodoni", sans-serif;
   font-size: 1em;
   letter-spacing: 1px;
+  /*배경색 글자색 설정*/
+  background-color: black;
+  color: white;
+  /*main content 설정*/
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 !important;
 }
 
+/*전체 폰트 설정*/
 body .container {
   color: white !important;
 }

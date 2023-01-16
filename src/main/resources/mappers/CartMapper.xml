@@ -23,7 +23,7 @@
 	<!--유저 정보를 담을 resultMap-->
 	<resultMap id="userResultMap" type="com.b4.apollo.user.model.dto.UserDTO">
 		<id property="userId" column="USER_ID"/>
-		<result property="userPwd" column="USER_PWD"/>
+		<result property="password" column="USER_PWD"/>
 		<result property="userName" column="USER_NAME"/>
 		<result property="userTel" column="USER_TEL"/>
 		<result property="userAddr" column="ADDRESS"/>
