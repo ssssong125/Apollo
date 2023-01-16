@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <!-- jQuery -->
     <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
-<!--    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>-->
-    <!--    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-{SDK-최신버전}.js"></script>-->
-    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+        <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-{SDK-최신버전}.js"></script>
+<!--    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>-->
     <script src="https://js.tosspayments.com/v1/payment"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -35,7 +35,6 @@
     </script>
 </head>
 <body>
-<!--<div th:text="${checkedCartList.size()}"-->
 <!--전체 div-->
 <div class="container">
     <br>
@@ -57,7 +56,6 @@
         </div>
         <div class="col-lg">
             <div class="paymentImgBox">
-<!--                <img class="paymentImg" src="/img/cart/master.png" alt="master.png">-->
                 <input type="image" class="paymentImg" onclick="inicis()" src="/img/cart/master.png" alt="master.png"/>
             </div>
         </div>
@@ -73,8 +71,8 @@
             </div>
         </div>
     </div>
-<!--    <hr class="line">-->
     <!--카드 정보 입력-->
+<!--    <hr class="line">-->
 <!--    <div class="row">-->
 <!--        <div class="col-lg">-->
 <!--            <label for="cardNumber">Card Number</label>-->
@@ -124,22 +122,21 @@
     <br>
     <!--/*전달할 데이터*/-->
     <form id="paymentForm" th:action="@{success}" th:object="${paymentDTO}" th:method="post">
-        <input type="number" th:field="*{paymentNo}">
-        <input type="text" th:field="*{userId}">
-        <input type="number" th:field="*{usedPoint}">
-        <input type="number" id="amount" th:field="*{paymentAmount}">
-        <input type="text" id="paymentMethod" th:field="*{paymentMethod}">
-        <input id="buyerName" type="text" th:field="*{receiverName}">
-        <input id="buyerTel" type="text" th:field="*{receiverTel}">
-        <input id="buyerAddr" type="text" th:field="*{address}">
-        <input type="date" th:field="*{paymentDate}">
-        <input type="text" th:field="*{shippingStatus}">
-        <input type="text" th:field="*{deliveryRequires}">
+        <input type="number" th:field="*{paymentNo}" hidden="hidden">
+        <input type="text" th:field="*{userId}" hidden="hidden">
+        <input type="number" th:field="*{usedPoint}" hidden="hidden">
+        <input type="number" id="amount" th:field="*{paymentAmount}" hidden="hidden">
+        <input type="text" id="paymentMethod" th:field="*{paymentMethod}" hidden="hidden">
+        <input id="buyerName" type="text" th:field="*{receiverName}" hidden="hidden">
+        <input id="buyerTel" type="text" th:field="*{receiverTel}" hidden="hidden">
+        <input id="buyerAddr" type="text" th:field="*{address}" hidden="hidden">
+        <input type="date" th:field="*{paymentDate}" hidden="hidden">
+        <input type="text" th:field="*{shippingStatus}" hidden="hidden">
+        <input type="text" th:field="*{deliveryRequires}" hidden="hidden">
     </form>
         <input type="text" th:value="${checkedCartList[0].productInfo.productName}" hidden="hidden">
         <input id="size" type="number" th:value="${checkedCartList.size()}" hidden="hidden">
         <input id="email" type="text" th:value="${user.userEmail}" hidden="hidden">
-<!--    <button th:onclick="check()">가격 확인</button>-->
         <!--구매 버튼-->
 <!--        <div class="row">-->
 <!--            <div class="col-lg-10">-->
