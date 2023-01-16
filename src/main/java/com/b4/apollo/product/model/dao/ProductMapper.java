@@ -2,6 +2,7 @@ package com.b4.apollo.product.model.dao;
 
 import com.b4.apollo.product.model.dto.ProdAndImageDTO;
 import com.b4.apollo.product.model.dto.ProductImageDTO;
+import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -23,5 +24,11 @@ public interface ProductMapper {
     int editProductImage( ProductImageDTO prodImg);
 
     int deleteImg(int code);
-    List<ProdAndImageDTO> productListByCode();
+    List<ProdAndImageDTO> productListByCode(String parameter);
+
+//    List<ProdAndImageDTO> productListByInst(String categoryCode);
+    Page<ProdAndImageDTO> selectList();
+
+//    String[] getCategory();
+    List<String> readCategory();
 }

@@ -89,11 +89,16 @@ public class ProductServiceImpl implements ProductService {
         return result>1 ? true:  false;    }
 
     @Override
-    public List<ProdAndImageDTO> productListByCode() {
-        return productMapper.productListByCode();
+    public List<ProdAndImageDTO> productListByCode(String parameter) {
+
+        return productMapper.productListByCode(parameter);
     }
 
-
+//    @Override
+//    public Page<ProdAndImageDTO> selectList(int pageNum) {
+//        PageHelper.startPage(pageNum, 10);
+////        return productMapper.selectList();
+//    }
 
     /*     public boolean registMenu(MenuDTO menu) throws Exception {
         int result = menuMapper.registMenu(menu);
