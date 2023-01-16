@@ -26,6 +26,7 @@ public interface CartService {
      * @Method 설명 : 장바구니에 상품을 추가하는 기능
      */
     int addProductToCart(HashMap<String, Object> parameter);
+
     /**
      * @MethodName : getCartList
      * @작성일 : 2022. 12. 30.
@@ -33,6 +34,7 @@ public interface CartService {
      * @Method 설명 : 장바구니 페이지에 출력할 장바구니 품목들을 불러오는 기능
      */
     List<CartDTO> getCartList(HashMap<String, String> parameter);
+
     /**
      * @MethodName : getCheckedCartList
      * @작성일 : 2023. 01. 14.
@@ -40,6 +42,7 @@ public interface CartService {
      * @Method 설명 : 체크된 장바구니 품목들을 불러오는 기능
      */
     List<CartDTO> getCheckedCartList(Map<String, String> parameter);
+
     /**
      * @MethodName : updateProductCount
      * @작성일 : 2023. 01. 05.
@@ -47,6 +50,7 @@ public interface CartService {
      * @Method 설명 : 장바구니에 담긴 품목의 수량 수정하는 기능
      */
     int updateProductCount(HashMap<String, Integer> parameter);
+
     /**
      * @MethodName : updateCheckStatus
      * @작성일 : 2023. 01. 13.
@@ -61,6 +65,7 @@ public interface CartService {
      * @Method 설명 : CartService에서 호출되어 장바구니에서 품목을 제거함
      */
     int deleteProductInCart(Integer cartNo);
+
     /**
      * @MethodName : getUserDetail
      * @작성일 : 2023. 01. 09.
@@ -68,6 +73,7 @@ public interface CartService {
      * @Method 설명 : 유저 정보를 불러오는 기능
      */
     UserDTO getUserDetail(Map<String, String> parameter);
+
     /**
      * @MethodName : order
      * @작성일 : 2023. 01. 14.
@@ -102,6 +108,7 @@ public interface CartService {
      * @작성자 : 김수용
      * @Method 설명 : 결제 정보를 불러오는 기능
      */
+
     PaymentDTO getPaymentDetailByPaymentNo(int paymentNo);
     /**
      * @MethodName : buyCartItems

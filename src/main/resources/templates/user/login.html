@@ -160,20 +160,23 @@
     }
 </style>
 <body>
+<div th:include="fragments/header.html"></div>
 <div layout:fragment="content">
-<div class="snowflake"></div>
+<!--<div class="snowflake"></div>-->
 <div class="left">
     <img id='loginimg' class='loginimg' src="/img/personality/loginimg.png" alt="로그인페이지 이미지">
     </img>
 </div>
 
 <form th:action="@{/user/login}" method="post" id="loginForm">
-<div class="right">
-    <div th:if="${param.error}">
-        <div class="alert alert-danger">
-            사용자ID 또는 비밀번호를 확인해주세요.
-        </div>
-    </div>
+<!--    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />-->
+
+    <div class="right">
+<!--    <div th:if="${param.error}">-->
+<!--        <div class="alert alert-danger">-->
+<!--            사용자ID 또는 비밀번호를 확인해주세요.-->
+<!--        </div>-->
+<!--    </div>-->
     <div id='loginsystem' class='loginsystem'>
         LOGIN SYSTEM</div>
 
@@ -186,49 +189,48 @@
     <div id='login-form' class='login-form'>
         <div class="login-box">ID</div>
         <div id="login">
-            <input type="text" name="userId" id="input_id" required="" placeholder="ID를 입력하세요">
+            <input type="text" name="username" id="username" required="" placeholder="ID를 입력하세요">
         </div>
         <div class="login-box">PWD</div>
         <div id="pwd">
-            <input type="password" name="userPwd" id="input_pwd" required="" placeholder="PWD를 입력하세요">
+            <input type="password" name="password" id="password" required="" placeholder="PWD를 입력하세요">
         </div>
     </div>
-
     <div class='loginnow'><button type="button" onclick="login_user()" value="Sign In" class="btn btn-outline-warning" id="btn">LOGIN NOW</button></div>
     <div id='joinin' class='joinin'>Dont have an account? <a href="/user/signup">Join for free</a></div>
 </div>
-    <script>
-        const body = document.querySelector("body");
-        const MIN_DURATION = 10;
+<!--    <script>-->
+<!--        const body = document.querySelector("body");-->
+<!--        const MIN_DURATION = 10;-->
 
-        function makeSnowflake(){
-            const snowflake = document.createElement("div");
-            const delay = Math.random() * 10;
-            const initialOpacity = Math.random();
-            const duration = Math.random() * 20 + MIN_DURATION;
+<!--        function makeSnowflake(){-->
+<!--            const snowflake = document.createElement("div");-->
+<!--            const delay = Math.random() * 10;-->
+<!--            const initialOpacity = Math.random();-->
+<!--            const duration = Math.random() * 20 + MIN_DURATION;-->
 
-            snowflake.classList.add("snowflake")
-            snowflake.style.left = `${Math.random() * window.screen.width}px`;
-            snowflake.style.animationDelay = `${delay}s`;
-            snowflake.style.opacity = initialOpacity;
-            snowflake.style.animation = `fall ${duration}s linear`;
+<!--            snowflake.classList.add("snowflake")-->
+<!--            snowflake.style.left = `${Math.random() * window.screen.width}px`;-->
+<!--            snowflake.style.animationDelay = `${delay}s`;-->
+<!--            snowflake.style.opacity = initialOpacity;-->
+<!--            snowflake.style.animation = `fall ${duration}s linear`;-->
 
-            body.appendChild(snowflake);
+<!--            body.appendChild(snowflake);-->
 
-            setTimeout(()=> {
-                body.removeChild(snowflake);
-                makeSnowflake()
-            }, (duration + delay) * 1000);
+<!--            setTimeout(()=> {-->
+<!--                body.removeChild(snowflake);-->
+<!--                makeSnowflake()-->
+<!--            }, (duration + delay) * 1000);-->
 
-        }
+<!--        }-->
 
-        makeSnowflake();
-        for(let index = 0; index < 50; index++){
-            setTimeout(makeSnowflake, 500 * index);
-        }
+<!--        makeSnowflake();-->
+<!--        for(let index = 0; index < 50; index++){-->
+<!--            setTimeout(makeSnowflake, 500 * index);-->
+<!--        }-->
 
 
-    </script>
+<!--    </script>-->
     <script>
         const signupSuccessMessage = "[[${ signupSuccessMessage }]]";
         console.log(signupSuccessMessage);

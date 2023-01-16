@@ -17,7 +17,7 @@
         <java.version>11</java.version>
     </properties>
     <dependencies>
-        <!--시큐리티-->
+<!--        시큐리티-->
 <!--        <dependency>-->
 <!--            <groupId>org.springframework.boot</groupId>-->
 <!--            <artifactId>spring-boot-starter-security</artifactId>-->
@@ -104,6 +104,7 @@
             <version>2.11.0</version>
         </dependency>
 
+
         <!-- Gson : 2023.1.14 이현도 GSON의 자바 오브젝트의 직렬화, 역직렬화를 해주는 오픈 소스 자바 라이브러리 -->
         <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
         <dependency>
@@ -119,7 +120,6 @@
             <artifactId>json</artifactId>
             <version>20220924</version>
         </dependency>
-
 
     </dependencies>
     <build>
