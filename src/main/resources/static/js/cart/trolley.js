@@ -33,6 +33,15 @@ $(document).ready(function () {
         sum(size);
     })
 })
+function goOrder() {
+
+    if($("#checkedSize").val() > 0){
+        window.location.href='order'
+    } else {
+        alert("선택된 상품이 없습니다.")
+    }
+    // <button type="submit" className="goldButton" onClick="window.location.href='order'">Purchase</button>
+}
 /*체크 여부 수정*/
 function updateCheckStatus(cartNo, check) {
 
@@ -177,6 +186,7 @@ function sum(size) {
         }
         orderTotal += $("#hiddenPrice" + i).val() * $("#productQty" + i).val() * check
     }
+
     $("#orderTotal").text(orderTotal+"$")
 
     let subTotal = orderTotal - $("#point").val()
