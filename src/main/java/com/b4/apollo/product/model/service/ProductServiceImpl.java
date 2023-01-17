@@ -9,7 +9,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-
+/**
+ @FileName : ProductServiceImpl
+ @Project : Apollo
+ @Date : 2023. 01. 06.
+ @작성자 : 박유리
+ @프로그램 설명 : 상품 service interface의 구현체
+ */
 @Service
 public class ProductServiceImpl implements ProductService {
     private final ProductMapper productMapper;
@@ -93,7 +99,11 @@ public class ProductServiceImpl implements ProductService {
 
         return productMapper.productListByCode(parameter);
     }
-
+//    @Override
+//    public List<ProdAndImageDTO> productListByCode(String parameter) {
+//
+//        return productMapper.productListByCode(parameter);
+//    }
 //    @Override
 //    public Page<ProdAndImageDTO> selectList(int pageNum) {
 //        PageHelper.startPage(pageNum, 10);

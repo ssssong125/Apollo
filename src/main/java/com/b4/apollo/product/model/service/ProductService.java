@@ -3,7 +3,13 @@ package com.b4.apollo.product.model.service;
 import com.b4.apollo.product.model.dto.ProdAndImageDTO;
 
 import java.util.List;
-
+/**
+ @FileName : ProductService
+ @Project : Apollo
+ @Date : 2023. 01. 06.
+ @작성자 : 박유리
+ @프로그램 설명 : 상품에 관한 service interface
+ */
 public interface ProductService {
 
 
@@ -17,8 +23,6 @@ public interface ProductService {
 
     boolean productDelete(ProdAndImageDTO prod);
 
-    List<ProdAndImageDTO> productListByCode(String parameter);
+    List<ProdAndImageDTO> productListByCode(String category);
 
-//    List<ProdAndImageDTO> productListByInst(String category);
-//    Page<ProdAndImageDTO> selectList(int pageNum);
 }

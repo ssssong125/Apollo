@@ -7,7 +7,13 @@ import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
-
+/**
+ @FileName : ProductMapper
+ @Project : Apollo
+ @Date : 2023. 01. 06.
+ @작성자 : 박유리
+ @프로그램 설명 : 상품 crud의 dao interface
+ */
 @Mapper
 public interface ProductMapper {
     ProdAndImageDTO productDetail(int code);
@@ -18,7 +24,7 @@ public interface ProductMapper {
 
     int productDelete(Integer code);
 
-    int editProduct(/*@RequestParam("newProd")*/ ProdAndImageDTO newProd /*@RequestParam("code")*/);
+    int editProduct( ProdAndImageDTO newProd );
 
     int addProductImage(ProductImageDTO prodImg);
 
@@ -27,9 +33,7 @@ public interface ProductMapper {
     int deleteImg(int code);
     List<ProdAndImageDTO> productListByCode(String parameter);
 
-//    List<ProdAndImageDTO> productListByInst(String categoryCode);
     Page<ProdAndImageDTO> selectList();
 
-//    String[] getCategory();
     List<CategoryDTO> readCategory();
 }
