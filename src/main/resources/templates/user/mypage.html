@@ -145,6 +145,11 @@
             <div class="col-sm-3" id="qnacol">
               <div id="question"><a id="qnahref" href="/question/list" style="color: black; font-weight: bold; font-size: large;" value="질문하기">Q&A</a></div>
             </div>
+            <th:block th:if ="${userDetail.userId == 'admin'}">
+                <a id="add" href="/product/regist" style="color: black; font-weight: bold; font-size: large; margin-right: 30px" >상품등록</a>
+
+                <a id="minus" href="/product/delete" style="color: black; font-weight: bold; font-size: large;" >상품삭제</a>
+            </th:block>
         </div>
     </div>
     </div>

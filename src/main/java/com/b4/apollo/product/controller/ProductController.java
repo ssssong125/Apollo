@@ -96,15 +96,8 @@ public class ProductController {
     }
 
     @GetMapping("regist")
-    public void registPage(HttpSession session){
-        String isAdmin = (String) session.getAttribute("userId");
-        System.out.println("isAdmin = " + isAdmin);
+    public void registPage(){
 
-        if(isAdmin=="admin"){
-
-        }else{
-
-        }
     }
     /**
      * @MethodName : registProduct
@@ -159,9 +152,13 @@ public class ProductController {
         return mv;
     }
     @GetMapping("edit/{code}")
-    public String editPage(@PathVariable("code") int code){
+    public String editPage(){
 
-        return "/product/edit";
+            return "/product/edit";
+//        }else{
+//            return "/product/list";
+//        }
+
     }
     /**
      * @MethodName : editProduct
@@ -170,7 +167,7 @@ public class ProductController {
      * @Method 설명 : 기존 등록된 상품의 정보를 수정하는 메소드.
      */
     @PostMapping("edit/{code}")
-    public ModelAndView editProduct(ModelAndView mv, ProdAndImageDTO newProd, MultipartFile[] imgFile, @PathVariable("code") int code) /*throws Exception*/ {
+    public ModelAndView editProduct(ModelAndView mv, ProdAndImageDTO newProd, MultipartFile[] imgFile, @PathVariable("code") int code, HttpSession session) /*throws Exception*/ {
 
         ProdAndImageDTO currProd = this.productService.productDetail(code);
         newProd.setProductNo(currProd.getProductNo());
@@ -224,9 +221,12 @@ public class ProductController {
 
         newProd.setProductImageDTOList(imgList2);
         System.out.println( "번호 :  "+newProd.getProductImageDTOList());
+        String isAdmin = (String) session.getAttribute("userId");
+        System.out.println("isAdmin = " + isAdmin);
 
-        productService.editProduct(newProd);
-
+        if(isAdmin.equals("admin")) {
+            productService.editProduct(newProd);
+        }
         System.out.println(newProd.getProductNo());
 
         mv.addObject("edit", newProd);
@@ -246,8 +246,9 @@ public class ProductController {
      */
     @PostMapping("delete") /*  int code 에 대한 것을 {}로 써야함 ???  */
     public ModelAndView productDelete(ModelAndView mv, ProdAndImageDTO prod) {
-        System.out.println(prod);
+
         prod = productService.productDetail(prod.getProductNo());
+        System.out.println(prod);
         productService.productDelete(prod);
 
         mv.setViewName("redirect:/product/list");
