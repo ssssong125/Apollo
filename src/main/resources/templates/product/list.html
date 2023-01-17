@@ -111,16 +111,60 @@
         }
     </style>
     <script>
+        /*csrf 토큰 정보*/
+        const token = $("meta[name='_csrf']").attr("content");
+        const header = $("meta[name='_csrf_header']").attr("content");
 
         function categoooo(categoryCode, bigCode) {
 
             /*ajax 설정*/
             $.ajaxSetup({
                 url: 'list', // 요청할 서버url
+                type: "POST"
+            })
 
-        /*csrf 토큰 정보*/
-        const token = $("meta[name='_csrf']").attr("content");
-        const header = $("meta[name='_csrf_header']").attr("content");
+            $.ajax({
+                data: // 보낼 데이터 (Object , String, Array)
+                {
+
+                    categoryCode : categoryCode,
+                    bigCode : bigCode
+                }
+                // beforeSend : function(xhr) {
+                //     xhr.setRequestHeader(header, token)
+                // },
+                // dataType : 'json',       // 데이터 타입 (html, xml, json, text 등등)
+
+                    // {
+                    //     productNo : productNo,
+                    //     count : count
+                    // }
+                // , beforeSend : function(xhr) {
+                //     xhr.setRequestHeader(header, token)
+                // }
+
+                // , dataType : 'json',       // 데이터 타입 (html, xml, json, text 등등)
+
+                // contentType: 'application/json'
+                // headers : {              // Http header
+                //     "Content-Type" : "application/json",
+                //     "X-HTTP-Method-Override" : "POST"
+                // },
+            })
+
+                .done(function (result) { // 수행할 동작
+                    return location.href = "list"
+                })
+                .fail(function(jqXHR) { // 실패시
+                    alert("실패")
+                    //  return location.href = "trolley"
+                })
+            // .always(function() { // 항상 동작
+            //     alert("작동");
+            // })
+
+        }
+
         /*체크 여부 수정*/
         function addToCart(productNo, count) {
 
@@ -128,23 +172,23 @@
             /*ajax 설정*/
             $.ajaxSetup({
                 url: '/cart/addToCart', // 요청할 서버url
-
                 type: "POST" // 타입 (get, post, put 등등)
                 // global: false, // 동시에 실행 x, 비동기화 여부 (default : true)
             });
 
             $.ajax({
                 data: // 보낼 데이터 (Object , String, Array)
-                    {
-
-                        categoryCode : categoryCode,
-                        bigCode : bigCode
-                    },
+                    // {
+                    //
+                    //     categoryCode : categoryCode,
+                    //     bigCode : bigCode
+                    // },
                 // beforeSend : function(xhr) {
                 //     xhr.setRequestHeader(header, token)
                 // },
                 // dataType : 'json',       // 데이터 타입 (html, xml, json, text 등등)
 
+                    {
                         productNo : productNo,
                         count : count
                     }
@@ -160,20 +204,16 @@
                 //     "X-HTTP-Method-Override" : "POST"
                 // },
             })
-
-                .done(function (result) { // 수행할 동작
-                     return location.href = "list"
-                })
-                .fail(function(jqXHR) { // 실패시
-                    alert("실패")
-                    //  return location.href = "trolley"
-                })
-            // .always(function() { // 항상 동작
-            //     alert("작동");
-            // })
-
- 
-
+            .done(function (result) { // 수행할 동작
+                 // return location.href = "list"
+            })
+            .fail(function(jqXHR) { // 실패시
+                // alert("실패")
+                //  return location.href = "trolley"
+            })
+            .always(function() { // 항상 동작
+                // alert("작동");
+            })
         }
     </script>
 </head>
@@ -237,20 +277,20 @@
     <div class="col" th:each="product : ${ productList }">
 
 <!--        <th:block th:if="bigCode =='WIND'">-->
-            <div class="img-area">
-                <a th:href="@{|/product/detail/${product.productNo}|}">
-                    <img th:src="@{${product.productImageDTOList.get(0).getImgPath()}}" class="image"/>
-                </a>
-            </div>
+<!--            <div class="img-area">-->
+<!--                <a th:href="@{|/product/detail/${product.productNo}|}">-->
+<!--                    <img th:src="@{${product.productImageDTOList.get(0).getImgPath()}}" class="image"/>-->
+<!--                </a>-->
+<!--            </div>-->
             <!--<br>-->
             <!--            <span th:text="${ product.productNo }"></span>-->
-            <div class="text-area">
-                <p th:text="${ product.productName }"></p>
-                <p th:text="${ product.productPrice }"></p>
-                <a href="/cart/trolley">
-                    <p th:include="fragments/button.html"></p>
-                </a>
-            </div>
+<!--            <div class="text-area">-->
+<!--                <p th:text="${ product.productName }"></p>-->
+<!--                <p th:text="${ product.productPrice }"></p>-->
+<!--&lt;!&ndash;                <a href="/cart/trolley">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <p th:include="fragments/button.html"></p>&ndash;&gt;-->
+<!--&lt;!&ndash;                </a>&ndash;&gt;-->
+<!--            </div>-->
 <!--        </th:block>-->
 
 <!--            <span th:text="${ product.productDesc }"></span>-->
@@ -266,6 +306,33 @@
             <p th:text="${ product.productName }"></p>
             <p th:text="${ product.productPrice }"></p>
             <button type="button" class="btn btn-warning" th:onclick="|addToCart(${product.productNo}, 1)|" data-toggle="modal" data-target="#cartModal">Add To Cart</button>
+        </div>
+        <!--장바구니 담기 모달-->
+        <div class="modal fade" id="cartModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">장바구니 담기 성공!</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        장바구니 페이지로 이동하시겠습니까?
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" onclick="location.href='/cart/trolley'">Cart</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+        <!--장바구니 담기 모달-->
+
+
 <!--            <a href="/cart/trolley">-->
 <!--                <p th:include="fragments/button.html"></p>-->
 <!--            </a>-->
@@ -278,8 +345,6 @@
 <!--            <span th:text="${ product.categoryCode }"></span>-->
 
 <!--        <a href="item.html" th:href="@{|/basic/items/${item.id}|}"-->
-    </div>
-</div>
 <!--<div class="prodList">-->
 <!--    <div class="prod" th:each="product : ${ productList }">-->
 <!--        <div th:src="@{/img/}"></div>-->
@@ -294,7 +359,6 @@
 <!--<button onclick="location.href='/product/delete'">상품삭제</button>-->
 <!--<div th:src="@{${item.getImgPath()}}"></div>-->
 <!--<footer>-->
-    <div th:include="fragments/footer.html"></div>
 <!--<script th:inline="javascript">-->
 <!--    $.ajaxSetup({-->
 <!--        url: 'list', // 요청할 서버url-->
@@ -379,6 +443,6 @@
 <!--        });-->
 <!--    })-->
 <!--</script>-->
-
+<div th:include="fragments/footer.html"></div>
 </body>
 </html>
