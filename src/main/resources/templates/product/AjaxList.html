@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+  <div class="row">
+<div class="record">
+  <div class="col" th:each="prod : ${ cateList }">
+    <div class="img-area">
+
+      <a th:href="@{|/product/detail/${prod.productNo}|}">
+        <img th:src="@{${prod.productImageDTOList.get(0).getImgPath()}}" class="image"/>
+      </a>
+
+      <div class="text-area">
+        <p th:text="${ prod.productName }"></p>
+        <p th:text="${ prod.productPrice }"></p>
+        <!--                <button >-->
+        <span class="cartButton" th:include="fragments/button.html" th:onclick="|addToCart(${prod.productNo}, 1)|" data-toggle="modal" data-target="#cartModal"></span>
+        <!--                </button>-->
+        <!--                <button type="button" class="btn btn-warning" th:onclick="|addToCart(${prod.productNo}, 1)|" data-toggle="modal" data-target="#cartModal">Add To Cart</button>-->
+      </div>
+    </div>
+  </div>
+</div>
+  </div>
+</div>
+</body>
+</html>

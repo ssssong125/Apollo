@@ -16,110 +16,56 @@
         html{
             background-color: black;
         }
-        /*tr{*/
-        /*    color: white;*/
-        /*}*/
-        /*.prodList{*/
-        /*    grid-template: repeat(3, 1fr);*/
-        /*}*/
+
         .image{
-            width: 200px;
+            width: 300px;
             height: 300px;
 
         }
-
         .record{
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             column-gap: 50px;
             row-gap: 20px;
-            padding: 5rem 16rem
+            /*padding: 5rem 16rem;*/
+            padding-left: 10px;
+            float: left;
+            /*width: 40%;*/
+            /*height: 50%;*/
+            /*display: inline-block;*/
         }
         .col{
             /*margin: 30px;*/
             width: 300px;
             padding: 10px 10px 20px 10px;
             border: 1px solid #bfbfbf;
-            background-color: #fff;
+            background-color: black;
             box-shadow: 2px 2px 3px rgba(135, 139,144,0.4);
             /* transform: rotate(9deg); */
-            align-content: center;
+            /*align-content: center;*/
         }
-
         .text-area p{
             margin-bottom: 0;
         }
-
-        /*img{*/
-        /*    width: 300px;*/
-        /*    height: 180px;*/
-        /*}*/
-
+        .text-area{
+            align-content: center;
+        }
         p{
             text-align: center;
-            /*font-family: "바탕";*/
+            font-family: BodoniXT;
             font-weight: 600;
             font-size: 16px;
-            color: cadetblue;
+            color: grey;
         }
-        #page-wrapper {
-            padding-left: 250px;
-        }
-
-        #sidebar-wrapper {
-            position: fixed;
-            width: 250px;
-            height: 100%;
-            margin-left: -250px;
-            background: #000;
-            overflow-x: hidden;
-            overflow-y: auto;
-        }
-
-        #page-content-wrapper {
-            width: 100%;
-            padding: 20px;
-        }
-        /* 사이드바 스타일 */
-
-        .sidebar-nav {
-            width: 250px;
-            margin: 0;
-            padding: 0;
-            list-style: none;
-        }
-
-        .sidebar-nav li {
-            text-indent: 1.5em;
-            line-height: 2.8em;
-        }
-
-        .sidebar-nav li a {
-            display: block;
-            text-decoration: none;
-            color: #999;
-            font-family: BodoniXT;
-
-        }
-
-        .sidebar-nav li a:hover {
-            color: #ffd700;
-            background: rgba(255, 255, 255, 0.2);
-            font-size: 28px;
-
-        }
-
-        .sidebar-nav > .sidebar-brand {
-            font-size: 1.3em;
-            line-height: 3em;
-        }
-
         #selectT {
             margin-left: 10px;
             background-color: black;
             font-size: 30px;
             font-family: BodoniXT;
-
+            width: 15%;
+            /*height: 50%;*/
+            display: inline-block;
+            float: left;
         }
         #selectT option{
             color: white;
@@ -135,13 +81,17 @@
             display: none; /* Chrome, Safari, Opera*/
 
         }
+        .cartButton{
+            align-content: center;
+        }
     </style>
-
+    <script src="https://code.jquery.com/
+    jquery-latest.min.js"></script>
     <script>
+
         /*csrf 토큰 정보*/
         const token = $("meta[name='_csrf']").attr("content");
         const header = $("meta[name='_csrf_header']").attr("content");
-
 
         /*체크 여부 수정*/
         function addToCart(productNo, count) {
@@ -198,195 +148,62 @@
         const categoryCode = document.querySelector('select').value
         $.ajax({
             url: '/product/AjaxList',
-
             type: 'post',
             data: {'categoryCode': categoryCode},
 
-            <!--    3)쿼리작업 끝난 후-->
-            success: function (result) {
-                <!--    ★return 값 받음-->
-                <!--    controller 실행 후 자동실행 할 구문-->
 
-// i) 테이블을 다시 그려준다(테이블의 thead, tbody 만들기)
-                const ajaxList = document.querySelector('.stu');
-// (테이블에 class ="stu"로 지정함)
+            success: function (data) {
 
-// 2) tbody 삭제
-// ★select에서 학급을 선택했을 때
-// 기존 내역 삭제하기 위해 tbody 내용 지우기
-// thead는 동일하니까
-//const tbody = document.querySelector('stu > tbody'); 방법도 가능
-                const tbody = ajaxList.querySelector('tbody');
-                ajaxList.removeChild(tbody);
+                $(".container").html(data);
 
-// 3) 추가할 태그 생성
-                let str = '';
-
-// 4) 새로 들어갈 내용
-str += '<tbody>';
-for (const stu of result) {
-    str += '<tr>';
-    str += `<td>${stu.productName}</td>`;
-//
-    str += `<td>`;
-//         // (★stuNum 넘겨줘야 반이 바뀌어도 점수 상세정보 볼 수 있음)
-   //     str += `<span onclick="showDetail(${stu.productNo});">
-//               				  ${stu.productName}</span>`;
-//         str += `</td>`;
-    str += `<td>${stu.productPrice}</td>`;
-    str += `<td>${stu.productDesc}</td>`;
-//     str += `<td><input type="button" value="삭제"
-//                        onclick="deleteStu(${stu.productNo}, this);"></td>`;
-//     str += '</tr>';
-//     str +=  '<td><a th:href="@{|/product/detail/${product.productNo}|}">
-//         <img th:src="@{${product.productImageDTOList.get(0).getImgPath()}}" className="image"/>
-//     </a></td>'
-//
-// }
-// str += '</tbody>';
-
-    ajaxList.insertAdjacentHTML('beforeend', str);
-    // return location.href = "list/AjaxList"
-}
             },
+
                 error: function() {
                 alert('실패');
             }
         });
     }
+
     </script>
 
 </head>
 <body>
 <header>
     <div th:include="fragments/header.html"></div>
-
 </header>
-<br>
-<br>
-<br>
-<br>
-<!--<table class="layout">-->
-    <colgroup>
-        <col width="50%">
-        <col width="50%">
-    </colgroup>
 
-            <div style="margin-bottom: 30px;">
-                <select name="classCode" onchange="changeClass();" size="12" id="selectT" class="sidebar-nav">
-                    <option th:each="cate:${category}"
-                            th:text="${cate.categoryName}"
-                            th:value="${cate.categoryCode}"></option>
-                </select>
-            </div>
-            <div class="record">
-                <div class="img-area">
-                    <div class="col" th:each="product : ${ productList }">
-                    <a th:href="@{|/product/detail/${product.productNo}|}">
-                        <img th:src="@{${product.productImageDTOList.get(0).getImgPath()}}" class="image"/>
-                    </a>
+<br>
+<br>
+<br>
+<br>
 
-            <!--<br>-->
-            <!--            <span th:text="${ product.productNo }"></span>-->
+<select name="classCode" onchange="changeClass();" size="12" id="selectT" class="sidebar-nav">
+    <option th:each="cate:${category}"
+            th:text="${cate.categoryName}"
+            th:value="${cate.categoryCode}">
+    </option>
+</select>
+<div class="container">
+    <div class="row">
+<div class="record">
+    <div class="col" th:each="product : ${ productList }">
+    <div class="img-area">
+
+            <a th:href="@{|/product/detail/${product.productNo}|}">
+                <img th:src="@{${product.productImageDTOList.get(0).getImgPath()}}" class="image"/>
+            </a>
+
             <div class="text-area">
                 <p th:text="${ product.productName }"></p>
                 <p th:text="${ product.productPrice }"></p>
-                <button type="button" class="btn btn-warning" th:onclick="|addToCart(${product.productNo}, 1)|" data-toggle="modal" data-target="#cartModal">Add To Cart</button>
+                <span class="cartButton" th:include="fragments/button.html" th:onclick="|addToCart(${product.productNo}, 1)|" data-toggle="modal" data-target="#cartModal"></span>
             </div>
-                    </div>
-
-            </div>
-            </div>
-                </div>
-            </div>
-
-
-
-<script src="https://code.jquery.com/
-    jquery-latest.min.js"></script>
-<!--<★jquery 실행>-->
-<!--<script type="text/javascript" th:src="@{/stu_manage.js}"></script>-->
-<!--★static폴더 기준-->
-<!--</div>-->
-<!--<div class="record">-->
-<!--    <a th:href="@{/product/list/}">-->
-<!--        <a href="product/" th:attrappend="href=${ productList.get(i).categoryCode }">-->
-<!--        <img src="/img/common/present_3.jpg">-->
-<!--    </a>-->
-
-<!--    <button type="button" onclick="categoooo('STRING')">현악기</button>-->
-<!--    <button type="button" onclick="categoooo('WIND')">관악기</button>-->
-<!--    <button type="button" onclick="categoooo('CLAVIER')">건반악기</button>-->
-
-    <div class="col" th:each="product : ${ productList }">
-
-<!--&lt;!&ndash;        <th:block th:if="bigCode =='WIND'">&ndash;&gt;-->
-<!--            <div class="img-area">-->
-<!--                <a th:href="@{|/product/detail/${product.productNo}|}">-->
-<!--                    <img th:src="@{${product.productImageDTOList.get(0).getImgPath()}}" class="image"/>-->
-<!--                </a>-->
-<!--            </div>-->
-<!--            &lt;!&ndash;<br>&ndash;&gt;-->
-<!--            &lt;!&ndash;            <span th:text="${ product.productNo }"></span>&ndash;&gt;-->
-<!--            <div class="text-area">-->
-<!--                <p th:text="${ product.productName }"></p>-->
-<!--                <p th:text="${ product.productPrice }"></p>-->
-<!--                <a href="/cart/trolley">-->
-<!--                    <p th:include="fragments/button.html"></p>-->
-<!--                </a>-->
-<!--            </div>-->
-<!--&lt;!&ndash;        </th:block>&ndash;&gt;-->
-
-<!--&lt;!&ndash;            <span th:text="${ product.productDesc }"></span>&ndash;&gt;-->
-
-<!--        <div class="img-area">-->
-<!--          <a th:href="@{|/product/detail/${product.productNo}|}">-->
-<!--               <img th:src="@{${product.productImageDTOList.get(0).getImgPath()}}" class="image"/>-->
-<!--          </a>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--&lt;!&ndash;<br>&ndash;&gt;-->
-<!--&lt;!&ndash;            <span th:text="${ product.productNo }"></span>&ndash;&gt;-->
-<!--        <div class="text-area">-->
-<!--            <p th:text="${ product.productName }"></p>-->
-<!--            <p th:text="${ product.productPrice }"></p>-->
-<!--            <button type="button" class="btn btn-warning" th:onclick="|addToCart(${product.productNo}, 1)|" data-toggle="modal" data-target="#cartModal">Add To Cart</button>-->
-
-
-<!--    </div>-->
-<!--</div>-->
-
-<!--        <th:block th:if="bigCode =='WIND'">-->
-<!--            <div class="img-area">-->
-<!--                <a th:href="@{|/product/detail/${product.productNo}|}">-->
-<!--                    <img th:src="@{${product.productImageDTOList.get(0).getImgPath()}}" class="image"/>-->
-<!--                </a>-->
-<!--            </div>-->
-            <!--<br>-->
-            <!--            <span th:text="${ product.productNo }"></span>-->
-<!--            <div class="text-area">-->
-<!--                <p th:text="${ product.productName }"></p>-->
-<!--                <p th:text="${ product.productPrice }"></p>-->
-<!--&lt;!&ndash;                <a href="/cart/trolley">&ndash;&gt;-->
-<!--&lt;!&ndash;                    <p th:include="fragments/button.html"></p>&ndash;&gt;-->
-<!--&lt;!&ndash;                </a>&ndash;&gt;-->
-<!--            </div>-->
-<!--        </th:block>-->
-
-<!--            <span th:text="${ product.productDesc }"></span>-->
-
-        <div class="img-area">
-          <a th:href="@{|/product/detail/${product.productNo}|}">
-               <img th:src="@{${product.productImageDTOList.get(0).getImgPath()}}" class="image"/>
-          </a>
         </div>
-<!--<br>-->
-<!--            <span th:text="${ product.productNo }"></span>-->
-        <div class="text-area">
-            <p th:text="${ product.productName }"></p>
-            <p th:text="${ product.productPrice }"></p>
-            <button type="button" class="btn btn-warning" th:onclick="|addToCart(${product.productNo}, 1)|" data-toggle="modal" data-target="#cartModal">Add To Cart</button>
-        </div>
+    </div>
+</div>
+</div>
+</div>
+
         <!--장바구니 담기 모달-->
         <div class="modal fade" id="cartModal">
             <div class="modal-dialog">
@@ -408,70 +225,5 @@ for (const stu of result) {
                 </div>
             </div>
         </div>
-    </div>
-</div>
-        
-
-
-<!--            <a href="/cart/trolley">-->
-<!--                <p th:include="fragments/button.html"></p>-->
-<!--            </a>-->
-
-
-        <!--            <span th:text="${ product.productDesc }"></span>-->
-
-<!--            <span th:text="${ product.productQty }"></span>-->
-            <!--/*@thymesVar id="productCode" type=""*/-->
-<!--            <span th:text="${ product.categoryCode }"></span>-->
-
-<!--        <a href="item.html" th:href="@{|/basic/items/${item.id}|}"-->
-
-<!--<div class="prodList">-->
-<!--    <div class="prod" th:each="product : ${ productList }">-->
-<!--        <div th:src="@{/img/}"></div>-->
-<!--        <div th:text="${product.productName}"></div>-->
-<!--        <div th:text="${product.productPrice}"></div>-->
-<!--        <div th:include="fragments/button.html"></div>-->
-<!--        <div th:src="@{${item.getImgPath()}}"></div>-->
-<!--    </div>-->
-<!--</div>-->
-<!--<button onclick="location.href='/product/regist'">상품등록</button>-->
-<!--<button onclick="location.href='/product/edit'">상품정보수정</button>-->
-<!--<button onclick="location.href='/product/delete'">상품삭제</button>-->
-<!--<div th:src="@{${item.getImgPath()}}"></div>-->
-<!--<footer>-->
-
-
-
-
-
-<!-- 페이징처리 시작 -->
-<!--<nav>-->
-<!--    <ul class="pagination justify-content-center">-->
-<!--        &lt;!&ndash; getPrePage : 이전 페이지 &ndash;&gt;-->
-<!--        <li class="page-item" th:classappend="${list.getPrePage() == 0} ? 'disabled'">-->
-<!--            <a class="page-link" th:href="@{/question/list(pageNum=${list.getPrePage()})}">-->
-<!--                <span>이전</span>-->
-<!--            </a>-->
-<!--        </li>-->
-<!--        &lt;!&ndash; getNavigateFirstPage() : 페이징의 처음 숫자 getNavigateLastPage : 페이징의 마지막 숫자를 이용해 페이징 숫자 출력 &ndash;&gt;-->
-
-<!--        <li class="page-item" th:each="page: ${#numbers.sequence(list.getNavigateFirstPage(), list.getNavigateLastPage())}" th:classappend="${page == list.getPageNum()} ? 'active'">-->
-<!--            <a class="page-link" th:text="${page}" th:href="@{/question/list(pageNum=${page})}"></a>-->
-<!--        </li>-->
-<!--        &lt;!&ndash; getPrePage : 다음 페이지 &ndash;&gt;-->
-<!--        <li class="page-item" th:classappend="${list.getNextPage() == 0} ? 'disabled'">-->
-
-<!--            <a class="page-link" th:href="@{/question/list(pageNum=${list.getNextPage()})}">-->
-<!--                <span>다음</span>-->
-<!--            </a>-->
-<!--        </li>-->
-<!--    </ul>-->
-<!--</nav>-->
-<!-- 페이징처리 끝 -->
-
-
-<div th:include="fragments/footer.html"></div>
-
 </body>
 </html>

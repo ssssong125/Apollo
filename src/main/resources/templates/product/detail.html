@@ -30,33 +30,12 @@
             letter-spacing : 1px;
         }
         /*파트별 폰트 크기 설정*/
-        .big-font{
-            font-size: 3em;
-        }
-        .menu{
-            font-size: 2em;
-        }
+
         .mid-font{
             font-size: 1.5em;
         }
         /*인풋, 입력*/
-        .text-input {
-            width: 100%;
-            border-top: none;
-            border-left:none;
-            border-right: none;
-            border-bottom: solid 1px gray;
-            background-color: transparent;
-            color: white;
-        }
-        .text-input::placeholder {
-            color: gray;
-        }
-        .text-input:focus{
-            outline: none;   /* 아웃라인 지우기 */
-            border-bottom: solid 1px #FFD700;
-            color: #FFD700;
-        }
+
         textarea {
             width: 100%;
             height: 150px;
@@ -73,108 +52,7 @@
             color: #FFD700;
         }
         /*구분선*/
-        .line{
-            border: solid 1px gray;
-            background-color: white;
-        }
-        .thick-line{
-            border: solid 2px white;
-            background-color: white;
-        }
-        .orange-button{
-            background-color: #DF9438;
-            color: black;
-            width: 150px;
-            height: 60px;
-        }
-        /*버튼*/
-        .goldButton{
-            width: 150px;
-            height: 50px;
-            border: solid #FFD700 2px;
-            background: transparent;
-            color: white;
-            transition:all 0.9s, color 0.3s;
-            overflow: hidden;
-        }
-        /*버튼 좌우에서 오는 효과*/
-        /*button:hover{*/
-        /*    color: black;*/
-        /*    box-shadow: 150px 0 0 0 #FFD700 inset,*/
-        /*    -150px 0 0 0 #FFD700 inset;*//*}*//*button:hover{*/
-        /*    color: black;*/
-        /*    box-shadow: 1000px 0 0 0 #FFD700 inset;*/
-        /*}*/
-        .goldButton,.goldButton::after {
-            -webkit-transition: all 0.3s;
-            -moz-transition: all 0.3s;
-            -o-transition: all 0.3s;
-            transition: all 0.3s;}
-        .goldButton {
-            background: none;
-            display: block;
-            position: relative;
-        }
-        .goldButton::before,.goldButton::after {
-            background: #FFD700;
-            content: '';
-            position: absolute;
-            z-index: -1;
-        }
-        .goldButton:hover {
-            color: black;
-        }
-        .goldButton::after {
-            height: 100%;
-            left: -5%;
-            top: 0;
-            transform: skew(-50deg);
-            transition-duration: 0.6s;
-            transform-origin: top left;
-            width: 0;
-        }
-        .goldButton:hover:after {
-            height: 100%;
-            width: 135%;
-        }
-        .trashCan{
-            background: url("/static/img/cart/trash.png");
-            border: none;
-            width: 32px;
-            height: 32px;
-            cursor: pointer;
-        }
-        /*이미지*/
-        .product{
-            width: 128px;
-            height: 128px;
-        }
-        /*이미지 박스*/
-        .paymentImgBox{
-            position: relative;
-            border-radius: 5px;
-            height: 100px;
-            width: 200px;
-            overflow: hidden;
-            border: solid 2px #FFD700;
-        }
-        .paymentImg{
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        /*//하이퍼링크 스타일 제거*/
-        /*  a {*/
-        /*      text-decoration: none; // 밑줄제거*/
-        /*  color: white;*/
-        /*  }*/
-        /*a:hover{*/
-        /*    text-decoration: none;*/
-        /*    color: #FFD700;*/
-        /*}*/
+
         /*수직 정렬*/
         .v-align{
             word-wrap: break-word;
@@ -188,18 +66,20 @@
         .padding-bottom{
             padding-bottom: 10px;
         }
-        /*가격 우측 정렬*/
-        .price{
-            text-align: right;
-        }
-        /*div{*/
-        /*    border: solid red 1px;*/
-        /*}*/
+
         .image {
             transition: all 0.2s linear;
         }
         .image:hover {
             transform: scale(1.4);
+        }
+        .btn-warning{
+            padding: 3px;
+            text-decoration: none;
+        }
+        .btn-warning:hover{
+            text-decoration: none;
+        /*    color: #FFD700;*/
         }
     </style>
     <script>
@@ -275,28 +155,25 @@
                 </div>
             </div>
         </div>
+        <br>
+        <br>
         <div class="row">
             <div class="col-lg-4">
                 <!--썸네일-->
-                <!--    <td> <img th:src="@{${productDetail.productImageDTOList.get(0).getImgPath()}}" class="image"/></td>-->
-<!--                <img src="/static/img/common/guitar-painting-image.jpg" style="width: 100%; max-height: 512px">-->
                 <img th:src="@{${productDetail.productImageDTOList.get(0).getImgPath()}}" class="image" style="width: 100%; height: auto"/>
             </div>
+
             <div class="col-lg-1">
                 <div class="row" style="margin-bottom: 15px">
                     <!--추가 사진-->
-                    <!--    <td> <img th:src="@{${productDetail.productImageDTOList.get(1).getImgPath()}}" class="image"/></td>-->
                     <img th:src="@{${productDetail.productImageDTOList.get(1).getImgPath()}}" class="image"style="width: 100%; max-height: 256px"/>
-<!--                    <img src="/static/img/common/guitar-painting-image.jpg" style="width: 256px; height: 256px">-->
                 </div>
                 <div class="row">
                     <!--추가 사진-->
-                    <!--    <td> <img th:src="@{${productDetail.productImageDTOList.get(2).getImgPath()}}" class="image"/></td>-->
                     <img th:src="@{${productDetail.productImageDTOList.get(2).getImgPath()}}" class="image" style="width: 100%; max-height: 256px"/>
-<!--                    <img src="/static/img/common/guitar-painting-image.jpg" style="width: 256px; height: 256px">-->
                 </div>
             </div>
-            <div class="col-lg-6" style="padding-left: 50px">
+            <div class="col-lg-6" style="padding-left: 50px; color: white" >
                 <div class="row mid-font">
                     <p th:text="${ productDetail.productName }"></p>
                 </div>
@@ -377,64 +254,34 @@
                     <div class="col-lg-4">
                         <input id="purchaseCount" type="number" style="width: 80px" min="1" th:max="${ productDetail.productQty }" value="1">
                     </div>
-                    <div class="col-lg-3">
-<!--                        <button type="button" class="orange-button">Add To Cart</button>-->
-<!--                        <button type="button" class="btn btn-warning" th:onclick="|addToCart(${product.productNo}, 1)|" data-toggle="modal" data-target="#cartModal">Add To Cart</button>-->
+                    <div class="col-lg-6">
+                        <a class="btn-warning" th:href="@{|/product/edit/${productDetail.productNo}|}"> 상품 정보 수정</a>
                         <button type="button" class="btn btn-warning" th:onclick="|addToCart(${productDetail.productNo})|" data-toggle="modal" data-target="#cartModal">Add To Cart</button>
+
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row mid-font">
+        <div class="row mid-font" style="color: white">
             Recommendation
         </div>
         <div class="row">
             <div class="col-lg-2">
-                <img src="/static/img/common/piano.jpg" style="width: 100%; max-height: 256px">
+                <a th:href="@{|/product/detail/2|}">
+                <img src="/img/common/piano.jpg" style="width: 100%; max-height: 256px">
+                </a>
             </div>
             <div class="col-lg-2">
-                <img src="/static/img/common/piano.jpg" style="width: 100%; max-height: 256px">
+                <a th:href="@{|/product/detail/3|}">
+                <img src="/img/common/SUZUKI%20SV-540F.png" style="width: 100%; max-height: 256px">
+                </a>
             </div>
         </div>
     </div>
 
 <div th:include="/fragments/header"></div>
-<table align="center" border="1" hidden>
-    <tr>
-        <th>번호</th>
-        <th>이름</th>
-        <th>가격</th>
-        <th>설명</th>
-        <th>수량</th>
-        <th>카테고리</th>
-        <th>대표이미지</th>
-        <th>b</th>
-        <th>s</th>
-    </tr>
-<!--    <tr th:each="product : ${ productList }">-->
-        <tr>
-        <td th:text="${ productDetail.productNo }"></td><!--dto의 필드명호출, getter없으면 에러남 내부에서 getter호출 -->
-        <td th:text="${ productDetail.productName }"></td>
-        <td th:text="${ productDetail.productPrice }"></td>
-        <td th:text="${ productDetail.productDesc }"></td>
-        <td th:text="${ productDetail.productQty }"></td>
-        <td th:text="${ productDetail.categoryCode }"></td>
-        <td> <img th:src="@{${productDetail.productImageDTOList.get(0).getImgPath()}}" class="image"/></td>
-            <td> <img th:src="@{${productDetail.productImageDTOList.get(1).getImgPath()}}" class="image"/></td>
-            <td> <img th:src="@{${productDetail.productImageDTOList.get(2).getImgPath()}}" class="image"/></td>
-    </tr>
-</table>
-<!--<button type="button" th:onclick="|location.href='@{
-/product/edit/{productDetail.productNo}}'|"> 목록으로 돌아가기 </button>-->
-<button type="button" th:href="@{/product/edit/(code= ${productDetail.productNo} )}"> 목록으로 돌아가기 </button>
-<a  th:href="@{|/product/regist|}"> 목록     으로 돌아가기</a>
-<!--<a  th:href="@{|/product/edit/${productDetail.productNo}|}"> 상품 정보 수정</a>-->
-<a  th:href="@{|/product/edit/${productDetail.productNo}|}"> 상품 정보 수정</a>
-<!--th:href=" @{/article/list(id= ${data} )} "-->
-<!--<button th:onclick="|location.href='@{view(uid=${data.uid})}'|">View page</button>-->
-<!--<button th:onclick="|location.href='@{/product/edit/(uid=${product.productNo})}'|" style="background-color: red">-->
-<!--     상품 정보 수정-->
-<!--</button>-->
-<!--th:onclick="|location.href='@{/boards/{uid}/delete(uid=${board.uid})}'|"-->
+
+
+
 </body>
 </html>
