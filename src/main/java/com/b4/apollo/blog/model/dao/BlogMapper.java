@@ -5,8 +5,13 @@ import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
+/**
+ @FileName : BlogMapper.java
+ @Project : Apollo
+ @Date : 2023. 01. 06.
+ @작성자 : 이현도
+ @프로그램 설명 : 서버 구동 프로그램
+ */
 @Repository
 @Mapper
 public interface BlogMapper {

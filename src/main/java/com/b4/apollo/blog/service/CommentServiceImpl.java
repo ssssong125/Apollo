@@ -1,15 +1,19 @@
 package com.b4.apollo.blog.service;
 
-
 import com.b4.apollo.blog.exception.CommonException;
 import com.b4.apollo.blog.model.dao.CommentMapper;
 import com.b4.apollo.blog.model.dto.CommentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
-
+/**
+ @FileName : CommentServiceImpl.java
+ @Project : Apollo
+ @Date : 2023. 01. 15.
+ @작성자 : 이현도
+ @프로그램 설명 : 블로그 댓글 관련 요청을 처리할 Service의 구현체
+ */
 @Service
 public class CommentServiceImpl implements CommentService{
 

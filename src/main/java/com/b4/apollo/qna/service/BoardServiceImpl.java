@@ -9,10 +9,16 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+/**
+ @FileName : BoardServiceImpl.java
+ @Project : Apollo
+ @Date : 2022. 12. 29.
+ @작성자 : 이현도
+ @프로그램 설명 : 질문게시판 관련 요청을 처리할 Service의 구현체
+ */
 @Service
 public class BoardServiceImpl implements BoardService {
 

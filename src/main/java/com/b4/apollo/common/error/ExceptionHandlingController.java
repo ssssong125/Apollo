@@ -5,15 +5,21 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
+/**
+ @FileName : BlogController.java
+ @Project : Apollo
+ @Date : 2023. 01. 06.
+ @작성자 : 이현도
+ @프로그램 설명 : 404, 500 등 각종 에러를 처리하는 컨트롤러
+ */
 @Controller
 public class ExceptionHandlingController implements ErrorController {
 
-    // 에러 페이지 정의
+    // 에러 페이지 정ㄴ의
     private final String ERROR_404_PAGE_PATH = "/error/404";
     private final String ERROR_500_PAGE_PATH = "/error/500";
     private final String ERROR_ETC_PAGE_PATH = "/error/error";

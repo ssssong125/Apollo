@@ -6,6 +6,14 @@ import lombok.Setter;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+
+/**
+ @FileName : BlogForm.java
+ @Project : Apollo
+ @Date : 2023. 01. 06.
+ @작성자 : 이현도
+ @프로그램 설명 : 블로그 게시글 작성 시 Validation을 검증 하기 위한 프로그램
+ */
 @Getter
 @Setter
 public class BlogForm {

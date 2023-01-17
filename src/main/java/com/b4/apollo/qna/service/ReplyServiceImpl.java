@@ -7,6 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
+/**
+ @FileName : ReplyServiceImpl.java
+ @Project : Apollo
+ @Date : 2023. 01. 15.
+ @작성자 : 이현도
+ @프로그램 설명 : 질문 게시판 댓글 관련 요청을 처리할 Service의 구현체
+ */
 @Service
 public class ReplyServiceImpl  implements ReplyService{
 

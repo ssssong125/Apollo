@@ -1,10 +1,15 @@
 package com.b4.apollo.blog.model.dto;
 
 import lombok.*;
-
 import java.time.LocalDateTime;
-import java.util.List;
 
+/**
+ @FileName : BlogDTO.java
+ @Project : Apollo
+ @Date : 2023. 01. 06.
+ @작성자 : 이현도
+ @프로그램 설명 : 블로그 정보를 담은 DTO
+ */
 @Getter
 @Setter
 @NoArgsConstructor
