@@ -6,7 +6,9 @@ const header = $("meta[name='_csrf_header']").attr("content");
 /*페이지 로드될때 합계 출력*/
 $(document).ready(function () {
 
-    sum(size)
+    sum(size);
+
+    checkMax();
 
     $(".checkStatus").change(function (){
 
@@ -216,6 +218,17 @@ function sum(size) {
     $("#subTotal").text(subTotal+"$")
 
     $("#totalPrice").val(subTotal)
+}
+function checkMax() {
+
+    for (let i = 1; i <= size; i++) {
+
+        if ($("#productQty"+i).val() > $("#productMaxCount"+i).val()) {
+
+            $("#productQty"+i).val($("#productMaxCount"+i).val())
+            updateQty($("#getCartNo"+i).val(), i, $("#productMaxCount"+i).val())
+        }
+    }
 }
 // - $.get()  : GET 메소드 요청하고, 서버로부터 데이터 로딩
 // - $.post() : POST 메소드 요청하고, 서버로부터 데이터 로딩

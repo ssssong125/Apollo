@@ -73,18 +73,11 @@
                     <div class="row">
                         <div class="col-lg-1 v-align" style="text-align: center">
                             <!--체크 값 확인-->
-<!--                            <span th:text="${cart.checkStatus}"/>-->
                             <input th:id="|checkBox${cartStat.count}|" type="checkbox" class="checkStatus" th:value="${cart.cartNo}" th:checked="${cart.checkStatus} == 'Y'">
-<!--                            체크됐을때 쿼리로 yn넣고 밸류는 카트넘버-->
                         </div>
                         <!--상품 이미지-->
                         <div class="col-lg-2">
-<!--                            <img class="product" src="/img/cart/naverPay.png" alt="상품 이미지">-->
                             <img class="product" th:src="@{${cart.imgPath}}" alt="상품 이미지">
-
-<!--                            <img th:src="@{${product.productImageDTOList.get(0).getImgPath()}}" class="image"/>-->
-
-    <!--                        <img class="product" th:src="/img/cart/${ aa.imgName }" alt="상품 이미지명">-->
                         </div>
                         <!--상품명-->
                         <div class="col-lg-5 v-align">
@@ -97,6 +90,8 @@
                                    th:value="${ cart?.productCount }"
                                    min="1" th:max="${ cart?.productInfo?.productQty }"
                                    style="width: 50px" required>
+                            <input th:id="|getCartNo${ cartStat?.count }|" type="number" th:value="${ cart?.cartNo }" hidden="hidden">
+                            <input th:id="|productMaxCount${ cartStat?.count }|" type="number" th:value="${ cart?.productInfo?.productQty }" hidden="hidden">
                         </div>
                         <!--상품 가격-->
                         <div class="col-lg-2 v-align price">
