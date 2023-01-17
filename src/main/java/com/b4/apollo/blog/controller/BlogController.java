@@ -6,6 +6,7 @@ import com.b4.apollo.blog.model.dto.BlogForm;
 import com.b4.apollo.blog.model.dto.CommentDTO;
 import com.b4.apollo.blog.service.BlogService;
 import com.b4.apollo.blog.service.CommentService;
+import com.b4.apollo.qna.model.dto.QuestionDTO;
 import com.b4.apollo.user.model.dto.UserDTO;
 import com.github.pagehelper.PageInfo;
 import com.google.gson.GsonBuilder;
@@ -36,6 +37,9 @@ public class BlogController {
         String reporter = (String) session.getAttribute("userId");
         UserDTO user = new UserDTO();
 
+        System.out.println("reporter = " + reporter);
+        System.out.println("blogReporter = " + blog.getReporter());
+
         model.addAttribute("reporter", reporter);
         model.addAttribute("user", user);
         model.addAttribute("blog", blog);
@@ -65,7 +69,7 @@ public class BlogController {
                 return "redirect:/blog/list";
             }
         }catch(NullPointerException e){
-            throw new CommonException("관리자만 작성 가능합니다.");
+            return "redirect:/main";
         } catch(Exception e){
             e.printStackTrace();
             throw new CommonException("에러 발생");
@@ -78,9 +82,12 @@ public class BlogController {
     public String selectBlog(HttpSession session, @PathVariable("bno") int bno, Model model) {
         BlogDTO blog = blogService.selectBlog(bno);
         CommentDTO comm = new CommentDTO();
-
+        blog.getReporter();
+        
         String reporter = (String) session.getAttribute("userId");
-
+        System.out.println("reporter = " + reporter);
+        System.out.println("blog.getReporter() = " + blog.getReporter());
+        
         model.addAttribute("reporter", reporter);
         model.addAttribute("comm", comm);
         model.addAttribute("blog", blog);
@@ -91,7 +98,7 @@ public class BlogController {
     @GetMapping("/modify/{blogNo}")
     public String blogModify(HttpSession session, BlogForm blogForm, @PathVariable("blogNo") int blogNo) {
         BlogDTO blog = this.blogService.selectBlog(blogNo);
-
+        
         String reporter = (String) session.getAttribute("userId");
 
         blog.setReporter(reporter);
@@ -131,7 +138,7 @@ public class BlogController {
         String reporter = (String) session.getAttribute("userId");
 
         try {
-            if (reporter.equals("admin")) {
+            if (reporter.equals(blog.getReporter().equals("admin"))) {
                 blogService.deleteBlog(blogNo);
                 return "redirect:/blog/list";
             }
