@@ -9,6 +9,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <title>Title</title>
     <style>
+        @font-face {
+            font-family: 'BodoniXT'; /*font 이름*/
+            src: url(/font/BodoniXT.ttf);
+        }
         html{
             background-color: black;
         }
@@ -109,6 +113,28 @@
             font-size: 1.3em;
             line-height: 3em;
         }
+
+        #selectT {
+            margin-left: 10px;
+            background-color: black;
+            font-size: 30px;
+            font-family: BodoniXT;
+
+        }
+        #selectT option{
+            color: white;
+            margin: 5px;
+        }
+        #selectT option:hover{
+            background-color: goldenrod;
+            font-size: 40px;
+            color : grey;
+        }
+        #selectT::-webkit-scrollbar {
+
+            display: none; /* Chrome, Safari, Opera*/
+
+        }
     </style>
 
     <script>
@@ -116,55 +142,6 @@
         const token = $("meta[name='_csrf']").attr("content");
         const header = $("meta[name='_csrf_header']").attr("content");
 
-//         function categoooo(categoryCode, bigCode) {
-
-//             /*ajax 설정*/
-//             $.ajaxSetup({
-//                 url: 'list', // 요청할 서버url
-//                 type: "POST"
-//             })
-
-//             $.ajax({
-//                 data: // 보낼 데이터 (Object , String, Array)
-//                 {
-
-//                     categoryCode : categoryCode,
-//                     bigCode : bigCode
-//                 }
-//                 // beforeSend : function(xhr) {
-//                 //     xhr.setRequestHeader(header, token)
-//                 // },
-//                 // dataType : 'json',       // 데이터 타입 (html, xml, json, text 등등)
-
-//                     // {
-//                     //     productNo : productNo,
-//                     //     count : count
-//                     // }
-//                 // , beforeSend : function(xhr) {
-//                 //     xhr.setRequestHeader(header, token)
-//                 // }
-
-//                 // , dataType : 'json',       // 데이터 타입 (html, xml, json, text 등등)
-
-//                 // contentType: 'application/json'
-//                 // headers : {              // Http header
-//                 //     "Content-Type" : "application/json",
-//                 //     "X-HTTP-Method-Override" : "POST"
-//                 // },
-//             })
-
-//                 .done(function (result) { // 수행할 동작
-//                     return location.href = "list"
-//                 })
-//                 .fail(function(jqXHR) { // 실패시
-//                     alert("실패")
-//                     //  return location.href = "trolley"
-//                 })
-//             // .always(function() { // 항상 동작
-//             //     alert("작동");
-//             // })
-
-//         }
 
         /*체크 여부 수정*/
         function addToCart(productNo, count) {
@@ -216,7 +193,7 @@
                 // alert("작동");
             })
         }
-       console.log(category.categoryCode)
+
     function changeClass() {
         const categoryCode = document.querySelector('select').value
         $.ajax({
@@ -287,52 +264,42 @@ for (const stu of result) {
 </header>
 <br>
 <br>
-
-<table class="layout">
+<br>
+<br>
+<!--<table class="layout">-->
     <colgroup>
         <col width="50%">
         <col width="50%">
     </colgroup>
-    <tr>
-        <td>
+
             <div style="margin-bottom: 30px;">
-                <select name="classCode" onchange="changeClass();">
-<!--                    (onchange(); 변화 JS 작성)-->
-<!--                    <option selected value="C1">바이올린</option>-->
+                <select name="classCode" onchange="changeClass();" size="12" id="selectT" class="sidebar-nav">
                     <option th:each="cate:${category}"
                             th:text="${cate.categoryName}"
                             th:value="${cate.categoryCode}"></option>
                 </select>
             </div>
-            <div>
+            <div class="record">
+                <div class="img-area">
+                    <div class="col" th:each="product : ${ productList }">
+                    <a th:href="@{|/product/detail/${product.productNo}|}">
+                        <img th:src="@{${product.productImageDTOList.get(0).getImgPath()}}" class="image"/>
+                    </a>
 
-                <table class="stu">
-                    <thead>
-                    <tr>
-                        <td>학번</td>
-                        <td>이름</td>
-                        <td>나이</td>
-                        <td>학급명</td>
-                        <td></td>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="product : ${ productList }">
-                        <td><a th:href="@{|/product/detail/${product.productNo}|}">
-                            <img th:src="@{${product.productImageDTOList.get(0).getImgPath()}}" class="image"/>
-                        </a></td>
-                        <td th:text="${ product.productName }"></td>
-                        <td th:text="${ product.productPrice }"></td>
-                        <td th:text="${ product.productPrice }"></td>
-                        <td><input type="button" value="삭제"></td>
-                    </tr>
-                    </tbody>
-                </table>
+            <!--<br>-->
+            <!--            <span th:text="${ product.productNo }"></span>-->
+            <div class="text-area">
+                <p th:text="${ product.productName }"></p>
+                <p th:text="${ product.productPrice }"></p>
+                <button type="button" class="btn btn-warning" th:onclick="|addToCart(${product.productNo}, 1)|" data-toggle="modal" data-target="#cartModal">Add To Cart</button>
             </div>
-        </td>
-        <td id="detailTd"></td>
-    </tr>
-</table>
+                    </div>
+
+            </div>
+            </div>
+                </div>
+            </div>
+
 
 
 <script src="https://code.jquery.com/
@@ -351,7 +318,7 @@ for (const stu of result) {
 <!--    <button type="button" onclick="categoooo('WIND')">관악기</button>-->
 <!--    <button type="button" onclick="categoooo('CLAVIER')">건반악기</button>-->
 
-<!--    <div class="col" th:each="product : ${ productList }">-->
+    <div class="col" th:each="product : ${ productList }">
 
 <!--&lt;!&ndash;        <th:block th:if="bigCode =='WIND'">&ndash;&gt;-->
 <!--            <div class="img-area">-->

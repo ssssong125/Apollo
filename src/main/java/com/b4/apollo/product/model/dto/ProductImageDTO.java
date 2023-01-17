@@ -1,13 +1,17 @@
 package com.b4.apollo.product.model.dto;
 
 import lombok.*;
-
+/**
+ @FileName : ProductImageDTO
+ @Project : Apollo
+ @Date : 2023. 01. 06.
+ @작성자 : 박유리
+ @프로그램 설명 : 상품 사진에 대한 정보를 담은 dto
+ */
 @NoArgsConstructor
 @Data
 @AllArgsConstructor
 public class ProductImageDTO {
-
-
      private int fileNo;
      private String originName;
      private String storedName;
@@ -15,6 +19,4 @@ public class ProductImageDTO {
      private int productNo;
      private String imgPath;
 
-//     public ProductImageDTO(int i, String originalFilename, String storeFilename, String isThumb, int i1) {
-//     }
 }

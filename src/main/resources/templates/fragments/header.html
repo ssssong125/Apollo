@@ -399,7 +399,7 @@
 </style>
 </head>
 <body style="background-color: #000000;" >
-<!--    타임리프 레이아웃 사용해서 헤더, 푸터 붙이기위해 실험 -->
+
     <!--headerFragment 선언-->
     <div th:fragment="headerFragment">
     </div>
@@ -411,24 +411,21 @@
         </a>
         <nav id="navbar" class="navbar">
             <ul>
-                <!--          href -->
                 <li><a href="/" class="active">Home</a></li>
 
                 <li class="dropdown"><a href="/product/list">Instruments <i class="bi bi-chevron-down dropdown-indicator"></i></a>
                     <ul>
-                        <li><a href="">Strings</a></li>
-                        <li><a href="">Winds</a></li>
-                        <li><a href="">Clavier</a></li>
                         <li><a href="/product/list">All products</a></li>
-                        <li><a href="">Sales products</a></li>
-                        <li><a href="">Regist New</a></li>
+                        <li><a href="/product/regist">Regist New</a></li>
                     </ul>
                 </li>
+
                 <li class="dropdown"><a href="/question/list">Q&A <i class="bi bi-chevron-down dropdown-indicator"></i></a>
                     <ul>
                         <li><a href="/question/faq">FAQ</a></li>
                     </ul>
                 </li>
+
                 <li><a href="/blog/list">Blog</a></li>
                 <li><a href="/user/contact">Contact</a></li>
             </ul>
@@ -464,59 +461,7 @@
         <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
     </div>
 
-  </header><!-- End Header -->
-<!--<script>-->
-<!--    /**-->
-<!--     * Mobile nav toggle-->
-<!--     */-->
-<!--    const mobileNavShow = document.querySelector('.mobile-nav-show');-->
-<!--    const mobileNavHide = document.querySelector('.mobile-nav-hide');-->
-
-<!--    document.querySelectorAll('.mobile-nav-toggle').forEach(el => {-->
-<!--        el.addEventListener('click', function(event) {-->
-<!--            event.preventDefault();-->
-<!--            mobileNavToogle();-->
-<!--        })-->
-<!--    });-->
-<!--    function mobileNavToogle() {-->
-<!--        document.querySelector('body').classList.toggle('mobile-nav-active');-->
-<!--        mobileNavShow.classList.toggle('d-none');-->
-<!--        mobileNavHide.classList.toggle('d-none');-->
-<!--    }-->
-<!--    /**-->
-<!--     * Hide mobile nav on same-page/hash links-->
-<!--     */-->
-<!--    document.querySelectorAll('#navbar a').forEach(navbarlink => {-->
-
-<!--        if (!navbarlink.hash) return;-->
-
-<!--        let section = document.querySelector(navbarlink.hash);-->
-<!--        if (!section) return;-->
-
-<!--        navbarlink.addEventListener('click', () => {-->
-<!--            if (document.querySelector('.mobile-nav-active')) {-->
-<!--                mobileNavToogle();-->
-<!--            }-->
-<!--        });-->
-<!--    });-->
-<!--    /**-->
-<!--     * Toggle mobile nav dropdowns-->
-<!--     */-->
-<!--    const navDropdowns = document.querySelectorAll('.navbar .dropdown > a');-->
-<!--    navDropdowns.forEach(el => {-->
-<!--        el.addEventListener('click', function(event) {-->
-<!--            if (document.querySelector('.mobile-nav-active')) {-->
-<!--                event.preventDefault();-->
-<!--                this.classList.toggle('active');-->
-<!--                this.nextElementSibling.classList.toggle('dropdown-active');-->
-
-<!--                let dropDownIndicator = this.querySelector('.dropdown-indicator');-->
-<!--                dropDownIndicator.classList.toggle('bi-chevron-up');-->
-<!--                dropDownIndicator.classList.toggle('bi-chevron-down');-->
-<!--            }-->
-<!--        })-->
-<!--    });-->
-<!--</script>-->
+  </header>
 
 <!-- BootStrap script -->
 <script  src="http://code.jquery.com/jquery-latest.min.js"

@@ -82,25 +82,52 @@
 
 <div id="page-wrapper">
     <!-- 사이드바 -->
+<!--    <div id="sidebar-wrapper">-->
+<!--        <ul class="sidebar-nav">-->
+<!--            <li class="sidebar-brand">-->
+<!--                <br>-->
+<!--                <br>-->
+<!--            </li>-->
+<!--&lt;!&ndash;            <div class="col" th:each="product : ${ productList }">&ndash;&gt;-->
+<!--&lt;!&ndash;            <a th:href="@{/oreder/details(id=${orderInfo.seq})}">&ndash;&gt;-->
+<!--            <li>-->
+<!--                <a class="categoryAs" href="a" onclick="location.href = '/product/list'">-->
+
+<!--                Strings 현악기-->
+<!--            </a>-->
+<!--            </li>-->
+<!--            <li><a class="categoryAs" onclick="plzWork('C10')">Clavier 건반악기</a></li>-->
+<!--            <li><a class="categoryAs" onclick="plzWork('C7, C8, C9')">Winds 관악기</a></li>-->
+<!--            <li><a href="/product/list">전체 상품</a></li>-->
+<!--            <li><a  href="#">할인 상품</a></li>-->
+<!--            <li><a href="#">상품 관리</a></li>-->
+<!--&lt;!&ndash;            <a  th:href="@{|/product/edit/${productDetail.productNo}|}"> 상품 정보 수정</a>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--        </ul>-->
+<!--    </div>-->
     <div id="sidebar-wrapper">
         <ul class="sidebar-nav">
             <li class="sidebar-brand">
                 <br>
                 <br>
             </li>
-<!--            <div class="col" th:each="product : ${ productList }">-->
-<!--            <a th:href="@{/oreder/details(id=${orderInfo.seq})}">-->
-            <li><a href="a" onclick="location.href = '/product/list'">Strings 현악기</a></li>
-            <li><a href="/product/list/clavier">Clavier 건반악기</a></li>
-            <li><a th:href="@{/product/list(category='C1')}">Winds 관악기</a></li>
+            <!--            <div class="col" th:each="product : ${ productList }">-->
+            <!--            <a th:href="@{/oreder/details(id=${orderInfo.seq})}">-->
+            <li>
+                <a class="categoryAs" onclick="plzWork('STRING')">
+
+                    Strings 현악기
+                </a>
+            </li>
+            <li><a class="categoryAs" onclick="plzWork('CLAVIER')">Clavier 건반악기</a></li>
+            <li><a class="categoryAs" onclick="plzWork('WIND')">Winds 관악기</a></li>
             <li><a href="/product/list">전체 상품</a></li>
-            <li><a href="#">할인 상품</a></li>
+            <li><a  href="#">할인 상품</a></li>
             <li><a href="#">상품 관리</a></li>
-<!--            <a  th:href="@{|/product/edit/${productDetail.productNo}|}"> 상품 정보 수정</a>-->
-<!--            </div>-->
+            <!--            <a  th:href="@{|/product/edit/${productDetail.productNo}|}"> 상품 정보 수정</a>-->
+            <!--            </div>-->
         </ul>
     </div>
-
     <!-- /사이드바 -->
 
     <!-- 본문 -->
@@ -111,7 +138,7 @@
 <!--                <span th:if="${info.gender == 'F'}">여자</span>-->
 <!--                <span th:if="${info.gender == 'M'}">남자</span>-->
 <!--            </div>-->
-            <div th:if="${category.category} == 'STRING'" th:each="category : ${ categoryList.sequence(1, 6) }">
+<!--            <div th:if="${category.category} == 'STRING'" th:each="category : ${ categoryList.sequence(1, 6) }">-->
 <!--                <div th:if="${category.category == 'STRING'}">-->
 
 <!--                    <div class="col" th:each="product : ${ productList }">-->
@@ -122,13 +149,13 @@
 <!--                        </div>-->
                     <!--<br>-->
                     <!--            <span th:text="${ product.productNo }"></span>-->
-                        <div class="text-area">
-                            <p th:text="${ product.productName }"></p>
-                            <p th:text="${ product.productPrice }"></p>
-                            <a href="/cart/trolley">
-                                <p th:include="fragments/button.html"></p>
-                            </a>
-                        </div>
+<!--                        <div class="text-area">-->
+<!--                            <p th:text="${ product.productName }"></p>-->
+<!--                            <p th:text="${ product.productPrice }"></p>-->
+<!--                            <a href="/cart/trolley">-->
+<!--                                <p th:include="fragments/button.html"></p>-->
+<!--                            </a>-->
+<!--                        </div>-->
                     <!--            <span th:text="${ product.productDesc }"></span>-->
                     <!--            <span th:text="${ product.productQty }"></span>-->
                     <!--/*@thymesVar id="productCode" type=""*/-->
