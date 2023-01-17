@@ -197,6 +197,7 @@
 <body>
 <div th:include="fragments/header.html"></div>
 <div class="snowflake"></div>
+<br><br>
 <div class="content" layout:fragment="signupContent">
 <div class="leftContainer">
     <img id='signinimg' class='signinimg' src='/img/personality/signin.jpg' alt="가입페이지이미지">
@@ -215,7 +216,7 @@
                     <input type="text" id="userId" name ="userId" size="35" oninput="checkId()" placeholder="아이디 영문, 숫자 포함 10글자 이내" maxlength="10" onfocus="this.placeholder = ''" required>
                     <br><br>
                     <span class="id_ok"></span>
-                    <span class="id_already"></span>>
+                    <span class="id_already"></span>
                     <br>
                     <input type="password" name="password" id="userPwd1" size="35"
                            placeholder="PASSWORD: 영문,숫자,특수문자 포함 8자 이상" minlength="8" onfocus="this.placeholder = ''" required>
@@ -403,7 +404,7 @@
             });
         </script>
 <br><br>
-<br>
+<br><br><br>
 <div th:include="fragments/footer.html"></div>
 </body>
 </html>

@@ -14,12 +14,7 @@
 //@EnableWebSecurity
 //@Configuration
 //public class SpringSecurityConfiguration {
-////    private final AuthenticationService authenticationService;
-////    @Autowired
-////    public SpringSecurityConfiguration(AuthenticationService authenticationService){
-////        this.authenticationService = authenticationService;
-////    }
-//    //extends Web어쩌구 하고 override 했던게 빈 등록으로 바뀜
+
 //
 //
 //    @Bean

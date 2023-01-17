@@ -7,10 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -25,11 +22,12 @@ public class UserController {
     private final UserService userService;
     private final MessageSource messageSource;
 
-
+//    가입페이지를 불러오기 위한 맵핑 메소드
     @GetMapping("signup")
     public String signupForm(){
         return "user/signup";
     }
+
 
     @PostMapping("signup")
     public ModelAndView insertUser(UserDTO newUser, ModelAndView mv, RedirectAttributes rttr, Locale locale) throws Exception{
@@ -49,15 +47,19 @@ public class UserController {
 
     @PostMapping({"/login", "/header"})
     @ResponseBody
-    public ModelAndView loginUser(ModelAndView mv, UserDTO userDTO, HttpSession session, RedirectAttributes rttr, Locale locale) throws Exception{
+    public ModelAndView loginUser(ModelAndView mv, UserDTO userDTO, HttpSession session, Model model, RedirectAttributes rttr, Locale locale) throws Exception{
         boolean result = userService.loginUser(userDTO, session);
         if(result == true){
             session.setAttribute("userId", userDTO.getUserId());
-            mv.addObject("loginUser", 1);
+            String userId = (String)session.getAttribute("userId");
+            String userDetail = model.addAttribute("userDetail", userService.userDetail(userDTO)).toString();
+            mv.addObject("userDetail", userDetail);
             mv.setViewName("redirect:/user/mypage");
         }else {
+            session.setAttribute("userId", userDTO.getUserId());
+            String userId = (String)session.getAttribute("userId");
             rttr.addFlashAttribute("loginFailMsg", messageSource.getMessage("loginFail", null, locale));
-            mv.addObject("loginUser", 0);
+            mv.addObject("userId", userId);
             mv.setViewName("redirect:/user/login");
         }
         return mv;
@@ -120,7 +122,7 @@ public class UserController {
 
         session.removeAttribute("userId");
         session.invalidate();
-
+        rttr.addFlashAttribute("logoutMessage", messageSource.getMessage("logout", null, locale));
         return "redirect:/main";
     }
 
