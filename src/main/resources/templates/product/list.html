@@ -110,176 +110,115 @@
             line-height: 3em;
         }
     </style>
-    <script>
 
-        function categoooo(categoryCode, bigCode) {
-
-            /*ajax 설정*/
-            $.ajaxSetup({
-                url: 'list', // 요청할 서버url
-
-        /*csrf 토큰 정보*/
-        const token = $("meta[name='_csrf']").attr("content");
-        const header = $("meta[name='_csrf_header']").attr("content");
-        /*체크 여부 수정*/
-        function addToCart(productNo, count) {
-
-            // 쿼리 실행 시키고 얼웨이즈 카트로 갈지 그냥 닫을지
-            /*ajax 설정*/
-            $.ajaxSetup({
-                url: '/cart/addToCart', // 요청할 서버url
-
-                type: "POST" // 타입 (get, post, put 등등)
-                // global: false, // 동시에 실행 x, 비동기화 여부 (default : true)
-            });
-
-            $.ajax({
-                data: // 보낼 데이터 (Object , String, Array)
-                    {
-
-                        categoryCode : categoryCode,
-                        bigCode : bigCode
-                    },
-                // beforeSend : function(xhr) {
-                //     xhr.setRequestHeader(header, token)
-                // },
-                // dataType : 'json',       // 데이터 타입 (html, xml, json, text 등등)
-
-                        productNo : productNo,
-                        count : count
-                    }
-                // , beforeSend : function(xhr) {
-                //     xhr.setRequestHeader(header, token)
-                // }
-
-                // , dataType : 'json',       // 데이터 타입 (html, xml, json, text 등등)
-
-                // contentType: 'application/json'
-                // headers : {              // Http header
-                //     "Content-Type" : "application/json",
-                //     "X-HTTP-Method-Override" : "POST"
-                // },
-            })
-
-                .done(function (result) { // 수행할 동작
-                     return location.href = "list"
-                })
-                .fail(function(jqXHR) { // 실패시
-                    alert("실패")
-                    //  return location.href = "trolley"
-                })
-            // .always(function() { // 항상 동작
-            //     alert("작동");
-            // })
-
- 
-
-        }
-    </script>
 </head>
 <body>
 <header>
     <div th:include="fragments/header.html"></div>
 
 </header>
+<br>
+<br>
 
-<!--<div th:include="fragments/sidebar.html"></div>-->
-<!--<div th:fragment="sidebarFragment">-->
-<!--    &lt;!&ndash;        내용&ndash;&gt;-->
-<!--    &lt;!&ndash;        <h1>Header Section</h1>&ndash;&gt;-->
+<<table class="layout">
+    <colgroup>
+        <col width="50%">
+        <col width="50%">
+    </colgroup>
+    <tr>
+        <td>
+            <div style="margin-bottom: 30px;">
+                <select name="classCode" onchange="changeClass();">
+<!--                    (onchange(); 변화 JS 작성)-->
+<!--                    <option selected value="C1">바이올린</option>-->
+                    <option th:each="cate:${category}"
+                            th:text="${cate.categoryName}"
+                            th:value="${cate.categoryCode}"></option>
+                </select>
+            </div>
+            <div>
+
+                <table class="stu">
+                    <thead>
+                    <tr>
+                        <td>학번</td>
+                        <td>이름</td>
+                        <td>나이</td>
+                        <td>학급명</td>
+                        <td></td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="product : ${ productList }">
+                        <td><a th:href="@{|/product/detail/${product.productNo}|}">
+                            <img th:src="@{${product.productImageDTOList.get(0).getImgPath()}}" class="image"/>
+                        </a></td>
+                        <td th:text="${ product.productName }"></td>
+                        <td th:text="${ product.productPrice }"></td>
+                        <td th:text="${ product.productPrice }"></td>
+                        <td><input type="button" value="삭제"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </td>
+        <td id="detailTd"></td>
+    </tr>
+</table>
+
+
+<script src="https://code.jquery.com/
+    jquery-latest.min.js"></script>
+<!--<★jquery 실행>-->
+<!--<script type="text/javascript" th:src="@{/stu_manage.js}"></script>-->
+<!--★static폴더 기준-->
 <!--</div>-->
-
-<!--<div id="page-wrapper">-->
-<!--    &lt;!&ndash; 사이드바 &ndash;&gt;-->
-<!--    <div id="sidebar-wrapper">-->
-<!--        <ul class="sidebar-nav">-->
-<!--            <li class="sidebar-brand">-->
-<!--                <br>-->
-<!--                <br>-->
-<!--            </li>-->
-<!--            &lt;!&ndash;            <div class="col" th:each="product : ${ productList }">&ndash;&gt;-->
-<!--            &lt;!&ndash;            <a th:href="@{/oreder/details(id=${orderInfo.seq})}">&ndash;&gt;-->
-<!--&lt;!&ndash;           근데 리스트에서 첫번째의 카테고리 이면 ,, 반복문을 돌리지 않으면 안될텐데? 리스트의 모든 것을 확인해서-->
-<!--카테고리를 찾아야 하니까..-->
-<!--정적 쿼리문을ㅇ 쓴다면 메소드를 3개씩만들어야겠지만, href 에 뭐라고 써야할지 모름.... 여기서 반복을 돌아야 하나?-->
-<!--ㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠ-->
-<!--ajax로 처리한다는게 뭐지?????????????????????????????????????????????&ndash;&gt;-->
-<!--            <li><a th:href="@{/product/list(category=${productList.get(0).categoryCode})}">Strings 현악기</a></li>-->
-<!--            <li><a href="/product/list/clavier">Clavier 건반악기</a></li>-->
-<!--            <li><a th:href="@{/product/list(category='C1')}">Winds 관악기</a></li>-->
-<!--            <li><a href="/product/list">전체 상품</a></li>-->
-<!--            <li><a href="#">할인 상품</a></li>-->
-<!--            <li><a href="#">상품 관리</a></li>-->
-<!--            &lt;!&ndash;            <a  th:href="@{|/product/edit/${productDetail.productNo}|}"> 상품 정보 수정</a>&ndash;&gt;-->
-<!--            &lt;!&ndash;            </div>&ndash;&gt;-->
-<!--        </ul>-->
-<!--    </div>-->
-<!--    &lt;!&ndash; /사이드바 &ndash;&gt;-->
-
-<!--    &lt;!&ndash; 본문 &ndash;&gt;-->
-<!--    <div id="page-content-wrapper">-->
-<!--        <div class="container-fluid">-->
-
-<!--        </div>-->
-<!--    </div>-->
-    <!-- /본문 -->
-</div>
-<div class="record">
+<!--<div class="record">-->
 <!--    <a th:href="@{/product/list/}">-->
 <!--        <a href="product/" th:attrappend="href=${ productList.get(i).categoryCode }">-->
 <!--        <img src="/img/common/present_3.jpg">-->
 <!--    </a>-->
 
-    <button type="button" onclick="categoooo('STRING')">현악기</button>
-    <button type="button" onclick="categoooo('WIND')">관악기</button>
-    <button type="button" onclick="categoooo('CLAVIER')">건반악기</button>
+<!--    <button type="button" onclick="categoooo('STRING')">현악기</button>-->
+<!--    <button type="button" onclick="categoooo('WIND')">관악기</button>-->
+<!--    <button type="button" onclick="categoooo('CLAVIER')">건반악기</button>-->
 
-    <div class="col" th:each="product : ${ productList }">
+<!--    <div class="col" th:each="product : ${ productList }">-->
 
-<!--        <th:block th:if="bigCode =='WIND'">-->
-            <div class="img-area">
-                <a th:href="@{|/product/detail/${product.productNo}|}">
-                    <img th:src="@{${product.productImageDTOList.get(0).getImgPath()}}" class="image"/>
-                </a>
-            </div>
-            <!--<br>-->
-            <!--            <span th:text="${ product.productNo }"></span>-->
-            <div class="text-area">
-                <p th:text="${ product.productName }"></p>
-                <p th:text="${ product.productPrice }"></p>
-                <a href="/cart/trolley">
-                    <p th:include="fragments/button.html"></p>
-                </a>
-            </div>
-<!--        </th:block>-->
+<!--&lt;!&ndash;        <th:block th:if="bigCode =='WIND'">&ndash;&gt;-->
+<!--            <div class="img-area">-->
+<!--                <a th:href="@{|/product/detail/${product.productNo}|}">-->
+<!--                    <img th:src="@{${product.productImageDTOList.get(0).getImgPath()}}" class="image"/>-->
+<!--                </a>-->
+<!--            </div>-->
+<!--            &lt;!&ndash;<br>&ndash;&gt;-->
+<!--            &lt;!&ndash;            <span th:text="${ product.productNo }"></span>&ndash;&gt;-->
+<!--            <div class="text-area">-->
+<!--                <p th:text="${ product.productName }"></p>-->
+<!--                <p th:text="${ product.productPrice }"></p>-->
+<!--                <a href="/cart/trolley">-->
+<!--                    <p th:include="fragments/button.html"></p>-->
+<!--                </a>-->
+<!--            </div>-->
+<!--&lt;!&ndash;        </th:block>&ndash;&gt;-->
 
-<!--            <span th:text="${ product.productDesc }"></span>-->
+<!--&lt;!&ndash;            <span th:text="${ product.productDesc }"></span>&ndash;&gt;-->
 
-        <div class="img-area">
-          <a th:href="@{|/product/detail/${product.productNo}|}">
-               <img th:src="@{${product.productImageDTOList.get(0).getImgPath()}}" class="image"/>
-          </a>
-        </div>
-<!--<br>-->
-<!--            <span th:text="${ product.productNo }"></span>-->
-        <div class="text-area">
-            <p th:text="${ product.productName }"></p>
-            <p th:text="${ product.productPrice }"></p>
-            <button type="button" class="btn btn-warning" th:onclick="|addToCart(${product.productNo}, 1)|" data-toggle="modal" data-target="#cartModal">Add To Cart</button>
-<!--            <a href="/cart/trolley">-->
-<!--                <p th:include="fragments/button.html"></p>-->
-<!--            </a>-->
+<!--        <div class="img-area">-->
+<!--          <a th:href="@{|/product/detail/${product.productNo}|}">-->
+<!--               <img th:src="@{${product.productImageDTOList.get(0).getImgPath()}}" class="image"/>-->
+<!--          </a>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--&lt;!&ndash;<br>&ndash;&gt;-->
+<!--&lt;!&ndash;            <span th:text="${ product.productNo }"></span>&ndash;&gt;-->
+<!--        <div class="text-area">-->
+<!--            <p th:text="${ product.productName }"></p>-->
+<!--            <p th:text="${ product.productPrice }"></p>-->
+<!--            <button type="button" class="btn btn-warning" th:onclick="|addToCart(${product.productNo}, 1)|" data-toggle="modal" data-target="#cartModal">Add To Cart</button>-->
 
-
-        <!--            <span th:text="${ product.productDesc }"></span>-->
-
-<!--            <span th:text="${ product.productQty }"></span>-->
-            <!--/*@thymesVar id="productCode" type=""*/-->
-<!--            <span th:text="${ product.categoryCode }"></span>-->
-
-<!--        <a href="item.html" th:href="@{|/basic/items/${item.id}|}"-->
-    </div>
-</div>
+<!--    </div>-->
+<!--</div>-->
 <!--<div class="prodList">-->
 <!--    <div class="prod" th:each="product : ${ productList }">-->
 <!--        <div th:src="@{/img/}"></div>-->
@@ -295,90 +234,70 @@
 <!--<div th:src="@{${item.getImgPath()}}"></div>-->
 <!--<footer>-->
     <div th:include="fragments/footer.html"></div>
-<!--<script th:inline="javascript">-->
-<!--    $.ajaxSetup({-->
-<!--        url: 'list', // 요청할 서버url-->
-<!--        type: "GET" // 타입 (get, post, put 등등)-->
-<!--// global: false, // 동시에 실행 x, 비동기화 여부 (default : true)-->
-<!--    });-->
 
-<!--    $.ajax({-->
-<!--        data: // 보낼 데이터 (Object , String, Array)-->
-<!--            {-->
-<!--                // cartNo : cartNo,-->
-<!--                category : categoryCode-->
-<!--            },-->
-<!--        beforeSend : function(xhr) {-->
-<!--            xhr.setRequestHeader(header, token)-->
-<!--        }-->
-<!--// dataType : 'json',       // 데이터 타입 (html, xml, json, text 등등)-->
-<!--// headers : {              // Http header-->
-<!--//     "Content-Type" : "application/json",-->
-<!--//     "X-HTTP-Method-Override" : "POST"-->
-<!--// },-->
-<!--    })-->
-<!--        .done(function (result) { // 수행할 동작-->
-<!--// return location.href = "trolley"-->
-<!--        })-->
-<!--        .fail(function(jqXHR) { // 실패시-->
-<!--// alert("실패!")-->
-<!--        })-->
-<!--    // .always(function() { // 항상 동작-->
-<!--    //     alert("작동");-->
-<!--    // })-->
-<!--</script>-->
-<!-- 페이징처리 시작 -->
-<!--<nav>-->
-<!--    <ul class="pagination justify-content-center">-->
-<!--        &lt;!&ndash; getPrePage : 이전 페이지 &ndash;&gt;-->
-<!--        <li class="page-item" th:classappend="${list.getPrePage() == 0} ? 'disabled'">-->
-<!--            <a class="page-link" th:href="@{/question/list(pageNum=${list.getPrePage()})}">-->
-<!--                <span>이전</span>-->
-<!--            </a>-->
-<!--        </li>-->
-<!--        &lt;!&ndash; getNavigateFirstPage() : 페이징의 처음 숫자 getNavigateLastPage : 페이징의 마지막 숫자를 이용해 페이징 숫자 출력 &ndash;&gt;-->
+<script th:inline="javascript">
+    console.log(category.categoryCode)
+    function changeClass() {
+        const categoryCode = document.querySelector('select').value
+        $.ajax({
+            url: '/product/AjaxList',
 
-<!--        <li class="page-item" th:each="page: ${#numbers.sequence(list.getNavigateFirstPage(), list.getNavigateLastPage())}" th:classappend="${page == list.getPageNum()} ? 'active'">-->
-<!--            <a class="page-link" th:text="${page}" th:href="@{/question/list(pageNum=${page})}"></a>-->
-<!--        </li>-->
-<!--        &lt;!&ndash; getPrePage : 다음 페이지 &ndash;&gt;-->
-<!--        <li class="page-item" th:classappend="${list.getNextPage() == 0} ? 'disabled'">-->
+            type: 'post',
+            data: {'categoryCode': categoryCode},
 
-<!--            <a class="page-link" th:href="@{/question/list(pageNum=${list.getNextPage()})}">-->
-<!--                <span>다음</span>-->
-<!--            </a>-->
-<!--        </li>-->
-<!--    </ul>-->
-<!--</nav>-->
-<!-- 페이징처리 끝 -->
-<!--</footer>-->
-<!--<script src="http://code.jquery.com/jquery-latest.js"></script>       //필수 script입니다.-->
+            <!--    3)쿼리작업 끝난 후-->
+            success: function (result) {
+                <!--    ★return 값 받음-->
+                <!--    controller 실행 후 자동실행 할 구문-->
 
-<!--<script th:inline="javascript">-->
-<!--    $(function(){-->
-<!--        // Collapse button event-->
-<!--        $('#sidebarCollapse').on('click', function() {-->
-<!--            $('#sidebarCollapseBtn').toggleClass('active');-->
-<!--            $('#sidebar').toggleClass('active');-->
-<!--        });-->
+// i) 테이블을 다시 그려준다(테이블의 thead, tbody 만들기)
+                const ajaxList = document.querySelector('.stu');
+// (테이블에 class ="stu"로 지정함)
 
-<!--        // Create sidebar from category-->
-<!--        $.ajax({-->
-<!--            method : 'GET',-->
-<!--            url: $('meta[name=context-path]').attr("content") + 'category',-->
-<!--        }).done(function(result){-->
-<!--            // Append tag-->
-<!--            var list = '';-->
-<!--            var class_name = 'nav-link';-->
-<!--            $.each(result, function(i, category){-->
-<!--                list += '<li><a href="'+$('meta[name=context-path]').attr("content")+'main?categoryNm='+category.nm+'&categoryLabelNm='+category.labelNm+'">'+category.labelNm+'</a></li>';-->
-<!--            });-->
-<!--            $('#category').html(list);-->
-<!--        }).fail(function(xhr, ajaxOptions, thrownError){-->
-<!--            alert(xhr);-->
-<!--        });-->
-<!--    })-->
-<!--</script>-->
+// 2) tbody 삭제
+// ★select에서 학급을 선택했을 때
+// 기존 내역 삭제하기 위해 tbody 내용 지우기
+// thead는 동일하니까
+//const tbody = document.querySelector('stu > tbody'); 방법도 가능
+                const tbody = ajaxList.querySelector('tbody');
+                ajaxList.removeChild(tbody);
+
+// 3) 추가할 태그 생성
+                let str = '';
+
+// 4) 새로 들어갈 내용
+str += '<tbody>';
+for (const stu of result) {
+    str += '<tr>';
+    str += `<td>${stu.productName}</td>`;
+//
+    str += `<td>`;
+//         // (★stuNum 넘겨줘야 반이 바뀌어도 점수 상세정보 볼 수 있음)
+   //     str += `<span onclick="showDetail(${stu.productNo});">
+//               				  ${stu.productName}</span>`;
+//         str += `</td>`;
+    str += `<td>${stu.productPrice}</td>`;
+    str += `<td>${stu.productDesc}</td>`;
+//     str += `<td><input type="button" value="삭제"
+//                        onclick="deleteStu(${stu.productNo}, this);"></td>`;
+//     str += '</tr>';
+//     str +=  '<td><a th:href="@{|/product/detail/${product.productNo}|}">
+//         <img th:src="@{${product.productImageDTOList.get(0).getImgPath()}}" className="image"/>
+//     </a></td>'
+//
+// }
+// str += '</tbody>';
+
+    ajaxList.insertAdjacentHTML('beforeend', str);
+    // return location.href = "list/AjaxList"
+}
+            },
+                error: function() {
+                alert('실패');
+            }
+        });
+    }
+</script>
 
 </body>
 </html>

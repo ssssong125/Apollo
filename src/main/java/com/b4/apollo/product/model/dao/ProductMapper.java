@@ -1,5 +1,6 @@
 package com.b4.apollo.product.model.dao;
 
+import com.b4.apollo.product.model.dto.CategoryDTO;
 import com.b4.apollo.product.model.dto.ProdAndImageDTO;
 import com.b4.apollo.product.model.dto.ProductImageDTO;
 import com.github.pagehelper.Page;
@@ -30,5 +31,5 @@ public interface ProductMapper {
     Page<ProdAndImageDTO> selectList();
 
 //    String[] getCategory();
-    List<String> readCategory();
+    List<CategoryDTO> readCategory();
 }
