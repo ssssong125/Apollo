@@ -5,11 +5,12 @@ import com.b4.apollo.blog.model.dto.BlogDTO;
 import com.b4.apollo.blog.model.dto.BlogForm;
 import com.b4.apollo.blog.model.dto.CommentDTO;
 import com.b4.apollo.blog.service.BlogService;
+import com.b4.apollo.cart.model.dto.CartDTO;
+import com.b4.apollo.cart.model.service.CartService;
 import com.b4.apollo.blog.service.CommentService;
 import com.b4.apollo.qna.model.dto.QuestionDTO;
 import com.b4.apollo.user.model.dto.UserDTO;
 import com.github.pagehelper.PageInfo;
-import com.google.gson.GsonBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +22,6 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 @RequestMapping("/blog")
 @Controller
@@ -29,6 +29,8 @@ public class BlogController {
 
     @Autowired
     private BlogService blogService;
+    @Autowired
+    private CartService cartService;
 
     @GetMapping("/list")
     public String selectList(HttpSession session, BlogDTO blog, @RequestParam(required = false, defaultValue = "1") int pageNum, Model model) {
@@ -148,5 +150,22 @@ public class BlogController {
             throw new CommonException("에러 발생");
         }
         return "redirect:/main";
+    }
+    /**
+     * @MethodName : headerBadge
+     * @작성일 : 2023. 01. 17.
+     * @작성자 : 김수용
+     * @Method 설명 : GetMapping방식으로 현재 장바구니에 담긴 상품수를 헤더 카트 아이콘 옆에 뱃지로 표현
+     */
+    @GetMapping("/header")
+    public void headerBadge(HttpSession session, Model model){
+
+        String userId = (String) session.getAttribute("userId");
+
+        if (userId != null){
+
+            List<CartDTO> cartList = cartService.getCartList(userId);
+            model.addAttribute("cartList", cartList);
+        }
     }
 }

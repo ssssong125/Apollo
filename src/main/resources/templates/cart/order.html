@@ -96,14 +96,14 @@
         <div class="row">
             <div class="col-lg">
                 <input type="text" class="text-input" placeholder="Name"
-                       id="receiverName" name="receiverName" th:value="${ user.userName }">
+                       id="receiverName" name="receiverName" th:value="${ user.userName }" required>
 <!--                       id="receiverName" name="receiverName">-->
             </div>
             <div class="col-lg">
                 <div class="form-element">
                     <input class="input-type-tel text-input" type="tel" placeholder="010-1234-5678"
                            id="receiverTel" name="receiverTel" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" maxlength="13"
-                           th:value="${ user.userTel }">
+                           th:value="${ user.userTel }" required>
 <!--                           pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" maxlength="13">-->
                 </div>
             </div>
@@ -134,7 +134,7 @@
                     <div class="col-lg">
 <!--                        <input type="text" id="address" placeholder="Address">-->
                         <input type="text" class="text-input" placeholder="Address"
-                               id="sample5_address" th:value="${ user.userAddr }">
+                               id="sample5_address" th:value="${ user.userAddr }" required>
                     </div>
                 </div>
             </div>
@@ -146,7 +146,7 @@
         <div id="map" style="width:100%; height:300px; margin-top:10px; display:none"></div>
         <br>
         <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-        <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1396c757963694ec4ed9f88e267e2bb2&libraries=services"></script>
+        <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4f3ea8fe326516d2d5d3f66abb2d6ffb&libraries=services"></script>
         <script>
             var themeObj = {
                 bgColor: "#162525", //바탕 배경색

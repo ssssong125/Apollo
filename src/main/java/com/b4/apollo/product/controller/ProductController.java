@@ -1,5 +1,7 @@
 package com.b4.apollo.product.controller;
 
+import com.b4.apollo.cart.model.dto.CartDTO;
+import com.b4.apollo.cart.model.service.CartService;
 import com.b4.apollo.product.model.dao.ProductMapper;
 import com.b4.apollo.product.model.dto.CategoryDTO;
 import com.b4.apollo.product.model.dto.ProdAndImageDTO;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,10 +27,13 @@ public class ProductController {
 
     private final ProductMapper productMapper;
 
+    private final CartService cartService;
+
     @Autowired
-    public ProductController(ProductService productService, ProductMapper productMapper) {
+    public ProductController(ProductService productService, ProductMapper productMapper, CartService cartService) {
         this.productService = productService;
         this.productMapper = productMapper;
+        this.cartService = cartService;
     }
 
     @GetMapping("list")
@@ -286,5 +292,22 @@ public class ProductController {
 //        mv.addObject("productDelete", productDelete);
         mv.setViewName("redirect:/product/list");
         return mv;
+    }
+    /**
+     * @MethodName : headerBadge
+     * @작성일 : 2023. 01. 17.
+     * @작성자 : 김수용
+     * @Method 설명 : GetMapping방식으로 현재 장바구니에 담긴 상품수를 헤더 카트 아이콘 옆에 뱃지로 표현
+     */
+    @GetMapping("/header")
+    public void headerBadge(HttpSession session, Model model){
+
+        String userId = (String) session.getAttribute("userId");
+
+        if (userId != null){
+
+            List<CartDTO> cartList = cartService.getCartList(userId);
+            model.addAttribute("cartList", cartList);
+        }
     }
 }
