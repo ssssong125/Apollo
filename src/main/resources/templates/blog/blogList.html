@@ -66,10 +66,9 @@
 
 <!--   페이징처리 끝-->
   <!-- 작성자 아이디가 관리자와 일치 할 때만 글 등록하기 -->
-  <th:block th:if="${reporter.equals('admin')}">
+  <th:block th:if="${reporter != null} and ${reporter.equals('admin')}">
     <a th:href="@{/blog/create}" class="btn btn-primary">글 등록하기</a>
-  </th:block>
+<!--  </th:block>-->
 </div>
-
 </body>
 </html>

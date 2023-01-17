@@ -27,19 +27,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean loginUser(UserDTO userDTO, HttpSession session) {
-        UserDTO loginUser = userMapper.loginUser(userDTO.getUserId());
+        UserDTO loginUser = userMapper.loginUser(userDTO.getUserId(), userDTO.getPassword());
         boolean result = false;
-        if(loginUser != null /*&& bCryptPasswordEncoder.matches(userDTO.getPassword(), loginUser.getPassword())*/){
+        if(loginUser != null){
             session.setAttribute("loginUser", loginUser);
             result = true;
         }
         return result;
     }
 
-//    @Override
-//    public UserDTO loginUser(String username) {
-//        UserDTO loginUser = userMapper.loginUser(UserDTO.getUsername())
-//    }
 
     @Override
     public UserDTO userDetail(UserDTO userDTO) {
@@ -57,33 +53,6 @@ public class UserServiceImpl implements UserService {
     }
 
 
-//    @Transactional
-//    public void joinUser(UserDTO userDto){
-//        String inputPwd = userDto.getPassword();
-//        String encodePwd= bCryptPasswordEncoder.encode(inputPwd);
-//        userDto.setPassword(encodePwd);
-//
-////        userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
-//        userDto.setUserRole("ROLE_USER");
-//
-//        userDto = new UserDTO();
-//        System.out.println(userDto);
-//        userMapper.insertUser(userDto);
-//    }
-
-//    @Override
-//    public UserDTO loginUser(UserDTO userDTO, HttpSession session) {
-//        UserDTO loginUser = userMapper.loginUser(userDTO.getUsername());
-//    }
-
-//    @Override
-//    public UserDTO loadUserByUsername(String username, String password) throws UsernameNotFoundException {
-//        UserDTO userDTO = userMapper.loginUser(username, password);
-//        if(userDTO==null){
-//            throw new UsernameNotFoundException("사용자가 아님");
-//        }
-//        return userDTO;
-//    }
 
 }
 

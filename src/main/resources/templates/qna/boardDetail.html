@@ -15,7 +15,8 @@
 <div layout:fragment="content" class="container my-3">
   <!-- 질문 -->
 
-  <span style="color: white !important;">작성자&nbsp:&nbsp</span><input type="hidden" th:text="${question.userId}">
+  <span style="color: white !important;">작성자&nbsp:&nbsp</span>
+  <input type="hidden" th:text="${question.userId}">
   <h2 class="border-bottom py-2" th:text="${question.boardTitle}"></h2>
   <div class="card my-3">
     <div class="card-body">
@@ -25,16 +26,17 @@
           <div th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}"></div>
         </div>
       </div>
-      <th:block th:if="${writer.equals(question.getUserId())}">
+
         <!-- 질문 수정 -->
         <div class="my-3">
+          <th:block th:if="${writer != null} and ${writer.equals(question.getUserId())}">
           <a th:href="@{|/question/modify/${question.boardNo}|}" class="btn btn-sm btn-outline-secondary" th:text="수정"></a>
-
           <!-- 질문 삭제-->
             <a href="javascript:void(0);" th:data-uri="@{|/question/delete/${question.boardNo}|}"
                class="delete btn btn-sm btn-outline-secondary" th:text="삭제"></a>
+          </th:block>
         </div>
-      </th:block>
+
     </div>
 
     <!-- 댓글 -->

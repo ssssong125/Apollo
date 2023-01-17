@@ -148,7 +148,7 @@
         WHERE PRODUCT_NO = #{ productNo }
     </delete>
     <select id="readCategory" resultMap="categoryResultMap">
-        SELECT CATEGORY
+        SELECT *
         FROM TBL_CATEGORY
 
     </select>
@@ -163,7 +163,7 @@
 <!--        WHERE A.PRODUCT_QTY > 0-->
 <!--          AND A.CATEGORY_CODE = #{categoryCode}-->
 <!--    </select>-->
-        <select id="productListByCode" resultMap="productResultMap"><!-- ?????? ????-->
+        <select id="productListByCode" parameterType="String" resultMap="productResultMap"><!-- ?????? ????-->
             SELECT
             A.*
             ,B.*

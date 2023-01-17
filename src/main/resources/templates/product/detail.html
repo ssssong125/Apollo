@@ -195,6 +195,12 @@
         /*div{*/
         /*    border: solid red 1px;*/
         /*}*/
+        .image {
+            transition: all 0.2s linear;
+        }
+        .image:hover {
+            transform: scale(1.4);
+        }
     </style>
     <script>
         /*csrf 토큰 정보*/
@@ -246,6 +252,7 @@
     </script>
 </head>
 <body style="background-color: black">
+<br>
     <div class="container" style="margin-top: 3%">
         <!-- The Modal -->
         <div class="modal fade" id="cartModal">
@@ -273,58 +280,58 @@
                 <!--썸네일-->
                 <!--    <td> <img th:src="@{${productDetail.productImageDTOList.get(0).getImgPath()}}" class="image"/></td>-->
 <!--                <img src="/static/img/common/guitar-painting-image.jpg" style="width: 100%; max-height: 512px">-->
-                <img src="/static/img/common/piano.jpg" style="width: 100%; height: auto">
+                <img th:src="@{${productDetail.productImageDTOList.get(0).getImgPath()}}" class="image" style="width: 100%; height: auto"/>
             </div>
             <div class="col-lg-1">
                 <div class="row" style="margin-bottom: 15px">
                     <!--추가 사진-->
                     <!--    <td> <img th:src="@{${productDetail.productImageDTOList.get(1).getImgPath()}}" class="image"/></td>-->
-                    <img src="/static/img/common/piano.jpg" style="width: 100%; max-height: 256px">
+                    <img th:src="@{${productDetail.productImageDTOList.get(1).getImgPath()}}" class="image"style="width: 100%; max-height: 256px"/>
 <!--                    <img src="/static/img/common/guitar-painting-image.jpg" style="width: 256px; height: 256px">-->
                 </div>
                 <div class="row">
                     <!--추가 사진-->
                     <!--    <td> <img th:src="@{${productDetail.productImageDTOList.get(2).getImgPath()}}" class="image"/></td>-->
-                    <img src="/static/img/common/piano.jpg" style="width: 100%; max-height: 256px">
+                    <img th:src="@{${productDetail.productImageDTOList.get(2).getImgPath()}}" class="image" style="width: 100%; max-height: 256px"/>
 <!--                    <img src="/static/img/common/guitar-painting-image.jpg" style="width: 256px; height: 256px">-->
                 </div>
             </div>
             <div class="col-lg-6" style="padding-left: 50px">
                 <div class="row mid-font">
 <!--                    <p th:text="${ productDetail.productName }"/>-->
-                    <p>프랑스, 1900년 중기 추정, Joseph Guarnerius(_labeled)</p>
+                    <p th:text="${ productDetail.productName }">프랑스, 1900년 중기 추정, Joseph Guarnerius(_labeled)</p>
                 </div>
                 <div class="row padding-bottom">
                     <div class="col-lg-3 h-align v-align">
-                        <span>품명</span>
+                        <span>번호</span>
                     </div>
                     <div class="col-lg-9">
 <!--                        <span th:text="${ productDetail.productName }"/>-->
-                        <span>바이올린(4/4)</span>
+                        <span th:text="${ productDetail.productNo }">바이올린(4/4)</span>
                     </div>
                 </div>
                 <div class="row padding-bottom">
                     <div class="col-lg-3 h-align v-align">
-                        <span>제작자</span>
+                        <span>이름</span>
                     </div>
                     <div class="col-lg-9">
-                        <span>Joseph Guarnerius (_labeled)</span>
+                        <span th:text="${ productDetail.productName }">Joseph Guarnerius (_labeled)</span>
                     </div>
                 </div>
                 <div class="row padding-bottom">
                     <div class="col-lg-3 h-align v-align">
-                        <span>제작국</span>
+                        <span>가격</span>
                     </div>
                     <div class="col-lg-9">
-                        <span>프랑스(Mrecourt)</span>
+                        <span th:text="${ productDetail.productPrice }">프랑스(Mrecourt)</span>
                     </div>
                 </div>
                 <div class="row padding-bottom">
                     <div class="col-lg-3 h-align v-align">
-                        <span>제작년도</span>
+                        <span>설명</span>
                     </div>
                     <div class="col-lg-9">
-                        <span>1900년 중기 추정</span>
+                        <span th:text="${ productDetail.productDesc }"> 1900년 중기 추정</span>
                     </div>
                 </div>
                 <div class="row padding-bottom">
@@ -341,24 +348,24 @@
                     </div>
                     <div class="col-lg-9">
                         <!--    <td th:text="${ productDetail.productPrice }"></td>-->
-                        <span>15,000$</span>
+                        <span th:text="${ productDetail.productPrice }">15,000$</span>
                     </div>
                 </div>
                 <div class="row padding-bottom">
                     <div class="col-lg-3 h-align v-align">
-                        <span>설명</span>
+                        <span>카테고리</span>
                     </div>
                     <div class="col-lg-9">
                         <!--    <td th:text="${ productDetail.productDesc }"></td>-->
-                        <span>케이스 포함입니다. Rampal의 보증서(2016년 발행)가 있습니다.</span>
+                        <span th:text="${ productDetail.categoryCode }"></span>
                     </div>
                 </div>
                 <div class="row padding-bottom">
                     <div class="col-lg-3 h-align v-align">
-                        <span>상태</span>
+                        <span>남은 수량</span>
                     </div>
                     <div class="col-lg-9">
-                        <span>필요한 수리 없습니다.</span>
+                        <span th:text="${ productDetail.productQty }">필요한 수리 없습니다.</span>
                     </div>
                 </div>
                 <div class="row padding-bottom">
@@ -396,7 +403,7 @@
     </div>
 
 <div th:include="/fragments/header"></div>
-<table align="center" border="1">
+<table align="center" border="1" hidden>
     <tr>
         <th>번호</th>
         <th>이름</th>
