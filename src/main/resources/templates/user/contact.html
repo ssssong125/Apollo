@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">>
 <head>
   <title>Contact us</title>
   <meta charset="UTF-8">
@@ -37,14 +38,18 @@
   body
   {
     width: 100%;
-    margin: 0 auto;
+    margin-left: 100px;
     background-color: #000000;
-    font-family: BodoniXT;
 
   }
-  .container{
-    padding-left: 10%;
+  .container {
+
+      margin-right: 300px;
+      margin-left: 500px;
+      position: relative;
+      font-family: BodoniXT;
   }
+
   input {
     width: 85%;
     padding: 10px 0;
@@ -85,7 +90,9 @@
 </style>
 <body>
 <div class="snowflake"></div>
-  <div class="container">
+<div th:include="fragments/header.html"></div>
+<br><br><br>
+  <div layout:fragment="contactContent" class="container" style="margin-left: auto; margin-right: -10px;">
     <div>
       <h1>Contact us</h1>
     </div>
@@ -93,7 +100,7 @@
       <div class="col-sm-4">
         <div><h4 style="color: aliceblue;">Contact Info</h4></div>
         <hr style="border: 1px solid red;" width="100%">
-        <Pre>Address:
+        <Pre style="color: white;">Address:
 Open Hour:
 Call:
 Email:
@@ -168,5 +175,6 @@ Email:
 
 
   </script>
+<div th:include="fragments/footer.html"></div>
 </body>
 </html>

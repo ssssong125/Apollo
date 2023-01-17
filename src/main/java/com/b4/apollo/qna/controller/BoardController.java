@@ -73,7 +73,8 @@ public class BoardController {
     public String selectBoard(HttpSession session, @PathVariable("bno") int bno, Model model) {
         QuestionDTO questionDTO = boardService.selectBoard(bno);
         ReplyDTO rep = new ReplyDTO();
-
+        questionDTO.getUserId();
+        System.out.println("questionDTO.getUserId() = " + questionDTO.getUserId());
         String writer = (String) session.getAttribute("userId");
 
         model.addAttribute("writer", writer);

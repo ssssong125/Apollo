@@ -30,6 +30,7 @@
         SELECT A.*
         FROM TBL_USER A
         WHERE A.USER_ID = #{userId}
+        AND A.USER_PWD = #{password}
     </select>
 
     <insert id="insertUser" parameterType="com.b4.apollo.user.model.dto.UserDTO">

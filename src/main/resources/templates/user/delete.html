@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
 <head>
     <meta charset="UTF-8">
     <title>회원탈퇴페이지</title>
@@ -9,20 +11,22 @@
         font-family: 'BodoniXT'; /*font 이름*/
         src: url(/static/font/BodoniXT.ttf);
     }
-    body {
-        width: 100%;
+    #userdelete {
+        width: 80%;
         margin: 0 auto;
         background-color: #dcdcdc;
-        position: absolute;
-        top: 150px;
-
+        height: 700px;
+        padding-left: 100px;
+        padding-top: 100px;
+        padding-bottom: 100px;
+        font-family: BodoniXT;
+        display: grid;
     }
 
     label{
         font-weight: normal;
         font-size: 30px;
         margin-right: 25px;
-        font-family: BodoniXT;
     }
     span{
         font-size: 25px;
@@ -77,6 +81,10 @@
     }
 </style>
 <body>
+<div th:include="fragments/header.html"></div>
+<br>
+<div th:include="user/sidebar.html" style="width: 20%; height: 30%;"></div>
+<div layout:fragment="modifyContent">
     <div id="userdelete">
         <h1>회원정보확인</h1>
         <form th:action="${delete}" th:object="${userDetail}" method="post">
@@ -109,5 +117,7 @@
         </div>
         </form>
     </div>
+</div>
+<div th:include="fragments/footer.html"></div>
 </body>
 </html>

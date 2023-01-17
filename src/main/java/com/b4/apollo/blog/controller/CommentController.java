@@ -121,7 +121,9 @@ public class CommentController {
             comm.setCommNo(commNo);
             System.out.println("comm.getCommWriter() = " + comm.getCommWriter());
 
-            if(commenter.equals(comm.getCommWriter())) {
+            if(commenter.equals(comm.getCommWriter()) || comm.getCommWriter().equals("admin")) {
+                System.out.println("comm.getCommWriter() = " + comm.getCommWriter());
+                System.out.println("commenter = " + commenter);
 
                 commentService.deleteComm(comm);
                 map.put("result", "success");

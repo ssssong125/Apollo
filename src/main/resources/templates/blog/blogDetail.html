@@ -54,7 +54,7 @@
           </section>
         </article>
 
-          <th:block th:if="${reporter.equals('admin')}">
+          <th:block th:if="${reporter != null} and ${reporter.equals('admin')}">
                 <!-- 블로그 게시글 수정 -->
                 <div class="my-3">
                   <a th:href="@{|/blog/modify/${blog.blogNo}|}" class="btn btn-sm btn-outline-secondary" th:text="수정"></a>

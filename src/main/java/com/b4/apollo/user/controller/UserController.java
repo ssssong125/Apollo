@@ -24,7 +24,6 @@ public class UserController {
 
     private final UserService userService;
     private final MessageSource messageSource;
-    private final UserDTO userDTO;
 
 
     @GetMapping("signup")
@@ -48,70 +47,30 @@ public class UserController {
         return "/user/login";
     }
 
-//    @PostMapping("login")
-//    public  String userLogin(UserDTO userDTO, HttpSession session){
-//        String inputPwd = "";
-//        String endcodePwd = "";
-//
-//        UserDTO user = userService.loadUserByUsername(userDTO.getUsername());
-//
-//        if(userDTO != null){
-//            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-//            inputPwd = userDTO.getPassword();
-//            endcodePwd = user.getPassword();
-//
-//            if(true == passwordEncoder.matches(inputPwd, endcodePwd)){
-//                user.setPassword("");
-//                session.setAttribute("user", user);
-//                return "/user/mypage";
-//            } else {
-//                return "/user/login";
-//            }
-//
-//            }else {
-//            return "/user/login";
-//        }
-//    }
-//    @PostMapping("login")
-//    public String userLogin(UserDTO userDTO, Model model){
-//        UserDTO loginUser = userService.loginUser(userDTO.getUsername());
-//        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-//        if( loginUser != null && bCryptPasswordEncoder.matches(userDTO.getPassword(), loginUser.getPassword())){
-//            model.addAttribute("loginUser", loginUser);
-//            return "/user/mypage";
-//        }else{
-//            model.addAttribute("msg", "로그인 실패!");
-//            return "/user/login";
-//        }
-//    }
-    @PostMapping("/login")
+    @PostMapping({"/login", "/header"})
     @ResponseBody
-    public ModelAndView loginUser(ModelAndView mv, UserDTO userDTO, HttpSession session, Locale locale) {
+    public ModelAndView loginUser(ModelAndView mv, UserDTO userDTO, HttpSession session, RedirectAttributes rttr, Locale locale) throws Exception{
         boolean result = userService.loginUser(userDTO, session);
-        if(result){
+        if(result == true){
             session.setAttribute("userId", userDTO.getUserId());
-            String userId = (String)session.getAttribute("userId");
-            userDTO.setUserId(userId);
-            userDTO = userService.userDetail(userDTO);
-            mv.setViewName("user/mypage");
-//            System.out.println("로그인 페이지 : "+userDTO);
+            mv.addObject("loginUser", 1);
+            mv.setViewName("redirect:/user/mypage");
         }else {
-            mv.addObject("loginFailMsg", messageSource.getMessage("loginFail", null, locale));
-            mv.setViewName("user/login");
+            rttr.addFlashAttribute("loginFailMsg", messageSource.getMessage("loginFail", null, locale));
+            mv.addObject("loginUser", 0);
+            mv.setViewName("redirect:/user/login");
         }
         return mv;
     }
 
 
-    @GetMapping(value = {"/mypage","/header"})
+    @GetMapping("/mypage")
     public String userpage(UserDTO userDTO, HttpSession session, Model model){
-        session.setAttribute("userId", userDTO.getUserId());
         String userId = (String)session.getAttribute("userId");
         userDTO.setUserId(userId);
-        userDTO = userService.userDetail(userDTO);
+        userService.userDetail(userDTO);
         model.addAttribute("userDetail", userService.userDetail(userDTO));
-        System.out.println("마이 페이지 컨트롤러"+userDTO);
-        return "/mypage";
+        return "user/mypage";
     }
 
 
@@ -122,7 +81,6 @@ public class UserController {
         userDTO.setUserId(userId);
         UserDTO userDetail = userService.userDetail(userDTO);
         model.addAttribute("userDetail", userDetail);
-
         return "user/update";
     }
 
@@ -153,5 +111,18 @@ public class UserController {
         session.invalidate();
         return "redirect:/main";
     }
+
+    @RequestMapping("/logout")
+    public String logout(HttpSession session, RedirectAttributes rttr, Locale locale){
+
+        session.setAttribute("userId", "value");
+        String userId = (String) session.getAttribute("userId");
+
+        session.removeAttribute("userId");
+        session.invalidate();
+
+        return "redirect:/main";
+    }
+
 
 }

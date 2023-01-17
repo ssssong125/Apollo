@@ -6,18 +6,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
+    <!-- BootStrap CSS-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/fontawesome.min.css" integrity="sha384-QYIZto+st3yW+o8+5OHfT6S482Zsvz2WfOzpFSXMF9zqeLcFV0/wlZpMtyFcZALm" crossorigin="anonymous">
-<!--    <link rel="stylesheet" href="../../static/css/common/header.css">-->
+
+    <!-- Inline CSS -->
 <style>
+    /*--------------------------------------------------------------
+    # General
+    --------------------------------------------------------------*/
+    /* Colors */
+    :root {
+        --color-default: #fafafa;
+        --color-primary: #27a776;
+        --color-secondary: #161718;
+        --color-highlihgt: #ffa260;
+    }
+    /* Smooth scroll behavior */
+    :root {
+        scroll-behavior: smooth;
+    }
     /*--------------------------------------------------------------
 # Sections & Section Header
 --------------------------------------------------------------*/
-    .section-header {
-        padding-bottom: 40px;
-    }
-
     .section-header h2 {
         font-size: 14px;
         font-weight: 500;
@@ -50,29 +62,20 @@
     /*--------------------------------------------------------------
     # Page Header
     --------------------------------------------------------------*/
-    .page-header {
-        padding: 120px 0 60px 0;
-        min-height: 30vh;
-        position: relative;
-    }
-
-    .page-header h2 {
+   .page-header h2 {
         font-size: 56px;
         font-weight: 500;
         color: #fff;
         font-family: var(--font-secondary);
     }
-
     @media (max-width: 768px) {
         .page-header h2 {
             font-size: 36px;
         }
     }
-
     .page-header p {
         color: rgba(255, 255, 255, 0.8);
     }
-
     .page-header .cta-btn {
         font-family: var(--font-primary);
         font-weight: 400;
@@ -86,13 +89,9 @@
         color: #fff;
         background: var(--color-primary);
     }
-
     .page-header .cta-btn:hover {
         background: #2cbc85;
     }
-
-
-
     /*--------------------------------------------------------------
     # Header
     --------------------------------------------------------------*/
@@ -102,41 +101,27 @@
         /*padding: 30px 0;*/
         background-color: #000;
     }
-
     .header .logo {
         transition: 0.3s;
     }
-
     /*.header*/ .logo img {
                     max-height: 70px;
                     margin-right: 8px;
                     max-width: fit-content;
                 }
-
-    /*.header .logo h1 {*/
-    /*  font-size: 32px;*/
-    /*  margin: 0;*/
-    /*  font-weight: 400;*/
-    /*  color: #fff;*/
-    /*  font-family: var(--font-secondary);*/
-    /*}*/
-
     .header .logo i {
         font-size: 32px;
         margin-right: 8px;
         line-height: 0;
     }
-
     @media (max-width: 575px) {
         .header .logo h1 {
             font-size: 26px;
         }
-
         .header .logo i {
             font-size: 24px;
         }
     }
-
     .header .header-social-links {
         padding-right: 15px;
         padding-left : 15px;
@@ -145,7 +130,6 @@
         margin-right: 8px;
         max-width: fit-content;
     }
-
     .header .header-social-links a {
         color: #000000;
         padding-left: 15px;
@@ -154,19 +138,15 @@
         /*line-height: 0px;*/
         transition: 0.3s;
         font-size: 20px;
-
     }
-
     .header .header-social-links a:hover {
         color: #ffffff;
     }
-
     @media (max-width: 575px) {
         .header .header-social-links a {
             padding-left: 5px;
         }
     }
-
     /*--------------------------------------------------------------
     # Desktop Navigation
     --------------------------------------------------------------*/
@@ -174,7 +154,6 @@
         .navbar {
             padding: 0;
         }
-
         .navbar ul {
             margin: 0;
             padding: 0;
@@ -182,11 +161,9 @@
             list-style: none;
             align-items: center;
         }
-
         .navbar li {
             position: relative;
         }
-
         .navbar a,
         .navbar a:focus {
             display: flex;
@@ -201,26 +178,20 @@
             color: rgba(255, 255, 255, 0.5);
             white-space: nowrap;
             transition: 0.3s;
-
             text-decoration: none;
-
-
         }
-
         .navbar a i,
         .navbar a:focus i {
             font-size: 12px;
             line-height: 0;
             margin-left: 5px;
         }
-
         .navbar a:hover,
         .navbar .active,
         .navbar .active:focus,
         .navbar li:hover>a {
             color:rgba(223, 148, 56, 1);
         }
-
         .navbar .dropdown ul {
             display: block;
             position: absolute;
@@ -231,44 +202,37 @@
             z-index: 99;
             opacity: 0;
             visibility: hidden;
-
             transition: 0.3s;
             border-radius: 4px;
+            background: var(--color-secondary);
         }
-
         .navbar .dropdown ul li {
             min-width: 200px;
         }
-
         .navbar .dropdown ul a {
             padding: 10px 20px;
             font-size: 15px;
             text-transform: none;
             font-weight: 400;
         }
-
         .navbar .dropdown ul a i {
             font-size: 12px;
         }
-
         .navbar .dropdown ul a:hover,
         .navbar .dropdown ul .active:hover,
         .navbar .dropdown ul li:hover>a {
             color: rgba(223, 148, 56, 1);
         }
-
         .navbar .dropdown:hover>ul {
             opacity: 1;
             top: 100%;
             visibility: visible;
         }
-
         .navbar .dropdown .dropdown ul {
             top: 0;
             left: calc(100% - 30px);
             visibility: hidden;
         }
-
         .navbar .dropdown .dropdown:hover>ul {
             opacity: 1;
             top: 0;
@@ -276,17 +240,14 @@
             visibility: visible;
         }
     }
-
     @media (min-width: 1280px) and (max-width: 1366px) {
         .navbar .dropdown .dropdown ul {
             left: -90%;
         }
-
         .navbar .dropdown .dropdown:hover>ul {
             left: -100%;
         }
     }
-
     @media (min-width: 1280px) {
 
         .mobile-nav-show,
@@ -294,10 +255,7 @@
             display: none;
         }
         .cart{
-
             text-decoration: none;
-
-
         }
     }
     /*--------------------------------------------------------------
@@ -314,7 +272,6 @@
             transition: 0.3s;
             z-index: 9997;
         }
-
         .navbar ul {
             position: absolute;
             inset: 0;
@@ -325,7 +282,6 @@
             transition: 0.3s;
             z-index: 9998;
         }
-
         .navbar a,
         .navbar a:focus {
             display: flex;
@@ -341,21 +297,18 @@
             white-space: nowrap;
             transition: 0.3s;
         }
-
         .navbar a i,
         .navbar a:focus i {
             font-size: 12px;
             line-height: 0;
             margin-left: 5px;
         }
-
         .navbar a:hover,
         .navbar .active,
         .navbar .active:focus,
         .navbar li:hover>a {
             color: #fff;
         }
-
         .navbar .dropdown ul,
         .navbar .dropdown .dropdown ul {
             position: static;
@@ -365,12 +318,10 @@
             transition: all 0.5s ease-in-out;
             border: 1px solid black;
         }
-
         .navbar .dropdown>.dropdown-active,
         .navbar .dropdown .dropdown>.dropdown-active {
             display: block;
         }
-
         .mobile-nav-show {
             color: #fff;
             font-size: 28px;
@@ -380,7 +331,6 @@
             z-index: 9999;
             margin: 0 10px 0 10px;
         }
-
         .mobile-nav-hide {
             color: #fff;
             font-size: 32px;
@@ -392,15 +342,12 @@
             top: 20px;
             z-index: 9999;
         }
-
         .mobile-nav-active {
             overflow: hidden;
         }
-
         .mobile-nav-active .navbar {
             right: 0;
         }
-
         .mobile-nav-active .navbar:before {
             content: "";
             position: fixed;
@@ -409,28 +356,19 @@
             z-index: 9996;
         }
     }
-
 </style>
 </head>
 <body style="background-color: #000000;" >
 <!--    타임리프 레이아웃 사용해서 헤더, 푸터 붙이기위해 실험 -->
     <!--headerFragment 선언-->
     <div th:fragment="headerFragment">
-<!--        내용-->
-<!--        <h1>Header Section</h1>-->
     </div>
-
-
 <!-- ======= Header ======= -->
 <header id="header" class="header d-flex align-items-center fixed-top">
-
     <div class="container-fluid d-flex align-items-center justify-content-between" style="padding-right: 0">
-
         <a href="/" class="logo d-flex align-items-center  me-auto me-lg-0">
-
             <img src="/img/common/gold-B.png" width="150" height="150"  alt="로고">
         </a>
-
         <nav id="navbar" class="navbar">
             <ul>
                 <!--          href -->
@@ -458,88 +396,78 @@
 
         <div class="header-social-links" style="margin: 0">
             <br>
-            <a href="/cart/trolley" class="cart">Cart
+            <a href="/cart/trolley" class="cart" style="text-decoration: none">Cart
                 <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-cart3" viewBox="0 0 20 20">
                     <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
                 </svg>
-<!--                <span class="badge square-pill badge-notification bg-danger">1</span>-->
+
             </a>
-
-
-      
-
             <a href="/user/login" class="login">
-
                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 20 20 ">
                     <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
                 </svg>
-
             </a>
+
         </div>
         <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
         <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
-
-
     </div>
-    
+
   </header><!-- End Header -->
-<script>
-    /**
-     * Mobile nav toggle
-     */
-    const mobileNavShow = document.querySelector('.mobile-nav-show');
-    const mobileNavHide = document.querySelector('.mobile-nav-hide');
+<!--<script>-->
+<!--    /**-->
+<!--     * Mobile nav toggle-->
+<!--     */-->
+<!--    const mobileNavShow = document.querySelector('.mobile-nav-show');-->
+<!--    const mobileNavHide = document.querySelector('.mobile-nav-hide');-->
 
-    document.querySelectorAll('.mobile-nav-toggle').forEach(el => {
-        el.addEventListener('click', function(event) {
-            event.preventDefault();
-            mobileNavToogle();
-        })
-    });
+<!--    document.querySelectorAll('.mobile-nav-toggle').forEach(el => {-->
+<!--        el.addEventListener('click', function(event) {-->
+<!--            event.preventDefault();-->
+<!--            mobileNavToogle();-->
+<!--        })-->
+<!--    });-->
+<!--    function mobileNavToogle() {-->
+<!--        document.querySelector('body').classList.toggle('mobile-nav-active');-->
+<!--        mobileNavShow.classList.toggle('d-none');-->
+<!--        mobileNavHide.classList.toggle('d-none');-->
+<!--    }-->
+<!--    /**-->
+<!--     * Hide mobile nav on same-page/hash links-->
+<!--     */-->
+<!--    document.querySelectorAll('#navbar a').forEach(navbarlink => {-->
 
-    function mobileNavToogle() {
-        document.querySelector('body').classList.toggle('mobile-nav-active');
-        mobileNavShow.classList.toggle('d-none');
-        mobileNavHide.classList.toggle('d-none');
-    }
+<!--        if (!navbarlink.hash) return;-->
 
-    /**
-     * Hide mobile nav on same-page/hash links
-     */
-    document.querySelectorAll('#navbar a').forEach(navbarlink => {
+<!--        let section = document.querySelector(navbarlink.hash);-->
+<!--        if (!section) return;-->
 
-        if (!navbarlink.hash) return;
+<!--        navbarlink.addEventListener('click', () => {-->
+<!--            if (document.querySelector('.mobile-nav-active')) {-->
+<!--                mobileNavToogle();-->
+<!--            }-->
+<!--        });-->
+<!--    });-->
+<!--    /**-->
+<!--     * Toggle mobile nav dropdowns-->
+<!--     */-->
+<!--    const navDropdowns = document.querySelectorAll('.navbar .dropdown > a');-->
+<!--    navDropdowns.forEach(el => {-->
+<!--        el.addEventListener('click', function(event) {-->
+<!--            if (document.querySelector('.mobile-nav-active')) {-->
+<!--                event.preventDefault();-->
+<!--                this.classList.toggle('active');-->
+<!--                this.nextElementSibling.classList.toggle('dropdown-active');-->
 
-        let section = document.querySelector(navbarlink.hash);
-        if (!section) return;
+<!--                let dropDownIndicator = this.querySelector('.dropdown-indicator');-->
+<!--                dropDownIndicator.classList.toggle('bi-chevron-up');-->
+<!--                dropDownIndicator.classList.toggle('bi-chevron-down');-->
+<!--            }-->
+<!--        })-->
+<!--    });-->
+<!--</script>-->
 
-        navbarlink.addEventListener('click', () => {
-            if (document.querySelector('.mobile-nav-active')) {
-                mobileNavToogle();
-            }
-        });
-
-    });
-
-    /**
-     * Toggle mobile nav dropdowns
-     */
-    const navDropdowns = document.querySelectorAll('.navbar .dropdown > a');
-
-    navDropdowns.forEach(el => {
-        el.addEventListener('click', function(event) {
-            if (document.querySelector('.mobile-nav-active')) {
-                event.preventDefault();
-                this.classList.toggle('active');
-                this.nextElementSibling.classList.toggle('dropdown-active');
-
-                let dropDownIndicator = this.querySelector('.dropdown-indicator');
-                dropDownIndicator.classList.toggle('bi-chevron-up');
-                dropDownIndicator.classList.toggle('bi-chevron-down');
-            }
-        })
-    });
-</script>
+<!-- BootStrap script -->
 <script  src="http://code.jquery.com/jquery-latest.min.js"
          integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
          crossorigin="anonymous"></script>
@@ -549,5 +477,8 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
         integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
         crossorigin="anonymous"></script>
+
+<!-- Custom script -->
+<script src="/js/common/main.js"></script>
 </body>
 </html>

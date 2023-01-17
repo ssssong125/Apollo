@@ -111,6 +111,174 @@
         }
     </style>
 
+    <script>
+        /*csrf 토큰 정보*/
+        const token = $("meta[name='_csrf']").attr("content");
+        const header = $("meta[name='_csrf_header']").attr("content");
+
+//         function categoooo(categoryCode, bigCode) {
+
+//             /*ajax 설정*/
+//             $.ajaxSetup({
+//                 url: 'list', // 요청할 서버url
+//                 type: "POST"
+//             })
+
+//             $.ajax({
+//                 data: // 보낼 데이터 (Object , String, Array)
+//                 {
+
+//                     categoryCode : categoryCode,
+//                     bigCode : bigCode
+//                 }
+//                 // beforeSend : function(xhr) {
+//                 //     xhr.setRequestHeader(header, token)
+//                 // },
+//                 // dataType : 'json',       // 데이터 타입 (html, xml, json, text 등등)
+
+//                     // {
+//                     //     productNo : productNo,
+//                     //     count : count
+//                     // }
+//                 // , beforeSend : function(xhr) {
+//                 //     xhr.setRequestHeader(header, token)
+//                 // }
+
+//                 // , dataType : 'json',       // 데이터 타입 (html, xml, json, text 등등)
+
+//                 // contentType: 'application/json'
+//                 // headers : {              // Http header
+//                 //     "Content-Type" : "application/json",
+//                 //     "X-HTTP-Method-Override" : "POST"
+//                 // },
+//             })
+
+//                 .done(function (result) { // 수행할 동작
+//                     return location.href = "list"
+//                 })
+//                 .fail(function(jqXHR) { // 실패시
+//                     alert("실패")
+//                     //  return location.href = "trolley"
+//                 })
+//             // .always(function() { // 항상 동작
+//             //     alert("작동");
+//             // })
+
+//         }
+
+        /*체크 여부 수정*/
+        function addToCart(productNo, count) {
+
+            // 쿼리 실행 시키고 얼웨이즈 카트로 갈지 그냥 닫을지
+            /*ajax 설정*/
+            $.ajaxSetup({
+                url: '/cart/addToCart', // 요청할 서버url
+                type: "POST" // 타입 (get, post, put 등등)
+                // global: false, // 동시에 실행 x, 비동기화 여부 (default : true)
+            });
+
+            $.ajax({
+                data: // 보낼 데이터 (Object , String, Array)
+                    // {
+                    //
+                    //     categoryCode : categoryCode,
+                    //     bigCode : bigCode
+                    // },
+                // beforeSend : function(xhr) {
+                //     xhr.setRequestHeader(header, token)
+                // },
+                // dataType : 'json',       // 데이터 타입 (html, xml, json, text 등등)
+
+                    {
+                        productNo : productNo,
+                        count : count
+                    }
+                // , beforeSend : function(xhr) {
+                //     xhr.setRequestHeader(header, token)
+                // }
+
+                // , dataType : 'json',       // 데이터 타입 (html, xml, json, text 등등)
+
+                // contentType: 'application/json'
+                // headers : {              // Http header
+                //     "Content-Type" : "application/json",
+                //     "X-HTTP-Method-Override" : "POST"
+                // },
+            })
+            .done(function (result) { // 수행할 동작
+                 // return location.href = "list"
+            })
+            .fail(function(jqXHR) { // 실패시
+                // alert("실패")
+                //  return location.href = "trolley"
+            })
+            .always(function() { // 항상 동작
+                // alert("작동");
+            })
+        }
+       console.log(category.categoryCode)
+    function changeClass() {
+        const categoryCode = document.querySelector('select').value
+        $.ajax({
+            url: '/product/AjaxList',
+
+            type: 'post',
+            data: {'categoryCode': categoryCode},
+
+            <!--    3)쿼리작업 끝난 후-->
+            success: function (result) {
+                <!--    ★return 값 받음-->
+                <!--    controller 실행 후 자동실행 할 구문-->
+
+// i) 테이블을 다시 그려준다(테이블의 thead, tbody 만들기)
+                const ajaxList = document.querySelector('.stu');
+// (테이블에 class ="stu"로 지정함)
+
+// 2) tbody 삭제
+// ★select에서 학급을 선택했을 때
+// 기존 내역 삭제하기 위해 tbody 내용 지우기
+// thead는 동일하니까
+//const tbody = document.querySelector('stu > tbody'); 방법도 가능
+                const tbody = ajaxList.querySelector('tbody');
+                ajaxList.removeChild(tbody);
+
+// 3) 추가할 태그 생성
+                let str = '';
+
+// 4) 새로 들어갈 내용
+str += '<tbody>';
+for (const stu of result) {
+    str += '<tr>';
+    str += `<td>${stu.productName}</td>`;
+//
+    str += `<td>`;
+//         // (★stuNum 넘겨줘야 반이 바뀌어도 점수 상세정보 볼 수 있음)
+   //     str += `<span onclick="showDetail(${stu.productNo});">
+//               				  ${stu.productName}</span>`;
+//         str += `</td>`;
+    str += `<td>${stu.productPrice}</td>`;
+    str += `<td>${stu.productDesc}</td>`;
+//     str += `<td><input type="button" value="삭제"
+//                        onclick="deleteStu(${stu.productNo}, this);"></td>`;
+//     str += '</tr>';
+//     str +=  '<td><a th:href="@{|/product/detail/${product.productNo}|}">
+//         <img th:src="@{${product.productImageDTOList.get(0).getImgPath()}}" className="image"/>
+//     </a></td>'
+//
+// }
+// str += '</tbody>';
+
+    ajaxList.insertAdjacentHTML('beforeend', str);
+    // return location.href = "list/AjaxList"
+}
+            },
+                error: function() {
+                alert('실패');
+            }
+        });
+    }
+    </script>
+
 </head>
 <body>
 <header>
@@ -120,7 +288,7 @@
 <br>
 <br>
 
-<<table class="layout">
+<table class="layout">
     <colgroup>
         <col width="50%">
         <col width="50%">
@@ -217,8 +385,80 @@
 <!--            <p th:text="${ product.productPrice }"></p>-->
 <!--            <button type="button" class="btn btn-warning" th:onclick="|addToCart(${product.productNo}, 1)|" data-toggle="modal" data-target="#cartModal">Add To Cart</button>-->
 
+
 <!--    </div>-->
 <!--</div>-->
+
+<!--        <th:block th:if="bigCode =='WIND'">-->
+<!--            <div class="img-area">-->
+<!--                <a th:href="@{|/product/detail/${product.productNo}|}">-->
+<!--                    <img th:src="@{${product.productImageDTOList.get(0).getImgPath()}}" class="image"/>-->
+<!--                </a>-->
+<!--            </div>-->
+            <!--<br>-->
+            <!--            <span th:text="${ product.productNo }"></span>-->
+<!--            <div class="text-area">-->
+<!--                <p th:text="${ product.productName }"></p>-->
+<!--                <p th:text="${ product.productPrice }"></p>-->
+<!--&lt;!&ndash;                <a href="/cart/trolley">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <p th:include="fragments/button.html"></p>&ndash;&gt;-->
+<!--&lt;!&ndash;                </a>&ndash;&gt;-->
+<!--            </div>-->
+<!--        </th:block>-->
+
+<!--            <span th:text="${ product.productDesc }"></span>-->
+
+        <div class="img-area">
+          <a th:href="@{|/product/detail/${product.productNo}|}">
+               <img th:src="@{${product.productImageDTOList.get(0).getImgPath()}}" class="image"/>
+          </a>
+        </div>
+<!--<br>-->
+<!--            <span th:text="${ product.productNo }"></span>-->
+        <div class="text-area">
+            <p th:text="${ product.productName }"></p>
+            <p th:text="${ product.productPrice }"></p>
+            <button type="button" class="btn btn-warning" th:onclick="|addToCart(${product.productNo}, 1)|" data-toggle="modal" data-target="#cartModal">Add To Cart</button>
+        </div>
+        <!--장바구니 담기 모달-->
+        <div class="modal fade" id="cartModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">장바구니 담기 성공!</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        장바구니 페이지로 이동하시겠습니까?
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" onclick="location.href='/cart/trolley'">Cart</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+        
+
+
+<!--            <a href="/cart/trolley">-->
+<!--                <p th:include="fragments/button.html"></p>-->
+<!--            </a>-->
+
+
+        <!--            <span th:text="${ product.productDesc }"></span>-->
+
+<!--            <span th:text="${ product.productQty }"></span>-->
+            <!--/*@thymesVar id="productCode" type=""*/-->
+<!--            <span th:text="${ product.categoryCode }"></span>-->
+
+<!--        <a href="item.html" th:href="@{|/basic/items/${item.id}|}"-->
+
 <!--<div class="prodList">-->
 <!--    <div class="prod" th:each="product : ${ productList }">-->
 <!--        <div th:src="@{/img/}"></div>-->
@@ -233,71 +473,38 @@
 <!--<button onclick="location.href='/product/delete'">상품삭제</button>-->
 <!--<div th:src="@{${item.getImgPath()}}"></div>-->
 <!--<footer>-->
-    <div th:include="fragments/footer.html"></div>
 
-<script th:inline="javascript">
-    console.log(category.categoryCode)
-    function changeClass() {
-        const categoryCode = document.querySelector('select').value
-        $.ajax({
-            url: '/product/AjaxList',
 
-            type: 'post',
-            data: {'categoryCode': categoryCode},
 
-            <!--    3)쿼리작업 끝난 후-->
-            success: function (result) {
-                <!--    ★return 값 받음-->
-                <!--    controller 실행 후 자동실행 할 구문-->
 
-// i) 테이블을 다시 그려준다(테이블의 thead, tbody 만들기)
-                const ajaxList = document.querySelector('.stu');
-// (테이블에 class ="stu"로 지정함)
 
-// 2) tbody 삭제
-// ★select에서 학급을 선택했을 때
-// 기존 내역 삭제하기 위해 tbody 내용 지우기
-// thead는 동일하니까
-//const tbody = document.querySelector('stu > tbody'); 방법도 가능
-                const tbody = ajaxList.querySelector('tbody');
-                ajaxList.removeChild(tbody);
+<!-- 페이징처리 시작 -->
+<!--<nav>-->
+<!--    <ul class="pagination justify-content-center">-->
+<!--        &lt;!&ndash; getPrePage : 이전 페이지 &ndash;&gt;-->
+<!--        <li class="page-item" th:classappend="${list.getPrePage() == 0} ? 'disabled'">-->
+<!--            <a class="page-link" th:href="@{/question/list(pageNum=${list.getPrePage()})}">-->
+<!--                <span>이전</span>-->
+<!--            </a>-->
+<!--        </li>-->
+<!--        &lt;!&ndash; getNavigateFirstPage() : 페이징의 처음 숫자 getNavigateLastPage : 페이징의 마지막 숫자를 이용해 페이징 숫자 출력 &ndash;&gt;-->
 
-// 3) 추가할 태그 생성
-                let str = '';
+<!--        <li class="page-item" th:each="page: ${#numbers.sequence(list.getNavigateFirstPage(), list.getNavigateLastPage())}" th:classappend="${page == list.getPageNum()} ? 'active'">-->
+<!--            <a class="page-link" th:text="${page}" th:href="@{/question/list(pageNum=${page})}"></a>-->
+<!--        </li>-->
+<!--        &lt;!&ndash; getPrePage : 다음 페이지 &ndash;&gt;-->
+<!--        <li class="page-item" th:classappend="${list.getNextPage() == 0} ? 'disabled'">-->
 
-// 4) 새로 들어갈 내용
-str += '<tbody>';
-for (const stu of result) {
-    str += '<tr>';
-    str += `<td>${stu.productName}</td>`;
-//
-    str += `<td>`;
-//         // (★stuNum 넘겨줘야 반이 바뀌어도 점수 상세정보 볼 수 있음)
-   //     str += `<span onclick="showDetail(${stu.productNo});">
-//               				  ${stu.productName}</span>`;
-//         str += `</td>`;
-    str += `<td>${stu.productPrice}</td>`;
-    str += `<td>${stu.productDesc}</td>`;
-//     str += `<td><input type="button" value="삭제"
-//                        onclick="deleteStu(${stu.productNo}, this);"></td>`;
-//     str += '</tr>';
-//     str +=  '<td><a th:href="@{|/product/detail/${product.productNo}|}">
-//         <img th:src="@{${product.productImageDTOList.get(0).getImgPath()}}" className="image"/>
-//     </a></td>'
-//
-// }
-// str += '</tbody>';
+<!--            <a class="page-link" th:href="@{/question/list(pageNum=${list.getNextPage()})}">-->
+<!--                <span>다음</span>-->
+<!--            </a>-->
+<!--        </li>-->
+<!--    </ul>-->
+<!--</nav>-->
+<!-- 페이징처리 끝 -->
 
-    ajaxList.insertAdjacentHTML('beforeend', str);
-    // return location.href = "list/AjaxList"
-}
-            },
-                error: function() {
-                alert('실패');
-            }
-        });
-    }
-</script>
+
+<div th:include="fragments/footer.html"></div>
 
 </body>
 </html>
