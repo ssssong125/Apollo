@@ -393,9 +393,9 @@ public class CartController {
      * @작성자 : 김수용
      * @Method 설명 : GetMapping방식으로 현재 장바구니에 담긴 상품수를 헤더 카트 아이콘 옆에 뱃지로 표현
      */
-//    @ResponseBody
-    @GetMapping("/header")
-    public void headerBadge(HttpSession session, Model model){
+    @ResponseBody
+    @PostMapping("/headerBadge")
+    public Model headerBadge(HttpSession session, Model model){
 
         String userId = (String) session.getAttribute("userId");
 
@@ -404,5 +404,7 @@ public class CartController {
             List<CartDTO> cartList = cartService.getCartList(userId);
             model.addAttribute("cartList", cartList);
         }
+
+        return model;
     }
 }
