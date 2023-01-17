@@ -1,11 +1,17 @@
 package com.b4.apollo.common.main.controller;
 
+import com.b4.apollo.user.model.dto.UserDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class MainController {
+
+    @Autowired
+    private UserDTO userDTO;
+
     @GetMapping(value = {"/","/main"})  //main으로 들어오거나 /로들어왔을 때 메인 페이지가 뜸
     public String main(){
         return "main/main";

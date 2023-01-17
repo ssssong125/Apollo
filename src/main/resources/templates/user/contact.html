@@ -92,7 +92,7 @@
 <div class="snowflake"></div>
 <div th:include="fragments/header.html"></div>
 <br><br><br>
-  <div layout:fragment="contactContent" class="container" style="margin-left: auto; margin-right: -10px;">
+  <div layout:fragment="contactContent" class="container" style="margin-left: 30%; margin-right: 30%">
     <div>
       <h1>Contact us</h1>
     </div>
@@ -110,7 +110,7 @@ Email:
         <pre style="color:white;">Hola como es tas? </pre>
       </div>
         <div id="contactinfo">
-            <form th:action="${contact}" method="post" id="contactform">
+            <form th:action="@{/user/contact}" method="post" id="contactform">
       <div class="col-sm-8">
         <div>
           <div><input type="text" name="contactName" id="name" placeholder="NAME" required/></div>
@@ -175,6 +175,7 @@ Email:
 
 
   </script>
+<br>
 <div th:include="fragments/footer.html"></div>
 </body>
 </html>

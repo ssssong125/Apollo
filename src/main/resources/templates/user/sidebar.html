@@ -77,6 +77,11 @@
     color: white;
     font-weight: bold;
   }
+  li h2:hover{
+    background: rgba(255, 255, 255, 0.2);
+    font-size: 35px;
+
+  }
   .bottom-color{
     border: 2px solid;
     width : 170px;
@@ -97,11 +102,11 @@
     <ul class="sidebar-nav">
       <br>
       <br>
-      <li><h2>Mypage</h2></li>
+      <li><a href="/user/mypage"><h2>Mypage</h2></a></li>
       <hr class="bottom-color"/>
-      <li><a href="#">회원정보수정</a></li>
-      <li><a href="#">회원탈퇴</a></li>
-      <li><a href="#">Q&A</a></li>
+      <li><a href="/user/update">회원정보수정</a></li>
+      <li><a href="/user/delete">회원탈퇴</a></li>
+      <li><a href="/question/list">Q&A</a></li>
     </ul>
   </div>
   <!-- /사이드바 -->
