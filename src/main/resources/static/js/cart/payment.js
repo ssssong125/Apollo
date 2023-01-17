@@ -12,10 +12,9 @@ const header = $("meta[name='_csrf_header']").attr("content");
 // const email = $("#email").val();
 
 /*토스 키*/
-// var clientKey = 'test_ck_4Gv6LjeKD8ayzMd1KP08wYxAdXy1'
 var clientKey = 'test_ck_4Gv6LjeKD8ayzMd1KP08wYxAdXy1'
 var tossPayments = TossPayments(clientKey) // 클라이언트 키로 초기화하기
-
+/*카카오 페이 api 호출 메소드*/
 function kakaoPay() {
 
     if (size > 1) {
@@ -65,8 +64,7 @@ function kakaoPay() {
         buyer_addr: buyerAddr,
         buyer_postcode: '123-456'
         // , m_redirect_url: 'https://www.yourdomain.com/payments/complete'
-        /*
-            모바일 결제시,
+        /*  모바일 결제시,
             결제가 끝나고 랜딩되는 URL을 지정
             (카카오페이, 페이코, 다날의 경우는 필요없음. PC와 마찬가지로 callback함수로 결과가 떨어짐)
             */
@@ -92,7 +90,7 @@ function kakaoPay() {
         // alert(msg); // 결제 결과 알림
     });
 }
-
+/*inicis 결제 api 호출 메소드*/
 function inicis() { // 추가 예정
 
     var IMP = window.IMP; // 생략가능
@@ -157,7 +155,7 @@ function inicis() { // 추가 예정
         alert(msg);
     });
 }
-
+/*토스 결제 api 호출 메소드*/
 function toss() { // 추가 예정
 
     tossPayments.requestPayment('카드', { // 결제 수단
@@ -181,16 +179,3 @@ function toss() { // 추가 예정
         }
     })
 }
-
-// function payment() {
-//
-//     let cvc = document.getElementById("cvc");
-//
-//     if (cvc != null) {
-//         window.location.href="success";
-//         return "success";
-//     } else {
-//         window.location.href="fail";
-//         return "fail";
-//     }
-// }

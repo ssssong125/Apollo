@@ -12,24 +12,14 @@ $(document).ready(function () {
 
     $(".checkStatus").change(function (){
 
-        // alert($(this).attr("id"))
-        // alert($(this).val())
         let cartNo = $(this).val();
         let check = 'A';
 
-        // alert(cartNo);
-
         if($(this).is(":checked")){
-            // alert("체크됨")
-            // alert($(this).val())
-            // alert($(this).attr("id"))
             check = 'Y';
-            // updateCheckStatus(cartNo, check);
         } else {
-            // alert("체크해제")
             check = 'N';
         }
-
         updateCheckStatus(cartNo, check);
 
         sum(size);
@@ -92,7 +82,6 @@ function updateCheckStatus(cartNo, check) {
                 cSize += 1;
             }
         }
-
         $("#checkedSize").val(cSize)
     })
 
@@ -219,6 +208,7 @@ function sum(size) {
 
     $("#totalPrice").val(subTotal)
 }
+/*장바구니 페이지 진입시 구매 수량이 상품 재고보다 많으면 자동으로 수정하는 메소드*/
 function checkMax() {
 
     for (let i = 1; i <= size; i++) {
@@ -230,6 +220,7 @@ function checkMax() {
         }
     }
 }
+/*ajax 메소드*/
 // - $.get()  : GET 메소드 요청하고, 서버로부터 데이터 로딩
 // - $.post() : POST 메소드 요청하고, 서버로부터 데이터 로딩
 // - $.getJSON() : GET 메소드 요청하고, 서버로부터 JSON 형식의 데이터를 로딩

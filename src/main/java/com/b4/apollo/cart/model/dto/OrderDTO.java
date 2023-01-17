@@ -14,7 +14,6 @@ import lombok.Data;
 @Builder(toBuilder = true) // lombok 기능, 생성자를 조금 바꾼거를 바로바로 생성가능
 public class OrderDTO {
 
-
     /**
      * @param orderNo 주문 번호
      */
@@ -27,24 +26,4 @@ public class OrderDTO {
      * @param cartNo 장바구니 번호
      */
     private int cartNo;
-
-//
-//    /**
-//     * @param orderDate 주문 날짜
-//     */
-//    private Date orderDate;
-//
-//    /**
-//     * @param receiverName 수령인 이름
-//     */
-//    private String receiverName;
-//    private String receiverTel; // -또는 공백 받기위해 String 사용
-//    private String address;
-//    private String shippingStatus;
-
-//    private int paymentNo;
-//    private String userId;
-//    private String paymentMethod;
-//    private int paymentAmount;
-
 }
