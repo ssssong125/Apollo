@@ -112,14 +112,14 @@
     <update id="editProductImage" parameterType="com.b4.apollo.product.model.dto.ProductImageDTO">
         UPDATE TBL_PRODUCT_IMAGE A
         SET
-            A.FILE_NO = SEQ_FILE_NO.NEXTVAL
-          , A.ORIGIN_NAME = #{ originName }
+
+            A.ORIGIN_NAME = #{ originName }
           , A.STORED_NAME = #{ storedName }
           , A.THUMBNAIL = #{ isThumbnail }
           , A.IMG_PATH = #{ imgPath }
 
         WHERE A.PRODUCT_NO = #{ productNo }
-
+        AND A.FILE_NO = #{ fileNo }
 
     </update>
 
