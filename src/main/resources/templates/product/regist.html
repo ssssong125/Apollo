@@ -16,42 +16,9 @@
 <body>
 <div th:include="fragments/header.html"></div>
 <h3 align="center">신규 상품 등록</h3>
-<!--<form action="/product/regist" method="post" enctype="multipart/form-data" align="center">-->
-<!--    >-->
-<!--    <select name="categoryCode" id="categoryCode">-->
-        <!-- ajax로 조회 -->
-<!--    </select><br>-->
-<!--    <label>판매 상태 : </label>-->
-<!--    <select name="orderableStatus">-->
-<!--        <option value="Y">Y</option>-->
-<!--        <option value="N">N</option>-->
-<!--    </select>-->
-<!--    <input type="submit" value="전송"/>-->
-<!--</form>-->
-<!--<script>-->
-<!--    $(function(){ //페이지로딩될떄-->
-<!--        $.ajax({-->
-<!--            url: "/menu/category",-->
 
-
-<!--            success: function(data, status, xhr){-->
-<!--                const $categoryCode = $("#categoryCode");-->
-
-<!--                for(let index in data){-->
-<!--                    $categoryCode.append($("<option>").val(data[index].code).text(data[index].name));-->
-<!--                }-->
-<!--            },-->
-<!--            error: function(xhr, error, status){-->
-<!--                console.log(xhr);-->
-<!--            }-->
-<!--        });-->
-<!--    });-->
-
-
-<!--</script>-->
 <form th:object="${regist}" method="post" align="center" enctype="multipart/form-data">
-<!--    th:object="${regist}"-->
-<!--    action="/product/regist"-->
+
     <br>
     <br>
     <br>
@@ -61,12 +28,11 @@
     <label> 수량 : </label><input type="number" name="productQty"/><br>
 
 
-    <label>카테고리 :<select name="categoryCode" size="3" multiple>
+    <label>종류 :<select name="categoryCode" size="3">
         <option value="C1">바이올린</option>
         <option value="C2">비올라</option>
         <option value="C3">첼로</option>
         <option value="C4">콘트라 베이스</option>
-        <option selected>---</option>
         <option value="C5">기타</option>
         <option value="C6">하프</option>
         <option value="C7">플룻</option>
@@ -74,13 +40,10 @@
         <option value="C9">호른</option>
         <option value="C10">피아노</option>
     </select></label>
-<!--<input type="text" name="categoryCode">&ndash;&gt;-->
+
 <div class="thumbnail-insert-area">
     <table align="center">
-<!--        <tr>-->
-<!--            <td width="100px">제목</td>-->
-<!--            <td colspan="3"><input type="text" size="45" name="title"></td>-->
-<!--        </tr>-->
+
         <tr>
             <td>대표 이미지</td>
             <td colspan="3">
@@ -90,7 +53,7 @@
             </td>
         </tr>
         <tr>
-            <td>내용 사진</td>
+            <td>추가 사진</td>
             <td>
                 <div class="content-img-area1" id="contentImgArea1">
                     <img id="contentImg1" width="120" height="100">
@@ -104,17 +67,10 @@
 
 
         </tr>
-<!--        <tr>-->
-<!--            <td width="100px">사진 메모</td>-->
-<!--            <td colspan="3">-->
-<!--                <textarea name="body" rows="5" cols="50" style="resize:none;"></textarea>-->
-<!--            </td>-->
-<!--        </tr>-->
+
     </table>
     <div class="thumbnail-file-area">
-<!--        <ul th:each="continet : ${continents}">-->
-<!--            <li th:text="${continent}"></li>-->
-<!--        <div th:each="p>-->
+
         <input type="file" id="thumbnailImg1" name="imgFile" multiple="multiple" onchange="loadImg(this,1)" hidden="hidden">
         <input type="file" id="thumbnailImg2" name="imgFile" multiple="multiple" onchange="loadImg(this,2)" hidden="hidden">
         <input type="file" id="thumbnailImg3" name="imgFile" multiple="multiple" onchange="loadImg(this,3)" hidden="hidden">
@@ -127,53 +83,7 @@
     <button type="submit">작성완료</button>
 </div>
 </form>
-<!--<form th:action="@{/item/new/pro}" method="post" enctype="multipart/form-data">-->
-<!--    <div class="row g-3">-->
-<!--        <hr/>-->
-<!--        <div class="col-12">-->
-<!--            <label for="name" class="form-label">상품 이름</label>-->
-<!--            <input type="text" class="form-control" id="name" name="name" placeholder="상품 이름을 입력하세요.">-->
-<!--            <div class="invalid-feedback">-->
-<!--                Your name is required.-->
-<!--            </div>-->
-<!--        </div>-->
 
-<!--        <div class="col-12">-->
-<!--            <label for="text" class="form-label">상품 설명</label>-->
-<!--            <input type="text" class="form-control" name="text" id="text" placeholder="상품 설명을 입력하세요.">-->
-<!--            <div class="invalid-feedback">-->
-<!--                Input is empty.-->
-<!--            </div>-->
-<!--        </div>-->
-
-<!--        <div class="col-12">-->
-<!--            <label for="price" class="form-label">상품 가격</label>-->
-<!--            <input type="text" class="form-control" id="price" name="price" placeholder="상품 가격을 입력하세요.">-->
-<!--            <div class="invalid-feedback">-->
-<!--                Input is empty.-->
-<!--            </div>-->
-<!--        </div>-->
-
-<!--        <div class="col-12">-->
-<!--            <label for="stock" class="form-label">상품 재고</label>-->
-<!--            <input type="text" class="form-control" id="stock" name="stock"-->
-<!--                   placeholder="상품 재고를 입력하세요.">-->
-<!--            <div class="invalid-feedback">-->
-<!--                Input is empty.-->
-<!--            </div>-->
-<!--        </div>-->
-
-<!--        <div class="col-12">-->
-<!--            <label for="text" class="form-label">상품 이미지 업로드</label>-->
-<!--            <input type="file" class="form-control" id="imgFile[0]" name="imgFile">-->
-<!--        </div>-->
-<!--<text>첨부파일(클릭시 다운) : </text>-->
-<!--<a th:if="${content.attachFile}" th:href="|/basic-board/attach/${content.id}|" th:text="${content.attachFile.uploadFilename}" />-->
-<!--<br/><br/>-->
-<!--<text>첨부된 이미지 파일들</text>-->
-<!--<br/>-->
-<!--<img th:each="imageFile : ${product.imageFiles}" th:src="|/basic-board/images/${imageFile.storeFilename}|" width="100px" height="100px" style="border-color: black; border-style: solid; border-width: thin;"/>-->
-<!--<br/><br/>-->
 <script th:inline="javascript">
 
     const $titleImgArea = document.getElementById("titleImgArea");
@@ -193,9 +103,6 @@
         document.getElementById("thumbnailImg3").click();
     }
 
-    // $contentImgArea3.onclick = function() {
-    //     document.getElementById("thumbnailImg4").click();
-    // }
     function loadImg(value, num) {
         if (value.files && value.files[0]) {
             const reader = new FileReader();
@@ -210,9 +117,6 @@
                     case 3:
                         document.getElementById("contentImg2").src = e.target.result;
                         break;
-                    // case 4:
-                    //     document.getElementById("contentImg3").src = e.target.result;
-                    //     break;
                 }
             }
             reader.readAsDataURL(value.files[0]);

@@ -74,12 +74,12 @@ public class ProductController {
      */
     @ResponseBody
     @PostMapping("/AjaxList")
-    public List<ProdAndImageDTO> readProdListAjax(String categoryCode) {
+    public ModelAndView readProdListAjax(ModelAndView mv, String categoryCode) {
 
         List<ProdAndImageDTO> categoryList = productService.productListByCode(categoryCode);
         System.out.println("categoryList = " + categoryList);
-
-        return categoryList;
+        mv.addObject("cateList", categoryList);
+        return mv;
     }
     /**
      * @MethodName : productDetail
@@ -96,8 +96,15 @@ public class ProductController {
     }
 
     @GetMapping("regist")
-    public void registPage(){
+    public void registPage(HttpSession session){
+        String isAdmin = (String) session.getAttribute("userId");
+        System.out.println("isAdmin = " + isAdmin);
 
+        if(isAdmin=="admin"){
+
+        }else{
+
+        }
     }
     /**
      * @MethodName : registProduct
