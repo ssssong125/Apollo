@@ -25,9 +25,6 @@ import java.util.List;
  @작성자 : 김수용
  @프로그램 설명 : 어플리케이션 컨텍스트 리소스의 위치 혹은 컨텍스트를 로드할때 사용되는 클래스의 컴포넌트를 선언
  */
-//@Controller
-//@RestController
-
 @Controller
 @RequestMapping("cart")
 public class CartController {
@@ -91,7 +88,6 @@ public class CartController {
         String userId = (String) session.getAttribute("userId");
 
         HashMap<String, String> parameter = new HashMap<>();
-//        parameter.put("userId", "user01");
         parameter.put("userId", userId);
 
         if(cartNo != null && count != null) {
@@ -129,7 +125,6 @@ public class CartController {
         String userId = (String) session.getAttribute("userId");
 
         HashMap<String, String> parameter = new HashMap<>();
-//        parameter.put("userId", "user01");
         parameter.put("userId", userId);
 
         HashMap<String, Object> checkParameter = new HashMap<>();
@@ -223,7 +218,6 @@ public class CartController {
         } else {
 
             HashMap<String, String> parameter = new HashMap<>();
-//        parameter.put("userId", "user01");
             parameter.put("userId", userId);
 
             UserDTO user = cartService.getUserDetail(parameter);
@@ -252,7 +246,6 @@ public class CartController {
         String userId = (String) session.getAttribute("userId");
 
         HashMap<String, String> parameter = new HashMap<>();
-//        parameter.put("userId", "user01");
         parameter.put("userId", userId);
 
         UserDTO user = cartService.getUserDetail(parameter);
@@ -308,7 +301,6 @@ public class CartController {
         } else {
 
             HashMap<String, String> parameter = new HashMap<>();
-//        parameter.put("userId", "user01");
             parameter.put("userId", userId);
 
             mv.setViewName("cart/success");
@@ -326,7 +318,6 @@ public class CartController {
                 for (CartDTO checkedCart : checkedCartList) {
 
                     productParameter.clear();
-//                productParameter.put("productCount", checkedCart.getProductInfo().getProductQty());
                     productParameter.put("productCount", checkedCart.getProductCount());
                     productParameter.put("productNo", checkedCart.getProductInfo().getProductNo());
 
@@ -349,31 +340,12 @@ public class CartController {
                     cartService.buyCartItem(checkedCart.getCartNo());
                 }
 
-//            mv.addObject("paymentNo", cartService.getPaymentNo(checkedCartList.get(0).getCartNo()));
                 mv.addObject("paymentNo", cartService.getPaymentNo(checkedCartList.get(0).getCartNo()));
             }
         }
 
         return mv;
     }
-//    @ResponseBody
-//    @PostMapping("success")
-//    public Model successResult(Model model, PaymentDTO paymentDTO) {
-//
-//        log.debug("success 포스트 작동");
-//
-//        /*결제 테이블에 등록*/
-//        cartService.payment(paymentDTO);
-//
-//        /*주문 테이블에 등록*/
-//        List<CartDTO> checkedCartList = cartService.getCheckedCartList(parameter);
-//        cartService.order(checkedCartList);
-//
-//        /*구매상태 Y로 전환(카트 테이블에서 삭제)*/
-//        cartService.buyCartItems(checkedCartList);
-//
-//        return model;
-//    }
     /**
      * @MethodName : fail
      * @작성일 : 2022. 12. 28.

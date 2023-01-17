@@ -50,11 +50,9 @@
 	</resultMap>
 	<!--주문 정보를 담을 resultMap-->
 	<resultMap id="orderResultMap" type="com.b4.apollo.cart.model.dto.OrderDTO">
-<!--		<id property="orderNo" column="ORDER_NO"/>-->
 		<result property="paymentNo" column="PAYMENT_NO"/>
 		<result property="cartNo" column="CART_NO"/>
 	</resultMap>
-	<!-- <select> 태그를 이용하여 select 쿼리임을 나타냄. 앞서 mapper에서 말했던 메소드의 이름은 select 쿼리의 id값과 같아야함. -->
 	<!-- 장바구니에 품목추가 -->
 	<insert id="addProductToCart" parameterType="hashmap">
 		INSERT INTO TBL_CART
@@ -86,10 +84,6 @@
 			A.REG_DATE,
 			A.CHECK_STATUS,
 			C.IMG_PATH,
--- 			(SELECT C.IMG_PATH
--- 			 FROM TBL_PRODUCT_IMAGE C
--- 			 WHERE C.THUMBNAIL = 'Y'
--- 			   AND A.PRODUCT_NO = C.PRODUCT_NO),
 			B.*
 		FROM TBL_CART A
 		JOIN TBL_PRODUCT B ON A.PRODUCT_NO = B.PRODUCT_NO
@@ -187,11 +181,9 @@
 	<insert id="order" parameterType="java.util.List">
 		<foreach collection="list" item="cart" open="INSERT ALL" close="" separator=" ">
 			INTO TBL_ORDER (
--- 							ORDER_NO,
 							PAYMENT_NO,
 							CART_NO
 				) VALUES (
--- 							GET_SEQ,
 							SEQ_PAYMENT_NO.CURRVAL,
 							#{cart.cartNo}
 						)

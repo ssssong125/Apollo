@@ -132,11 +132,4 @@ public interface CartMapper {
      * @Method 설명 : CartService에서 호출되어 오더정보를 조회할 쿼리문을 실행시킴
      */
     OrderDTO getOrderDetail(Map<String, Integer> parameter);
-//    /**
-//     * @MethodName : moveToPurchasedCartTable
-//     * @작성일 : 2023. 01. 15.
-//     * @작성자 : 김수용
-//     * @Method 설명 : CartService에서 호출되어 구매한 상품을 구매완료 테이블로 이동시키는 쿼리문을 실행시킴
-//     */
-//    int moveToPurchasedCartTable(List<CartDTO> cartList);
 }

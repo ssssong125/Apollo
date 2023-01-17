@@ -14,9 +14,9 @@ import java.sql.Date;
  @작성자 : 김수용
  @프로그램 설명 : 상품 정보를 담은 DTO
  */
+//@Builder(toBuilder = true) // lombok 기능, 생성자를 조금 바꾼거를 바로바로 생성가능
 @Data // @Getter, @Setter, @RequiredArgsConstructor, @ToString, @EqualsAndHashCode
 @NoArgsConstructor // @NoArgsConstructor 어노테이션은 파라미터가 없는 기본 생성자를 생성
-//@Builder(toBuilder = true) // lombok 기능, 생성자를 조금 바꾼거를 바로바로 생성가능
 public class CartDTO extends ProductDTO {
 
     /**

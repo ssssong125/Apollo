@@ -109,7 +109,6 @@ public class CartServiceImpl implements CartService{
 
         return result;
     }
-
     /**
      * @MethodName : updateCheckStatus
      * @작성일 : 2023. 01. 13.
@@ -148,7 +147,6 @@ public class CartServiceImpl implements CartService{
 
         return result;
     }
-
     /**
      * @MethodName : getPaymentDetail
      * @작성일 : 2022. 12. 30.
@@ -160,7 +158,6 @@ public class CartServiceImpl implements CartService{
 
         return cartMapper.getUserDetail(parameter);
     }
-
     /**
      * @MethodName : order
      * @작성일 : 2023. 01. 14.
@@ -177,7 +174,6 @@ public class CartServiceImpl implements CartService{
     public int getPaymentNo(Integer cartNo) {
 
         return Integer.parseInt(String.valueOf(cartMapper.getPaymentNo(cartNo).get(0).get("PAYMENT_NO")));
-//        return cartMapper.getPaymentNo(cartNo).get(0).get("PAYMENT_NO");
     }
     /**
      * @MethodName : payment
@@ -242,5 +238,4 @@ public class CartServiceImpl implements CartService{
 
         return cartMapper.getOrderDetail(parameter);
     }
-
 }

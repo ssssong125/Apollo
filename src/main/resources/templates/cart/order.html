@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
 <html xmlns:th="http://www.thymeleaf.org" lang="en"
       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
       layout:decorate="~{common/layout}">
@@ -41,6 +40,7 @@
                     $("#sample5_address").val("")
                     $("#deliveryRequires").val("")
                 }
+                /*other 주문한 목록중에서 선택하게 할 수 있게 해주는 기능*/
                 // else if(value == "other") { // 기존 주문 정보를 토대로 출력
                 // $("#receiverName").val(/*[[ ${user.userName} ]]*/)
                 // $("#receiverTel").val(/*[[ ${user.userTel} ]]*/)
@@ -77,8 +77,9 @@
             <div class="col-lg mid-font">
                 <div class="form-check-inline">
                     <label class="form-check-label custom-radio">
-<!--                        <input type="radio" class="form-check-input" name="place" value="other">Other-->
                         <input type="radio" id="new" name="place" value="new"> New
+                        <!--커스텀 라디오-->
+<!--                        <input type="radio" class="form-check-input" name="place" value="other">Other-->
                     </label>
                 </div>
             </div>
@@ -97,32 +98,16 @@
             <div class="col-lg">
                 <input type="text" class="text-input" placeholder="Name"
                        id="receiverName" name="receiverName" th:value="${ user.userName }" required>
-<!--                       id="receiverName" name="receiverName">-->
             </div>
             <div class="col-lg">
                 <div class="form-element">
                     <input class="input-type-tel text-input" type="tel" placeholder="010-1234-5678"
                            id="receiverTel" name="receiverTel" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" maxlength="13"
                            th:value="${ user.userTel }" required>
-<!--                           pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" maxlength="13">-->
                 </div>
             </div>
         </div>
         <br>
-        <!--주소 입력-->
-<!--        <div class="row">-->
-<!--            <div class="col-lg">-->
-<!--                <label for="addressZipCode">Address</label>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="row">-->
-<!--            <div class="col-lg-10">-->
-<!--                <input type="text" class="text-input" placeholder="Address" id="addressZipCode" name="addressZipCode">-->
-<!--            </div>-->
-<!--            <div class="col-lg-2">-->
-<!--                <button class="goldButton" style="width: 150px; height: 50px">Find Address</button>-->
-<!--            </div>-->
-<!--        </div>-->
         <div class="row">
             <div class="col-lg-10">
                 <div class="row">
@@ -140,11 +125,11 @@
             </div>
             <div class="col-lg-2" style="align-self: flex-end">
                 <input type="button" class="goldButton" onclick="sample5_execDaumPostcode()" value="Find Address"><br>
-<!--                <button class="goldButton" onclick="sample5_execDaumPostcode()" style="width: 150px; height: 50px">Find Address</button>-->
             </div>
         </div>
         <div id="map" style="width:100%; height:300px; margin-top:10px; display:none"></div>
         <br>
+        <!--주소지 검색 api-->
         <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
         <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4f3ea8fe326516d2d5d3f66abb2d6ffb&libraries=services"></script>
         <script>
@@ -221,7 +206,6 @@
             </div>
         </div>
         <!--/*전달할 데이터*/-->
-<!--            <input type="text" th:field="*{paymentNo}">-->
         <form id="paymentDTO" th:action="@{payment}" th:object="${paymentDTO}" th:method="post" onsubmit="formSubmit()">
             <input type="number" th:field="*{paymentNo}" hidden="hidden">
             <input type="text" th:field="*{userId}" hidden="hidden">
@@ -241,19 +225,10 @@
             <div class="col-lg-6">
             </div>
             <div class="col-lg-2">
-<!--                <button type="submit" class="goldButton" onclick="location.href='payment'">Continue</button>-->
                 <button type="submit" class="goldButton">Continue</button>
-<!--                <input type="submit" value="Continue" class="goldButton">-->
             </div>
         </div>
         </form>
     </div>
-
-    <th:block th:each="cart : ${cartList}">
-        <!--                <input th:id="${p}" type="number" th:field="${item}">-->
-<!--        <input th:id="|cart${cart.cartNo}|" type="number" th:value="${cart.cartNo}" th:name="${cartStat.index}">-->
-        <input type="number" th:field="${cartStat.index}">
-        <!--                <input th:id="${}" type="number" th:field="${}">-->
-    </th:block>
 </body>
 </html>
