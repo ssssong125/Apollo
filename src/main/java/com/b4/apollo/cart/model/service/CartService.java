@@ -25,7 +25,7 @@ public interface CartService {
      * @작성자 : 김수용
      * @Method 설명 : 장바구니에 상품을 추가하는 기능
      */
-    int addProductToCart(HashMap<String, Object> parameter);
+    void addProductToCart(HashMap<String, Object> parameter);
 
     /**
      * @MethodName : getCartList
@@ -33,7 +33,7 @@ public interface CartService {
      * @작성자 : 김수용
      * @Method 설명 : 장바구니 페이지에 출력할 장바구니 품목들을 불러오는 기능
      */
-    List<CartDTO> getCartList(HashMap<String, String> parameter);
+    List<CartDTO> getCartList(String userId);
 
     /**
      * @MethodName : getCheckedCartList

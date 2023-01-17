@@ -43,6 +43,10 @@ public class CartDTO extends ProductDTO {
      * @param productDTO 상품 객체
      */
     private ProductDTO productInfo;
+    /**
+     * @param imgPath 이미지 경로
+     */
+    private String imgPath;
 
 //    ProductDTO
 //    private int productNo;

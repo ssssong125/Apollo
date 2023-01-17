@@ -36,6 +36,8 @@
       </tbody>
     </table>
   </div>
+
+  <th:block th:if="${list.pages != 0}">
   <div class="pagination"></div>
 <!--   페이징처리 시작-->
   <nav>
@@ -60,9 +62,13 @@
       </li>
     </ul>
   </nav>
-<!--   페이징처리 끝-->
+  </th:block>
 
-  <a th:href="@{/blog/create}" class="btn btn-primary">글 등록하기</a>
+<!--   페이징처리 끝-->
+  <!-- 작성자 아이디가 관리자와 일치 할 때만 글 등록하기 -->
+  <th:block th:if="${reporter.equals('admin')}">
+    <a th:href="@{/blog/create}" class="btn btn-primary">글 등록하기</a>
+  </th:block>
 </div>
 
 </body>

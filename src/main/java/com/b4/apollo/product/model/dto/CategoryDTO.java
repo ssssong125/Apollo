@@ -12,4 +12,6 @@ import lombok.ToString;
 public class CategoryDTO {
     private String categoryCode;
     private String categoryName;
+
+    private String category;
 }

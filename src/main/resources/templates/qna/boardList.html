@@ -4,14 +4,8 @@
       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
 <head>
   <title>Question And Answer</title>
-  <style>
-    tbody>tr>td>a, tbody>tr>td>th{
-      color:white;
-    }
-    .container.my-3{
-      padding-top: 5%;
-    }
-  </style>
+  <link rel="stylesheet" href="/css/qna/question.css">
+
 </head>
 
 <body>
@@ -41,6 +35,7 @@
 </table>
 
   <!-- 페이징처리 시작 -->
+  <th:block th:if="${list.pages != 0}">
   <nav>
     <ul class="pagination justify-content-center">
       <!-- getPrePage : 이전 페이지 -->
@@ -63,11 +58,12 @@
       </li>
     </ul>
   </nav>
+  </th:block>
   <!-- 페이징처리 끝 -->
 
-  <a th:href="@{/question/create}" class="btn btn-primary">질문 등록하기</a>
+  <th:block th:if="${writer != null}">
+    <a th:href="@{/question/create}" class="btn btn-primary">질문 등록하기</a>
+  </th:block>
 </div>
-
-
 </body>
 </html>

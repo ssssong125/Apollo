@@ -17,5 +17,8 @@ public interface ProductService {
 
     boolean productDelete(ProdAndImageDTO prod);
 
-    List<ProdAndImageDTO> productListByCode();
+    List<ProdAndImageDTO> productListByCode(String parameter);
+
+//    List<ProdAndImageDTO> productListByInst(String category);
+//    Page<ProdAndImageDTO> selectList(int pageNum);
 }
