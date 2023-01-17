@@ -1,12 +1,12 @@
 package com.b4.apollo.product.controller;
 
 import com.b4.apollo.product.model.dao.ProductMapper;
+import com.b4.apollo.product.model.dto.CategoryDTO;
 import com.b4.apollo.product.model.dto.ProdAndImageDTO;
 import com.b4.apollo.product.model.dto.ProductImageDTO;
 import com.b4.apollo.product.model.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -31,7 +31,7 @@ public class ProductController {
     }
 
     @GetMapping("list")
-    public ModelAndView productList(/*@RequestParam(required = false, defaultValue = "1") int pageNum,*/ ModelAndView mv, ArrayList<String> category/*, @PathVariable("category") String category*/) {
+    public ModelAndView productList(/*@RequestParam(required = false, defaultValue = "1") int pageNum,*/ ModelAndView mv /*hVariable("category") String category*/) {
 
         List<ProdAndImageDTO> productList = productService.productList();
 //        PageInfo<ProdAndImageDTO> list = new PageInfo<>(productService.selec
@@ -42,60 +42,33 @@ public class ProductController {
 
 //        String category[] = productMapper.getCategory();
 //        List<String> category = productMapper.getCategory();
-//        category.addAll(productMapper.readCategory());
-
-//        Arrays.asList(category);
-//        for(int i=0 ; i<cate.getCategoryCode().length();i++){
-//            category[i] = cate.getCategoryCode();
-//        }
-//        List<ProdAndImageDTO> productListBy = productService.productListByCode(category);
-        mv.addObject("productList", productList);
-//        mv.addObject("categoryList", category);
-
-        mv.setViewName("product/list");
-
-        return mv;
-    }
-    @GetMapping("string")
-    public ModelAndView strings(/*@RequestParam(required = false, defaultValue = "1") int pageNum,*/ ModelAndView mv, ArrayList<String> category/*, @PathVariable("category") String category*/) {
-
-        List<ProdAndImageDTO> productList = productService.productList();
-//        PageInfo<ProdAndImageDTO> list = new PageInfo<>(productService.selec
-////        System.out.println(cate.getCategoryCode());tList(pageNum), 10);
-
-        productList.stream().forEach(product -> System.out.println("product = " + product));
-//        CategoryDTO cate = new CategoryDTO();
-
-//        String category[] = productMapper.getCategory();
-//        List<String> category = productMapper.getCategory();
-//        category.addAll(productMapper.readCategory());
-
-//        Arrays.asList(category);
-//        for(int i=0 ; i<cate.getCategoryCode().length();i++){
-//            category[i] = cate.getCategoryCode();
-//        }
-//        List<ProdAndImageDTO> productListBy = productService.productListByCode(category);
-        mv.addObject("productList", productList);
-//        mv.addObject("categoryList", category);
-
-        mv.setViewName("product/list");
-
-        return mv;
-    }
-    @ResponseBody
-    @PostMapping("list")
-    public Model gsgdsgdsgf(Model model, String categoryCode/*,@PathVariable("bigCode") String bigCode*/) {
-
-//        HashMap<String, String> parameter = new HashMap<>();
-//        parameter.put("categoryCode", categoryCode);
-//        parameter.put("bigCode", bigCode);
-        List<String> category = productMapper.readCategory();
+//
+        List<CategoryDTO> category = productMapper.readCategory();
+//        System.out.println(category.);
         System.out.println("category = " + category);
-        List<ProdAndImageDTO> categoryedList = productService.productListByCode(categoryCode);
-        System.out.println("categoryedList = " + categoryedList);
-        model.addAttribute("categoryedList", categoryedList);
+//        category.addAll(productMapper.readCategory());
+//        Arrays.asList(category);
+//        for(int i=0 ; i<cate.getCategoryCode().length();i++){
+//            category[i] = cate.getCategoryCode();
+//        }
+//        List<ProdAndImageDTO> productListBy = productService.productListByCode(category);
+        mv.addObject("productList", productList);
+        mv.addObject("category", category);
 
-        return model;
+        mv.setViewName("product/list");
+
+        return mv;
+    }
+
+
+    @ResponseBody
+    @PostMapping("/AjaxList")
+    public List<ProdAndImageDTO> readProdListAjax(ModelAndView mv, String categoryCode/*,@PathVariable("bigCode") String bigCode*/) {
+
+        List<ProdAndImageDTO> categoryList = productService.productListByCode(categoryCode);
+        System.out.println("categoryList = " + categoryList);
+
+        return categoryList;
     }
 
 //    @GetMapping("list/{cateCode}")

@@ -57,11 +57,24 @@
     <br>
     <label> 이름 : </label><input type="text" name="productName"/><br>
     <label> 가격 : </label><input type="number" name="productPrice"/><br>
-    <label> 설명 : </label><input type="text" name="productDesc"/><br>
+    <label> 설명 : </label><textarea name="productDesc"></textarea><br>
     <label> 수량 : </label><input type="number" name="productQty"/><br>
 
 
-    <label>카테고리 코드 :</label><input type="text" name="categoryCode">
+    <label>카테고리 :<select name="categoryCode" size="3" multiple>
+        <option value="C1">바이올린</option>
+        <option value="C2">비올라</option>
+        <option value="C3">첼로</option>
+        <option value="C4">콘트라 베이스</option>
+        <option selected>---</option>
+        <option value="C5">기타</option>
+        <option value="C6">하프</option>
+        <option value="C7">플룻</option>
+        <option value="C8">트럼펫</option>
+        <option value="C9">호른</option>
+        <option value="C10">피아노</option>
+    </select></label>
+<!--<input type="text" name="categoryCode">&ndash;&gt;-->
 <div class="thumbnail-insert-area">
     <table align="center">
 <!--        <tr>-->
