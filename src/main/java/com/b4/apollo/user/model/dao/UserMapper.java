@@ -8,10 +8,6 @@ import javax.servlet.http.HttpSession;
 @Mapper
 public interface UserMapper {
 
-    static void logout(HttpSession session) {
-        session.invalidate();
-    }
-
     int insertUser(UserDTO newUser);
 
     void updateUser(UserDTO userDTO);
