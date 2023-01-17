@@ -73,11 +73,12 @@
         .image:hover {
             transform: scale(1.4);
         }
-        .btn-warning{
+        .btn-dark{
             padding: 3px;
             text-decoration: none;
+            color: black;
         }
-        .btn-warning:hover{
+        .btn-dark:hover{
             text-decoration: none;
         /*    color: #FFD700;*/
         }
@@ -255,9 +256,10 @@
                         <input id="purchaseCount" type="number" style="width: 80px" min="1" th:max="${ productDetail.productQty }" value="1">
                     </div>
                     <div class="col-lg-6">
-                        <a class="btn-warning" th:href="@{|/product/edit/${productDetail.productNo}|}"> 상품 정보 수정</a>
-                        <button type="button" class="btn btn-warning" th:onclick="|addToCart(${productDetail.productNo})|" data-toggle="modal" data-target="#cartModal">Add To Cart</button>
 
+
+
+                        <span class="cartButton" th:include="fragments/button.html" th:onclick="|addToCart(${productDetail.productNo})|" data-toggle="modal" data-target="#cartModal"></span>
                     </div>
                 </div>
             </div>
@@ -278,10 +280,10 @@
             </div>
         </div>
     </div>
-
+<a id="edit" th:href="@{|/product/edit/${productDetail.productNo}|}" style="color: black; font-weight: bold; font-size: large;" >상품 정보 수정</a>
 <div th:include="/fragments/header"></div>
 
 
-
+<div th:include="fragments/footer"></div>
 </body>
 </html>
