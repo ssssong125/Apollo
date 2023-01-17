@@ -16,5 +16,4 @@ public interface UserService {
 
     boolean loginUser(UserDTO userDTO, HttpSession session);
 
-    void logout(HttpSession session);
 }

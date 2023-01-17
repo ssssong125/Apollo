@@ -110,11 +110,15 @@ public class UserController {
     }
 
     @RequestMapping("/logout")
-    public ModelAndView logout(HttpSession session, RedirectAttributes rttr, Locale locale){
-        userService.logout(session);
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName("/main");
-        return mv;
+    public String logout(HttpSession session, RedirectAttributes rttr, Locale locale){
+
+        session.setAttribute("userId", "value");
+        String userId = (String) session.getAttribute("userId");
+
+        session.removeAttribute("userId");
+        session.invalidate();
+
+        return "redirect:/main";
     }
 
 
