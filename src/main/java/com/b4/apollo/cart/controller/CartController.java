@@ -34,10 +34,6 @@ public class CartController {
 
     private final CartService cartService;
 
-//    ArrayList<Integer> purchaseList = new ArrayList<>();
-
-//    String userId = userId;
-
     @Autowired
     public CartController(CartService cartService) {
         this.cartService = cartService;
@@ -54,22 +50,34 @@ public class CartController {
 
         String userId = (String) session.getAttribute("userId");
 
-        mv.addObject("paymentDTO", paymentDTO);
+        System.out.println(userId);
 
-        HashMap<String, String> parameter = new HashMap<>();
+        if (userId == null) {
+
+//            String msg = "로그인을 해주세요.";
+//            mv.addObject("msg", msg);
+
+            mv.setViewName("redirect:/user/login");
+
+        } else {
+
+            mv.addObject("paymentDTO", paymentDTO);
+
+            HashMap<String, String> parameter = new HashMap<>();
 //        parameter.put("userId", "user01");
-        parameter.put("userId", userId);
+            parameter.put("userId", userId);
 
-        List<CartDTO> cartList = cartService.getCartList(userId);
-        mv.addObject("cartList", cartList);
+            List<CartDTO> cartList = cartService.getCartList(userId);
+            mv.addObject("cartList", cartList);
 
-        List<CartDTO> checkedCartList = cartService.getCheckedCartList(parameter);
-        mv.addObject("checkedCartList", checkedCartList);
+            List<CartDTO> checkedCartList = cartService.getCheckedCartList(parameter);
+            mv.addObject("checkedCartList", checkedCartList);
 
-        UserDTO user = cartService.getUserDetail(parameter);
-        mv.addObject("user", user);
+            UserDTO user = cartService.getUserDetail(parameter);
+            mv.addObject("user", user);
 
-        mv.setViewName("cart/trolley");
+            mv.setViewName("cart/trolley");
+        }
 
         return mv;
     }
@@ -378,7 +386,6 @@ public class CartController {
     public void addToCart(HttpSession session, int productNo, int count) {
 
         String userId = (String) session.getAttribute("userId");
-//        String userId = "user01";
 
         HashMap<String, Object> parameter = new HashMap<>();
 
