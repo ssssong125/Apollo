@@ -147,7 +147,7 @@ public class BlogController {
         String reporter = (String) session.getAttribute("userId");
 
         try {
-            if (reporter.equals(blog.getReporter().equals("admin"))) {
+            if (reporter.equals("admin")) {
                 blogService.deleteBlog(blogNo);
                 return "redirect:/blog/list";
             }
