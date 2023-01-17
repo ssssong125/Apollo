@@ -36,11 +36,6 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
-    @Override
-    public void logout(HttpSession session) {
-        UserMapper.logout(session);
-    }
-
 
     @Override
     public UserDTO userDetail(UserDTO userDTO) {
