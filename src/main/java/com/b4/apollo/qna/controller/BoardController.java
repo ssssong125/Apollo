@@ -20,14 +20,10 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 /**
  @FileName : BoardController.java
-
  @Project : Apollo
-
  @Date : 2022. 12. 29.
-
  @작성자 : 이현도
-
- @프로그램 설명 : 질문 게시판 조회 컨트롤러
+ @프로그램 설명 : 질문 게시판 컨트롤러
  */
 @RequestMapping("/question")
 @Controller

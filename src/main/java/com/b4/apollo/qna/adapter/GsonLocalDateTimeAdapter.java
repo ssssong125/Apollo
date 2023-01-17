@@ -5,6 +5,14 @@ import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ @FileName : GsonLocalDateTimeAdapter.java
+ @Project : Apollo
+ @Date : 2022. 12. 26.
+ @작성자 : 이현도
+ @프로그램 설명 : Gson 날짜 포맷을 위한 코드 프로그램
+ */
+
 public class GsonLocalDateTimeAdapter implements JsonSerializer<LocalDateTime>, JsonDeserializer<LocalDateTime> {
 
 	@Override

@@ -4,14 +4,12 @@ import com.b4.apollo.qna.model.dto.QuestionDTO;
 import com.github.pagehelper.Page;
 
 /**
- * Board Test Business Logic
- *  <pre>
- *  <b> History: </b>
- * @author 이현도
- * @version 1.0.0, 2022, 12,28 최초 작성 (목록 조회 구현)
+ @FileName : BoardService.java
+ @Project : Apollo
+ @Date : 2022. 12. 28.
+ @작성자 : 이현도
+ @프로그램 설명 : 질문 게시판 관련 요청을 처리할 Service interface
  */
-
-
 public interface BoardService {
 
     QuestionDTO selectBoard(int bno);

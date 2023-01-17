@@ -2,7 +2,6 @@ package com.b4.apollo.qna.controller;
 
 import com.b4.apollo.blog.adapter.GsonLocalDateTimeAdapter;
 import com.b4.apollo.blog.exception.CommonException;
-import com.b4.apollo.blog.model.dto.CommentDTO;
 import com.b4.apollo.qna.model.dto.ReplyDTO;
 import com.b4.apollo.qna.service.ReplyService;
 import com.google.gson.Gson;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -20,6 +18,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ @FileName : ReplyController.java
+ @Project : Apollo
+ @Date : 2023. 01. 15.
+ @작성자 : 이현도
+ @프로그램 설명 : 댓글 컨트롤러
+ */
 @Controller
 @RequestMapping("/question/detail")
 public class ReplyController {

@@ -1,6 +1,5 @@
 package com.b4.apollo.blog.service;
 
-
 import com.b4.apollo.blog.model.dao.BlogMapper;
 import com.b4.apollo.blog.model.dto.BlogDTO;
 import com.b4.apollo.qna.exception.CommonException;
@@ -11,13 +10,19 @@ import org.apache.commons.io.file.PathUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ @FileName : BlogServiceImpl.java
+ @Project : Apollo
+ @Date : 2023. 01. 06.
+ @작성자 : 이현도
+ @프로그램 설명 : 블로그 관련 요청을 처리할 Service의 구현체
+ */
 @Service
 public class BlogServiceImpl implements BlogService {
 

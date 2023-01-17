@@ -1,12 +1,16 @@
 package com.b4.apollo.qna.model.dto;
 
-import com.github.pagehelper.PageInfo;
-import com.github.pagehelper.PageSerializable;
 import lombok.*;
 import org.springframework.lang.Nullable;
-
 import java.time.LocalDateTime;
 
+/**
+ @FileName : QuestionDTO.java
+ @Project : Apollo
+ @Date : 2022. 12. 29.
+ @작성자 : 이현도
+ @프로그램 설명 : 질문게시판 정보를 담은 DTO
+ */
 @Getter
 @Setter
 @NoArgsConstructor

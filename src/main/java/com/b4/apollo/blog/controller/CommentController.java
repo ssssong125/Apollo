@@ -6,12 +6,10 @@ import com.b4.apollo.blog.model.dto.CommentDTO;
 import com.b4.apollo.blog.service.CommentService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -19,6 +17,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+/**
+ @FileName : CommentController.java
+ @Project : Apollo
+ @Date : 2023. 01. 15.
+ @작성자 : 이현도
+ @프로그램 설명 : 댓글 컨트롤러
+ */
 @Controller
 @RequestMapping("blog")
 public class CommentController {

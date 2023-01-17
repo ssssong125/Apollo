@@ -23,6 +23,13 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+/**
+ @FileName : BlogController.java
+ @Project : Apollo
+ @Date : 2023. 01. 06.
+ @작성자 : 이현도
+ @프로그램 설명 : 블로그 컨트롤러
+ */
 @RequestMapping("/blog")
 @Controller
 public class BlogController {
@@ -30,6 +37,7 @@ public class BlogController {
     @Autowired
     private BlogService blogService;
 
+    // 블로그 리스트
     @GetMapping("/list")
     public String selectList(HttpSession session, BlogDTO blog, @RequestParam(required = false, defaultValue = "1") int pageNum, Model model) {
 
@@ -130,6 +138,7 @@ public class BlogController {
         return "redirect:/main";
     }
 
+    // 게시글 삭제
     @GetMapping("/delete/{blogNo}")
     private String deleteBlog(HttpSession session, @PathVariable("blogNo")  int blogNo) {
 
