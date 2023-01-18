@@ -54,11 +54,9 @@ public class CartController {
             mv.setViewName("redirect:/user/login");
 
         } else {
-
             mv.addObject("paymentDTO", paymentDTO);
 
             HashMap<String, String> parameter = new HashMap<>();
-//        parameter.put("userId", "user01");
             parameter.put("userId", userId);
 
             List<CartDTO> cartList = cartService.getCartList(userId);
@@ -101,9 +99,7 @@ public class CartController {
                 cartService.updateProductCount(cartParameter);
 
             } else if(count < 1) cartService.deleteProductInCart(cartNo);
-
         }
-
         List<CartDTO> cartList = cartService.getCartList(userId);
         model.addAttribute("cartList", cartList);
 
@@ -153,13 +149,9 @@ public class CartController {
         String userId = (String) session.getAttribute("userId");
 
         if (userId == null) {
-
             mv.setViewName("redirect:/user/login");
-
         } else {
-
             HashMap<String, String> parameter = new HashMap<>();
-//        parameter.put("userId", "user01");
             parameter.put("userId", userId);
 
             UserDTO user = cartService.getUserDetail(parameter);
@@ -167,12 +159,10 @@ public class CartController {
 
             mv.addObject("paymentDTO", paymentDTO);
 
-
             mv.addObject("purchaseList", purchaseList);
 
             mv.setViewName("cart/order");
         }
-
         return mv;
     }
     /**
@@ -191,7 +181,6 @@ public class CartController {
         parameter.put("userId", userId);
 
         model.addAttribute("paymentDTO", paymentDTO);
-
 
         model.addAttribute("purchaseList", purchaseList);
 
@@ -212,11 +201,8 @@ public class CartController {
         String userId = (String) session.getAttribute("userId");
 
         if (userId == null) {
-
             mv.setViewName("redirect:/user/login");
-
         } else {
-
             HashMap<String, String> parameter = new HashMap<>();
             parameter.put("userId", userId);
 
@@ -228,9 +214,8 @@ public class CartController {
 
             mv.addObject("paymentDTO", paymentDTO);
 
-            mv.setViewName("cart/paym   ent");
+            mv.setViewName("cart/payment");
         }
-
         return mv;
     }
     /**
@@ -270,16 +255,12 @@ public class CartController {
         String userId = (String) session.getAttribute("userId");
 
         if (userId == null) {
-
             mv.setViewName("redirect:/user/login");
-
         } else {
-
             mv.addObject("paymentDTO", paymentDTO);
 
             mv.setViewName("cart/success");
         }
-
         return mv;
     }
     /**
@@ -295,11 +276,8 @@ public class CartController {
         String userId = (String) session.getAttribute("userId");
 
         if (userId == null) {
-
             mv.setViewName("redirect:/user/login");
-
         } else {
-
             HashMap<String, String> parameter = new HashMap<>();
             parameter.put("userId", userId);
 
@@ -308,7 +286,6 @@ public class CartController {
             List<CartDTO> checkedCartList = cartService.getCheckedCartList(parameter);
 
             if (checkedCartList.size() < 1) {
-
                 mv.addObject("msg", "에러 :  선택된 상품이 없습니다.");
                 mv.setViewName("cart/fail");
             } else {
@@ -316,20 +293,17 @@ public class CartController {
                 HashMap<String, Integer> productParameter = new HashMap<>();
 
                 for (CartDTO checkedCart : checkedCartList) {
-
                     productParameter.clear();
                     productParameter.put("productCount", checkedCart.getProductCount());
                     productParameter.put("productNo", checkedCart.getProductInfo().getProductNo());
 
                     if (cartService.updateProductQty(productParameter) < 1) {
-
                         mv.addObject("msg", "에러 : 상품 재고 부족");
                         mv.setViewName("cart/fail");
                     }
                 }
                 /*결제 테이블에 등록*/
                 if (cartService.payment(paymentDTO) < 1) {
-
                     mv.addObject("msg", "에러 : 상품 결제 에러");
                     mv.setViewName("cart/fail");
                 }
@@ -339,11 +313,9 @@ public class CartController {
                 for (CartDTO checkedCart : checkedCartList) {
                     cartService.buyCartItem(checkedCart.getCartNo());
                 }
-
                 mv.addObject("paymentNo", cartService.getPaymentNo(checkedCartList.get(0).getCartNo()));
             }
         }
-
         return mv;
     }
     /**
@@ -400,11 +372,9 @@ public class CartController {
         String userId = (String) session.getAttribute("userId");
 
         if (userId != null){
-
             List<CartDTO> cartList = cartService.getCartList(userId);
             model.addAttribute("cartList", cartList);
         }
-
         return model;
     }
 }
