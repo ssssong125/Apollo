@@ -20,20 +20,21 @@
 #### - Ajax
 #### - Thymeleaf
 #### - Bootstrap v4.6.2
-  
+------------  
 ### 2. Backend
 #### - Java 11
-  
-### 2. DB
+------------  
+### 3. DB
 #### - Oracle DB 11g Express Edition 
-  
-### 3. Framework
+------------  
+### 4. Framework
 #### - SpringBoot
 #### - Mybatis
-  
-### 4. Tool
+------------  
+### 5. Tool
+#### - Visual Studio Code
 #### - Intelli J
-  
-### 5. ETC
+------------  
+### 6. ETC
 #### - Figma
 #### - Chrome DevTools
