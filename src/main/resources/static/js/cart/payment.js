@@ -18,7 +18,7 @@ var tossPayments = TossPayments(clientKey) // 클라이언트 키로 초기화�
 function kakaoPay() {
 
     if (size > 1) {
-        productName += "외 " + size + "건"
+        productName += "외 " + (size - 1) + "건"
     }
 
     $("#paymentMethod").val("KakaoPay");

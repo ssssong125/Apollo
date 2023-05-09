@@ -18,5 +18,5 @@ logging:
 
  servlet:
   multipart:
-   maxFileSize: 10MB
+   maxFileSize: 20MB
    maxRequestSize: 20MB
